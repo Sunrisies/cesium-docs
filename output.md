@@ -1,0 +1,576 @@
+# Cesium API Reference
+
+## engine: cesium
+
+- [x] AnchorPointDirect
+- [x] AnchorPointIndirect
+- [x] Appearance
+- [x] ArcGisBaseMapType
+- [x] ArcGisMapServerImageryProvider
+- [x] ArcGisMapService
+- [x] ArcGISTiledElevationTerrainProvider
+- [x] ArcType
+- [x] AssociativeArray
+- [x] Atmosphere
+- [x] Axis
+- [x] AxisAlignedBoundingBox
+- [x] barycentricCoordinates
+- [x] Billboard
+- [x] BillboardCollection
+- [x] BillboardGraphics
+- [x] BillboardVisualizer
+- [x] binarySearch
+- [x] binarySearchComparator
+- [x] BingMapsGeocoderService
+- [x] BingMapsImageryProvider
+- [x] BingMapsStyle
+- [x] BlendEquation
+- [x] BlendFunction
+- [x] BlendingState
+- [x] BlendOption
+- [x] BoundingRectangle
+- [x] BoundingSphere
+- [x] BoxEmitter
+- [x] BoxGeometry
+- [x] BoxGeometryUpdater
+- [x] BoxGraphics
+- [x] BoxOutlineGeometry
+- [x] buildModuleUrl
+- [x] CallbackPositionProperty
+- [x] CallbackProperty
+- [x] Camera
+- [x] CameraEventAggregator
+- [x] CameraEventType
+- [x] Cartesian2
+- [x] Cartesian3
+- [x] Cartesian4
+- [x] Cartographic
+- [x] CartographicGeocoderService
+- [x] CatmullRomSpline
+- [x] Cesium3DTile
+- [x] Cesium3DTileColorBlendMode
+- [x] Cesium3DTileContent
+- [x] Cesium3DTileFeature
+- [x] Cesium3DTilePointFeature
+- [x] Cesium3DTileset
+- [x] Cesium3DTilesetGraphics
+- [x] Cesium3DTilesetVisualizer
+- [x] Cesium3DTileStyle
+- [x] Cesium3DTilesVoxelProvider
+- [x] CesiumTerrainProvider
+- [x] CesiumWidget
+- [x] Check
+- [x] CheckerboardMaterialProperty
+- [x] CircleEmitter
+- [x] CircleGeometry
+- [x] CircleOutlineGeometry
+- [x] ClassificationPrimitive
+- [x] ClassificationType
+- [x] className
+- [x] classProperty
+- [x] ClippingPlane
+- [ ] ClippingPlaneCollection
+- [ ] ClippingPolygon
+- [ ] ClippingPolygonCollection
+- [ ] Clock
+- [ ] ClockRange
+- [ ] ClockStep
+- [ ] clone
+- [ ] CloudCollection
+- [ ] CloudType
+- [x] Color
+- [ ] ColorBlendMode
+- [ ] ColorGeometryInstanceAttribute
+- [ ] ColorMaterialProperty
+- [ ] combine
+- [ ] ComponentDatatype
+- [ ] CompositeEntityCollection
+- [ ] CompositeMaterialProperty
+- [ ] CompositePositionProperty
+- [ ] CompositeProperty
+- [ ] CompressedTextureBuffer
+- [ ] computePickingDrawingBufferRectangle
+- [ ] ConditionsExpression
+- [ ] ConeEmitter
+- [ ] ConstantPositionProperty
+- [ ] ConstantProperty
+- [ ] ConstantSpline
+- [ ] ContextOptions
+- [ ] CoplanarPolygonGeometry
+- [ ] CoplanarPolygonOutlineGeometry
+- [ ] CornerType
+- [ ] CorrelationGroup
+- [ ] CorridorGeometry
+- [ ] CorridorGeometryUpdater
+- [ ] CorridorGraphics
+- [ ] CorridorOutlineGeometry
+- [ ] createAnchorPointDirect
+- [ ] createAnchorPointIndirect
+- [ ] createCorrelationGroup
+- [ ] createCovarianceMatrixFromUpperTriangle
+- [ ] createElevationBandMaterial
+- [ ] createElevationBandMaterialBand
+- [ ] createElevationBandMaterialEntry
+- [ ] createGooglePhotorealistic3DTileset
+- [ ] createGuid
+- [ ] createOsmBuildingsAsync
+- [ ] createTangentSpaceDebugPrimitive
+- [ ] createWorldBathymetryAsync
+- [ ] createWorldImageryAsync
+- [ ] createWorldTerrainAsync
+- [ ] Credit
+- [ ] CreditDisplay
+- [ ] CubicRealPolynomial
+- [ ] CullFace
+- [ ] CullingVolume
+- [ ] CumulusCloud
+- [ ] CustomDataSource
+- [ ] CustomHeightmapTerrainProvider
+- [ ] CustomShader
+- [ ] CustomShaderMode
+- [ ] CustomShaderTranslucencyMode
+- [ ] CylinderGeometry
+- [ ] CylinderGeometryUpdater
+- [ ] CylinderGraphics
+- [ ] CylinderOutlineGeometry
+- [ ] CzmlDataSource
+- [ ] DataSource
+- [ ] DataSourceClock
+- [ ] DataSourceCollection
+- [ ] DataSourceDisplay
+- [ ] DebugAppearance
+- [ ] DebugCameraPrimitive
+- [ ] DebugModelMatrixPrimitive
+- [ ] DefaultProxy
+- [ ] defaultValue
+- [ ] defined
+- [ ] DepthFunction
+- [ ] destroyObject
+- [ ] DeveloperError
+- [ ] DirectionalLight
+- [ ] DirectionUp
+- [ ] DiscardEmptyTileImagePolicy
+- [ ] DiscardMissingTileImagePolicy
+- [ ] DistanceDisplayCondition
+- [ ] DistanceDisplayConditionGeometryInstanceAttribute
+- [ ] DynamicAtmosphereLightingType
+- [ ] DynamicEnvironmentMapManager
+- [ ] EasingFunction
+- [ ] EllipseGeometry
+- [ ] EllipseGeometryUpdater
+- [ ] EllipseGraphics
+- [ ] EllipseOutlineGeometry
+- [ ] Ellipsoid
+- [ ] EllipsoidGeodesic
+- [ ] EllipsoidGeometry
+- [ ] EllipsoidGeometryUpdater
+- [ ] EllipsoidGraphics
+- [ ] EllipsoidOutlineGeometry
+- [ ] EllipsoidRhumbLine
+- [ ] EllipsoidSurfaceAppearance
+- [ ] EllipsoidTangentPlane
+- [ ] EllipsoidTerrainProvider
+- [ ] Entity
+- [ ] EntityCluster
+- [ ] EntityCollection
+- [ ] EntityView
+- [ ] Event
+- [ ] EventHelper
+- [ ] excludesReverseAxis
+- [ ] exportKml
+- [ ] exportKmlModelCallback
+- [ ] exportKmlResultKml
+- [ ] exportKmlResultKmz
+- [ ] Expression
+- [ ] ExtrapolationType
+- [ ] FeatureDetection
+- [ ] Fog
+- [ ] formatError
+- [ ] FrameRateMonitor
+- [ ] FrustumGeometry
+- [ ] FrustumOutlineGeometry
+- [ ] Fullscreen
+- [ ] GeocoderService
+- [ ] GeocodeType
+- [ ] GeographicProjection
+- [ ] GeographicTilingScheme
+- [ ] GeoJsonDataSource
+- [ ] Geometry
+- [ ] GeometryAttribute
+- [ ] GeometryAttributes
+- [ ] GeometryFactory
+- [ ] GeometryInstance
+- [ ] GeometryInstanceAttribute
+- [ ] GeometryPipeline
+- [ ] GeometryUpdater
+- [ ] geometryUpdaters
+- [ ] GeometryVisualizer
+- [ ] getAbsoluteUri
+- [ ] getBaseUri
+- [ ] getExtensionFromUri
+- [ ] GetFeatureInfoFormat
+- [ ] getFilenameFromUri
+- [ ] getGlslType
+- [ ] getImagePixels
+- [ ] getTimestamp
+- [ ] Globe
+- [ ] GlobeTranslucency
+- [ ] GltfGpmLocal
+- [ ] GoogleEarthEnterpriseImageryProvider
+- [ ] GoogleEarthEnterpriseMapsProvider
+- [ ] GoogleEarthEnterpriseMetadata
+- [ ] GoogleEarthEnterpriseTerrainData
+- [ ] GoogleEarthEnterpriseTerrainProvider
+- [ ] GoogleMaps
+- [ ] GpxDataSource
+- [ ] GregorianDate
+- [ ] GridImageryProvider
+- [ ] GridMaterialProperty
+- [ ] GroundGeometryUpdater
+- [ ] GroundPolylineGeometry
+- [ ] GroundPolylinePrimitive
+- [ ] GroundPrimitive
+- [ ] HeadingPitchRange
+- [ ] HeadingPitchRoll
+- [ ] HeadingPitchRollValues
+- [ ] HeightmapEncoding
+- [ ] HeightmapTerrainData
+- [ ] HeightReference
+- [ ] HermitePolynomialApproximation
+- [ ] HermiteSpline
+- [ ] HilbertOrder
+- [ ] HorizontalOrigin
+- [ ] I3SDataProvider
+- [ ] I3SFeature
+- [ ] I3SField
+- [ ] I3SGeometry
+- [ ] I3SLayer
+- [ ] I3SNode
+- [ ] I3SStatistics
+- [ ] I3SSublayer
+- [ ] I3SSymbology
+- [ ] ImageBasedLighting
+- [ ] ImageMaterialProperty
+- [ ] ImageryLayer
+- [ ] ImageryLayerCollection
+- [ ] ImageryLayerFeatureInfo
+- [ ] ImageryProvider
+- [ ] ImageryTypes
+- [ ] includesReverseAxis
+- [ ] IndexDatatype
+- [ ] Intersect
+- [ ] Intersections2D
+- [ ] IntersectionTests
+- [ ] Interval
+- [ ] Ion
+- [ ] IonGeocoderService
+- [ ] IonImageryProvider
+- [ ] IonResource
+- [ ] IonWorldImageryStyle
+- [ ] isLeapYear
+- [ ] Iso8601
+- [ ] JulianDate
+- [ ] KeyboardEventModifier
+- [ ] KmlCamera
+- [ ] KmlDataSource
+- [ ] KmlFeatureData
+- [ ] KmlLookAt
+- [ ] KmlTour
+- [ ] KmlTourFlyTo
+- [ ] KmlTourWait
+- [ ] Label
+- [ ] LabelCollection
+- [ ] LabelGraphics
+- [ ] LabelStyle
+- [ ] LabelVisualizer
+- [ ] LagrangePolynomialApproximation
+- [ ] LeapSecond
+- [ ] Light
+- [ ] LightingModel
+- [ ] LinearApproximation
+- [ ] LinearSpline
+- [ ] loadGltfJson
+- [ ] MapboxImageryProvider
+- [ ] MapboxStyleImageryProvider
+- [ ] MapMode2D
+- [ ] MapProjection
+- [ ] Material
+- [ ] MaterialAppearance
+- [ ] MaterialSupport
+- [ ] MaterialProperty
+- [ ] Math
+- [ ] Matrix2
+- [ ] Matrix3
+- [ ] Matrix4
+- [ ] mergeSort
+- [ ] mergeSortComparator
+- [ ] MetadataClass
+- [ ] MetadataClassProperty
+- [ ] MetadataComponentType
+- [ ] MetadataEnum
+- [ ] MetadataEnumValue
+- [ ] MetadataSchema
+- [ ] MetadataType
+- [ ] Model
+- [ ] ModelAnimation
+- [ ] ModelAnimationCollection
+- [ ] ModelAnimationLoop
+- [ ] ModelFeature
+- [ ] ModelGraphics
+- [ ] ModelNode
+- [ ] ModelVisualizer
+- [ ] Moon
+- [ ] MorphWeightSpline
+- [ ] NearFarScalar
+- [ ] NeverTileDiscardPolicy
+- [ ] NodeTransformationProperty
+- [ ] objectToQuery
+- [ ] obtainTranslucentCommandExecutionFunction
+- [ ] Occluder
+- [ ] OpenCageGeocoderService
+- [ ] OpenStreetMapImageryProvider
+- [ ] OrientedBoundingBox
+- [ ] OrthographicFrustum
+- [ ] OrthographicOffCenterFrustum
+- [ ] PackableForInterpolation
+- [ ] Particle
+- [ ] ParticleBurst
+- [ ] ParticleEmitter
+- [ ] ParticleSystem
+- [ ] PathGraphics
+- [ ] PathVisualizer
+- [ ] PeliasGeocoderService
+- [ ] PerInstanceColorAppearance
+- [ ] PerspectiveFrustum
+- [ ] PerspectiveOffCenterFrustum
+- [ ] PickedMetadataInfo
+- [ ] PinBuilder
+- [ ] PixelDatatype
+- [ ] PixelFormat
+- [ ] Plane
+- [ ] PlaneGeometry
+- [ ] PlaneGeometryUpdater
+- [ ] PlaneGraphics
+- [ ] PlaneOutlineGeometry
+- [ ] PointCloudShading
+- [ ] PointGraphics
+- [ ] pointInsideTriangle
+- [ ] PointPrimitive
+- [ ] PointPrimitiveCollection
+- [ ] PointVisualizer
+- [ ] PolygonGeometry
+- [ ] PolygonGeometryUpdater
+- [ ] PolygonGraphics
+- [ ] PolygonHierarchy
+- [ ] PolygonOutlineGeometry
+- [ ] Polyline
+- [ ] PolylineArrowMaterialProperty
+- [ ] PolylineCollection
+- [ ] PolylineColorAppearance
+- [ ] PolylineDashMaterialProperty
+- [ ] PolylineGeometry
+- [ ] PolylineGeometryUpdater
+- [ ] PolylineGlowMaterialProperty
+- [ ] PolylineGraphics
+- [ ] PolylineMaterialAppearance
+- [ ] PolylineOutlineMaterialProperty
+- [ ] PolylineVisualizer
+- [ ] PolylineVolumeGeometry
+- [ ] PolylineVolumeGeometryUpdater
+- [ ] PolylineVolumeGraphics
+- [ ] PolylineVolumeOutlineGeometry
+- [ ] PositionProperty
+- [ ] PositionPropertyArray
+- [ ] PostProcessStage
+- [ ] PostProcessStageCollection
+- [ ] PostProcessStageComposite
+- [ ] PostProcessStageLibrary
+- [ ] PostProcessStageSampleMode
+- [ ] Primitive
+- [ ] PrimitiveCollection
+- [ ] PrimitiveType
+- [ ] Property
+- [ ] PropertyArray
+- [ ] PropertyBag
+- [ ] propertyName
+- [ ] Proxy
+- [ ] QuadraticRealPolynomial
+- [ ] QuantizedMeshTerrainData
+- [ ] QuarticRealPolynomial
+- [ ] Quaternion
+- [ ] QuaternionSpline
+- [ ] queryToObject
+- [ ] Queue
+- [ ] Ray
+- [ ] Rectangle
+- [ ] RectangleGeometry
+- [ ] RectangleGeometryUpdater
+- [ ] RectangleGraphics
+- [ ] RectangleOutlineGeometry
+- [ ] ReferenceFrame
+- [ ] ReferenceProperty
+- [ ] removeExtension
+- [ ] Request
+- [ ] RequestErrorEvent
+- [ ] RequestScheduler
+- [ ] RequestState
+- [ ] RequestType
+- [ ] Resource
+- [ ] RuntimeError
+- [ ] SampledPositionProperty
+- [ ] SampledProperty
+- [ ] sampleTerrain
+- [ ] sampleTerrainMostDetailed
+- [ ] Scene
+- [ ] SceneMode
+- [ ] SceneTransforms
+- [ ] schemaId
+- [ ] ScreenSpaceCameraController
+- [ ] ScreenSpaceEventHandler
+- [ ] ScreenSpaceEventType
+- [ ] SensorVolumePortionToDisplay
+- [ ] shaderDefines
+- [ ] shaderMaximumIntersectionsLength
+- [ ] shaderUniforms
+- [ ] ShadowMap
+- [ ] ShadowMode
+- [ ] ShowGeometryInstanceAttribute
+- [ ] Simon1994PlanetaryPositions
+- [ ] SimplePolylineGeometry
+- [ ] SingleTileImageryProvider
+- [ ] SkyAtmosphere
+- [ ] SkyBox
+- [ ] Spdcf
+- [ ] SphereEmitter
+- [ ] SphereGeometry
+- [ ] SphereOutlineGeometry
+- [ ] Spherical
+- [ ] Spline
+- [ ] SplitDirection
+- [ ] srgbToLinear
+- [ ] StencilFunction
+- [ ] StencilOperation
+- [ ] SteppedSpline
+- [ ] Stereographic
+- [ ] StorageType
+- [ ] StripeMaterialProperty
+- [ ] StripeOrientation
+- [ ] StyleExpression
+- [ ] subdivideArray
+- [ ] Sun
+- [ ] SunLight
+- [ ] TaskProcessor
+- [ ] Terrain
+- [ ] TerrainData
+- [ ] TerrainProvider
+- [ ] TextureMagnificationFilter
+- [ ] TextureMinificationFilter
+- [ ] TextureUniform
+- [ ] TileAvailability
+- [ ] TileCoordinatesImageryProvider
+- [ ] TileDiscardPolicy
+- [ ] TileMapServiceImageryProvider
+- [ ] TileProviderError
+- [ ] TilingScheme
+- [ ] TimeDynamicImagery
+- [ ] TimeDynamicPointCloud
+- [ ] TimeInterval
+- [ ] TimeIntervalCollection
+- [ ] TimeIntervalCollectionPositionProperty
+- [ ] TimeIntervalCollectionProperty
+- [ ] TimeStandard
+- [ ] Tonemapper
+- [ ] Transforms
+- [ ] TranslationRotationScale
+- [ ] TridiagonalSystemSolver
+- [ ] TrustedServers
+- [ ] UniformSpecifier
+- [ ] UniformType
+- [ ] UrlTemplateImageryProvider
+- [ ] VaryingType
+- [ ] VelocityOrientationProperty
+- [ ] VelocityVectorProperty
+- [ ] VertexFormat
+- [ ] VerticalOrigin
+- [ ] VideoSynchronizer
+- [ ] ViewportQuad
+- [ ] Visibility
+- [ ] Visualizer
+- [ ] VoxelCell
+- [ ] VoxelPrimitive
+- [ ] VoxelProvider
+- [ ] VoxelShapeType
+- [ ] VRTheWorldTerrainProvider
+- [ ] WallGeometry
+- [ ] WallGeometryUpdater
+- [ ] WallGraphics
+- [ ] WallOutlineGeometry
+- [ ] WebGLConstants
+- [ ] WebGLOptions
+- [ ] WebMapServiceImageryProvider
+- [ ] WebMapTileServiceImageryProvider
+- [ ] WebMercatorProjection
+- [ ] WebMercatorTilingScheme
+- [ ] WindingOrder
+- [ ] writeTextToCanvas
+
+## widget: cesium
+
+- [x] Animation
+- [x] AnimationViewModel
+- [ ] BaseLayerPicker
+- [ ] BaseLayerPickerViewModel
+- [ ] Cesium3DTilesInspector
+- [ ] Cesium3DTilesInspectorViewModel
+- [x] CesiumInspector
+- [x] CesiumInspectorViewModel
+- [ ] ClockViewModel
+- [ ] Command
+- [ ] createCommand
+- [ ] FullscreenButton
+- [ ] FullscreenButtonViewModel
+- [x] Geocoder
+- [x] GeocoderViewModel
+- [ ] HomeButton
+- [ ] HomeButtonViewModel
+- [ ] I3sBslExplorerViewModel
+- [ ] I3SBuildingSceneLayerExplorer
+- [ ] InfoBox
+- [ ] InfoBoxViewModel
+- [ ] NavigationHelpButton
+- [ ] NavigationHelpButtonViewModel
+- [ ] PerformanceWatchdog
+- [ ] PerformanceWatchdogViewModel
+- [ ] ProjectionPicker
+- [ ] ProjectionPickerViewModel
+- [ ] ProviderViewModel
+- [ ] SceneModePicker
+- [ ] SceneModePickerViewModel
+- [ ] SelectionIndicator
+- [ ] SelectionIndicatorViewModel
+- [ ] SvgPathBindingHandler
+- [ ] Timeline
+- [ ] ToggleButtonViewModel
+- [x] Viewer
+- [x] viewerCesium3DTilesInspectorMixin
+- [x] viewerCesiumInspectorMixin
+- [x] viewerDragDropMixin
+- [x] viewerPerformanceWatchdogMixin
+- [x] viewerVoxelInspectorMixin
+- [x] VoxelInspector
+- [x] VoxelInspectorViewModel
+- [x] VRButton
+- [x] VRButtonViewModel
+
+```javascript
+
+/**
+ * Determines whether the tile's bounding volume intersects the culling volume.
+ *
+ * @param {FrameState} frameState The frame state.
+ * @param {number} parentVisibilityPlaneMask The parent's plane mask to speed up the visibility check.
+ * @returns {number} A plane mask as described above in {@link CullingVolume#computeVisibilityWithPlaneMask}.
+ *
+ * @private
+ */ 是jsdoc格式写的注释，现在需要翻译注释，其他的不变
+```
