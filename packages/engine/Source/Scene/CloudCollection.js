@@ -64,24 +64,24 @@ const NUMBER_OF_PROPERTIES = CumulusCloud.NUMBER_OF_PROPERTIES;
 const COLOR_INDEX = CumulusCloud.COLOR_INDEX;
 
 /**
- * A renderable collection of clouds in the 3D scene.
+ * 一个可渲染的云集合，在3D场景中使用。
  * <br /><br />
  * <div align='center'>
  * <img src='Images/CumulusCloud.png' width='400' height='300' /><br />
- * Example cumulus clouds
+ * 示例积云
  * </div>
  * <br /><br />
- * Clouds are added and removed from the collection using {@link CloudCollection#add}
- * and {@link CloudCollection#remove}.
+ * 云层可以通过{@link CloudCollection#add}和{@link CloudCollection#remove}方法添加和移除。
  * @alias CloudCollection
  * @constructor
  *
- * @param {object} [options] Object with the following properties:
- * @param {boolean} [options.show=true] Whether to display the clouds.
- * @param {number} [options.noiseDetail=16.0] Desired amount of detail in the noise texture.
- * @param {number} [options.noiseOffset=Cartesian3.ZERO] Desired translation of data in noise texture.
- * @param {boolean} [options.debugBillboards=false] For debugging only. Determines if the billboards are rendered with an opaque color.
- * @param {boolean} [options.debugEllipsoids=false] For debugging only. Determines if the clouds will be rendered as opaque ellipsoids.
+ * @param {object} [options] 包含以下属性的对象：
+ * @param {boolean} [options.show=true] 是否显示云层。
+ * @param {number} [options.noiseDetail=16.0] 噪声纹理中所需的细节量。
+ * @param {number} [options.noiseOffset=Cartesian3.ZERO] 噪声纹理中数据的所需位移。
+ * @param {boolean} [options.debugBillboards=false] 仅用于调试。确定广告牌是否以不透明颜色呈现。
+ * @param {boolean} [options.debugEllipsoids=false] 仅用于调试。确定云层是否将以不透明椭球体呈现。
+ *
  * @see CloudCollection#add
  * @see CloudCollection#remove
  * @see CumulusCloud
@@ -120,10 +120,7 @@ function CloudCollection(options) {
 
   /**
    * <p>
-   * Controls the amount of detail captured in the precomputed noise texture
-   * used to render the cumulus clouds. In order for the texture to be tileable,
-   * this must be a power of two. For best results, set this to be a power of two
-   * between <code>8.0</code> and <code>32.0</code> (inclusive).
+   * 控制用于渲染积云的预计算噪声纹理中捕获的细节量。为了使纹理可平铺，这个值必须是二的幂次方。为了获得最佳效果，将其设置为一个在<code>8.0</code>和<code>32.0</code>（包含）之间的二的幂次方。
    * </p>
    *
    * <div align='center'>
@@ -143,12 +140,13 @@ function CloudCollection(options) {
    *
    * @default 16.0
    */
+
   this.noiseDetail = defaultValue(options.noiseDetail, 16.0);
 
   /**
    * <p>
-   * Applies a translation to noise texture coordinates to generate different data.
-   * This can be modified if the default noise does not generate good-looking clouds.
+   * 对噪声纹理坐标应用位移以生成不同的数据。
+   * 如果默认噪声未生成好看的云层，可以修改此值。
    * </p>
    *
    * <div align='center'>
@@ -167,6 +165,7 @@ function CloudCollection(options) {
    *
    * @default Cartesian3.ZERO
    */
+
   this.noiseOffset = Cartesian3.clone(
     defaultValue(options.noiseOffset, Cartesian3.ZERO),
   );
@@ -193,39 +192,42 @@ function CloudCollection(options) {
   this._rs = undefined;
 
   /**
-   * Determines if billboards in this collection will be shown.
+   * 确定此集合中的广告牌是否会显示。
    *
    * @type {boolean}
    * @default true
    */
+
   this.show = defaultValue(options.show, true);
 
   this._colorCommands = [];
 
   /**
-   * This property is for debugging only; it is not for production use nor is it optimized.
+   * 此属性仅用于调试；不用于生产环境，也未进行优化。
    * <p>
-   * Renders the billboards with one opaque color for the sake of debugging.
+   * 以单一不透明颜色渲染广告牌以便调试。
    * </p>
    *
    * @type {boolean}
    *
    * @default false
    */
+
   this.debugBillboards = defaultValue(options.debugBillboards, false);
   this._compiledDebugBillboards = false;
 
   /**
-   * This property is for debugging only; it is not for production use nor is it optimized.
+   * 此属性仅用于调试；不用于生产环境，也未进行优化。
    * <p>
-   * Draws the clouds as opaque, monochrome ellipsoids for the sake of debugging.
-   * If <code>debugBillboards</code> is also true, then the ellipsoids will draw on top of the billboards.
+   * 将云层绘制为不透明的单色椭球体以便调试。
+   * 如果<code>debugBillboards</code>也为true，则椭球体将在广告牌上方绘制。
    * </p>
    *
    * @type {boolean}
    *
    * @default false
    */
+
   this.debugEllipsoids = defaultValue(options.debugEllipsoids, false);
   this._compiledDebugEllipsoids = false;
 }
@@ -242,10 +244,11 @@ function getNoiseTextureDimensions(collection) {
 
 Object.defineProperties(CloudCollection.prototype, {
   /**
-   * Returns the number of clouds in this collection.
+   * 返回此集合中的云层数量。
    * @memberof CloudCollection.prototype
    * @type {number}
    */
+
   length: {
     get: function () {
       removeClouds(this);
@@ -264,18 +267,15 @@ function destroyClouds(clouds) {
 }
 
 /**
- * Creates and adds a cloud with the specified initial properties to the collection.
- * The added cloud is returned so it can be modified or removed from the collection later.
+ * 创建并将具有指定初始属性的云添加到集合中。
+ * 返回添加的云，以便后续可以修改或从集合中移除。
  *
- * @param {object}[options] A template describing the cloud's properties as shown in Example 1.
- * @returns {CumulusCloud} The cloud that was added to the collection.
+ * @param {object} [options] 描述云属性的模板，如示例1所示。
+ * @returns {CumulusCloud} 被添加到集合中的云。
  *
- * @performance Calling <code>add</code> is expected constant time.  However, the collection's vertex buffer
- * is rewritten - an <code>O(n)</code> operation that also incurs CPU to GPU overhead.  For
- * best performance, add as many clouds as possible before calling <code>update</code>.
+ * @performance 调用<code>add</code>预期为常数时间。然而，集合的顶点缓冲区将被重写——这是一个<code>O(n)</code>操作，同时会导致CPU到GPU的开销。为了获得最佳性能，请在调用<code>update</code>之前尽可能多地添加云。
  *
- * @exception {DeveloperError} This object was destroyed, i.e., destroy() was called.
- *
+ * @exception {DeveloperError} 此对象已被销毁，即destroy()已被调用。
  *
  * @example
  * // Example 1:  Add a cumulus cloud, specifying all the default values.
@@ -318,13 +318,12 @@ CloudCollection.prototype.add = function (options) {
 };
 
 /**
- * Removes a cloud from the collection.
+ * 从集合中移除一个云。
  *
- * @param {CumulusCloud} cloud The cloud to remove.
- * @returns {boolean} <code>true</code> if the cloud was removed; <code>false</code> if the cloud was not found in the collection.
+ * @param {CumulusCloud} cloud 要移除的云。
+ * @returns {boolean} 如果云被移除则返回<code>true</code>；如果云未在集合中找到则返回<code>false</code>。
  *
- * @exception {DeveloperError} This object was destroyed, i.e., destroy() was called.
- *
+ * @exception {DeveloperError} 此对象已被销毁，即destroy()已被调用。
  *
  * @example
  * const c = clouds.add(...);
@@ -347,12 +346,11 @@ CloudCollection.prototype.remove = function (cloud) {
 };
 
 /**
- * Removes all clouds from the collection.
+ * 从集合中移除所有云。
  *
- * @performance <code>O(n)</code>.  It is more efficient to remove all the clouds
- * from a collection and then add new ones than to create a new collection entirely.
+ * @performance <code>O(n)</code>。从集合中移除所有云然后添加新的云比完全创建一个新集合更有效。
  *
- * @exception {DeveloperError} This object was destroyed, i.e., destroy() was called.
+ * @exception {DeveloperError} 此对象已被销毁，即destroy()已被调用。
  *
  * @example
  * clouds.add(...);
@@ -400,32 +398,27 @@ CloudCollection.prototype._updateCloud = function (cloud, propertyChanged) {
 };
 
 /**
- * Check whether this collection contains a given cloud.
+ * 检查此集合是否包含给定的云。
  *
- * @param {CumulusCloud} [cloud] The cloud to check for.
- * @returns {boolean} true if this collection contains the cloud, false otherwise.
+ * @param {CumulusCloud} [cloud] 要检查的云。
+ * @returns {boolean} 如果此集合包含该云，则返回true，否则返回false。
  *
  * @see CloudCollection#get
  */
+
 CloudCollection.prototype.contains = function (cloud) {
   return defined(cloud) && cloud._cloudCollection === this;
 };
 
 /**
- * Returns the cloud in the collection at the specified index. Indices are zero-based
- * and increase as clouds are added. Removing a cloud shifts all clouds after
- * it to the left, changing their indices. This function is commonly used with
- * {@link CloudCollection#length} to iterate over all the clouds in the collection.
+ * 返回集合中指定索引处的云。索引从零开始，随着云的添加而增加。移除云会将该云之后的所有云向左移动，改变它们的索引。此函数通常与{@link CloudCollection#length}一起使用，以遍历集合中的所有云。
  *
- * @param {number} index The zero-based index of the cloud.
- * @returns {CumulusCloud} The cloud at the specified index.
+ * @param {number} index 云的零基索引。
+ * @returns {CumulusCloud} 指定索引处的云。
  *
- * @performance Expected constant time. If clouds were removed from the collection and
- * {@link CloudCollection#update} was not called, an implicit <code>O(n)</code>
- * operation is performed.
+ * @performance 预期为常数时间。如果云已从集合中移除且未调用{@link CloudCollection#update}，则会执行隐式的<code>O(n)</code>操作。
  *
- * @exception {DeveloperError} This object was destroyed, i.e., destroy() was called.
- *
+ * @exception {DeveloperError} 此对象已被销毁，即destroy()已被调用。
  *
  * @example
  * // Toggle the show property of every cloud in the collection
@@ -1001,29 +994,25 @@ CloudCollection.prototype.update = function (frameState) {
 };
 
 /**
- * Returns true if this object was destroyed; otherwise, false.
+ * 如果此对象已被销毁，则返回true；否则返回false。
  * <br /><br />
- * If this object was destroyed, it should not be used; calling any function other than
- * <code>isDestroyed</code> will result in a {@link DeveloperError} exception.
+ * 如果此对象已被销毁，则不应再使用它；调用<code>isDestroyed</code>以外的任何函数都将导致{@link DeveloperError}异常。
  *
- * @returns {boolean} <code>true</code> if this object was destroyed; otherwise, <code>false</code>.
+ * @returns {boolean} 如果此对象已被销毁，则返回<code>true</code>；否则返回<code>false</code>。
  *
  * @see CloudCollection#destroy
  */
+
 CloudCollection.prototype.isDestroyed = function () {
   return false;
 };
 
 /**
- * Destroys the WebGL resources held by this object.  Destroying an object allows for deterministic
- * release of WebGL resources, instead of relying on the garbage collector to destroy this object.
+ * 销毁此对象持有的WebGL资源。销毁对象允许确定性地释放WebGL资源，而不是依赖垃圾收集器来销毁此对象。
  * <br /><br />
- * Once an object is destroyed, it should not be used; calling any function other than
- * <code>isDestroyed</code> will result in a {@link DeveloperError} exception.  Therefore,
- * assign the return value (<code>undefined</code>) to the object as done in the example.
+ * 一旦对象被销毁，它就不应再被使用；调用<code>isDestroyed</code>以外的任何函数都将导致{@link DeveloperError}异常。因此，将返回值（<code>undefined</code>）赋给对象，如示例所示。
  *
- * @exception {DeveloperError} This object was destroyed, i.e., destroy() was called.
- *
+ * @exception {DeveloperError} 此对象已被销毁，即destroy()已被调用。
  *
  * @example
  * clouds = clouds && clouds.destroy();

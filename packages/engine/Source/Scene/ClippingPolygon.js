@@ -9,12 +9,12 @@ import PolygonGeometry from "../Core/PolygonGeometry.js";
 import Rectangle from "../Core/Rectangle.js";
 
 /**
- * A geodesic polygon to be used with {@link ClippingPlaneCollection} for selectively hiding regions in a model, a 3D tileset, or the globe.
+ * 一个测地多边形，用于与{@link ClippingPlaneCollection}一起选择性地隐藏模型、3D Tileset或地球中的区域。
  * @alias ClippingPolygon
  * @constructor
  *
- * @param {object} options Object with the following properties:
- * @param {Cartesian3[]} options.positions A list of three or more Cartesian coordinates defining the outer ring of the clipping polygon.
+ * @param {object} options 包含以下属性的对象：
+ * @param {Cartesian3[]} options.positions 定义裁剪多边形外环的三个或更多Cartesian坐标的列表。
  * @param {Ellipsoid} [options.ellipsoid=Ellipsoid.default]
  *
  * @example
@@ -52,7 +52,7 @@ function ClippingPolygon(options) {
 
 Object.defineProperties(ClippingPolygon.prototype, {
   /**
-   * Returns the total number of positions in the polygon, include any holes.
+   * 返回多边形中位置的总数，包括任何孔洞。
    *
    * @memberof ClippingPolygon.prototype
    * @type {number}
@@ -64,7 +64,7 @@ Object.defineProperties(ClippingPolygon.prototype, {
     },
   },
   /**
-   * Returns the outer ring of positions.
+   * 返回外环的位置。
    *
    * @memberof ClippingPolygon.prototype
    * @type {Cartesian3[]}
@@ -76,7 +76,7 @@ Object.defineProperties(ClippingPolygon.prototype, {
     },
   },
   /**
-   * Returns the ellipsoid used to project the polygon onto surfaces when clipping.
+   * 返回用于在裁剪时将多边形投影到表面上的椭球体。
    *
    * @memberof ClippingPolygon.prototype
    * @type {Ellipsoid}
@@ -89,12 +89,14 @@ Object.defineProperties(ClippingPolygon.prototype, {
   },
 });
 
+
 /**
- * Clones the ClippingPolygon without setting its ownership.
- * @param {ClippingPolygon} polygon The ClippingPolygon to be cloned
- * @param {ClippingPolygon} [result] The object on which to store the cloned parameters.
- * @returns {ClippingPolygon} a clone of the input ClippingPolygon
+ * 克隆ClippingPolygon而不设置其所有权。
+ * @param {ClippingPolygon} polygon 要克隆的ClippingPolygon
+ * @param {ClippingPolygon} [result] 用于存储克隆参数的对象。
+ * @returns {ClippingPolygon} 输入ClippingPolygon的克隆
  */
+
 ClippingPolygon.clone = function (polygon, result) {
   //>>includeStart('debug', pragmas.debug);
   Check.typeOf.object("polygon", polygon);
@@ -114,13 +116,14 @@ ClippingPolygon.clone = function (polygon, result) {
 };
 
 /**
- * Compares the provided ClippingPolygons and returns
+ * 比较提供的ClippingPolygons并返回
  * 如果相等则为 <code>true</code>，否则为 <code>false</code>
  *
- * @param {Plane} left The first polygon.
- * @param {Plane} right The second polygon.
+ * @param {Plane} left 第一个多边形。
+ * @param {Plane} right 第二个多边形。
  * @returns {boolean} 如果左右相等，则 <code>true</code>，否则 <code>false</code>
  */
+
 ClippingPolygon.equals = function (left, right) {
   //>>includeStart('debug', pragmas.debug);
   Check.typeOf.object("left", left);
@@ -133,11 +136,12 @@ ClippingPolygon.equals = function (left, right) {
 };
 
 /**
- * Computes a cartographic rectangle which encloses the polygon defined by the list of positions, including cases over the international date line and the poles.
+ * 计算包围由位置列表定义的多边形的测地矩形，包括跨越国际日期线和极点的情况。
  *
- * @param {Rectangle} [result] An object in which to store the result.
- * @returns {Rectangle} The result rectangle
+ * @param {Rectangle} [result] 用于存储结果的对象。
+ * @returns {Rectangle} 结果矩形
  */
+
 ClippingPolygon.prototype.computeRectangle = function (result) {
   return PolygonGeometry.computeRectangleFromPositions(
     this.positions,
@@ -150,13 +154,14 @@ ClippingPolygon.prototype.computeRectangle = function (result) {
 const scratchRectangle = new Rectangle();
 const spherePointScratch = new Cartesian3();
 /**
- * Computes a rectangle with the spherical extents that encloses the polygon defined by the list of positions, including cases over the international date line and the poles.
+ * 计算包围由位置列表定义的多边形的球面范围矩形，包括跨越国际日期线和极点的情况。
  *
  * @private
  *
- * @param {Rectangle} [result] An object in which to store the result.
- * @returns {Rectangle} The result rectangle with spherical extents.
+ * @param {Rectangle} [result] 用于存储结果的对象。
+ * @returns {Rectangle} 具有球面范围的结果矩形。
  */
+
 ClippingPolygon.prototype.computeSphericalExtents = function (result) {
   if (!defined(result)) {
     result = new Rectangle();

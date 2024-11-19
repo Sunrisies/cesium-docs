@@ -8,23 +8,22 @@ import getTimestamp from "./getTimestamp.js";
 import JulianDate from "./JulianDate.js";
 
 /**
- * A simple clock for keeping track of simulated time.
+ * 一个简单的时钟，用于跟踪仿真时间。
  *
  * @alias Clock
  * @constructor
  *
- * @param {object} [options] Object with the following properties:
- * @param {JulianDate} [options.startTime] The start time of the clock.
- * @param {JulianDate} [options.stopTime] The stop time of the clock.
- * @param {JulianDate} [options.currentTime] The current time.
- * @param {number} [options.multiplier=1.0] Determines how much time advances when {@link Clock#tick} is called, negative values allow for advancing backwards.
- * @param {ClockStep} [options.clockStep=ClockStep.SYSTEM_CLOCK_MULTIPLIER] Determines if calls to {@link Clock#tick} are frame dependent or system clock dependent.
- * @param {ClockRange} [options.clockRange=ClockRange.UNBOUNDED] Determines how the clock should behave when {@link Clock#startTime} or {@link Clock#stopTime} is reached.
- * @param {boolean} [options.canAnimate=true] Indicates whether {@link Clock#tick} can advance time.  This could be false if data is being buffered, for example.  The clock will only tick when both {@link Clock#canAnimate} and {@link Clock#shouldAnimate} are true.
- * @param {boolean} [options.shouldAnimate=false] Indicates whether {@link Clock#tick} should attempt to advance time.  The clock will only tick when both {@link Clock#canAnimate} and {@link Clock#shouldAnimate} are true.
+ * @param {object} [options] 包含以下属性的对象：
+ * @param {JulianDate} [options.startTime] 时钟的开始时间。
+ * @param {JulianDate} [options.stopTime] 时钟的结束时间。
+ * @param {JulianDate} [options.currentTime] 当前时间。
+ * @param {number} [options.multiplier=1.0] 确定调用{@link Clock#tick}时时间的推进速度，负值允许时间向后推进。
+ * @param {ClockStep} [options.clockStep=ClockStep.SYSTEM_CLOCK_MULTIPLIER] 确定调用{@link Clock#tick}是否依赖于帧或系统时钟。
+ * @param {ClockRange} [options.clockRange=ClockRange.UNBOUNDED] 确定当达到{@link Clock#startTime}或{@link Clock#stopTime}时，时钟应如何行为。
+ * @param {boolean} [options.canAnimate=true] 指示{@link Clock#tick}是否可以推进时间。例如，如果数据正在缓冲，这可能为false。只有当{@link Clock#canAnimate}和{@link Clock#shouldAnimate}都为true时，时钟才会滴答作响。
+ * @param {boolean} [options.shouldAnimate=false] 指示{@link Clock#tick}是否应尝试推进时间。只有当{@link Clock#canAnimate}和{@link Clock#shouldAnimate}都为true时，时钟才会滴答作响。
  *
- * @exception {DeveloperError} startTime must come before stopTime.
- *
+ * @exception {DeveloperError} startTime必须在stopTime之前。
  *
  * @example
  * // Create a clock that loops on Christmas day 2013 and runs in real-time.
@@ -85,44 +84,42 @@ function Clock(options) {
   //>>includeEnd('debug');
 
   /**
-   * The start time of the clock.
+   * 时钟的开始时间。
    * @type {JulianDate}
    */
   this.startTime = startTime;
 
   /**
-   * The stop time of the clock.
+   * 时钟的结束时间。
    * @type {JulianDate}
    */
   this.stopTime = stopTime;
 
   /**
-   * Determines how the clock should behave when
-   * {@link Clock#startTime} or {@link Clock#stopTime}
-   * is reached.
+   * 确定当{@link Clock#startTime}或{@link Clock#stopTime}达到时，时钟应如何行为。
    * @type {ClockRange}
    * @default {@link ClockRange.UNBOUNDED}
    */
   this.clockRange = defaultValue(options.clockRange, ClockRange.UNBOUNDED);
 
   /**
-   * Indicates whether {@link Clock#tick} can advance time.  This could be false if data is being buffered,
-   * for example.  The clock will only advance time when both
-   * {@link Clock#canAnimate} and {@link Clock#shouldAnimate} are true.
+   * 指示{@link Clock#tick}是否可以推进时间。例如，如果数据正在缓冲，这可能为false。时钟只有在{@link Clock#canAnimate}和{@link Clock#shouldAnimate}都为true时才会推进时间。
    * @type {boolean}
    * @default true
    */
   this.canAnimate = defaultValue(options.canAnimate, true);
 
   /**
-   * An {@link Event} that is fired whenever {@link Clock#tick} is called.
+   * 每当调用{@link Clock#tick}时触发的{@link Event}。
    * @type {Event}
    */
   this.onTick = new Event();
+  
   /**
-   * An {@link Event} that is fired whenever {@link Clock#stopTime} is reached.
+   * 每当达到{@link Clock#stopTime}时触发的{@link Event}。
    * @type {Event}
    */
+
   this.onStop = new Event();
 
   this._currentTime = undefined;
@@ -145,10 +142,8 @@ function Clock(options) {
 
 Object.defineProperties(Clock.prototype, {
   /**
-   * The current time.
-   * Changing this property will change
-   * {@link Clock#clockStep} from {@link ClockStep.SYSTEM_CLOCK} to
-   * {@link ClockStep.SYSTEM_CLOCK_MULTIPLIER}.
+   * 当前时间。
+   * 更改此属性将使{@link Clock#clockStep}从{@link ClockStep.SYSTEM_CLOCK}变更为{@link ClockStep.SYSTEM_CLOCK_MULTIPLIER}。
    * @memberof Clock.prototype
    * @type {JulianDate}
    */
@@ -170,13 +165,11 @@ Object.defineProperties(Clock.prototype, {
   },
 
   /**
-   * Gets or sets how much time advances when {@link Clock#tick} is called. Negative values allow for advancing backwards.
-   * If {@link Clock#clockStep} is set to {@link ClockStep.TICK_DEPENDENT}, this is the number of seconds to advance.
-   * If {@link Clock#clockStep} is set to {@link ClockStep.SYSTEM_CLOCK_MULTIPLIER}, this value is multiplied by the
-   * elapsed system time since the last call to {@link Clock#tick}.
-   * Changing this property will change
-   * {@link Clock#clockStep} from {@link ClockStep.SYSTEM_CLOCK} to
-   * {@link ClockStep.SYSTEM_CLOCK_MULTIPLIER}.
+   * 获取或设置在调用{@link Clock#tick}时时间推进的量。负值允许时间向后推进。
+   * 如果{@link Clock#clockStep}设置为{@link ClockStep.TICK_DEPENDENT}，这是要推进的秒数。
+   * 如果{@link Clock#clockStep}设置为{@link ClockStep.SYSTEM_CLOCK_MULTIPLIER}，则此值将乘以
+   * 自上次调用{@link Clock#tick}以来经过的系统时间。
+   * 更改此属性将使{@link Clock#clockStep}从{@link ClockStep.SYSTEM_CLOCK}变更为{@link ClockStep.SYSTEM_CLOCK_MULTIPLIER}。
    * @memberof Clock.prototype
    * @type {number}
    * @default 1.0
@@ -199,10 +192,9 @@ Object.defineProperties(Clock.prototype, {
   },
 
   /**
-   * Determines if calls to {@link Clock#tick} are frame dependent or system clock dependent.
-   * Changing this property to {@link ClockStep.SYSTEM_CLOCK} will set
-   * {@link Clock#multiplier} to 1.0, {@link Clock#shouldAnimate} to true, and
-   * {@link Clock#currentTime} to the current system clock time.
+   * 确定调用{@link Clock#tick}是否依赖于帧或系统时钟。
+   * 将此属性更改为{@link ClockStep.SYSTEM_CLOCK}将将{@link Clock#multiplier}设置为1.0，
+   * 将{@link Clock#shouldAnimate}设置为true，并将{@link Clock#currentTime}设置为当前系统时钟时间。
    * @memberof Clock.prototype
    * @type ClockStep
    * @default {@link ClockStep.SYSTEM_CLOCK_MULTIPLIER}
@@ -223,12 +215,9 @@ Object.defineProperties(Clock.prototype, {
   },
 
   /**
-   * Indicates whether {@link Clock#tick} should attempt to advance time.
-   * The clock will only advance time when both
-   * {@link Clock#canAnimate} and {@link Clock#shouldAnimate} are true.
-   * Changing this property will change
-   * {@link Clock#clockStep} from {@link ClockStep.SYSTEM_CLOCK} to
-   * {@link ClockStep.SYSTEM_CLOCK_MULTIPLIER}.
+   * 指示{@link Clock#tick}是否应尝试推进时间。
+   * 时钟只有在{@link Clock#canAnimate}和{@link Clock#shouldAnimate}均为true时才会推进时间。
+   * 更改此属性将使{@link Clock#clockStep}从{@link ClockStep.SYSTEM_CLOCK}变更为{@link ClockStep.SYSTEM_CLOCK_MULTIPLIER}。
    * @memberof Clock.prototype
    * @type {boolean}
    * @default false
@@ -251,13 +240,15 @@ Object.defineProperties(Clock.prototype, {
   },
 });
 
+
 /**
- * Advances the clock from the current time based on the current configuration options.
- * tick should be called every frame, regardless of whether animation is taking place
- * or not.  To control animation, use the {@link Clock#shouldAnimate} property.
+ * 根据当前配置选项，从当前时间推进时钟。
+ * tick应该在每一帧被调用，无论动画是否正在进行。
+ * 要控制动画，请使用{@link Clock#shouldAnimate}属性。
  *
- * @returns {JulianDate} The new value of the {@link Clock#currentTime} property.
+ * @returns {JulianDate} {@link Clock#currentTime}属性的新值。
  */
+
 Clock.prototype.tick = function () {
   const currentSystemTime = getTimestamp();
   let currentTime = JulianDate.clone(this._currentTime);

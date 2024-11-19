@@ -69,20 +69,20 @@
 - [x] className
 - [x] classProperty
 - [x] ClippingPlane
-- [ ] ClippingPlaneCollection
-- [ ] ClippingPolygon
-- [ ] ClippingPolygonCollection
-- [ ] Clock
-- [ ] ClockRange
-- [ ] ClockStep
-- [ ] clone
-- [ ] CloudCollection
-- [ ] CloudType
+- [x] ClippingPlaneCollection
+- [x] ClippingPolygon
+- [x] ClippingPolygonCollection
+- [x] Clock
+- [x] ClockRange
+- [x] ClockStep
+- [x] clone
+- [x] CloudCollection
+- [x] CloudType
 - [x] Color
-- [ ] ColorBlendMode
-- [ ] ColorGeometryInstanceAttribute
-- [ ] ColorMaterialProperty
-- [ ] combine
+- [x] ColorBlendMode
+- [x] ColorGeometryInstanceAttribute
+- [x] ColorMaterialProperty
+- [x] combine
 - [ ] ComponentDatatype
 - [ ] CompositeEntityCollection
 - [ ] CompositeMaterialProperty

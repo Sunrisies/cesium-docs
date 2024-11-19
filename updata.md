@@ -98,3 +98,16 @@
 - [x] className
 - [x] classProperty
 - [x] ClippingPlane
+- [x] ClippingPlaneCollection
+- [x] ClippingPolygon
+- [x] ClippingPolygonCollection
+- [x] Clock
+- [x] ClockRange
+- [x] ClockStep
+- [x] clone
+- [x] CloudCollection
+- [x] CloudType
+- [x] ColorBlendMode
+- [x] ColorGeometryInstanceAttribute
+- [x] ColorMaterialProperty
+- [x] combine

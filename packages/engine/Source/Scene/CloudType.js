@@ -1,12 +1,12 @@
 /**
- * Specifies the type of the cloud that is added to a {@link CloudCollection} in {@link CloudCollection#add}.
+ * 指定添加到{@link CloudCollection}中的云的类型，使用{@link CloudCollection#add}。
  *
  * @enum {number}
  */
 
 const CloudType = {
   /**
-   * Cumulus cloud.
+   * 积云。
    *
    * @type {number}
    * @constant
@@ -15,14 +15,14 @@ const CloudType = {
 };
 
 /**
- * Validates that the provided cloud type is a valid {@link CloudType}
+ * 验证提供的云类型是否为有效的{@link CloudType}
  *
- * @param {CloudType} cloudType The cloud type to validate.
- * @returns {boolean} <code>true</code> if the provided cloud type is a valid value; otherwise, <code>false</code>.
+ * @param {CloudType} cloudType 要验证的云类型。
+ * @returns {boolean} 如果提供的云类型是有效值，则返回<code>true</code>；否则返回<code>false</code>。
  *
  * @example
  * if (!Cesium.CloudType.validate(cloudType)) {
- *   throw new Cesium.DeveloperError('cloudType must be a valid value.');
+ *   throw new Cesium.DeveloperError('cloudType必须是有效值。');
  * }
  */
 
