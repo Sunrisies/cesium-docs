@@ -353,19 +353,19 @@ function computePositionsExtruded(params) {
 }
 
 /**
- * A description of a corridor outline.
+ * 描述走廊轮廓。
  *
  * @alias CorridorOutlineGeometry
  * @constructor
  *
- * @param {object} options Object with the following properties:
- * @param {Cartesian3[]} options.positions An array of positions that define the center of the corridor outline.
- * @param {number} options.width The distance between the edges of the corridor outline.
- * @param {Ellipsoid} [options.ellipsoid=Ellipsoid.default] The ellipsoid to be used as a reference.
- * @param {number} [options.granularity=CesiumMath.RADIANS_PER_DEGREE] The distance, in radians, between each latitude and longitude. Determines the number of positions in the buffer.
- * @param {number} [options.height=0] The distance in meters between the positions and the ellipsoid surface.
- * @param {number} [options.extrudedHeight] The distance in meters between the extruded face and the ellipsoid surface.
- * @param {CornerType} [options.cornerType=CornerType.ROUNDED] Determines the style of the corners.
+ * @param {object} options 具有以下属性的对象：
+ * @param {Cartesian3[]} options.positions 定义走廊轮廓中心的坐标数组。
+ * @param {number} options.width 走廊轮廓边缘之间的距离。
+ * @param {Ellipsoid} [options.ellipsoid=Ellipsoid.default] 用作参考的椭球体。
+ * @param {number} [options.granularity=CesiumMath.RADIANS_PER_DEGREE] 每个经纬度之间的距离（以弧度为单位）。决定缓冲区中的位置数量。
+ * @param {number} [options.height=0] 坐标与椭球表面之间的距离（以米为单位）。
+ * @param {number} [options.extrudedHeight] 挤压面与椭球表面之间的距离（以米为单位）。
+ * @param {CornerType} [options.cornerType=CornerType.ROUNDED] 确定角落的样式。
  *
  * @see CorridorOutlineGeometry.createGeometry
  *
@@ -404,9 +404,10 @@ function CorridorOutlineGeometry(options) {
   this._workerName = "createCorridorOutlineGeometry";
 
   /**
-   * The number of elements used to pack the object into an array.
+   * 用于将对象打包到数组中的元素数量。
    * @type {number}
    */
+
   this.packedLength =
     1 + positions.length * Cartesian3.packedLength + Ellipsoid.packedLength + 6;
 }
@@ -420,7 +421,7 @@ function CorridorOutlineGeometry(options) {
  *
  * @returns {number[]} 被打包成的数组
  */
-CorridorOutlineGeometry.pack = function (value, array, startingIndex) {
+CorridorOutlineGeometry.pack = function(value, array, startingIndex) {
   //>>includeStart('debug', pragmas.debug);
   Check.typeOf.object("value", value);
   Check.typeOf.object("array", array);
@@ -462,14 +463,15 @@ const scratchOptions = {
 };
 
 /**
- * 从打包数组中检索实例.
+ * 从打包数组中检索实例。
  *
- * @param {number[]} array 压缩数组.
- * @param {number} [startingIndex=0] 需要解包的元素的起始索引.
- * @param {CorridorOutlineGeometry} [result] 存储结果的对象.
- * @returns {CorridorOutlineGeometry} The modified result parameter or a new CorridorOutlineGeometry instance if one was not provided.
+ * @param {number[]} array 压缩数组。
+ * @param {number} [startingIndex=0] 需要解包的元素的起始索引。
+ * @param {CorridorOutlineGeometry} [result] 存储结果的对象。
+ * @returns {CorridorOutlineGeometry} 修改后的结果参数，若未提供则返回一个新的 CorridorOutlineGeometry 实例。
  */
-CorridorOutlineGeometry.unpack = function (array, startingIndex, result) {
+
+CorridorOutlineGeometry.unpack = function(array, startingIndex, result) {
   //>>includeStart('debug', pragmas.debug);
   Check.typeOf.object("array", array);
   //>>includeEnd('debug');
@@ -519,12 +521,13 @@ CorridorOutlineGeometry.unpack = function (array, startingIndex, result) {
 };
 
 /**
- * Computes the geometric representation of a corridor, including its vertices, indices, and a bounding sphere.
+ * 计算走廊的几何表示，包括其顶点、索引和包围球。
  *
- * @param {CorridorOutlineGeometry} corridorOutlineGeometry A description of the corridor.
- * @returns {Geometry|undefined} The computed vertices and indices.
+ * @param {CorridorOutlineGeometry} corridorOutlineGeometry 走廊的描述。
+ * @returns {Geometry|undefined} 计算出的顶点和索引。
  */
-CorridorOutlineGeometry.createGeometry = function (corridorOutlineGeometry) {
+
+CorridorOutlineGeometry.createGeometry = function(corridorOutlineGeometry) {
   let positions = corridorOutlineGeometry._positions;
   const width = corridorOutlineGeometry._width;
   const ellipsoid = corridorOutlineGeometry._ellipsoid;
@@ -575,7 +578,7 @@ CorridorOutlineGeometry.createGeometry = function (corridorOutlineGeometry) {
       const length = attr.attributes.position.values.length;
       const offsetValue =
         corridorOutlineGeometry._offsetAttribute ===
-        GeometryOffsetAttribute.NONE
+          GeometryOffsetAttribute.NONE
           ? 0
           : 1;
       const applyOffset = new Uint8Array(length / 3).fill(offsetValue);

@@ -4,100 +4,104 @@ import DeveloperError from "./DeveloperError.js";
 import WebGLConstants from "./WebGLConstants.js";
 
 /**
- * WebGL component datatypes.  Components are intrinsics,
- * which form attributes, which form vertices.
+ * WebGL 组件数据类型。组件是内置的，
+ * 形成属性，进而形成顶点。
  *
  * @enum {number}
  */
+
 const ComponentDatatype = {
   /**
-   * 8-bit signed byte corresponding to <code>gl.BYTE</code> and the type
-   * of an element in <code>Int8Array</code>.
-   *
-   * @type {number}
-   * @constant
-   */
-  BYTE: WebGLConstants.BYTE,
+ * 对应于 <code>gl.BYTE</code> 的 8 位有符号字节，以及 
+ * <code>Int8Array</code> 中元素的类型。
+ *
+ * @type {number}
+ * @constant
+ */
+BYTE: WebGLConstants.BYTE,
 
-  /**
-   * 8-bit unsigned byte corresponding to <code>UNSIGNED_BYTE</code> and the type
-   * of an element in <code>Uint8Array</code>.
-   *
-   * @type {number}
-   * @constant
-   */
-  UNSIGNED_BYTE: WebGLConstants.UNSIGNED_BYTE,
+/**
+ * 对应于 <code>UNSIGNED_BYTE</code> 的 8 位无符号字节，以及 
+ * <code>Uint8Array</code> 中元素的类型。
+ *
+ * @type {number}
+ * @constant
+ */
+UNSIGNED_BYTE: WebGLConstants.UNSIGNED_BYTE,
 
-  /**
-   * 16-bit signed short corresponding to <code>SHORT</code> and the type
-   * of an element in <code>Int16Array</code>.
-   *
-   * @type {number}
-   * @constant
-   */
+/**
+ * 对应于 <code>SHORT</code> 的 16 位有符号短整型，以及 
+ * <code>Int16Array</code> 中元素的类型。
+ *
+ * @type {number}
+ * @constant
+ */
+
   SHORT: WebGLConstants.SHORT,
 
   /**
-   * 16-bit unsigned short corresponding to <code>UNSIGNED_SHORT</code> and the type
-   * of an element in <code>Uint16Array</code>.
-   *
-   * @type {number}
-   * @constant
-   */
-  UNSIGNED_SHORT: WebGLConstants.UNSIGNED_SHORT,
+ * 对应于 <code>UNSIGNED_SHORT</code> 的 16 位无符号短整型，以及 
+ * <code>Uint16Array</code> 中元素的类型。
+ *
+ * @type {number}
+ * @constant
+ */
+UNSIGNED_SHORT: WebGLConstants.UNSIGNED_SHORT,
 
-  /**
-   * 32-bit signed int corresponding to <code>INT</code> and the type
-   * of an element in <code>Int32Array</code>.
-   *
-   * @memberOf ComponentDatatype
-   *
-   * @type {number}
-   * @constant
-   */
-  INT: WebGLConstants.INT,
+/**
+ * 对应于 <code>INT</code> 的 32 位有符号整型，以及 
+ * <code>Int32Array</code> 中元素的类型。
+ *
+ * @memberOf ComponentDatatype
+ *
+ * @type {number}
+ * @constant
+ */
+INT: WebGLConstants.INT,
 
-  /**
-   * 32-bit unsigned int corresponding to <code>UNSIGNED_INT</code> and the type
-   * of an element in <code>Uint32Array</code>.
-   *
-   * @memberOf ComponentDatatype
-   *
-   * @type {number}
-   * @constant
-   */
+/**
+ * 对应于 <code>UNSIGNED_INT</code> 的 32 位无符号整型，以及 
+ * <code>Uint32Array</code> 中元素的类型。
+ *
+ * @memberOf ComponentDatatype
+ *
+ * @type {number}
+ * @constant
+ */
+
   UNSIGNED_INT: WebGLConstants.UNSIGNED_INT,
 
   /**
-   * 32-bit floating-point corresponding to <code>FLOAT</code> and the type
-   * of an element in <code>Float32Array</code>.
-   *
-   * @type {number}
-   * @constant
-   */
-  FLOAT: WebGLConstants.FLOAT,
+ * 对应于 <code>FLOAT</code> 的 32 位浮点数，以及 
+ * <code>Float32Array</code> 中元素的类型。
+ *
+ * @type {number}
+ * @constant
+ */
+FLOAT: WebGLConstants.FLOAT,
 
-  /**
-   * 64-bit floating-point corresponding to <code>gl.DOUBLE</code> (in Desktop OpenGL;
-   * this is not supported in WebGL, and is emulated in Cesium via {@link GeometryPipeline.encodeAttribute})
-   * and the type of an element in <code>Float64Array</code>.
-   *
-   * @memberOf ComponentDatatype
-   *
-   * @type {number}
-   * @constant
-   * @default 0x140A
-   */
+/**
+ * 对应于 <code>gl.DOUBLE</code> 的 64 位浮点数（在桌面 OpenGL 中；
+ * 这在 WebGL 中不被支持，并通过 {@link GeometryPipeline.encodeAttribute} 在 Cesium 中模拟）
+ * 以及 <code>Float64Array</code> 中元素的类型。
+ *
+ * @memberOf ComponentDatatype
+ *
+ * @type {number}
+ * @constant
+ * @default 0x140A
+ */
+
   DOUBLE: WebGLConstants.DOUBLE,
 };
 
 /**
- * Returns the size, in bytes, of the corresponding datatype.
+ * 返回对应数据类型的大小（以字节为单位）。
  *
- * @param {ComponentDatatype} componentDatatype The component datatype to get the size of.
- * @returns {number} The size in bytes.
+ * @param {ComponentDatatype} componentDatatype 要获取大小的组件数据类型。
+ * @returns {number} 大小（以字节为单位）。
  *
- * @exception {DeveloperError} componentDatatype is not a valid value.
+ * @exception {DeveloperError} componentDatatype 不是有效值。
  *
  * @example
  * // Returns Int8Array.BYTES_PER_ELEMENT
@@ -135,11 +139,12 @@ ComponentDatatype.getSizeInBytes = function (componentDatatype) {
 };
 
 /**
- * Gets the {@link ComponentDatatype} for the provided TypedArray instance.
+ * 获取提供的 TypedArray 实例对应的 {@link ComponentDatatype}。
  *
- * @param {Int8Array|Uint8Array|Int16Array|Uint16Array|Int32Array|Uint32Array|Float32Array|Float64Array} array The typed array.
- * @returns {ComponentDatatype} The ComponentDatatype for the provided array, or undefined if the array is not a TypedArray.
+ * @param {Int8Array|Uint8Array|Int16Array|Uint16Array|Int32Array|Uint32Array|Float32Array|Float64Array} array 该类型数组。
+ * @returns {ComponentDatatype} 提供的数组对应的 ComponentDatatype，如果数组不是 TypedArray 则返回 undefined。
  */
+
 ComponentDatatype.fromTypedArray = function (array) {
   if (array instanceof Int8Array) {
     return ComponentDatatype.BYTE;
@@ -174,10 +179,10 @@ ComponentDatatype.fromTypedArray = function (array) {
 };
 
 /**
- * Validates that the provided component datatype is a valid {@link ComponentDatatype}
+ * 验证提供的组件数据类型是否为有效的 {@link ComponentDatatype}
  *
- * @param {ComponentDatatype} componentDatatype The component datatype to validate.
- * @returns {boolean} <code>true</code> if the provided component datatype is a valid value; otherwise, <code>false</code>.
+ * @param {ComponentDatatype} componentDatatype 要验证的组件数据类型。
+ * @returns {boolean} 如果提供的组件数据类型是有效值则返回 <code>true</code>；否则返回 <code>false</code>。
  *
  * @example
  * if (!Cesium.ComponentDatatype.validate(componentDatatype)) {
@@ -199,11 +204,11 @@ ComponentDatatype.validate = function (componentDatatype) {
 };
 
 /**
- * Creates a typed array corresponding to component data type.
+ * 创建一个与组件数据类型对应的类型数组。
  *
- * @param {ComponentDatatype} componentDatatype The component data type.
- * @param {number|Array} valuesOrLength The length of the array to create or an array.
- * @returns {Int8Array|Uint8Array|Int16Array|Uint16Array|Int32Array|Uint32Array|Float32Array|Float64Array} A typed array.
+ * @param {ComponentDatatype} componentDatatype 组件数据类型。
+ * @param {number|Array} valuesOrLength 要创建的数组的长度或一个数组。
+ * @returns {Int8Array|Uint8Array|Int16Array|Uint16Array|Int32Array|Uint32Array|Float32Array|Float64Array} 一个类型数组。
  *
  * @exception {DeveloperError} componentDatatype is not a valid value.
  *
@@ -249,16 +254,17 @@ ComponentDatatype.createTypedArray = function (
 };
 
 /**
- * Creates a typed view of an array of bytes.
+ * 创建一个字节数组的类型视图。
  *
- * @param {ComponentDatatype} componentDatatype The type of the view to create.
- * @param {ArrayBuffer} buffer The buffer storage to use for the view.
- * @param {number} [byteOffset] The offset, in bytes, to the first element in the view.
- * @param {number} [length] The number of elements in the view.
- * @returns {Int8Array|Uint8Array|Int16Array|Uint16Array|Int32Array|Uint32Array|Float32Array|Float64Array} A typed array view of the buffer.
+ * @param {ComponentDatatype} componentDatatype 要创建的视图类型。
+ * @param {ArrayBuffer} buffer 用于视图的缓冲区存储。
+ * @param {number} [byteOffset] 视图中第一个元素的字节偏移量。
+ * @param {number} [length] 视图中的元素数量。
+ * @returns {Int8Array|Uint8Array|Int16Array|Uint16Array|Int32Array|Uint32Array|Float32Array|Float64Array} 缓冲区的类型数组视图。
  *
- * @exception {DeveloperError} componentDatatype is not a valid value.
+ * @exception {DeveloperError} componentDatatype 不是有效值。
  */
+
 ComponentDatatype.createArrayBufferView = function (
   componentDatatype,
   buffer,
@@ -306,13 +312,14 @@ ComponentDatatype.createArrayBufferView = function (
 };
 
 /**
- * Get the ComponentDatatype from its name.
+ * 从名称获取 ComponentDatatype。
  *
- * @param {string} name The name of the ComponentDatatype.
- * @returns {ComponentDatatype} The ComponentDatatype.
+ * @param {string} name ComponentDatatype 的名称。
+ * @returns {ComponentDatatype} 对应的 ComponentDatatype。
  *
- * @exception {DeveloperError} name is not a valid value.
+ * @exception {DeveloperError} name 不是有效值。
  */
+
 ComponentDatatype.fromName = function (name) {
   switch (name) {
     case "BYTE":

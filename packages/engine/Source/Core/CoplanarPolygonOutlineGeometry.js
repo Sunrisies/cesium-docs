@@ -49,13 +49,13 @@ function createGeometryFromPositions(positions) {
 }
 
 /**
- * A description of the outline of a polygon composed of arbitrary coplanar positions.
+ * 描述由任意共面位置组成的多边形轮廓。
  *
  * @alias CoplanarPolygonOutlineGeometry
  * @constructor
  *
- * @param {object} options Object with the following properties:
- * @param {PolygonHierarchy} options.polygonHierarchy A polygon hierarchy that can include holes.
+ * @param {object} options 具有以下属性的对象：
+ * @param {PolygonHierarchy} options.polygonHierarchy 一个可以包含孔的多边形层次结构。
  *
  * @see CoplanarPolygonOutlineGeometry.createGeometry
  *
@@ -92,12 +92,13 @@ function CoplanarPolygonOutlineGeometry(options) {
 }
 
 /**
- * A description of a coplanar polygon outline from an array of positions.
+ * 从一组位置描述一个共面多边形的轮廓。
  *
- * @param {object} options Object with the following properties:
- * @param {Cartesian3[]} options.positions An array of positions that defined the corner points of the polygon.
+ * @param {object} options 具有以下属性的对象：
+ * @param {Cartesian3[]} options.positions 定义多边形角点的坐标数组。
  * @returns {CoplanarPolygonOutlineGeometry}
  */
+
 CoplanarPolygonOutlineGeometry.fromPositions = function (options) {
   options = defaultValue(options, defaultValue.EMPTY_OBJECT);
 
@@ -146,13 +147,14 @@ const scratchOptions = {
   polygonHierarchy: {},
 };
 /**
- * 从打包数组中检索实例.
+ * 从打包数组中检索实例。
  *
- * @param {number[]} array 压缩数组.
- * @param {number} [startingIndex=0] 需要解包的元素的起始索引.
- * @param {CoplanarPolygonOutlineGeometry} [result] 存储结果的对象.
- * @returns {CoplanarPolygonOutlineGeometry} The modified result parameter or a new CoplanarPolygonOutlineGeometry instance if one was not provided.
+ * @param {number[]} array 压缩数组。
+ * @param {number} [startingIndex=0] 需要解包的元素的起始索引。
+ * @param {CoplanarPolygonOutlineGeometry} [result] 存储结果的对象。
+ * @returns {CoplanarPolygonOutlineGeometry} 修改后的结果参数，若未提供则返回一个新的 CoplanarPolygonOutlineGeometry 实例。
  */
+
 CoplanarPolygonOutlineGeometry.unpack = function (
   array,
   startingIndex,
@@ -184,11 +186,12 @@ CoplanarPolygonOutlineGeometry.unpack = function (
 };
 
 /**
- * Computes the geometric representation of an arbitrary coplanar polygon, including its vertices, indices, and a bounding sphere.
+ * 计算任意共面多边形的几何表示，包括其顶点、索引和包围球。
  *
- * @param {CoplanarPolygonOutlineGeometry} polygonGeometry A description of the polygon.
- * @returns {Geometry|undefined} The computed vertices and indices.
+ * @param {CoplanarPolygonOutlineGeometry} polygonGeometry 多边形的描述。
+ * @returns {Geometry|undefined} 计算出的顶点和索引。
  */
+
 CoplanarPolygonOutlineGeometry.createGeometry = function (polygonGeometry) {
   const polygonHierarchy = polygonGeometry._polygonHierarchy;
 

@@ -111,3 +111,31 @@
 - [x] ColorGeometryInstanceAttribute
 - [x] ColorMaterialProperty
 - [x] combine
+
+### 2024.11.20 翻译内容
+
+- [x] ComponentDatatype
+- [x] CompositeEntityCollection
+- [x] CompositeMaterialProperty
+- [x] CompositePositionProperty
+- [x] CompositeProperty
+- [x] CompressedTextureBuffer
+- [x] computePickingDrawingBufferRectangle
+- [x] ConditionsExpression
+- [x] ConeEmitter
+- [x] ConstantPositionProperty
+- [x] ConstantProperty
+- [x] ConstantSpline
+- [x] ContextOptions
+- [x] CoplanarPolygonGeometry
+- [x] CoplanarPolygonOutlineGeometry
+- [x] CornerType
+- [x] CorrelationGroup
+- [x] CorridorGeometry
+- [x] CorridorGeometryUpdater
+- [x] CorridorGraphics
+- [x] CorridorOutlineGeometry
+- [x] createAnchorPointDirect
+- [x] createAnchorPointIndirect
+- [x] createCorrelationGroup
+- [x] createCovarianceMatrixFromUpperTriangle

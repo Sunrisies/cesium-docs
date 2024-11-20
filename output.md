@@ -83,31 +83,31 @@
 - [x] ColorGeometryInstanceAttribute
 - [x] ColorMaterialProperty
 - [x] combine
-- [ ] ComponentDatatype
-- [ ] CompositeEntityCollection
-- [ ] CompositeMaterialProperty
-- [ ] CompositePositionProperty
-- [ ] CompositeProperty
-- [ ] CompressedTextureBuffer
-- [ ] computePickingDrawingBufferRectangle
-- [ ] ConditionsExpression
-- [ ] ConeEmitter
-- [ ] ConstantPositionProperty
-- [ ] ConstantProperty
-- [ ] ConstantSpline
-- [ ] ContextOptions
-- [ ] CoplanarPolygonGeometry
-- [ ] CoplanarPolygonOutlineGeometry
-- [ ] CornerType
-- [ ] CorrelationGroup
-- [ ] CorridorGeometry
-- [ ] CorridorGeometryUpdater
-- [ ] CorridorGraphics
-- [ ] CorridorOutlineGeometry
-- [ ] createAnchorPointDirect
-- [ ] createAnchorPointIndirect
-- [ ] createCorrelationGroup
-- [ ] createCovarianceMatrixFromUpperTriangle
+- [x] ComponentDatatype
+- [x] CompositeEntityCollection
+- [x] CompositeMaterialProperty
+- [x] CompositePositionProperty
+- [x] CompositeProperty
+- [x] CompressedTextureBuffer
+- [x] computePickingDrawingBufferRectangle
+- [x] ConditionsExpression
+- [x] ConeEmitter
+- [x] ConstantPositionProperty
+- [x] ConstantProperty
+- [x] ConstantSpline
+- [x] ContextOptions
+- [x] CoplanarPolygonGeometry
+- [x] CoplanarPolygonOutlineGeometry
+- [x] CornerType
+- [x] CorrelationGroup
+- [x] CorridorGeometry
+- [x] CorridorGeometryUpdater
+- [x] CorridorGraphics
+- [x] CorridorOutlineGeometry
+- [x] createAnchorPointDirect
+- [x] createAnchorPointIndirect
+- [x] createCorrelationGroup
+- [x] createCovarianceMatrixFromUpperTriangle
 - [ ] createElevationBandMaterial
 - [ ] createElevationBandMaterialBand
 - [ ] createElevationBandMaterialEntry

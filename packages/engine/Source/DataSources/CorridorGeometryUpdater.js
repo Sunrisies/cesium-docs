@@ -40,14 +40,15 @@ function CorridorGeometryOptions(entity) {
 }
 
 /**
- * A {@link GeometryUpdater} for corridors.
- * Clients do not normally create this class directly, but instead rely on {@link DataSourceDisplay}.
+ * 一个用于走廊的 {@link GeometryUpdater}。
+ * 客户端通常不会直接创建此类，而是依赖于 {@link DataSourceDisplay}。
  * @alias CorridorGeometryUpdater
  * @constructor
  *
- * @param {Entity} entity The entity containing the geometry to be visualized.
- * @param {Scene} scene The scene where visualization is taking place.
+ * @param {Entity} entity 包含要可视化几何体的实体。
+ * @param {Scene} scene 可视化发生的场景。
  */
+
 function CorridorGeometryUpdater(entity, scene) {
   GroundGeometryUpdater.call(this, {
     entity: entity,
@@ -68,13 +69,14 @@ if (defined(Object.create)) {
 }
 
 /**
- * Creates the geometry instance which represents the fill of the geometry.
+ * 创建表示几何填充的几何实例。
  *
- * @param {JulianDate} time The time to use when retrieving initial attribute values.
- * @returns {GeometryInstance} The geometry instance representing the filled portion of the geometry.
+ * @param {JulianDate} time 在检索初始属性值时使用的时间。
+ * @returns {GeometryInstance} 表示几何体填充部分的几何实例。
  *
- * @exception {DeveloperError} This instance does not represent a filled geometry.
+ * @exception {DeveloperError} 此实例不代表填充的几何体。
  */
+
 CorridorGeometryUpdater.prototype.createFillGeometryInstance = function (time) {
   //>>includeStart('debug', pragmas.debug);
   Check.defined("time", time);
@@ -137,13 +139,14 @@ CorridorGeometryUpdater.prototype.createFillGeometryInstance = function (time) {
 };
 
 /**
- * Creates the geometry instance which represents the outline of the geometry.
+ * 创建表示几何体轮廓的几何实例。
  *
- * @param {JulianDate} time The time to use when retrieving initial attribute values.
- * @returns {GeometryInstance} The geometry instance representing the outline portion of the geometry.
+ * @param {JulianDate} time 在检索初始属性值时使用的时间。
+ * @returns {GeometryInstance} 表示几何体轮廓部分的几何实例。
  *
- * @exception {DeveloperError} This instance does not represent an outlined geometry.
+ * @exception {DeveloperError} 此实例不代表带轮廓的几何体。
  */
+
 CorridorGeometryUpdater.prototype.createOutlineGeometryInstance = function (
   time,
 ) {

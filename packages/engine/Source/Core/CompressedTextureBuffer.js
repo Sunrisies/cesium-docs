@@ -1,16 +1,17 @@
 import defined from "./defined.js";
 
 /**
- * Describes a compressed texture and contains a compressed texture buffer.
+ * 描述一个压缩纹理并包含一个压缩纹理缓冲区。
  * @alias CompressedTextureBuffer
  * @constructor
  *
- * @param {PixelFormat} internalFormat The pixel format of the compressed texture.
- * @param {PixelDatatype} pixelDatatype The pixel datatype of the compressed texture.
- * @param {number} width The width of the texture.
- * @param {number} height The height of the texture.
- * @param {Uint8Array} buffer The compressed texture buffer.
+ * @param {PixelFormat} internalFormat 压缩纹理的像素格式。
+ * @param {PixelDatatype} pixelDatatype 压缩纹理的像素数据类型。
+ * @param {number} width 纹理的宽度。
+ * @param {number} height 纹理的高度。
+ * @param {Uint8Array} buffer 压缩纹理缓冲区。
  */
+
 function CompressedTextureBuffer(
   internalFormat,
   pixelDatatype,
@@ -27,80 +28,82 @@ function CompressedTextureBuffer(
 
 Object.defineProperties(CompressedTextureBuffer.prototype, {
   /**
-   * The format of the compressed texture.
+   * 压缩纹理的格式。
    * @type {PixelFormat}
    * @readonly
    * @memberof CompressedTextureBuffer.prototype
    */
   internalFormat: {
-    get: function () {
+    get: function() {
       return this._format;
     },
   },
   /**
-   * The datatype of the compressed texture.
+   * 压缩纹理的数据类型。
    * @type {PixelDatatype}
    * @readonly
    * @memberof CompressedTextureBuffer.prototype
    */
   pixelDatatype: {
-    get: function () {
+    get: function() {
       return this._datatype;
     },
   },
   /**
-   * The width of the texture.
+   * 纹理的宽度。
    * @type {number}
    * @readonly
    * @memberof CompressedTextureBuffer.prototype
    */
   width: {
-    get: function () {
+    get: function() {
       return this._width;
     },
   },
   /**
-   * The height of the texture.
+   * 纹理的高度。
    * @type {number}
    * @readonly
    * @memberof CompressedTextureBuffer.prototype
    */
   height: {
-    get: function () {
+    get: function() {
       return this._height;
     },
   },
   /**
-   * The compressed texture buffer.
+   * 压缩纹理缓冲区。
    * @type {Uint8Array}
    * @readonly
    * @memberof CompressedTextureBuffer.prototype
    */
   bufferView: {
-    get: function () {
+    get: function() {
       return this._buffer;
     },
   },
   /**
-   * The compressed texture buffer. Alias for bufferView.
+   * 压缩纹理缓冲区。bufferView 的别名。
    * @type {Uint8Array}
    * @readonly
    * @memberof CompressedTextureBuffer.prototype
    */
   arrayBufferView: {
-    get: function () {
+    get: function() {
       return this._buffer;
     },
   },
 });
 
+
 /**
- * Creates a shallow clone of a compressed texture buffer.
+ * 创建一个压缩纹理缓冲区的浅拷贝。
  *
- * @param {CompressedTextureBuffer} object The compressed texture buffer to be cloned.
- * @return {CompressedTextureBuffer} A shallow clone of the compressed texture buffer.
+ * @param {CompressedTextureBuffer} object 要被克隆的压缩纹理缓冲区。
+ * @return {CompressedTextureBuffer} 压缩纹理缓冲区的浅拷贝。
  */
-CompressedTextureBuffer.clone = function (object) {
+
+CompressedTextureBuffer.clone = function(object) {
   if (!defined(object)) {
     return undefined;
   }
@@ -115,11 +118,12 @@ CompressedTextureBuffer.clone = function (object) {
 };
 
 /**
- * Creates a shallow clone of this compressed texture buffer.
+ * 创建此压缩纹理缓冲区的浅拷贝。
  *
- * @return {CompressedTextureBuffer} A shallow clone of the compressed texture buffer.
+ * @return {CompressedTextureBuffer} 压缩纹理缓冲区的浅拷贝。
  */
-CompressedTextureBuffer.prototype.clone = function () {
+
+CompressedTextureBuffer.prototype.clone = function() {
   return CompressedTextureBuffer.clone(this);
 };
 export default CompressedTextureBuffer;

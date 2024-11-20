@@ -236,18 +236,16 @@ const scratchPosition = new Cartesian2();
 const scratchColorZero = new Color(0.0, 0.0, 0.0, 0.0);
 
 /**
- * Compute the rectangle that describes the part of the drawing buffer
- * that is relevant for picking.
+ * 计算描述与拾取相关的绘图缓冲区部分的矩形。
  *
- * @param {number} drawingBufferHeight The height of the drawing buffer
- * @param {Cartesian2} position The position inside the drawing buffer
- * @param {number|undefined} width The width of the rectangle, assumed to
- * be an odd integer number, default : 3.0
- * @param {number|undefined} height The height of the rectangle. If unspecified,
- * height will default to the value of <code>width</code>
- * @param {BoundingRectangle} result The result rectangle
- * @returns {BoundingRectangle} The result rectangle
+ * @param {number} drawingBufferHeight 绘图缓冲区的高度。
+ * @param {Cartesian2} position 绘图缓冲区内的位置。
+ * @param {number|undefined} width 矩形的宽度，假定为奇数，默认值：3.0。
+ * @param {number|undefined} height 矩形的高度。如果未指定，高度将默认为 <code>width</code> 的值。
+ * @param {BoundingRectangle} result 结果矩形。
+ * @returns {BoundingRectangle} 结果矩形。
  */
+
 function computePickingDrawingBufferRectangle(
   drawingBufferHeight,
   position,
@@ -263,18 +261,19 @@ function computePickingDrawingBufferRectangle(
 }
 
 /**
- * Returns an object with a <code>primitive</code> property that contains the first (top) primitive in the scene
- * at a particular window coordinate or undefined if nothing is at the location. Other properties may
- * potentially be set depending on the type of primitive and may be used to further identify the picked object.
+ * 返回一个包含 <code>primitive</code> 属性的对象，该属性包含场景中在特定窗口坐标下的第一个（最上面）图元，
+ * 如果该位置没有任何对象，则返回 undefined。其他属性可能会根据图元的类型而设置，
+ * 并可用于进一步识别被拾取的对象。
  * <p>
- * When a feature of a 3D Tiles tileset is picked, <code>pick</code> returns a {@link Cesium3DTileFeature} object.
+ * 当选择 3D Tiles 任务集中的一个特征时，<code>pick</code> 返回一个 {@link Cesium3DTileFeature} 对象。
  * </p>
  * @param {Scene} scene
- * @param {Cartesian2} windowPosition Window coordinates to perform picking on.
- * @param {number} [width=3] Width of the pick rectangle.
- * @param {number} [height=3] Height of the pick rectangle.
- * @returns {object} Object containing the picked primitive.
+ * @param {Cartesian2} windowPosition 要执行拾取操作的窗口坐标。
+ * @param {number} [width=3] 拾取矩形的宽度。
+ * @param {number} [height=3] 拾取矩形的高度。
+ * @returns {object} 包含被拾取图元的对象。
  */
+
 Picking.prototype.pick = function (scene, windowPosition, width, height) {
   //>>includeStart('debug', pragmas.debug);
   Check.defined("windowPosition", windowPosition);
@@ -335,16 +334,15 @@ Picking.prototype.pick = function (scene, windowPosition, width, height) {
 };
 
 /**
- * Returns an object with information about the voxel sample rendered at
- * a particular window coordinate. Returns <code>undefined</code> if there is no
- * voxel at that position.
+ * 返回一个对象，其中包含在特定窗口坐标处渲染的体素样本的信息。如果该位置没有体素，则返回 <code>undefined</code>。
  *
  * @param {Scene} scene
- * @param {Cartesian2} windowPosition Window coordinates to perform picking on.
- * @param {number} [width=3] Width of the pick rectangle.
- * @param {number} [height=3] Height of the pick rectangle.
- * @returns {object|undefined} Object containing the picked primitive.
+ * @param {Cartesian2} windowPosition 要执行拾取操作的窗口坐标。
+ * @param {number} [width=3] 拾取矩形的宽度。
+ * @param {number} [height=3] 拾取矩形的高度。
+ * @returns {object|undefined} 包含被拾取图元的对象。
  */
+
 Picking.prototype.pickVoxelCoordinate = function (
   scene,
   windowPosition,
@@ -410,28 +408,25 @@ Picking.prototype.pickVoxelCoordinate = function (
 };
 
 /**
- * Pick a metadata value at the given window position.
+ * 在给定的窗口位置拾取元数据值。
  *
- * The given `pickedMetadataInfo` defines the metadata value that is
- * supposed to be picked.
+ * 给定的 `pickedMetadataInfo` 定义了应当被拾取的元数据值。
  *
- * The return type will depend on the type of the metadata property
- * that is picked. Given the current limitations of the types that
- * are supported for metadata picking, the return type will be one
- * of the following:
+ * 返回类型将取决于被拾取的元数据属性的类型。考虑到当前对元数据拾取支持的类型的限制，返回类型将为以下之一：
  *
- * - For `SCALAR`, the return type will be a `number`
- * - For `SCALAR` arrays, the return type will be a `number[]`
- * - For `VEC2`, the return type will be a `Cartesian2`
- * - For `VEC3`, the return type will be a `Cartesian3`
- * - For `VEC4`, the return type will be a `Cartesian4`
+ * - 对于 `SCALAR`，返回类型将为 `number`
+ * - 对于 `SCALAR` 数组，返回类型将为 `number[]`
+ * - 对于 `VEC2`，返回类型将为 `Cartesian2`
+ * - 对于 `VEC3`，返回类型将为 `Cartesian3`
+ * - 对于 `VEC4`，返回类型将为 `Cartesian4`
  *
- * @param {Cartesian2} windowPosition Window coordinates to perform picking on.
- * @param {PickedMetadataInfo} pickedMetadataInfo Information about the picked metadata.
- * @returns {any} The metadata values
+ * @param {Cartesian2} windowPosition 要执行拾取操作的窗口坐标。
+ * @param {PickedMetadataInfo} pickedMetadataInfo 关于被拾取元数据的信息。
+ * @returns {any} 元数据值
  *
  * @private
  */
+
 Picking.prototype.pickMetadata = function (
   scene,
   windowPosition,
@@ -526,13 +521,14 @@ Picking.prototype.pickMetadata = function (
 /**
  * @typedef {object} PickedMetadataInfo
  *
- * Information about metadata that is supposed to be picked
+ * 关于应当被拾取的元数据的信息
  *
- * @property {string|undefined} schemaId The optional ID of the metadata schema
- * @property {string} className The name of the metadata class
- * @property {string} propertyName The name of the metadata property
- * @property {MetadataClassProperty} classProperty The metadata class property
+ * @property {string|undefined} schemaId 元数据模式的可选 ID
+ * @property {string} className 元数据类的名称
+ * @property {string} propertyName 元数据属性的名称
+ * @property {MetadataClassProperty} classProperty 元数据类属性
  */
+
 
 function renderTranslucentDepthForPick(scene, drawingBufferPosition) {
   // PERFORMANCE_IDEA: render translucent only and merge with the previous frame

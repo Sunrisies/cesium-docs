@@ -35,9 +35,10 @@ import VertexArray from "./VertexArray.js";
  * @private
  * @constructor
  *
- * @param {HTMLCanvasElement} canvas The canvas element to which the context will be associated
- * @param {ContextOptions} [options] Options to control WebGL settings for the context
+ * @param {HTMLCanvasElement} canvas 要关联上下文的画布元素
+ * @param {ContextOptions} [options] 控制上下文的 WebGL 设置的选项
  */
+
 function Context(canvas, options) {
   //>>includeStart('debug', pragmas.debug);
   Check.defined("canvas", canvas);
@@ -198,9 +199,9 @@ function Context(canvas, options) {
 
   const textureFilterAnisotropic = allowTextureFilterAnisotropic
     ? getExtension(gl, [
-        "EXT_texture_filter_anisotropic",
-        "WEBKIT_EXT_texture_filter_anisotropic",
-      ])
+      "EXT_texture_filter_anisotropic",
+      "WEBKIT_EXT_texture_filter_anisotropic",
+    ])
     : undefined;
   this._textureFilterAnisotropic = textureFilterAnisotropic;
   ContextLimits._maximumTextureFilterAnisotropy = defined(
@@ -226,17 +227,17 @@ function Context(canvas, options) {
   if (webgl2) {
     const that = this;
 
-    glCreateVertexArray = function () {
+    glCreateVertexArray = function() {
       return that._gl.createVertexArray();
     };
-    glBindVertexArray = function (vao) {
+    glBindVertexArray = function(vao) {
       that._gl.bindVertexArray(vao);
     };
-    glDeleteVertexArray = function (vao) {
+    glDeleteVertexArray = function(vao) {
       that._gl.deleteVertexArray(vao);
     };
 
-    glDrawElementsInstanced = function (
+    glDrawElementsInstanced = function(
       mode,
       count,
       type,
@@ -245,33 +246,33 @@ function Context(canvas, options) {
     ) {
       gl.drawElementsInstanced(mode, count, type, offset, instanceCount);
     };
-    glDrawArraysInstanced = function (mode, first, count, instanceCount) {
+    glDrawArraysInstanced = function(mode, first, count, instanceCount) {
       gl.drawArraysInstanced(mode, first, count, instanceCount);
     };
-    glVertexAttribDivisor = function (index, divisor) {
+    glVertexAttribDivisor = function(index, divisor) {
       gl.vertexAttribDivisor(index, divisor);
     };
 
-    glDrawBuffers = function (buffers) {
+    glDrawBuffers = function(buffers) {
       gl.drawBuffers(buffers);
     };
   } else {
     vertexArrayObject = getExtension(gl, ["OES_vertex_array_object"]);
     if (defined(vertexArrayObject)) {
-      glCreateVertexArray = function () {
+      glCreateVertexArray = function() {
         return vertexArrayObject.createVertexArrayOES();
       };
-      glBindVertexArray = function (vertexArray) {
+      glBindVertexArray = function(vertexArray) {
         vertexArrayObject.bindVertexArrayOES(vertexArray);
       };
-      glDeleteVertexArray = function (vertexArray) {
+      glDeleteVertexArray = function(vertexArray) {
         vertexArrayObject.deleteVertexArrayOES(vertexArray);
       };
     }
 
     instancedArrays = getExtension(gl, ["ANGLE_instanced_arrays"]);
     if (defined(instancedArrays)) {
-      glDrawElementsInstanced = function (
+      glDrawElementsInstanced = function(
         mode,
         count,
         type,
@@ -286,7 +287,7 @@ function Context(canvas, options) {
           instanceCount,
         );
       };
-      glDrawArraysInstanced = function (mode, first, count, instanceCount) {
+      glDrawArraysInstanced = function(mode, first, count, instanceCount) {
         instancedArrays.drawArraysInstancedANGLE(
           mode,
           first,
@@ -294,14 +295,14 @@ function Context(canvas, options) {
           instanceCount,
         );
       };
-      glVertexAttribDivisor = function (index, divisor) {
+      glVertexAttribDivisor = function(index, divisor) {
         instancedArrays.vertexAttribDivisorANGLE(index, divisor);
       };
     }
 
     drawBuffers = getExtension(gl, ["WEBGL_draw_buffers"]);
     if (defined(drawBuffers)) {
-      glDrawBuffers = function (buffers) {
+      glDrawBuffers = function(buffers) {
         drawBuffers.drawBuffersWEBGL(buffers);
       };
     }
@@ -363,10 +364,11 @@ function Context(canvas, options) {
   this._nextPickColor = new Uint32Array(1);
 
   /**
-   * The options used to construct this context
+   * 用于构造此上下文的选项
    *
    * @type {ContextOptions}
    */
+
   this.options = {
     getWebGLStub: getWebGLStub,
     requestWebgl1: requestWebgl1,
@@ -375,14 +377,14 @@ function Context(canvas, options) {
   };
 
   /**
-   * A cache of objects tied to this context.  Just before the Context is destroyed,
-   * <code>destroy</code> will be invoked on each object in this object literal that has
-   * such a method.  This is useful for caching any objects that might otherwise
-   * be stored globally, except they're tied to a particular context, and to manage
-   * their lifetime.
+   * 与此上下文相关联的对象缓存。在上下文被销毁之前，
+   * 将对这个对象字面量中具有 <code>destroy</code> 方法的每个对象调用该方法。
+   * 这对于缓存任何可能被全局存储的对象非常有用，但这些对象是与特定上下文相关联的，并用于管理
+   * 它们的生命周期。
    *
    * @type {object}
    */
+
   this.cache = {};
 
   RenderState.apply(gl, rs, ps);
@@ -391,27 +393,28 @@ function Context(canvas, options) {
 /**
  * @typedef {object} ContextOptions
  *
- * Options to control the setting up of a WebGL Context.
+ * 控制 WebGL 上下文设置的选项。
  * <p>
- * <code>allowTextureFilterAnisotropic</code> defaults to true, which enables
- * anisotropic texture filtering when the WebGL extension is supported.
- * Setting this to false will improve performance, but hurt visual quality,
- * especially for horizon views.
+ * <code>allowTextureFilterAnisotropic</code> 默认为 true，这在支持 WebGL 扩展时启用
+ * 各向异性纹理过滤。将其设置为 false 将提高性能，但会影响视觉质量，
+ * 尤其是在地平线视图下。
  * </p>
  *
- * @property {boolean} [requestWebgl1=false] If true and the browser supports it, use a WebGL 1 rendering context
- * @property {boolean} [allowTextureFilterAnisotropic=true] If true, use anisotropic filtering during texture sampling
- * @property {WebGLOptions} [webgl] WebGL options to be passed on to canvas.getContext
- * @property {Function} [getWebGLStub] A function to create a WebGL stub for testing
+ * @property {boolean} [requestWebgl1=false] 如果为 true 且浏览器支持，则使用 WebGL 1 渲染上下文
+ * @property {boolean} [allowTextureFilterAnisotropic=true] 如果为 true，则在纹理采样期间使用各向异性过滤
+ * @property {WebGLOptions} [webgl] 传递给 canvas.getContext 的 WebGL 选项
+ * @property {Function} [getWebGLStub] 用于创建 WebGL 存根以进行测试的函数
  */
+
 
 /**
  * @private
- * @param {HTMLCanvasElement} canvas The canvas element to which the context will be associated
- * @param {WebGLOptions} webglOptions WebGL options to be passed on to HTMLCanvasElement.getContext()
- * @param {boolean} requestWebgl1 Whether to request a WebGLRenderingContext or a WebGL2RenderingContext.
+ * @param {HTMLCanvasElement} canvas 要关联上下文的画布元素
+ * @param {WebGLOptions} webglOptions 要传递给 HTMLCanvasElement.getContext() 的 WebGL 选项
+ * @param {boolean} requestWebgl1 是否请求 WebGLRenderingContext 或 WebGL2RenderingContext。
  * @returns {WebGLRenderingContext|WebGL2RenderingContext}
  */
+
 function getWebGLContext(canvas, webglOptions, requestWebgl1) {
   if (typeof WebGLRenderingContext === "undefined") {
     throw new RuntimeError(
@@ -440,15 +443,13 @@ function getWebGLContext(canvas, webglOptions, requestWebgl1) {
 /**
  * @typedef {object} WebGLOptions
  *
- * WebGL options to be passed on to HTMLCanvasElement.getContext().
- * See {@link https://registry.khronos.org/webgl/specs/latest/1.0/#5.2|WebGLContextAttributes}
- * but note the modified defaults for 'alpha', 'stencil', and 'powerPreference'
+ * 要传递给 HTMLCanvasElement.getContext() 的 WebGL 选项。
+ * 参见 {@link https://registry.khronos.org/webgl/specs/latest/1.0/#5.2|WebGLContextAttributes}
+ * 但请注意，'alpha'、'stencil' 和 'powerPreference' 的默认值已被修改。
  *
  * <p>
- * <code>alpha</code> defaults to false, which can improve performance
- * compared to the standard WebGL default of true.  If an application needs
- * to composite Cesium above other HTML elements using alpha-blending, set
- * <code>alpha</code> to true.
+ * <code>alpha</code> 默认为 false，这相比于标准的 WebGL 默认值 true 可以提高性能。
+ * 如果一个应用程序需要使用透明混合在其他 HTML 元素上合成 Cesium，则将 <code>alpha</code> 设置为 true。
  * </p>
  *
  * @property {boolean} [alpha=false]
@@ -460,6 +461,7 @@ function getWebGLContext(canvas, webglOptions, requestWebgl1) {
  * @property {("default"|"low-power"|"high-performance")} [powerPreference="high-performance"]
  * @property {boolean} [failIfMajorPerformanceCaveat=false]
  */
+
 
 function errorToString(gl, error) {
   let message = "WebGL Error:  ";
@@ -511,12 +513,12 @@ function throwOnError(gl, glFunc, glFuncArguments) {
 
 function makeGetterSetter(gl, propertyName, logFunction) {
   return {
-    get: function () {
+    get: function() {
       const value = gl[propertyName];
       logFunction(gl, `get: ${propertyName}`, value);
       return gl[propertyName];
     },
-    set: function (value) {
+    set: function(value) {
       gl[propertyName] = value;
       logFunction(gl, `set: ${propertyName}`, value);
     },
@@ -529,7 +531,7 @@ function wrapGL(gl, logFunction) {
   }
 
   function wrapFunction(property) {
-    return function () {
+    return function() {
       const result = property.apply(gl, arguments);
       logFunction(gl, property, arguments);
       return result;
@@ -577,201 +579,211 @@ const defaultFramebufferMarker = {};
 
 Object.defineProperties(Context.prototype, {
   id: {
-    get: function () {
+    get: function() {
       return this._id;
     },
   },
   webgl2: {
-    get: function () {
+    get: function() {
       return this._webgl2;
     },
   },
   canvas: {
-    get: function () {
+    get: function() {
       return this._canvas;
     },
   },
   shaderCache: {
-    get: function () {
+    get: function() {
       return this._shaderCache;
     },
   },
   textureCache: {
-    get: function () {
+    get: function() {
       return this._textureCache;
     },
   },
   uniformState: {
-    get: function () {
+    get: function() {
       return this._us;
     },
   },
 
   /**
-   * The number of stencil bits per pixel in the default bound framebuffer.  The minimum is eight bits.
+   * 默认绑定帧缓冲区中每个像素的模板位数。最小值为八位。
    * @memberof Context.prototype
    * @type {number}
-   * @see {@link https://www.khronos.org/opengles/sdk/docs/man/xhtml/glGet.xml|glGet} with <code>STENCIL_BITS</code>.
+   * @see {@link https://www.khronos.org/opengles/sdk/docs/man/xhtml/glGet.xml|glGet} 使用 <code>STENCIL_BITS</code>。
    */
+
   stencilBits: {
-    get: function () {
+    get: function() {
       return this._stencilBits;
     },
   },
 
   /**
-   * <code>true</code> if the WebGL context supports stencil buffers.
-   * Stencil buffers are not supported by all systems.
+   * 如果 WebGL 上下文支持模板缓冲区，则为 <code>true</code>。
+   * 不是所有系统都支持模板缓冲区。
    * @memberof Context.prototype
    * @type {boolean}
    */
+
   stencilBuffer: {
-    get: function () {
+    get: function() {
       return this._stencilBits >= 8;
     },
   },
 
   /**
-   * <code>true</code> if the WebGL context supports antialiasing.  By default
-   * antialiasing is requested, but it is not supported by all systems.
+   * 如果 WebGL 上下文支持抗锯齿，则为 <code>true</code>。 默认情况下请求抗锯齿，
+   * 但并不是所有系统都支持它。
    * @memberof Context.prototype
    * @type {boolean}
    */
+
   antialias: {
-    get: function () {
+    get: function() {
       return this._antialias;
     },
   },
 
   /**
-   * <code>true</code> if the WebGL context supports multisample antialiasing. Requires
-   * WebGL2.
+   * 如果 WebGL 上下文支持多重采样抗锯齿，则为 <code>true</code>。需要
+   * WebGL2。
    * @memberof Context.prototype
    * @type {boolean}
    */
+
   msaa: {
-    get: function () {
+    get: function() {
       return this._webgl2;
     },
   },
 
   /**
-   * <code>true</code> if the OES_standard_derivatives extension is supported.  This
-   * extension provides access to <code>dFdx</code>, <code>dFdy</code>, and <code>fwidth</code>
-   * functions from GLSL.  A shader using these functions still needs to explicitly enable the
-   * extension with <code>#extension GL_OES_standard_derivatives : enable</code>.
+   * 如果支持 OES_standard_derivatives 扩展，则为 <code>true</code>。此
+   * 扩展提供对 GLSL 中的 <code>dFdx</code>、<code>dFdy</code> 和 <code>fwidth</code>
+   * 函数的访问。使用这些函数的着色器仍需通过 <code>#extension GL_OES_standard_derivatives : enable</code> 显式启用扩展。
    * @memberof Context.prototype
    * @type {boolean}
    * @see {@link http://www.khronos.org/registry/gles/extensions/OES/OES_standard_derivatives.txt|OES_standard_derivatives}
    */
+
   standardDerivatives: {
-    get: function () {
+    get: function() {
       return this._standardDerivatives || this._webgl2;
     },
   },
 
   /**
-   * <code>true</code> if the EXT_float_blend extension is supported. This
-   * extension enables blending with 32-bit float values.
+   * 如果支持 EXT_float_blend 扩展，则为 <code>true</code>。此
+   * 扩展启用与 32 位浮点值的混合。
    * @memberof Context.prototype
    * @type {boolean}
    * @see {@link https://www.khronos.org/registry/webgl/extensions/EXT_float_blend/}
    */
+
   floatBlend: {
-    get: function () {
+    get: function() {
       return this._floatBlend;
     },
   },
 
   /**
-   * <code>true</code> if the EXT_blend_minmax extension is supported.  This
-   * extension extends blending capabilities by adding two new blend equations:
-   * the minimum or maximum color components of the source and destination colors.
-   * @memberof Context.prototype
-   * @type {boolean}
-   * @see {@link https://www.khronos.org/registry/webgl/extensions/EXT_blend_minmax/}
-   */
+    * 如果支持 EXT_blend_minmax 扩展，则为 <code>true</code>。此
+    * 扩展通过添加两个新的混合方程来扩展混合功能：源颜色和目标颜色的最小或最大颜色分量。
+    * @memberof Context.prototype
+    * @type {boolean}
+    * @see {@link https://www.khronos.org/registry/webgl/extensions/EXT_blend_minmax/}
+    */
+
   blendMinmax: {
-    get: function () {
+    get: function() {
       return this._blendMinmax || this._webgl2;
     },
   },
 
   /**
-   * <code>true</code> if the OES_element_index_uint extension is supported.  This
-   * extension allows the use of unsigned int indices, which can improve performance by
-   * eliminating batch breaking caused by unsigned short indices.
+   * 如果支持 OES_element_index_uint 扩展，则为 <code>true</code>。此
+   * 扩展允许使用无符号整数索引，这可以通过消除由于无符号短整数索引引起的批处理中断来提高性能。
    * @memberof Context.prototype
    * @type {boolean}
    * @see {@link http://www.khronos.org/registry/webgl/extensions/OES_element_index_uint/|OES_element_index_uint}
    */
+
   elementIndexUint: {
-    get: function () {
+    get: function() {
       return this._elementIndexUint || this._webgl2;
     },
   },
 
   /**
-   * <code>true</code> if WEBGL_depth_texture is supported.  This extension provides
-   * access to depth textures that, for example, can be attached to framebuffers for shadow mapping.
+   * 如果支持 WEBGL_depth_texture，则为 <code>true</code>。此
+   * 扩展提供对深度纹理的访问，例如，可以将其附加到用于阴影映射的帧缓冲区。
    * @memberof Context.prototype
    * @type {boolean}
    * @see {@link http://www.khronos.org/registry/webgl/extensions/WEBGL_depth_texture/|WEBGL_depth_texture}
    */
+
   depthTexture: {
-    get: function () {
+    get: function() {
       return this._depthTexture || this._webgl2;
     },
   },
 
   /**
-   * <code>true</code> if OES_texture_float is supported. This extension provides
-   * access to floating point textures that, for example, can be attached to framebuffers for high dynamic range.
+   * 如果支持 OES_texture_float，则为 <code>true</code>。此
+   * 扩展提供对浮点纹理的访问，例如，可以将其附加到帧缓冲区以实现高动态范围。
    * @memberof Context.prototype
    * @type {boolean}
    * @see {@link https://www.khronos.org/registry/webgl/extensions/OES_texture_float/}
    */
+
   floatingPointTexture: {
-    get: function () {
+    get: function() {
       return this._webgl2 || this._textureFloat;
     },
   },
 
   /**
-   * <code>true</code> if OES_texture_half_float is supported. This extension provides
-   * access to floating point textures that, for example, can be attached to framebuffers for high dynamic range.
+   * 如果支持 OES_texture_half_float，则为 <code>true</code>。此
+   * 扩展提供对浮点纹理的访问，例如，可以将其附加到帧缓冲区以实现高动态范围。
    * @memberof Context.prototype
    * @type {boolean}
    * @see {@link https://www.khronos.org/registry/webgl/extensions/OES_texture_half_float/}
    */
+
   halfFloatingPointTexture: {
-    get: function () {
+    get: function() {
       return this._webgl2 || this._textureHalfFloat;
     },
   },
 
   /**
-   * <code>true</code> if OES_texture_float_linear is supported. This extension provides
-   * access to linear sampling methods for minification and magnification filters of floating-point textures.
+   * 如果支持 OES_texture_float_linear，则为 <code>true</code>。此
+   * 扩展提供对浮点纹理的最小化和放大过滤器的线性采样方法的访问。
    * @memberof Context.prototype
    * @type {boolean}
    * @see {@link https://www.khronos.org/registry/webgl/extensions/OES_texture_float_linear/}
    */
+
   textureFloatLinear: {
-    get: function () {
+    get: function() {
       return this._textureFloatLinear;
     },
   },
 
   /**
-   * <code>true</code> if OES_texture_half_float_linear is supported. This extension provides
-   * access to linear sampling methods for minification and magnification filters of half floating-point textures.
+   * 如果支持 OES_texture_half_float_linear，则为 <code>true</code>。此
+   * 扩展提供对半浮点纹理的最小化和放大过滤器的线性采样方法的访问。
    * @memberof Context.prototype
    * @type {boolean}
    * @see {@link https://www.khronos.org/registry/webgl/extensions/OES_texture_half_float_linear/}
    */
+
   textureHalfFloatLinear: {
-    get: function () {
+    get: function() {
       return (
         (this._webgl2 && this._textureFloatLinear) ||
         (!this._webgl2 && this._textureHalfFloatLinear)
@@ -780,116 +792,123 @@ Object.defineProperties(Context.prototype, {
   },
 
   /**
-   * <code>true</code> if EXT_shader_texture_lod is supported. This extension provides
-   * access to explicit LOD selection in texture sampling functions.
+   * 如果支持 EXT_shader_texture_lod，则为 <code>true</code>。此
+   * 扩展提供对纹理采样函数中显式 LOD 选择的访问。
    * @memberof Context.prototype
    * @type {boolean}
    * @see {@link https://registry.khronos.org/webgl/extensions/EXT_shader_texture_lod/}
    */
+
   supportsTextureLod: {
-    get: function () {
+    get: function() {
       return this._webgl2 || this._supportsTextureLod;
     },
   },
 
   /**
-   * <code>true</code> if EXT_texture_filter_anisotropic is supported. This extension provides
-   * access to anisotropic filtering for textured surfaces at an oblique angle from the viewer.
+   * 如果支持 EXT_texture_filter_anisotropic，则为 <code>true</code>。此
+   * 扩展提供对从观察者的倾斜角度观察的纹理表面的各向异性过滤的访问。
    * @memberof Context.prototype
    * @type {boolean}
    * @see {@link https://www.khronos.org/registry/webgl/extensions/EXT_texture_filter_anisotropic/}
    */
+
   textureFilterAnisotropic: {
-    get: function () {
+    get: function() {
       return !!this._textureFilterAnisotropic;
     },
   },
 
   /**
-   * <code>true</code> if WEBGL_compressed_texture_s3tc is supported.  This extension provides
-   * access to DXT compressed textures.
+   * 如果支持 WEBGL_compressed_texture_s3tc，则为 <code>true</code>。此
+   * 扩展提供对 DXT 压缩纹理的访问。
    * @memberof Context.prototype
    * @type {boolean}
    * @see {@link https://www.khronos.org/registry/webgl/extensions/WEBGL_compressed_texture_s3tc/}
    */
+
   s3tc: {
-    get: function () {
+    get: function() {
       return this._s3tc;
     },
   },
 
   /**
-   * <code>true</code> if WEBGL_compressed_texture_pvrtc is supported.  This extension provides
-   * access to PVR compressed textures.
+   * 如果支持 WEBGL_compressed_texture_pvrtc，则为 <code>true</code>。此
+   * 扩展提供对 PVR 压缩纹理的访问。
    * @memberof Context.prototype
    * @type {boolean}
    * @see {@link https://www.khronos.org/registry/webgl/extensions/WEBGL_compressed_texture_pvrtc/}
    */
+
   pvrtc: {
-    get: function () {
+    get: function() {
       return this._pvrtc;
     },
   },
 
   /**
-   * <code>true</code> if WEBGL_compressed_texture_astc is supported.  This extension provides
-   * access to ASTC compressed textures.
+   * 如果支持 WEBGL_compressed_texture_astc，则为 <code>true</code>。此
+   * 扩展提供对 ASTC 压缩纹理的访问。
    * @memberof Context.prototype
    * @type {boolean}
    * @see {@link https://www.khronos.org/registry/webgl/extensions/WEBGL_compressed_texture_astc/}
    */
+
   astc: {
-    get: function () {
+    get: function() {
       return this._astc;
     },
   },
 
   /**
-   * <code>true</code> if WEBGL_compressed_texture_etc is supported.  This extension provides
-   * access to ETC compressed textures.
+   * 如果支持 WEBGL_compressed_texture_etc，则为 <code>true</code>。此
+   * 扩展提供对 ETC 压缩纹理的访问。
    * @memberof Context.prototype
    * @type {boolean}
    * @see {@link https://www.khronos.org/registry/webgl/extensions/WEBGL_compressed_texture_etc/}
    */
+
   etc: {
-    get: function () {
+    get: function() {
       return this._etc;
     },
   },
 
   /**
-   * <code>true</code> if WEBGL_compressed_texture_etc1 is supported.  This extension provides
-   * access to ETC1 compressed textures.
+   * 如果支持 WEBGL_compressed_texture_etc1，则为 <code>true</code>。此
+   * 扩展提供对 ETC1 压缩纹理的访问。
    * @memberof Context.prototype
    * @type {boolean}
    * @see {@link https://www.khronos.org/registry/webgl/extensions/WEBGL_compressed_texture_etc1/}
    */
   etc1: {
-    get: function () {
+    get: function() {
       return this._etc1;
     },
   },
 
   /**
-   * <code>true</code> if EXT_texture_compression_bptc is supported.  This extension provides
-   * access to BC7 compressed textures.
+   * 如果支持 EXT_texture_compression_bptc，则为 <code>true</code>。此
+   * 扩展提供对 BC7 压缩纹理的访问。
    * @memberof Context.prototype
    * @type {boolean}
    * @see {@link https://www.khronos.org/registry/webgl/extensions/EXT_texture_compression_bptc/}
    */
   bc7: {
-    get: function () {
+    get: function() {
       return this._bc7;
     },
   },
 
   /**
-   * <code>true</code> if S3TC, PVRTC, ASTC, ETC, ETC1, or BC7 compression is supported.
+   * 如果支持 S3TC、PVRTC、ASTC、ETC、ETC1 或 BC7 压缩，则为 <code>true</code>。
    * @memberof Context.prototype
    * @type {boolean}
    */
+
   supportsBasis: {
-    get: function () {
+    get: function() {
       return (
         this._s3tc ||
         this._pvrtc ||
@@ -902,71 +921,72 @@ Object.defineProperties(Context.prototype, {
   },
 
   /**
-   * <code>true</code> if the OES_vertex_array_object extension is supported.  This
-   * extension can improve performance by reducing the overhead of switching vertex arrays.
-   * When enabled, this extension is automatically used by {@link VertexArray}.
+   * 如果支持 OES_vertex_array_object 扩展，则为 <code>true</code>。此
+   * 扩展通过减少切换顶点数组的开销来提高性能。
+   * 启用时，此扩展将被 {@link VertexArray} 自动使用。
    * @memberof Context.prototype
    * @type {boolean}
    * @see {@link http://www.khronos.org/registry/webgl/extensions/OES_vertex_array_object/|OES_vertex_array_object}
    */
   vertexArrayObject: {
-    get: function () {
+    get: function() {
       return this._vertexArrayObject || this._webgl2;
     },
   },
 
   /**
-   * <code>true</code> if the EXT_frag_depth extension is supported.  This
-   * extension provides access to the <code>gl_FragDepthEXT</code> built-in output variable
-   * from GLSL fragment shaders.  A shader using these functions still needs to explicitly enable the
-   * extension with <code>#extension GL_EXT_frag_depth : enable</code>.
+   * 如果支持 EXT_frag_depth 扩展，则为 <code>true</code>。此
+   * 扩展提供对 GLSL 片段着色器中的 <code>gl_FragDepthEXT</code> 内置输出变量的访问。
+   * 使用这些函数的着色器仍需通过 <code>#extension GL_EXT_frag_depth : enable</code> 显式启用该扩展。
    * @memberof Context.prototype
    * @type {boolean}
    * @see {@link http://www.khronos.org/registry/webgl/extensions/EXT_frag_depth/|EXT_frag_depth}
    */
+
   fragmentDepth: {
-    get: function () {
+    get: function() {
       return this._fragDepth || this._webgl2;
     },
   },
 
   /**
-   * <code>true</code> if the ANGLE_instanced_arrays extension is supported.  This
-   * extension provides access to instanced rendering.
+   * 如果支持 ANGLE_instanced_arrays 扩展，则为 <code>true</code>。此
+   * 扩展提供对实例化渲染的访问。
    * @memberof Context.prototype
    * @type {boolean}
    * @see {@link https://www.khronos.org/registry/webgl/extensions/ANGLE_instanced_arrays}
    */
-  instancedArrays: {
-    get: function () {
+instancedArrays: {
+    get: function() {
       return this._instancedArrays || this._webgl2;
     },
   },
 
   /**
-   * <code>true</code> if the EXT_color_buffer_float extension is supported.  This
-   * extension makes the gl.RGBA32F format color renderable.
+   * 如果支持 EXT_color_buffer_float 扩展，则为 <code>true</code>。此
+   * 扩展使得 gl.RGBA32F 格式的颜色可渲染。
    * @memberof Context.prototype
    * @type {boolean}
    * @see {@link https://www.khronos.org/registry/webgl/extensions/WEBGL_color_buffer_float/}
    * @see {@link https://www.khronos.org/registry/webgl/extensions/EXT_color_buffer_float/}
    */
+
   colorBufferFloat: {
-    get: function () {
+    get: function() {
       return this._colorBufferFloat;
     },
   },
 
   /**
-   * <code>true</code> if the EXT_color_buffer_half_float extension is supported.  This
-   * extension makes the format gl.RGBA16F format color renderable.
+   * 如果支持 EXT_color_buffer_half_float 扩展，则为 <code>true</code>。此
+   * 扩展使得格式 gl.RGBA16F 的颜色可渲染。
    * @memberof Context.prototype
    * @type {boolean}
    * @see {@link https://www.khronos.org/registry/webgl/extensions/EXT_color_buffer_half_float/}
    * @see {@link https://www.khronos.org/registry/webgl/extensions/EXT_color_buffer_float/}
    */
-  colorBufferHalfFloat: {
-    get: function () {
+colorBufferHalfFloat: {
+    get: function() {
       return (
         (this._webgl2 && this._colorBufferFloat) ||
         (!this._webgl2 && this._colorBufferHalfFloat)
@@ -975,32 +995,33 @@ Object.defineProperties(Context.prototype, {
   },
 
   /**
-   * <code>true</code> if the WEBGL_draw_buffers extension is supported. This
-   * extensions provides support for multiple render targets. The framebuffer object can have mutiple
-   * color attachments and the GLSL fragment shader can write to the built-in output array <code>gl_FragData</code>.
-   * A shader using this feature needs to explicitly enable the extension with
-   * <code>#extension GL_EXT_draw_buffers : enable</code>.
+   * 如果支持 WEBGL_draw_buffers 扩展，则为 <code>true</code>。此
+   * 扩展提供对多个渲染目标的支持。帧缓冲对象可以具有多个
+   * 颜色附加，GLSL 片段着色器可以写入内置输出数组 <code>gl_FragData</code>。
+   * 使用此功能的着色器需要通过
+   * <code>#extension GL_EXT_draw_buffers : enable</code> 显式启用扩展。
    * @memberof Context.prototype
    * @type {boolean}
    * @see {@link http://www.khronos.org/registry/webgl/extensions/WEBGL_draw_buffers/|WEBGL_draw_buffers}
    */
+
   drawBuffers: {
-    get: function () {
+    get: function() {
       return this._drawBuffers || this._webgl2;
     },
   },
 
   debugShaders: {
-    get: function () {
+    get: function() {
       return this._debugShaders;
     },
   },
 
   throwOnWebGLError: {
-    get: function () {
+    get: function() {
       return this._throwOnWebGLError;
     },
-    set: function (value) {
+    set: function(value) {
       this._throwOnWebGLError = value;
       this._gl = wrapGL(
         this._originalGLContext,
@@ -1010,13 +1031,14 @@ Object.defineProperties(Context.prototype, {
   },
 
   /**
-   * A 1x1 RGBA texture initialized to [255, 255, 255, 255].  This can
-   * be used as a placeholder texture while other textures are downloaded.
+   * 一个 1x1 的 RGBA 纹理，初始化为 [255, 255, 255, 255]。这可以
+   * 用作占位符纹理， enquanto 其他纹理被下载时使用。
    * @memberof Context.prototype
    * @type {Texture}
    */
+
   defaultTexture: {
-    get: function () {
+    get: function() {
       if (this._defaultTexture === undefined) {
         this._defaultTexture = new Texture({
           context: this,
@@ -1033,14 +1055,14 @@ Object.defineProperties(Context.prototype, {
     },
   },
   /**
-   * A 1x1 RGB texture initialized to [0, 0, 0] representing a material that is
-   * not emissive. This can be used as a placeholder texture for emissive
-   * textures while other textures are downloaded.
+   * 一个 1x1 的 RGB 纹理，初始化为 [0, 0, 0]，表示一个非自发光材料。 
+   * 这可以用作自发光纹理的占位符纹理，在其他纹理下载时使用。
    * @memberof Context.prototype
    * @type {Texture}
    */
+
   defaultEmissiveTexture: {
-    get: function () {
+    get: function() {
       if (this._defaultEmissiveTexture === undefined) {
         this._defaultEmissiveTexture = new Texture({
           context: this,
@@ -1058,15 +1080,14 @@ Object.defineProperties(Context.prototype, {
     },
   },
   /**
-   * A 1x1 RGBA texture initialized to [128, 128, 255] to encode a tangent
-   * space normal pointing in the +z direction, i.e. (0, 0, 1). This can
-   * be used as a placeholder normal texture while other textures are
-   * downloaded.
+   * 一个 1x1 的 RGBA 纹理，初始化为 [128, 128, 255]，用于编码指向 +z 方向的切线空间法线，
+   * 即 (0, 0, 1)。这可以用作法线纹理的占位符，在其他纹理下载时使用。
    * @memberof Context.prototype
    * @type {Texture}
    */
+
   defaultNormalTexture: {
-    get: function () {
+    get: function() {
       if (this._defaultNormalTexture === undefined) {
         this._defaultNormalTexture = new Texture({
           context: this,
@@ -1085,14 +1106,15 @@ Object.defineProperties(Context.prototype, {
   },
 
   /**
-   * A cube map, where each face is a 1x1 RGBA texture initialized to
-   * [255, 255, 255, 255].  This can be used as a placeholder cube map while
-   * other cube maps are downloaded.
+   * 一个立方体贴图，每个面都是一个 1x1 的 RGBA 纹理，初始化为
+   * [255, 255, 255, 255]。这可以用作立方体贴图的占位符，在
+   * 其他立方体贴图下载时使用。
    * @memberof Context.prototype
    * @type {CubeMap}
    */
+
   defaultCubeMap: {
-    get: function () {
+    get: function() {
       if (this._defaultCubeMap === undefined) {
         const face = {
           width: 1,
@@ -1119,48 +1141,50 @@ Object.defineProperties(Context.prototype, {
   },
 
   /**
-   * The drawingBufferHeight of the underlying GL context.
+   * 基础 GL 上下文的 drawingBufferHeight。
    * @memberof Context.prototype
    * @type {number}
    * @see {@link https://www.khronos.org/registry/webgl/specs/1.0/#DOM-WebGLRenderingContext-drawingBufferHeight|drawingBufferHeight}
    */
-  drawingBufferHeight: {
-    get: function () {
+drawingBufferHeight: {
+    get: function() {
       return this._gl.drawingBufferHeight;
     },
   },
 
-  /**
-   * The drawingBufferWidth of the underlying GL context.
+/**
+   * 基础 GL 上下文的 drawingBufferWidth。
    * @memberof Context.prototype
    * @type {number}
    * @see {@link https://www.khronos.org/registry/webgl/specs/1.0/#DOM-WebGLRenderingContext-drawingBufferWidth|drawingBufferWidth}
    */
+
   drawingBufferWidth: {
-    get: function () {
+    get: function() {
       return this._gl.drawingBufferWidth;
     },
   },
 
   /**
-   * Gets an object representing the currently bound framebuffer.  While this instance is not an actual
-   * {@link Framebuffer}, it is used to represent the default framebuffer in calls to
-   * {@link Texture.fromFramebuffer}.
+   * 获取一个表示当前绑定帧缓冲区的对象。虽然该实例不是一个实际的
+   * {@link Framebuffer}，但它用于在调用 {@link Texture.fromFramebuffer} 时表示默认的帧缓冲区。
    * @memberof Context.prototype
    * @type {object}
    */
+
   defaultFramebuffer: {
-    get: function () {
+    get: function() {
       return defaultFramebufferMarker;
     },
   },
 });
 
 /**
- * Validates a framebuffer.
- * Available in debug builds only.
+ * 验证帧缓冲区。
+ * 仅在调试版本中可用。
  * @private
  */
+
 function validateFramebuffer(context) {
   //>>includeStart('debug', pragmas.debug);
   if (context.validateFramebuffer) {
@@ -1240,7 +1264,7 @@ function bindFramebuffer(context, framebuffer) {
 
 const defaultClearCommand = new ClearCommand();
 
-Context.prototype.clear = function (clearCommand, passState) {
+Context.prototype.clear = function(clearCommand, passState) {
   clearCommand = defaultValue(clearCommand, defaultClearCommand);
   passState = defaultValue(passState, this._defaultPassState);
 
@@ -1397,7 +1421,7 @@ function continueDraw(context, drawCommand, shaderProgram, uniformMap) {
   va._unBind();
 }
 
-Context.prototype.draw = function (
+Context.prototype.draw = function(
   drawCommand,
   passState,
   shaderProgram,
@@ -1425,7 +1449,7 @@ Context.prototype.draw = function (
   continueDraw(this, drawCommand, shaderProgram, uniformMap);
 };
 
-Context.prototype.endFrame = function () {
+Context.prototype.endFrame = function() {
   const gl = this._gl;
   gl.useProgram(null);
 
@@ -1449,15 +1473,16 @@ Context.prototype.endFrame = function () {
 
 /**
  * @private
- * @param {object} readState An object with the following properties:
- * @param {number} [readState.x=0] The x offset of the rectangle to read from.
- * @param {number} [readState.y=0] The y offset of the rectangle to read from.
- * @param {number} [readState.width=gl.drawingBufferWidth] The width of the rectangle to read from.
- * @param {number} [readState.height=gl.drawingBufferHeight] The height of the rectangle to read from.
- * @param {Framebuffer} [readState.framebuffer] The framebuffer to read from. If undefined, the read will be from the default framebuffer.
- * @returns {Uint8Array|Uint16Array|Float32Array|Uint32Array} The pixels in the specified rectangle.
+ * @param {object} readState 一个具有以下属性的对象：
+ * @param {number} [readState.x=0] 要读取的矩形的 x 偏移量。
+ * @param {number} [readState.y=0] 要读取的矩形的 y 偏移量。
+ * @param {number} [readState.width=gl.drawingBufferWidth] 要读取的矩形的宽度。
+ * @param {number} [readState.height=gl.drawingBufferHeight] 要读取的矩形的高度。
+ * @param {Framebuffer} [readState.framebuffer] 要读取的帧缓冲区。如果未定义，则将从默认帧缓冲区读取。
+ * @returns {Uint8Array|Uint16Array|Float32Array|Uint32Array} 指定矩形中的像素。
  */
-Context.prototype.readPixels = function (readState) {
+
+Context.prototype.readPixels = function(readState) {
   const gl = this._gl;
 
   readState = defaultValue(readState, defaultValue.EMPTY_OBJECT);
@@ -1504,7 +1529,7 @@ const viewportQuadAttributeLocations = {
   textureCoordinates: 1,
 };
 
-Context.prototype.getViewportQuadVertexArray = function () {
+Context.prototype.getViewportQuadVertexArray = function() {
   // Per-context cache for viewport quads
   let vertexArray = this.cache.viewportQuad_vertexArray;
 
@@ -1542,7 +1567,7 @@ Context.prototype.getViewportQuadVertexArray = function () {
   return vertexArray;
 };
 
-Context.prototype.createViewportQuadCommand = function (
+Context.prototype.createViewportQuadCommand = function(
   fragmentShaderSource,
   overrides,
 ) {
@@ -1566,17 +1591,18 @@ Context.prototype.createViewportQuadCommand = function (
 };
 
 /**
- * Gets the object associated with a pick color.
+ * 获取与拾取颜色相关联的对象。
  *
- * @param {Color} pickColor The pick color.
- * @returns {object} The object associated with the pick color, or undefined if no object is associated with that color.
+ * @param {Color} pickColor 拾取颜色。
+ * @returns {object} 与拾取颜色相关联的对象，如果没有对象与该颜色关联，则返回 undefined。
  *
  * @example
  * const object = context.getObjectByPickColor(pickColor);
  *
  * @see Context#createPickId
  */
-Context.prototype.getObjectByPickColor = function (pickColor) {
+
+Context.prototype.getObjectByPickColor = function(pickColor) {
   //>>includeStart('debug', pragmas.debug);
   Check.defined("pickColor", pickColor);
   //>>includeEnd('debug');
@@ -1592,29 +1618,29 @@ function PickId(pickObjects, key, color) {
 
 Object.defineProperties(PickId.prototype, {
   object: {
-    get: function () {
+    get: function() {
       return this._pickObjects[this.key];
     },
-    set: function (value) {
+    set: function(value) {
       this._pickObjects[this.key] = value;
     },
   },
 });
 
-PickId.prototype.destroy = function () {
+PickId.prototype.destroy = function() {
   delete this._pickObjects[this.key];
   return undefined;
 };
 
 /**
- * Creates a unique ID associated with the input object for use with color-buffer picking.
- * The ID has an RGBA color value unique to this context.  You must call destroy()
- * on the pick ID when destroying the input object.
+ * 创建与输入对象关联的唯一 ID，以用于色彩缓冲区拾取。
+ * 该 ID 具有与此上下文唯一的 RGBA 颜色值。在销毁输入对象时，
+ * 必须对拾取 ID 调用 destroy()。
  *
- * @param {object} object The object to associate with the pick ID.
- * @returns {object} A PickId object with a <code>color</code> property.
+ * @param {object} object 要与拾取 ID 关联的对象。
+ * @returns {object} 一个具有 <code>color</code> 属性的 PickId 对象。
  *
- * @exception {RuntimeError} Out of unique Pick IDs.
+ * @exception {RuntimeError} 唯一拾取 ID 用尽。
  *
  *
  * @example
@@ -1625,7 +1651,7 @@ PickId.prototype.destroy = function () {
  *
  * @see Context#getObjectByPickColor
  */
-Context.prototype.createPickId = function (object) {
+Context.prototype.createPickId = function(object) {
   //>>includeStart('debug', pragmas.debug);
   Check.defined("object", object);
   //>>includeEnd('debug');
@@ -1643,11 +1669,11 @@ Context.prototype.createPickId = function (object) {
   return new PickId(this._pickObjects, key, Color.fromRgba(key));
 };
 
-Context.prototype.isDestroyed = function () {
+Context.prototype.isDestroyed = function() {
   return false;
 };
 
-Context.prototype.destroy = function () {
+Context.prototype.destroy = function() {
   // Destroy all objects in the cache that have a destroy method.
   const cache = this.cache;
   for (const property in cache) {

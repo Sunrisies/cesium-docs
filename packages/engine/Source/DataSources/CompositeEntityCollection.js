@@ -114,19 +114,19 @@ function recomposite(that) {
 }
 
 /**
- * Non-destructively composites multiple {@link EntityCollection} instances into a single collection.
- * If a Entity with the same ID exists in multiple collections, it is non-destructively
- * merged into a single new entity instance.  If an entity has the same property in multiple
- * collections, the property of the Entity in the last collection of the list it
- * belongs to is used.  CompositeEntityCollection can be used almost anywhere that a
- * EntityCollection is used.
+ * 非破坏性地将多个 {@link EntityCollection} 实例合成到一个集合中。
+ * 如果在多个集合中存在具有相同 ID 的实体，则会非破坏性地
+ * 合并为一个新的实体实例。如果一个实体在多个集合中具有相同的属性，
+ * 则使用其所属列表中最后一个集合中的实体属性。CompositeEntityCollection 可以在
+ * 几乎所有使用 EntityCollection 的地方使用。
  *
  * @alias CompositeEntityCollection
  * @constructor
  *
- * @param {EntityCollection[]} [collections] The initial list of EntityCollection instances to merge.
- * @param {DataSource|CompositeEntityCollection} [owner] The data source (or composite entity collection) which created this collection.
+ * @param {EntityCollection[]} [collections] 要合并的初始 EntityCollection 实例列表。
+ * @param {DataSource|CompositeEntityCollection} [owner] 创建此集合的数据源（或复合实体集合）。
  */
+
 function CompositeEntityCollection(collections, owner) {
   this._owner = owner;
   this._composite = new EntityCollection(this);
@@ -141,8 +141,8 @@ function CompositeEntityCollection(collections, owner) {
 
 Object.defineProperties(CompositeEntityCollection.prototype, {
   /**
-   * Gets the event that is fired when entities are added or removed from the collection.
-   * The generated event is a {@link EntityCollection.collectionChangedEventCallback}.
+   * 获取当实体被添加或从集合中移除时触发的事件。
+   * 生成的事件是一个 {@link EntityCollection.collectionChangedEventCallback}。
    * @memberof CompositeEntityCollection.prototype
    * @readonly
    * @type {Event}
@@ -153,7 +153,7 @@ Object.defineProperties(CompositeEntityCollection.prototype, {
     },
   },
   /**
-   * Gets a globally unique identifier for this collection.
+   * 获取此集合的全局唯一标识符。
    * @memberof CompositeEntityCollection.prototype
    * @readonly
    * @type {string}
@@ -164,8 +164,8 @@ Object.defineProperties(CompositeEntityCollection.prototype, {
     },
   },
   /**
-   * Gets the array of Entity instances in the collection.
-   * This array should not be modified directly.
+   * 获取集合中的实体实例数组。
+   * 此数组不应直接修改。
    * @memberof CompositeEntityCollection.prototype
    * @readonly
    * @type {Entity[]}
@@ -176,7 +176,7 @@ Object.defineProperties(CompositeEntityCollection.prototype, {
     },
   },
   /**
-   * Gets the owner of this composite entity collection, ie. the data source or composite entity collection which created it.
+   * 获取此复合实体集合的所有者，即创建它的数据源或复合实体集合。
    * @memberof CompositeEntityCollection.prototype
    * @readonly
    * @type {DataSource|CompositeEntityCollection}
@@ -188,15 +188,17 @@ Object.defineProperties(CompositeEntityCollection.prototype, {
   },
 });
 
+
 /**
- * Adds a collection to the composite.
+ * 将一个集合添加到复合体中。
  *
- * @param {EntityCollection} collection the collection to add.
- * @param {number} [index] the index to add the collection at.  If omitted, the collection will
- *                         added on top of all existing collections.
+ * @param {EntityCollection} collection 要添加的集合。
+ * @param {number} [index] 要添加集合的索引。如果省略，则集合将
+ *                         添加到所有现有集合的顶部。
  *
- * @exception {DeveloperError} index, if supplied, must be greater than or equal to zero and less than or equal to the number of collections.
+ * @exception {DeveloperError} 如果提供了索引，则索引必须大于等于零且小于等于集合的数量。
  */
+
 CompositeEntityCollection.prototype.addCollection = function (
   collection,
   index,
@@ -228,12 +230,13 @@ CompositeEntityCollection.prototype.addCollection = function (
 };
 
 /**
- * Removes a collection from this composite, if present.
+ * 从这个复合体中移除一个集合（如果存在的话）。
  *
- * @param {EntityCollection} collection The collection to remove.
- * @returns {boolean} true if the collection was in the composite and was removed,
- *                    false if the collection was not in the composite.
+ * @param {EntityCollection} collection 要移除的集合。
+ * @returns {boolean} 如果集合在复合体中并被移除，则返回 true；
+ *                    如果集合不在复合体中，则返回 false。
  */
+
 CompositeEntityCollection.prototype.removeCollection = function (collection) {
   const index = this._collections.indexOf(collection);
   if (index !== -1) {
@@ -245,48 +248,53 @@ CompositeEntityCollection.prototype.removeCollection = function (collection) {
 };
 
 /**
- * Removes all collections from this composite.
+ * 从这个复合体中移除所有集合。
  */
+
 CompositeEntityCollection.prototype.removeAllCollections = function () {
   this._collections.length = 0;
   recomposite(this);
 };
 
 /**
- * Checks to see if the composite contains a given collection.
+ * 检查复合体是否包含给定的集合。
  *
- * @param {EntityCollection} collection the collection to check for.
- * @returns {boolean} true if the composite contains the collection, false otherwise.
+ * @param {EntityCollection} collection 要检查的集合。
+ * @returns {boolean} 如果复合体包含该集合，则返回 true；否则返回 false。
  */
+
 CompositeEntityCollection.prototype.containsCollection = function (collection) {
   return this._collections.indexOf(collection) !== -1;
 };
 
 /**
- * Returns true if the provided entity is in this collection, false otherwise.
+ * 如果提供的实体在此集合中，则返回 true；否则返回 false。
  *
- * @param {Entity} entity The entity.
- * @returns {boolean} true if the provided entity is in this collection, false otherwise.
+ * @param {Entity} entity 实体。
+ * @returns {boolean} 如果提供的实体在此集合中，则返回 true；否则返回 false。
  */
+
 CompositeEntityCollection.prototype.contains = function (entity) {
   return this._composite.contains(entity);
 };
 
 /**
- * Determines the index of a given collection in the composite.
+ * 确定给定集合在复合体中的索引。
  *
- * @param {EntityCollection} collection The collection to find the index of.
- * @returns {number} The index of the collection in the composite, or -1 if the collection does not exist in the composite.
+ * @param {EntityCollection} collection 要查找索引的集合。
+ * @returns {number} 集合在复合体中的索引，如果集合不存在于复合体中则返回 -1。
  */
+
 CompositeEntityCollection.prototype.indexOfCollection = function (collection) {
   return this._collections.indexOf(collection);
 };
 
 /**
- * Gets a collection by index from the composite.
+ * 从复合体中通过索引获取一个集合。
  *
- * @param {number} index the index to retrieve.
+ * @param {number} index 要获取的索引。
  */
+
 CompositeEntityCollection.prototype.getCollection = function (index) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(index)) {
@@ -298,8 +306,9 @@ CompositeEntityCollection.prototype.getCollection = function (index) {
 };
 
 /**
- * Gets the number of collections in this composite.
+ * 获取此复合体中的集合数量。
  */
+
 CompositeEntityCollection.prototype.getCollectionsLength = function () {
   return this._collections.length;
 };
@@ -337,14 +346,14 @@ function swapCollections(composite, i, j) {
 
   recomposite(composite);
 }
-
 /**
- * Raises a collection up one position in the composite.
+ * 将集合在复合体中向上移动一位。
  *
- * @param {EntityCollection} collection the collection to move.
+ * @param {EntityCollection} collection 要移动的集合。
  *
- * @exception {DeveloperError} collection is not in this composite.
+ * @exception {DeveloperError} 集合不在此复合体中。
  */
+
 CompositeEntityCollection.prototype.raiseCollection = function (collection) {
   const index = getCollectionIndex(this._collections, collection);
   swapCollections(this, index, index + 1);
@@ -363,12 +372,13 @@ CompositeEntityCollection.prototype.lowerCollection = function (collection) {
 };
 
 /**
- * Raises a collection to the top of the composite.
+ * 将集合提升到复合体的顶部。
  *
- * @param {EntityCollection} collection the collection to move.
+ * @param {EntityCollection} collection 要移动的集合。
  *
- * @exception {DeveloperError} collection is not in this composite.
+ * @exception {DeveloperError} 集合不在此复合体中。
  */
+
 CompositeEntityCollection.prototype.raiseCollectionToTop = function (
   collection,
 ) {
@@ -383,12 +393,13 @@ CompositeEntityCollection.prototype.raiseCollectionToTop = function (
 };
 
 /**
- * Lowers a collection to the bottom of the composite.
+ * 将集合降低到复合体的底部。
  *
- * @param {EntityCollection} collection the collection to move.
+ * @param {EntityCollection} collection 要移动的集合。
  *
- * @exception {DeveloperError} collection is not in this composite.
+ * @exception {DeveloperError} 集合不在此复合体中。
  */
+
 CompositeEntityCollection.prototype.lowerCollectionToBottom = function (
   collection,
 ) {
@@ -403,30 +414,27 @@ CompositeEntityCollection.prototype.lowerCollectionToBottom = function (
 };
 
 /**
- * Prevents {@link EntityCollection#collectionChanged} events from being raised
- * until a corresponding call is made to {@link EntityCollection#resumeEvents}, at which
- * point a single event will be raised that covers all suspended operations.
- * This allows for many items to be added and removed efficiently.
- * While events are suspended, recompositing of the collections will
- * also be suspended, as this can be a costly operation.
- * This function can be safely called multiple times as long as there
- * are corresponding calls to {@link EntityCollection#resumeEvents}.
+ * 阻止 {@link EntityCollection#collectionChanged} 事件的触发，直到
+ * 对 {@link EntityCollection#resumeEvents} 进行相应的调用，此时将
+ * 触发一个涵盖所有暂停操作的单个事件。这允许高效地添加和移除多个项目。
+ * 在事件被暂停期间，集合的重组合也将被暂停，因为这可能是一项代价高昂的操作。
+ * 只要有相应的 {@link EntityCollection#resumeEvents} 调用，此函数可以安全地调用多次。
  */
+
 CompositeEntityCollection.prototype.suspendEvents = function () {
   this._suspendCount++;
   this._composite.suspendEvents();
 };
 
 /**
- * Resumes raising {@link EntityCollection#collectionChanged} events immediately
- * when an item is added or removed.  Any modifications made while while events were suspended
- * will be triggered as a single event when this function is called.  This function also ensures
- * the collection is recomposited if events are also resumed.
- * This function is reference counted and can safely be called multiple times as long as there
- * are corresponding calls to {@link EntityCollection#resumeEvents}.
+ * 在添加或移除项目时，立即恢复触发 {@link EntityCollection#collectionChanged} 事件。
+ * 在事件被暂停期间所做的任何修改将在调用此函数时作为单个事件触发。
+ * 此函数还确保如果事件也被恢复，则集合会被重新组合。
+ * 此函数是引用计数的，只要有相应的调用对 {@link EntityCollection#suspendEvents}，就可以安全地多次调用。
  *
- * @exception {DeveloperError} resumeEvents can not be called before suspendEvents.
+ * @exception {DeveloperError} 在调用 suspendEvents 之前，不能调用 resumeEvents。
  */
+
 CompositeEntityCollection.prototype.resumeEvents = function () {
   //>>includeStart('debug', pragmas.debug);
   if (this._suspendCount === 0) {
@@ -447,23 +455,25 @@ CompositeEntityCollection.prototype.resumeEvents = function () {
 };
 
 /**
- * Computes the maximum availability of the entities in the collection.
- * If the collection contains a mix of infinitely available data and non-infinite data,
- * It will return the interval pertaining to the non-infinite data only.  If all
- * data is infinite, an infinite interval will be returned.
+ * 计算集合中实体的最大可用性。
+ * 如果集合包含无限可用数据和非无限数据的混合，
+ * 则仅返回与非无限数据相关的时间区间。如果所有
+ * 数据都是无限的，则返回无限时间区间。
  *
- * @returns {TimeInterval} The availability of entities in the collection.
+ * @returns {TimeInterval} 集合中实体的可用性。
  */
+
 CompositeEntityCollection.prototype.computeAvailability = function () {
   return this._composite.computeAvailability();
 };
 
 /**
- * Gets an entity with the specified id.
+ * 获取具有指定 id 的实体。
  *
- * @param {string} id The id of the entity to retrieve.
- * @returns {Entity|undefined} The entity with the provided id or undefined if the id did not exist in the collection.
+ * @param {string} id 要检索的实体的 id。
+ * @returns {Entity|undefined} 具有提供的 id 的实体，如果该 id 在集合中不存在则返回 undefined。
  */
+
 CompositeEntityCollection.prototype.getById = function (id) {
   return this._composite.getById(id);
 };

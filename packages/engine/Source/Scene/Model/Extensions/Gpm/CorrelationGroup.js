@@ -14,16 +14,15 @@ import Check from "../../../../Core/Check.js";
  */
 
 /**
- * Metadata identifying parameters using same correlation modeling and
- * associated correlation parameters.
+ * 使用相同相关建模和相关参数标识元数据。
  *
- * This reflects the `correlationGroup` definition of the
- * {@link https://nsgreg.nga.mil/csmwg.jsp|NGA_gpm_local} glTF extension.
+ * 这反映了 {@link https://nsgreg.nga.mil/csmwg.jsp|NGA_gpm_local} glTF 扩展的 `correlationGroup` 定义。
  *
  * @constructor
- * @param {CorrelationGroup.ConstructorOptions} options An object describing initialization options
- * @experimental 该功能尚未最终确定，可能会根据 Cesium 的标准弃用政策而发生变化
+ * @param {CorrelationGroup.ConstructorOptions} options 描述初始化选项的对象。
+ * @experimental 该功能尚未最终确定，可能会根据 Cesium 的标准弃用政策而发生变化。
  */
+
 function CorrelationGroup(options) {
   //>>includeStart('debug', pragmas.debug);
   Check.typeOf.object("options.groupFlags", options.groupFlags);
@@ -38,8 +37,7 @@ function CorrelationGroup(options) {
 
 Object.defineProperties(CorrelationGroup.prototype, {
   /**
-   * Array of 3 booleans indicating if parameters delta-x delta-y delta-z
-   * used in the correlation group
+   * 表示在相关组中使用的参数 delta-x、delta-y 和 delta-z 的 3 个布尔值数组。
    *
    * @memberof CorrelationGroup.prototype
    * @type {boolean[]}
@@ -52,7 +50,7 @@ Object.defineProperties(CorrelationGroup.prototype, {
   },
 
   /**
-   * Rotations in milliradians about X, Y, Z axes, respectively
+   * 关于 X、Y、Z 轴的旋转（以毫弧度为单位），分别。
    *
    * @memberof CorrelationGroup.prototype
    * @type {Cartesian3}
@@ -65,7 +63,7 @@ Object.defineProperties(CorrelationGroup.prototype, {
   },
 
   /**
-   * Array of 3 sets of SPDCF parameters, for the U, V, W directions, respectively
+   * 三组 SPDCF 参数的数组，分别用于 U、V、W 方向。
    *
    * @memberof CorrelationGroup.prototype
    * @type {Spdcf[]}
@@ -77,5 +75,6 @@ Object.defineProperties(CorrelationGroup.prototype, {
     },
   },
 });
+
 
 export default CorrelationGroup;

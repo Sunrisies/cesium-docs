@@ -8,32 +8,32 @@ import createPropertyDescriptor from "./createPropertyDescriptor.js";
 /**
  * @typedef {object} CorridorGraphics.ConstructorOptions
  *
- * Initialization options for the CorridorGraphics constructor
+ * CorridorGraphics 构造函数的初始化选项
  *
- * @property {Property | boolean} [show=true] A boolean Property specifying the visibility of the corridor.
- * @property {Property | Cartesian3[]} [positions] A Property specifying the array of {@link Cartesian3} positions that define the centerline of the corridor.
- * @property {Property | number} [width] A numeric Property specifying the distance between the edges of the corridor.
- * @property {Property | number} [height=0] A numeric Property specifying the altitude of the corridor relative to the ellipsoid surface.
- * @property {Property | HeightReference} [heightReference=HeightReference.NONE] A Property specifying what the height is relative to.
- * @property {Property | number} [extrudedHeight] A numeric Property specifying the altitude of the corridor's extruded face relative to the ellipsoid surface.
- * @property {Property | HeightReference} [extrudedHeightReference=HeightReference.NONE] A Property specifying what the extrudedHeight is relative to.
- * @property {Property | CornerType} [cornerType=CornerType.ROUNDED] A {@link CornerType} Property specifying the style of the corners.
- * @property {Property | number} [granularity=Cesium.Math.RADIANS_PER_DEGREE] A numeric Property specifying the distance between each latitude and longitude.
- * @property {Property | boolean} [fill=true] A boolean Property specifying whether the corridor is filled with the provided material.
- * @property {MaterialProperty | Color} [material=Color.WHITE] A Property specifying the material used to fill the corridor.
- * @property {Property | boolean} [outline=false] A boolean Property specifying whether the corridor is outlined.
- * @property {Property | Color} [outlineColor=Color.BLACK] A Property specifying the {@link Color} of the outline.
- * @property {Property | number} [outlineWidth=1.0] A numeric Property specifying the width of the outline.
- * @property {Property | ShadowMode} [shadows=ShadowMode.DISABLED] An enum Property specifying whether the corridor casts or receives shadows from light sources.
- * @property {Property | DistanceDisplayCondition} [distanceDisplayCondition] A Property specifying at what distance from the camera that this corridor will be displayed.
- * @property {Property | ClassificationType} [classificationType=ClassificationType.BOTH] An enum Property specifying whether this corridor will classify terrain, 3D Tiles, or both when on the ground.
- * @property {ConstantProperty | number} [zIndex] A Property specifying the zIndex of the corridor, used for ordering.  Only has an effect if height and extrudedHeight are undefined, and if the corridor is static.
+ * @property {Property | boolean} [show=true] 一个布尔值属性，指定走廊的可见性。
+ * @property {Property | Cartesian3[]} [positions] 一个属性，指定定义走廊中心线的 {@link Cartesian3} 位置数组。
+ * @property {Property | number} [width] 一个数字属性，指定走廊边缘之间的距离。
+ * @property {Property | number} [height=0] 一个数字属性，指定走廊相对于椭球表面的高度。
+ * @property {Property | HeightReference} [heightReference=HeightReference.NONE] 一个属性，指定高度的参考。
+ * @property {Property | number} [extrudedHeight] 一个数字属性，指定走廊挤压面相对于椭球表面的高度。
+ * @property {Property | HeightReference} [extrudedHeightReference=HeightReference.NONE] 一个属性，指定挤压高度的参考。
+ * @property {Property | CornerType} [cornerType=CornerType.ROUNDED] 一个 {@link CornerType} 属性，指定角落的样式。
+ * @property {Property | number} [granularity=Cesium.Math.RADIANS_PER_DEGREE] 一个数字属性，指定每个经纬度之间的距离。
+ * @property {Property | boolean} [fill=true] 一个布尔值属性，指定走廊是否填充提供的材质。
+ * @property {MaterialProperty | Color} [material=Color.WHITE] 一个属性，指定填充走廊的材质。
+ * @property {Property | boolean} [outline=false] 一个布尔值属性，指定走廊是否带轮廓。
+ * @property {Property | Color} [outlineColor=Color.BLACK] 一个属性，指定轮廓的 {@link Color}。
+ * @property {Property | number} [outlineWidth=1.0] 一个数字属性，指定轮廓的宽度。
+ * @property {Property | ShadowMode} [shadows=ShadowMode.DISABLED] 一个枚举属性，指定走廊是否投射或接收光源的阴影。
+ * @property {Property | DistanceDisplayCondition} [distanceDisplayCondition] 一个属性，指定这条走廊在距离相机多远时将被显示。
+ * @property {Property | ClassificationType} [classificationType=ClassificationType.BOTH] 一个枚举属性，指定当在地面上时此走廊将分类地形、3D Tiles 还是两者。
+ * @property {ConstantProperty | number} [zIndex] 一个属性，指定走廊的 zIndex，用于排序。仅在高度和挤压高度未定义，并且走廊为静态时生效。
  */
 
+
 /**
- * Describes a corridor, which is a shape defined by a centerline and width that
- * conforms to the curvature of the globe. It can be placed on the surface or at altitude
- * and can optionally be extruded into a volume.
+ * 描述一个走廊，这是一种由中心线和宽度定义的形状，符合地球的曲率。
+ * 它可以放置在地面上或在某个高度，并可选择性地挤压成一个体积。
  *
  * @alias CorridorGraphics
  * @constructor
@@ -87,19 +87,19 @@ function CorridorGraphics(options) {
 
 Object.defineProperties(CorridorGraphics.prototype, {
   /**
-   * Gets the event that is raised whenever a property or sub-property is changed or modified.
-   * @memberof CorridorGraphics.prototype
-   * @type {Event}
-   * @readonly
-   */
+    * 获取每当属性或子属性更改或修改时引发的事件。
+    * @memberof CorridorGraphics.prototype
+    * @type {Event}
+    * @readonly
+    */
   definitionChanged: {
-    get: function () {
+    get: function() {
       return this._definitionChanged;
     },
   },
 
   /**
-   * Gets or sets the boolean Property specifying the visibility of the corridor.
+   * 获取或设置布尔属性，指定走廊的可见性。
    * @memberof CorridorGraphics.prototype
    * @type {Property|undefined}
    * @default true
@@ -107,21 +107,21 @@ Object.defineProperties(CorridorGraphics.prototype, {
   show: createPropertyDescriptor("show"),
 
   /**
-   * Gets or sets a Property specifying the array of {@link Cartesian3} positions that define the centerline of the corridor.
+   * 获取或设置一个属性，指定定义走廊中心线的 {@link Cartesian3} 位置数组。
    * @memberof CorridorGraphics.prototype
    * @type {Property|undefined}
    */
   positions: createPropertyDescriptor("positions"),
 
   /**
-   * Gets or sets the numeric Property specifying the width of the outline.
+   * 获取或设置一个数字属性，指定轮廓的宽度。
    * @memberof CorridorGraphics.prototype
    * @type {Property|undefined}
    */
   width: createPropertyDescriptor("width"),
 
   /**
-   * Gets or sets the numeric Property specifying the altitude of the corridor.
+   * 获取或设置一个数字属性，指定走廊的高度。
    * @memberof CorridorGraphics.prototype
    * @type {Property|undefined}
    * @default 0.0
@@ -129,7 +129,7 @@ Object.defineProperties(CorridorGraphics.prototype, {
   height: createPropertyDescriptor("height"),
 
   /**
-   * Gets or sets the Property specifying the {@link HeightReference}.
+   * 获取或设置一个属性，指定 {@link HeightReference}。
    * @memberof CorridorGraphics.prototype
    * @type {Property|undefined}
    * @default HeightReference.NONE
@@ -137,16 +137,16 @@ Object.defineProperties(CorridorGraphics.prototype, {
   heightReference: createPropertyDescriptor("heightReference"),
 
   /**
-   * Gets or sets the numeric Property specifying the altitude of the corridor extrusion.
-   * Setting this property creates a corridor shaped volume starting at height and ending
-   * at this altitude.
+   * 获取或设置一个数字属性，指定走廊挤压体的高度。
+   * 设置此属性会创建一个形状为走廊的体积，从高度开始，直到达到此高度。
    * @memberof CorridorGraphics.prototype
    * @type {Property|undefined}
    */
+
   extrudedHeight: createPropertyDescriptor("extrudedHeight"),
 
   /**
-   * Gets or sets the Property specifying the extruded {@link HeightReference}.
+   * 获取或设置属性，指定挤压的 {@link HeightReference}。
    * @memberof CorridorGraphics.prototype
    * @type {Property|undefined}
    * @default HeightReference.NONE
@@ -154,67 +154,67 @@ Object.defineProperties(CorridorGraphics.prototype, {
   extrudedHeightReference: createPropertyDescriptor("extrudedHeightReference"),
 
   /**
-   * Gets or sets the {@link CornerType} Property specifying how corners are styled.
-   * @memberof CorridorGraphics.prototype
-   * @type {Property|undefined}
-   * @default CornerType.ROUNDED
-   */
+     * 获取或设置 {@link CornerType} 属性，指定角落的样式。
+     * @memberof CorridorGraphics.prototype
+     * @type {Property|undefined}
+     * @default CornerType.ROUNDED
+     */
   cornerType: createPropertyDescriptor("cornerType"),
 
   /**
-   * Gets or sets the numeric Property specifying the sampling distance between each latitude and longitude point.
-   * @memberof CorridorGraphics.prototype
-   * @type {Property|undefined}
-   * @default {CesiumMath.RADIANS_PER_DEGREE}
-   */
+     * 获取或设置一个数字属性，指定每个经纬度点之间的采样距离。
+     * @memberof CorridorGraphics.prototype
+     * @type {Property|undefined}
+     * @default {CesiumMath.RADIANS_PER_DEGREE}
+     */
   granularity: createPropertyDescriptor("granularity"),
 
   /**
-   * Gets or sets the boolean Property specifying whether the corridor is filled with the provided material.
-   * @memberof CorridorGraphics.prototype
-   * @type {Property|undefined}
-   * @default true
-   */
+     * 获取或设置布尔属性，指定走廊是否填充提供的材质。
+     * @memberof CorridorGraphics.prototype
+     * @type {Property|undefined}
+     * @default true
+     */
   fill: createPropertyDescriptor("fill"),
 
   /**
-   * Gets or sets the Property specifying the material used to fill the corridor.
-   * @memberof CorridorGraphics.prototype
-   * @type {MaterialProperty|undefined}
-   * @default Color.WHITE
-   */
+     * 获取或设置属性，指定用于填充走廊的材质。
+     * @memberof CorridorGraphics.prototype
+     * @type {MaterialProperty|undefined}
+     * @default Color.WHITE
+     */
   material: createMaterialPropertyDescriptor("material"),
 
   /**
-   * Gets or sets the Property specifying whether the corridor is outlined.
-   * @memberof CorridorGraphics.prototype
-   * @type {Property|undefined}
-   * @default false
-   */
+     * 获取或设置属性，指定走廊是否带轮廓。
+     * @memberof CorridorGraphics.prototype
+     * @type {Property|undefined}
+     * @default false
+     */
   outline: createPropertyDescriptor("outline"),
 
   /**
-   * Gets or sets the Property specifying the {@link Color} of the outline.
-   * @memberof CorridorGraphics.prototype
-   * @type {Property|undefined}
-   * @default Color.BLACK
-   */
+     * 获取或设置属性，指定轮廓的 {@link Color}。
+     * @memberof CorridorGraphics.prototype
+     * @type {Property|undefined}
+     * @default Color.BLACK
+     */
   outlineColor: createPropertyDescriptor("outlineColor"),
 
   /**
-   * Gets or sets the numeric Property specifying the width of the outline.
-   * <p>
-   * Note: This property will be ignored on all major browsers on Windows platforms. For details, see (@link https://github.com/CesiumGS/cesium/issues/40}.
-   * </p>
-   * @memberof CorridorGraphics.prototype
-   * @type {Property|undefined}
-   * @default 1.0
-   */
+     * 获取或设置一个数字属性，指定轮廓的宽度。
+     * <p>
+     * 注意：此属性将在 Windows 平台上的所有主要浏览器中被忽略。有关详细信息，请参见 {@link https://github.com/CesiumGS/cesium/issues/40}。
+     * </p>
+     * @memberof CorridorGraphics.prototype
+     * @type {Property|undefined}
+     * @default 1.0
+     */
+
   outlineWidth: createPropertyDescriptor("outlineWidth"),
 
   /**
-   * Get or sets the enum Property specifying whether the corridor
-   * casts or receives shadows from light sources.
+   * 获取或设置枚举属性，指定走廊是否投射或接收光源的阴影。
    * @memberof CorridorGraphics.prototype
    * @type {Property|undefined}
    * @default ShadowMode.DISABLED
@@ -222,38 +222,40 @@ Object.defineProperties(CorridorGraphics.prototype, {
   shadows: createPropertyDescriptor("shadows"),
 
   /**
-   * Gets or sets the {@link DistanceDisplayCondition} Property specifying at what distance from the camera that this corridor will be displayed.
-   * @memberof CorridorGraphics.prototype
-   * @type {Property|undefined}
-   */
+     * 获取或设置 {@link DistanceDisplayCondition} 属性，指定在距相机多远时将显示此走廊。
+     * @memberof CorridorGraphics.prototype
+     * @type {Property|undefined}
+     */
   distanceDisplayCondition: createPropertyDescriptor(
     "distanceDisplayCondition",
   ),
 
   /**
-   * Gets or sets the {@link ClassificationType} Property specifying whether this corridor will classify terrain, 3D Tiles, or both when on the ground.
-   * @memberof CorridorGraphics.prototype
-   * @type {Property|undefined}
-   * @default ClassificationType.BOTH
-   */
+     * 获取或设置 {@link ClassificationType} 属性，指定此走廊在地面上时是否分类地形、3D Tiles 或两者。
+     * @memberof CorridorGraphics.prototype
+     * @type {Property|undefined}
+     * @default ClassificationType.BOTH
+     */
   classificationType: createPropertyDescriptor("classificationType"),
 
   /**
-   * Gets or sets the zIndex Property specifying the ordering of the corridor.  Only has an effect if the coridor is static and neither height or exturdedHeight are specified.
-   * @memberof CorridorGraphics.prototype
-   * @type {ConstantProperty|undefined}
-   * @default 0
-   */
+     * 获取或设置 zIndex 属性，指定走廊的排序。只有在走廊是静态的且未指定高度或挤压高度时有效。
+     * @memberof CorridorGraphics.prototype
+     * @type {ConstantProperty|undefined}
+     * @default 0
+     */
+
   zIndex: createPropertyDescriptor("zIndex"),
 });
 
 /**
- * Duplicates this instance.
+ * 复制此实例。
  *
- * @param {CorridorGraphics} [result] 存储结果的对象.
- * @returns {CorridorGraphics} The modified result parameter or a new instance if one was not provided.
+ * @param {CorridorGraphics} [result] 存储结果的对象。
+ * @returns {CorridorGraphics} 修改后的结果参数，如果未提供则返回一个新的实例。
  */
-CorridorGraphics.prototype.clone = function (result) {
+
+CorridorGraphics.prototype.clone = function(result) {
   if (!defined(result)) {
     return new CorridorGraphics(this);
   }
@@ -279,12 +281,12 @@ CorridorGraphics.prototype.clone = function (result) {
 };
 
 /**
- * Assigns each unassigned property on this object to the value
- * of the same property on the provided source object.
+ * 将此对象上每个未分配的属性赋值为提供的源对象上同名属性的值。
  *
- * @param {CorridorGraphics} source The object to be merged into this object.
+ * @param {CorridorGraphics} source 要合并到此对象的对象。
  */
-CorridorGraphics.prototype.merge = function (source) {
+
+CorridorGraphics.prototype.merge = function(source) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(source)) {
     throw new DeveloperError("source is required.");
