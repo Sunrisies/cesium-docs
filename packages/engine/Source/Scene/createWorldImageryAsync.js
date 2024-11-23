@@ -3,12 +3,12 @@ import IonImageryProvider from "./IonImageryProvider.js";
 import IonWorldImageryStyle from "./IonWorldImageryStyle.js";
 
 /**
- * Creates an {@link IonImageryProvider} instance for ion's default global base imagery layer, currently Bing Maps.
+ * 创建一个 {@link IonImageryProvider} 实例，用于 ion 的默认全球基础影像层，目前为 Bing Maps。
  *
  * @function
  *
- * @param {Object} [options] Object with the following properties:
- * @param {IonWorldImageryStyle} [options.style=IonWorldImageryStyle] The style of base imagery, only AERIAL, AERIAL_WITH_LABELS, and ROAD are currently supported.
+ * @param {Object} [options] 包含以下属性的对象：
+ * @param {IonWorldImageryStyle} [options.style=IonWorldImageryStyle] 基础影像的样式，目前仅支持 AERIAL、AERIAL_WITH_LABELS 和 ROAD。
  * @returns {Promise<IonImageryProvider>}
  *
  * @see Ion

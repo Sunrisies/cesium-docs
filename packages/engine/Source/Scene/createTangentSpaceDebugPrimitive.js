@@ -9,18 +9,17 @@ import PerInstanceColorAppearance from "./PerInstanceColorAppearance.js";
 import Primitive from "./Primitive.js";
 
 /**
- * Creates a {@link Primitive} to visualize well-known vector vertex attributes:
- * <code>normal</code>, <code>tangent</code>, and <code>bitangent</code>.  Normal
- * is red; tangent is green; and bitangent is blue.  If an attribute is not
- * present, it is not drawn.
+ * 创建一个 {@link Primitive} 来可视化众所周知的矢量顶点属性：
+ * <code>normal</code>、<code>tangent</code> 和 <code>bitangent</code>。法线
+ * 用红色表示；切线用绿色表示；副切线用蓝色表示。如果某个属性不存在，则不绘制该属性。
  *
  * @function
  *
- * @param {object} options Object with the following properties:
- * @param {Geometry} options.geometry The <code>Geometry</code> instance with the attribute.
- * @param {number} [options.length=10000.0] The length of each line segment in meters.  This can be negative to point the vector in the opposite direction.
- * @param {Matrix4} [options.modelMatrix=Matrix4.IDENTITY] The model matrix that transforms to transform the geometry from model to world coordinates.
- * @returns {Primitive} A new <code>Primitive</code> instance with geometry for the vectors.
+ * @param {object} options 包含以下属性的对象：
+ * @param {Geometry} options.geometry 包含该属性的 <code>Geometry</code> 实例。
+ * @param {number} [options.length=10000.0] 每个线段的长度（以米为单位）。这可以为负值，以使矢量指向相反方向。
+ * @param {Matrix4} [options.modelMatrix=Matrix4.IDENTITY] 将几何体从模型坐标转换为世界坐标的模型矩阵。
+ * @returns {Primitive} 带有矢量几何体的新 <code>Primitive</code> 实例。
  *
  * @example
  * scene.primitives.add(Cesium.createTangentSpaceDebugPrimitive({

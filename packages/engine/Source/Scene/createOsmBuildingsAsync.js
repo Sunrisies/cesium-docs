@@ -5,23 +5,23 @@ import Cesium3DTileset from "./Cesium3DTileset.js";
 import Cesium3DTileStyle from "./Cesium3DTileStyle.js";
 
 /**
- * Creates a {@link Cesium3DTileset} instance for the
+ * 创建一个 {@link Cesium3DTileset} 实例，用于
  * {@link https://cesium.com/content/cesium-osm-buildings/|Cesium OSM Buildings}
- * tileset.
+ * 瓦片集。
  *
  * @function
  *
- * @param {object} [options] Construction options. Any options allowed by the {@link Cesium3DTileset} constructor
- *        may be specified here. In addition to those, the following properties are supported:
- * @param {Color} [options.defaultColor=Color.WHITE] The default color to use for buildings
- *        that do not have a color. This parameter is ignored if <code>options.style</code> is specified.
- * @param {Cesium3DTileStyle} [options.style] The style to use with the tileset. If not
- *        specified, a default style is used which gives each building or building part a
- *        color inferred from its OpenStreetMap <code>tags</code>. If no color can be inferred,
- *        <code>options.defaultColor</code> is used.
- * @param {boolean} [options.enableShowOutline=true] If true, enable rendering outlines. This can be set to false to avoid the additional processing of geometry at load time.
- * @param {boolean} [options.showOutline=true] Whether to show outlines around buildings. When true,
- *        outlines are displayed. When false, outlines are not displayed.
+ * @param {object} [options] 构造选项。可以在此处指定 {@link Cesium3DTileset} 构造函数允许的任何选项。
+ *        除此之外，支持以下属性：
+ * @param {Color} [options.defaultColor=Color.WHITE] 用于没有颜色的建筑物的默认颜色。
+ *        如果指定了 <code>options.style</code>，则该参数将被忽略。
+ * @param {Cesium3DTileStyle} [options.style] 用于瓦片集的样式。如果未指定，将使用默认样式，该样式为每个建筑物或建筑部分分配一个
+ *        从其 OpenStreetMap <code>tags</code> 中推断的颜色。如果无法推断颜色，
+ *        则使用 <code>options.defaultColor</code>。
+ * @param {boolean} [options.enableShowOutline=true] 如果为 true，则启用渲染轮廓。可以将其设置为 false，以避免在加载时对几何体进行额外处理。
+ * @param {boolean} [options.showOutline=true] 是否在建筑物周围显示轮廓。当为 true 时，
+ *        将显示轮廓；当为 false 时，轮廓不显示。
+ *
  * @returns {Promise<Cesium3DTileset>}
  *
  * @see Ion

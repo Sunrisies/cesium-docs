@@ -3,14 +3,14 @@ import defaultValue from "./defaultValue.js";
 import Ellipsoid from "./Ellipsoid.js";
 
 /**
- * Creates a {@link CesiumTerrainProvider} instance for the {@link https://cesium.com/content/#cesium-world-terrain|Cesium World Terrain}.
+ * 创建一个 {@link CesiumTerrainProvider} 实例，用于 {@link https://cesium.com/content/#cesium-world-terrain|Cesium World Terrain}。
  *
  * @function
  *
- * @param {Object} [options] Object with the following properties:
- * @param {Boolean} [options.requestVertexNormals=false] Flag that indicates if the client should request additional lighting information from the server if available.
- * @param {Boolean} [options.requestWaterMask=false] Flag that indicates if the client should request per tile water masks from the server if available.
- * @returns {Promise<CesiumTerrainProvider>} A promise that resolves to the created CesiumTerrainProvider
+ * @param {Object} [options] 包含以下属性的对象：
+ * @param {Boolean} [options.requestVertexNormals=false] 标志，指示客户端是否应从服务器请求附加的光照信息（如果可用）。
+ * @param {Boolean} [options.requestWaterMask=false] 标志，指示客户端是否应从服务器请求每个瓦片的水面掩码（如果可用）。
+ * @returns {Promise<CesiumTerrainProvider>} 一个承诺，解析为创建的 CesiumTerrainProvider
  *
  * @see Ion
  *

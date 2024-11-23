@@ -30,24 +30,25 @@ import ConvolveSpecularMapVS from "../Shaders/ConvolveSpecularMapVS.js";
 
 /**
  * @typedef {object} DynamicEnvironmentMapManager.ConstructorOptions
- * Options for the DynamicEnvironmentMapManager constructor
- * @property {boolean} [enabled=true] If true, the environment map and related properties will continue to update.
- * @property {number} [mipmapLevels=10] The number of mipmap levels to generate for specular maps. More mipmap levels will produce a higher resolution specular reflection.
- * @property {number} [maximumSecondsDifference=3600] The maximum amount of elapsed seconds before a new environment map is created.
- * @property {number} [maximumPositionEpsilon=1000] The maximum difference in position before a new environment map is created, in meters. Small differences in position will not visibly affect results.
- * @property {number} [atmosphereScatteringIntensity=2.0] The intensity of the scattered light emitted from the atmosphere. This should be adjusted relative to the value of {@link Scene.light} intensity.
- * @property {number} [gamma=1.0] The gamma correction to apply to the range of light emitted from the environment. 1.0 uses the unmodified emitted light color.
- * @property {number} [brightness=1.0] The brightness of light emitted from the environment. 1.0 uses the unmodified emitted environment color. Less than 1.0 makes the light darker while greater than 1.0 makes it brighter.
- * @property {number} [saturation=1.0] The saturation of the light emitted from the environment. 1.0 uses the unmodified emitted environment color. Less than 1.0 reduces the saturation while greater than 1.0 increases it.
- * @property {Color} [groundColor=DynamicEnvironmentMapManager.AVERAGE_EARTH_GROUND_COLOR] Solid color used to represent the ground.
- * @property {number} [groundAlbedo=0.31] The percentage of light reflected from the ground. The average earth albedo is 0.31.
+ * DynamicEnvironmentMapManager 构造函数的选项
+ * @property {boolean} [enabled=true] 如果为 true，环境贴图和相关属性将继续更新。
+ * @property {number} [mipmapLevels=10] 为高光贴图生成的 mipmap 级别数。更多的 mipmap 级别将产生更高分辨率的高光反射。
+ * @property {number} [maximumSecondsDifference=3600] 创建新的环境贴图之前允许经过的最大秒数。
+ * @property {number} [maximumPositionEpsilon=1000] 创建新的环境贴图之前，位置的最大差异（以米为单位）。小位置差异不会明显影响结果。
+ * @property {number} [atmosphereScatteringIntensity=2.0] 从大气中散射的光的强度。应根据 {@link Scene.light} 的强度值进行调整。
+ * @property {number} [gamma=1.0] 应用于环境中发出光线范围的伽玛校正。1.0 使用未经修改的发光颜色。
+ * @property {number} [brightness=1.0] 环境中发出光的亮度。1.0 使用未经修改的环境颜色。小于 1.0 会使光变暗，而大于 1.0 会使光变亮。
+ * @property {number} [saturation=1.0] 环境中发出光的饱和度。1.0 使用未经修改的环境颜色。小于 1.0 会降低饱和度，而大于 1.0 会增加饱和度。
+ * @property {Color} [groundColor=DynamicEnvironmentMapManager.AVERAGE_EARTH_GROUND_COLOR] 用于表示地面的固体颜色。
+ * @property {number} [groundAlbedo=0.31] 从地面反射的光的百分比。地球的平均反照率约为 0.31。
  */
 
+
 /**
- * Generates an environment map at the given position based on scene's current lighting conditions. From this, it produces multiple levels of specular maps and spherical harmonic coefficients than can be used with {@link ImageBasedLighting} for models or tilesets.
+ * 根据场景当前的光照条件，在给定位置生成环境贴图。由此生成多个级别的高光贴图和球面谐波系数，这些可以与 {@link ImageBasedLighting} 一起用于模型或瓦片集。
  * @alias DynamicEnvironmentMapManager
  * @constructor
- * @param {DynamicEnvironmentMapManager.ConstructorOptions} [options] An object describing initialization options.
+ * @param {DynamicEnvironmentMapManager.ConstructorOptions} [options] 描述初始化选项的对象。
  *
  * @example
  * // Enable time-of-day environment mapping in a scene
@@ -111,21 +112,21 @@ function DynamicEnvironmentMapManager(options) {
   this._owner = undefined;
 
   /**
-   * If true, the environment map and related properties will continue to update.
+   * 如果为 true，环境贴图和相关属性将继续更新。
    * @type {boolean}
    * @default true
    */
   this.enabled = defaultValue(options.enabled, true);
 
   /**
-   * Disables updates. For internal use.
+   * 禁用更新。仅供内部使用。
    * @private
    * @default true
    */
   this.shouldUpdate = true;
 
   /**
-   * The maximum amount of elapsed seconds before a new environment map is created.
+   * 创建新的环境贴图之前允许经过的最大秒数。
    * @type {number}
    * @default 3600
    */
@@ -135,7 +136,7 @@ function DynamicEnvironmentMapManager(options) {
   );
 
   /**
-   * The maximum difference in position before a new environment map is created, in meters. Small differences in position will not visibly affect results.
+   * 创建新的环境贴图之前，位置的最大差异（以米为单位）。小位置差异不会明显影响结果。
    * @type {number}
    * @default 1000
    */
@@ -145,42 +146,43 @@ function DynamicEnvironmentMapManager(options) {
   );
 
   /**
-   * The intensity of the scattered light emitted from the atmosphere. This should be adjusted relative to the value of {@link Scene.light} intensity.
+   * 从大气中散射的光的强度。应根据 {@link Scene.light} 的强度值进行调整。
    * @type {number}
    * @default 2.0
    * @see DirectionalLight.intensity
    * @see SunLight.intensity
    */
+
   this.atmosphereScatteringIntensity = defaultValue(
     options.atmosphereScatteringIntensity,
     2.0,
   );
 
   /**
-   * The gamma correction to apply to the range of light emitted from the environment. 1.0 uses the unmodified incoming light color.
+   * 应用于环境中发出光线范围的伽玛校正。1.0 使用未经修改的入射光颜色。
    * @type {number}
    * @default 1.0
    */
   this.gamma = defaultValue(options.gamma, 1.0);
 
   /**
-   * The brightness of light emitted from the environment. 1.0 uses the unmodified emitted environment color. Less than 1.0
-   * makes the light darker while greater than 1.0 makes it brighter.
+   * 环境中发出的光的亮度。1.0 使用未经修改的环境颜色。小于 1.0
+   * 会使光变暗，而大于 1.0 会使光变亮。
    * @type {number}
    * @default 1.0
    */
   this.brightness = defaultValue(options.brightness, 1.0);
 
   /**
-   * The saturation of the light emitted from the environment. 1.0 uses the unmodified emitted environment color. Less than 1.0 reduces the
-   * saturation while greater than 1.0 increases it.
+   * 环境中发出的光的饱和度。1.0 使用未经修改的环境颜色。小于 1.0 会降低
+   * 饱和度，而大于 1.0 会增加饱和度。
    * @type {number}
    * @default 1.0
    */
   this.saturation = defaultValue(options.saturation, 1.0);
 
   /**
-   * Solid color used to represent the ground.
+   * 用于表示地面的固体颜色。
    * @type {Color}
    * @default DynamicEnvironmentMapManager.AVERAGE_EARTH_GROUND_COLOR
    */
@@ -190,7 +192,7 @@ function DynamicEnvironmentMapManager(options) {
   );
 
   /**
-   * The percentage of light reflected from the ground. The average earth albedo is 0.31.
+   * 从地面反射的光的百分比。地球的平均反照率约为 0.31。
    * @type {number}
    * @default 0.31
    */
@@ -199,7 +201,7 @@ function DynamicEnvironmentMapManager(options) {
 
 Object.defineProperties(DynamicEnvironmentMapManager.prototype, {
   /**
-   * A reference to the DynamicEnvironmentMapManager's owner, if any.
+   * 对 DynamicEnvironmentMapManager 的所有者的引用（如果有的话）。
    * @memberof DynamicEnvironmentMapManager.prototype
    * @type {object|undefined}
    * @readonly
@@ -212,12 +214,13 @@ Object.defineProperties(DynamicEnvironmentMapManager.prototype, {
   },
 
   /**
-   * True if model shaders need to be regenerated to account for updates.
+   * 如果模型着色器需要重新生成以反映更新，则为 true。
    * @memberof DynamicEnvironmentMapManager.prototype
    * @type {boolean}
    * @readonly
    * @private
    */
+
   shouldRegenerateShaders: {
     get: function () {
       return this._shouldRegenerateShaders;
@@ -225,10 +228,11 @@ Object.defineProperties(DynamicEnvironmentMapManager.prototype, {
   },
 
   /**
-   * The position around which the environment map is generated.
+   * 环境贴图生成的中心位置。
    * @memberof DynamicEnvironmentMapManager.prototype
    * @type {Cartesian3|undefined}
    */
+
   position: {
     get: function () {
       return this._position;
@@ -251,7 +255,7 @@ Object.defineProperties(DynamicEnvironmentMapManager.prototype, {
   },
 
   /**
-   * The computed radiance map, or <code>undefined</code> if it has not yet been created.
+   * 计算得出的辐射图，如果尚未创建则为 <code>undefined</code>。
    * @memberof DynamicEnvironmentMapManager.prototype
    * @type {CubeMap|undefined}
    * @readonly
@@ -264,7 +268,7 @@ Object.defineProperties(DynamicEnvironmentMapManager.prototype, {
   },
 
   /**
-   * The maximum number of mip levels available in the radiance cubemap.
+   * 辐射立方体贴图中可用的最大 mip 级别数。
    * @memberof DynamicEnvironmentMapManager.prototype
    * @type {number}
    * @readonly
@@ -277,17 +281,18 @@ Object.defineProperties(DynamicEnvironmentMapManager.prototype, {
   },
 
   /**
-   * The third order spherical harmonic coefficients used for the diffuse color of image-based lighting.
+   * 用于基于图像的光照的扩散颜色的三阶球面谐波系数。
    * <p>
-   * There are nine <code>Cartesian3</code> coefficients.
-   * The order of the coefficients is: L<sub>0,0</sub>, L<sub>1,-1</sub>, L<sub>1,0</sub>, L<sub>1,1</sub>, L<sub>2,-2</sub>, L<sub>2,-1</sub>, L<sub>2,0</sub>, L<sub>2,1</sub>, L<sub>2,2</sub>
+   * 共有九个 <code>Cartesian3</code> 系数。
+   * 系数的顺序是：L<sub>0,0</sub>, L<sub>1,-1</sub>, L<sub>1,0</sub>, L<sub>1,1</sub>, L<sub>2,-2</sub>, L<sub>2,-1</sub>, L<sub>2,0</sub>, L<sub>2,1</sub>, L<sub>2,2</sub>
    * </p>
    * @memberof DynamicEnvironmentMapManager.prototype
    * @readonly
    * @type {Cartesian3[]}
-   * @see {@link https://graphics.stanford.edu/papers/envmap/envmap.pdf|An Efficient Representation for Irradiance Environment Maps}
+   * @see {@link https://graphics.stanford.edu/papers/envmap/envmap.pdf|一个有效的辐照环境贴图表示}
    * @private
    */
+
   sphericalHarmonicCoefficients: {
     get: function () {
       return this._sphericalHarmonicCoefficients;
@@ -296,13 +301,14 @@ Object.defineProperties(DynamicEnvironmentMapManager.prototype, {
 });
 
 /**
- * Sets the owner for the input DynamicEnvironmentMapManager if there wasn't another owner.
- * Destroys the owner's previous DynamicEnvironmentMapManager if setting is successful.
- * @param {DynamicEnvironmentMapManager} [environmentMapManager] A DynamicEnvironmentMapManager (or undefined) being attached to an object
- * @param {object} owner An Object that should receive the new DynamicEnvironmentMapManager
- * @param {string} key The Key for the Object to reference the DynamicEnvironmentMapManager
+ * 为输入的 DynamicEnvironmentMapManager 设置所有者，如果没有其他所有者的话。
+ * 如果设置成功，则销毁所有者之前的 DynamicEnvironmentMapManager。
+ * @param {DynamicEnvironmentMapManager} [environmentMapManager] 要附加到对象上的 DynamicEnvironmentMapManager（或 undefined）
+ * @param {object} owner 一个应该接收新的 DynamicEnvironmentMapManager 的对象
+ * @param {string} key 用于对象引用 DynamicEnvironmentMapManager 的键
  * @private
  */
+
 DynamicEnvironmentMapManager.setOwner = function (
   environmentMapManager,
   owner,
@@ -328,9 +334,10 @@ DynamicEnvironmentMapManager.setOwner = function (
 };
 
 /**
- * Cancels any in-progress commands and marks the environment map as dirty.
+ * 取消所有正在进行的命令，并将环境贴图标记为脏。
  * @private
  */
+
 DynamicEnvironmentMapManager.prototype.reset = function () {
   let length = this._radianceMapComputeCommands.length;
   for (let i = 0; i < length; ++i) {
@@ -354,12 +361,13 @@ const scratchPackedAtmosphere = new Cartesian3();
 const scratchSurfacePosition = new Cartesian3();
 
 /**
- * Update atmosphere properties and returns true if the environment map needs to be regenerated.
- * @param {DynamicEnvironmentMapManager} manager this manager
- * @param {FrameState} frameState the current frameState
- * @returns {boolean} true if the environment map needs to be regenerated.
+ * 更新大气属性并返回如果环境贴图需要重新生成则为 true。
+ * @param {DynamicEnvironmentMapManager} manager 本管理器
+ * @param {FrameState} frameState 当前的帧状态
+ * @returns {boolean} 如果环境贴图需要重新生成则为 true。
  * @private
  */
+
 function atmosphereNeedsUpdate(manager, frameState) {
   const position = manager._position;
   const atmosphere = frameState.atmosphere;
@@ -406,11 +414,12 @@ const scratchAdjustments = new Cartesian4();
 const scratchColor = new Color();
 
 /**
- * Renders the highest resolution specular map by creating compute commands for each cube face
- * @param {DynamicEnvironmentMapManager} manager this manager
- * @param {FrameState} frameState the current frameState
+ * 通过为每个立方体面创建计算命令来渲染最高分辨率的高光贴图
+ * @param {DynamicEnvironmentMapManager} manager 本管理器
+ * @param {FrameState} frameState 当前的帧状态
  * @private
  */
+
 function updateRadianceMap(manager, frameState) {
   const context = frameState.context;
   const textureDimensions = manager._textureDimensions;
@@ -535,11 +544,12 @@ function updateRadianceMap(manager, frameState) {
 }
 
 /**
- * Creates a mipmap chain for the cubemap by convolving the environment map for each roughness level
- * @param {DynamicEnvironmentMapManager} manager this manager
- * @param {FrameState} frameState the current frameState
+ * 通过对每个粗糙度级别进行环境贴图卷积，为立方体贴图创建一个 mipmap 链
+ * @param {DynamicEnvironmentMapManager} manager 此管理器
+ * @param {FrameState} frameState 当前的 frameState
  * @private
  */
+
 function updateSpecularMaps(manager, frameState) {
   const radianceCubeMap = manager._radianceCubeMap;
   radianceCubeMap.generateMipmap();
@@ -631,11 +641,12 @@ function updateSpecularMaps(manager, frameState) {
 const irradianceTextureDimensions = new Cartesian2(3, 3); // 9 coefficients
 
 /**
- * Computes spherical harmonic coefficients by convolving the environment map.
- * @param {DynamicEnvironmentMapManager} manager this manager
- * @param {FrameState} frameState the current frameState
+ * 通过对环境贴图进行卷积计算球面谐波系数。
+ * @param {DynamicEnvironmentMapManager} manager 此管理器
+ * @param {FrameState} frameState 当前的 frameState
  * @private
  */
+
 function updateIrradianceResources(manager, frameState) {
   const context = frameState.context;
   const dimensions = irradianceTextureDimensions;
@@ -682,11 +693,12 @@ function updateIrradianceResources(manager, frameState) {
 }
 
 /**
- * Copies coefficients from the output texture using readPixels.
- * @param {DynamicEnvironmentMapManager} manager this manager
- * @param {FrameState} frameState the current frameState
+ * 使用 readPixels 从输出纹理复制系数。
+ * @param {DynamicEnvironmentMapManager} manager 此管理器
+ * @param {FrameState} frameState 当前的 frameState
  * @private
  */
+
 function updateSphericalHarmonicCoefficients(manager, frameState) {
   const context = frameState.context;
 
@@ -719,13 +731,13 @@ function updateSphericalHarmonicCoefficients(manager, frameState) {
 }
 
 /**
- * Called when {@link Viewer} or {@link CesiumWidget} render the scene to
- * build the resources for the environment maps.
+ * 当 {@link Viewer} 或 {@link CesiumWidget} 渲染场景以构建环境贴图的资源时调用。
  * <p>
- * Do not call this function directly.
+ * 不要直接调用此功能。
  * </p>
  * @private
  */
+
 DynamicEnvironmentMapManager.prototype.update = function (frameState) {
   const mode = frameState.mode;
   const isSupported =
@@ -789,29 +801,28 @@ DynamicEnvironmentMapManager.prototype.update = function (frameState) {
 };
 
 /**
- * Returns true if this object was destroyed; otherwise, false.
+ * 如果这个对象已被销毁，则返回 true；否则返回 false。
  * <br /><br />
- * If this object was destroyed, it should not be used; calling any function other than
- * <code>isDestroyed</code> will result in a {@link DeveloperError} exception.
- * @returns {boolean} <code>true</code> if this object was destroyed; otherwise, <code>false</code>.
+ * 如果这个对象已经被销毁，则不应该使用；调用除 <code>isDestroyed</code> 以外的任何函数将导致 {@link DeveloperError} 异常。
+ * @returns {boolean} <code>true</code> 如果这个对象已被销毁；否则返回 <code>false</code>。
  * @see DynamicEnvironmentMapManager#destroy
  */
+
 DynamicEnvironmentMapManager.prototype.isDestroyed = function () {
   return false;
 };
 
 /**
- * Destroys the WebGL resources held by this object.  Destroying an object allows for deterministic
- * release of WebGL resources, instead of relying on the garbage collector to destroy this object.
+ * 销毁此对象持有的 WebGL 资源。销毁一个对象允许确定性地释放 WebGL 资源，而不是依赖垃圾收集器来销毁此对象。
  * <br /><br />
- * Once an object is destroyed, it should not be used; calling any function other than
- * <code>isDestroyed</code> will result in a {@link DeveloperError} exception.  Therefore,
- * assign the return value (<code>undefined</code>) to the object as done in the example.
- * @throws {DeveloperError} This object was destroyed, i.e., destroy() was called.
+ * 一旦对象被销毁，就不应该再使用；调用除 <code>isDestroyed</code> 以外的任何函数将导致 {@link DeveloperError} 异常。因此，
+ * 将返回值 (<code>undefined</code>) 赋给对象，如示例中所示。
+ * @throws {DeveloperError} 此对象已被销毁，即已调用 destroy()。
  * @example
  * mapManager = mapManager && mapManager.destroy();
  * @see DynamicEnvironmentMapManager#isDestroyed
  */
+
 DynamicEnvironmentMapManager.prototype.destroy = function () {
   // Cancel in-progress commands
   let length = this._radianceMapComputeCommands.length;
@@ -848,32 +859,35 @@ DynamicEnvironmentMapManager.prototype.destroy = function () {
 };
 
 /**
- * Returns <code>true</code> if dynamic updates are supported in the current WebGL rendering context.
- * Dynamic updates requires the EXT_color_buffer_float or EXT_color_buffer_half_float extension.
+ * 如果在当前 WebGL 渲染上下文中支持动态更新，则返回 <code>true</code>。
+ * 动态更新需要 EXT_color_buffer_float 或 EXT_color_buffer_half_float 扩展。
  *
- * @param {Scene} scene The object containing the rendering context
- * @returns {boolean} true if supported
+ * @param {Scene} scene 包含渲染上下文的对象
+ * @returns {boolean} 如果支持则返回 true
  */
+
 DynamicEnvironmentMapManager.isDynamicUpdateSupported = function (scene) {
   const context = scene.context;
   return context.halfFloatingPointTexture || context.colorBufferFloat;
 };
 
 /**
- * Average hue of ground color on earth, a warm green-gray.
+ * 地球上地面颜色的平均色调，温暖的绿色灰色。
  * @type {Color}
  * @readonly
  */
+
 DynamicEnvironmentMapManager.AVERAGE_EARTH_GROUND_COLOR = Object.freeze(
   Color.fromCssColorString("#717145"),
 );
 
 /**
- * The default third order spherical harmonic coefficients used for the diffuse color of image-based lighting, a white ambient light with low intensity.
+ * 默认的第三阶球面谐波系数，用于基于图像的照明的漫反射颜色，低强度的白色环境光。
  * <p>
- * There are nine <code>Cartesian3</code> coefficients.
- * The order of the coefficients is: L<sub>0,0</sub>, L<sub>1,-1</sub>, L<sub>1,0</sub>, L<sub>1,1</sub>, L<sub>2,-2</sub>, L<sub>2,-1</sub>, L<sub>2,0</sub>, L<sub>2,1</sub>, L<sub>2,2</sub>
+ * 一共有九个 <code>Cartesian3</code> 系数。
+ * 系数的顺序是：L<sub>0,0</sub>, L<sub>1,-1</sub>, L<sub>1,0</sub>, L<sub>1,1</sub>, L<sub>2,-2</sub>, L<sub>2,-1</sub>, L<sub>2,0</sub>, L<sub>2,1</sub>, L<sub>2,2</sub>
  * </p>
+
  * @readonly
  * @type {Cartesian3[]}
  * @see {@link https://graphics.stanford.edu/papers/envmap/envmap.pdf|An Efficient Representation for Irradiance Environment Maps}

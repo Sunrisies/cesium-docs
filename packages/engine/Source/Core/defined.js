@@ -1,8 +1,8 @@
 /**
  * @function
  *
- * @param {*} value The object.
- * @returns {boolean} Returns true if the object is defined, returns false otherwise.
+ * @param {*} value 要检查的对象。
+ * @returns {boolean} 如果对象已定义，则返回 true；否则返回 false。
  *
  * @example
  * if (Cesium.defined(positions)) {

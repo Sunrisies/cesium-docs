@@ -13,14 +13,15 @@ const textColor = "#ffffff";
 const highlightColor = "#48b";
 
 /**
- * Used to sort the credits by frequency of appearance
- * when they are later displayed.
+ * 用于根据出现频率对信用进行排序
+ * 当它们随后被显示时。
  *
  * @alias CreditDisplay.CreditDisplayElement
  * @constructor
  *
  * @private
  */
+
 function CreditDisplayElement(credit, count) {
   this.credit = credit;
   this.count = defaultValue(count, 1);
@@ -283,11 +284,11 @@ function appendCss(container) {
 }
 
 /**
- * The credit display is responsible for displaying credits on screen.
+ * 信用显示负责在屏幕上显示信用。
  *
- * @param {HTMLElement} container The HTML element where credits will be displayed
- * @param {string} [delimiter= '•'] The string to separate text credits
- * @param {HTMLElement} [viewport=document.body] The HTML element that will contain the credits popup
+ * @param {HTMLElement} container 将显示信用的 HTML 元素
+ * @param {string} [delimiter= '•'] 用于分隔文本信用的字符串
+ * @param {HTMLElement} [viewport=document.body] 将包含信用弹出窗口的 HTML 元素
  *
  * @alias CreditDisplay
  * @constructor
@@ -387,9 +388,10 @@ function CreditDisplay(container, delimiter, viewport) {
   this.viewport = viewport;
 
   /**
-   * The HTML element where credits will be displayed.
+   * 显示信用的 HTML 元素。
    * @type {HTMLElement}
    */
+
   this.container = container;
 }
 
@@ -415,13 +417,14 @@ function setCredit(creditDisplay, credits, credit, count) {
 }
 
 /**
- * Adds a {@link Credit} that will show on screen or in the lightbox until
- * the next frame. This is mostly for internal use. Use {@link CreditDisplay.addStaticCredit} to add a persistent credit to the screen.
+ * 添加一个 {@link Credit}，该信用将在屏幕上或在灯箱中显示，直到
+ * 下一帧。这主要用于内部使用。使用 {@link CreditDisplay.addStaticCredit} 将持久的信用添加到屏幕上。
  *
  * @see CreditDisplay.addStaticCredit
  *
- * @param {Credit} credit The credit to display in the next frame.
+ * @param {Credit} credit 要在下一帧中显示的信用。
  */
+
 CreditDisplay.prototype.addCreditToNextFrame = function (credit) {
   //>>includeStart('debug', pragmas.debug);
   Check.defined("credit", credit);
@@ -448,9 +451,9 @@ CreditDisplay.prototype.addCreditToNextFrame = function (credit) {
 };
 
 /**
- * Adds a {@link Credit} that will show on screen or in the lightbox until removed with {@link CreditDisplay.removeStaticCredit}.
+ * 添加一个 {@link Credit}，该信用将在屏幕上或在灯箱中显示，直到通过 {@link CreditDisplay.removeStaticCredit} 被移除。
  *
- * @param {Credit} credit The credit to added
+ * @param {Credit} credit 要添加的信用
  *
  * @example
  * // Add a credit with a tooltip, image and link to display onscreen
@@ -474,10 +477,11 @@ CreditDisplay.prototype.addStaticCredit = function (credit) {
 };
 
 /**
- * Removes a static credit shown on screen or in the lightbox.
+ * 移除在屏幕上或在灯箱中显示的静态信用。
  *
- * @param {Credit} credit The credit to be removed.
+ * @param {Credit} credit 要被移除的信用。
  */
+
 CreditDisplay.prototype.removeStaticCredit = function (credit) {
   //>>includeStart('debug', pragmas.debug);
   Check.defined("credit", credit);
@@ -507,8 +511,9 @@ CreditDisplay.prototype.hideLightbox = function () {
 };
 
 /**
- * Updates the credit display before a new frame is rendered.
+ * 在渲染新帧之前更新信用显示。
  */
+
 CreditDisplay.prototype.update = function () {
   if (this._expanded) {
     styleLightboxContainer(this);
@@ -516,8 +521,9 @@ CreditDisplay.prototype.update = function () {
 };
 
 /**
- * Resets the credit display to a beginning of frame state, clearing out current credits.
+ * 重置信用显示到帧的初始状态，清除当前的信用。
  */
+
 CreditDisplay.prototype.beginFrame = function () {
   const currentFrameCredits = this._currentFrameCredits;
   this._creditDisplayElementPoolIndex = 0;
@@ -554,8 +560,9 @@ CreditDisplay.prototype.beginFrame = function () {
 };
 
 /**
- * Sets the credit display to the end of frame state, displaying credits from the last frame in the credit container.
+ * 将信用显示设置为帧的结束状态，在信用容器中显示来自上一帧的信用。
  */
+
 CreditDisplay.prototype.endFrame = function () {
   const screenCredits = this._currentFrameCredits.screenCredits.values;
   displayCredits(
@@ -574,15 +581,14 @@ CreditDisplay.prototype.endFrame = function () {
 };
 
 /**
- * Destroys the resources held by this object.  Destroying an object allows for deterministic
- * release of resources, instead of relying on the garbage collector to destroy this object.
+ * 销毁该对象持有的资源。销毁对象允许确定性地释放资源，而不是依赖垃圾收集器来销毁该对象。
  * <br /><br />
- * Once an object is destroyed, it should not be used; calling any function other than
- * <code>isDestroyed</code> will result in a {@link DeveloperError} exception.  Therefore,
- * assign the return value (<code>undefined</code>) to the object as done in the example.
+ * 一旦对象被销毁，应避免使用；调用除 <code>isDestroyed</code> 之外的任何函数将导致 {@link DeveloperError} 异常。因此，
+ * 应像示例中那样将返回值 (<code>undefined</code>) 赋值给该对象。
  *
- * @exception {DeveloperError} This object was destroyed, i.e., destroy() was called.
+ * @exception {DeveloperError} 此对象已被销毁，即调用了 destroy()。
  */
+
 CreditDisplay.prototype.destroy = function () {
   this._lightbox.removeEventListener("click", this._hideLightbox, false);
 
@@ -595,11 +601,12 @@ CreditDisplay.prototype.destroy = function () {
 };
 
 /**
- * Returns true if this object was destroyed; otherwise, false.
+ * 如果该对象已被销毁，则返回 true；否则返回 false。
  * <br /><br />
  *
- * @returns {boolean} <code>true</code> if this object was destroyed; otherwise, <code>false</code>.
+ * @returns {boolean} 如果该对象已被销毁，则返回 <code>true</code>；否则返回 <code>false</code>。
  */
+
 CreditDisplay.prototype.isDestroyed = function () {
   return false;
 };
@@ -638,10 +645,11 @@ function getDefaultCredit() {
 
 Object.defineProperties(CreditDisplay, {
   /**
-   * Gets or sets the Cesium logo credit.
+   * 获取或设置 Cesium 标志信用。
    * @memberof CreditDisplay
    * @type {Credit}
    */
+
   cesiumCredit: {
     get: function () {
       getDefaultCredit();

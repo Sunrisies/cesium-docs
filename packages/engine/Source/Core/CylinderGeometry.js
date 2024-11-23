@@ -22,19 +22,19 @@ const tangentScratch = new Cartesian3();
 const positionScratch = new Cartesian3();
 
 /**
- * A description of a cylinder.
+ * 一个圆柱体的描述。
  *
  * @alias CylinderGeometry
  * @constructor
  *
- * @param {object} options Object with the following properties:
- * @param {number} options.length The length of the cylinder.
- * @param {number} options.topRadius The radius of the top of the cylinder.
- * @param {number} options.bottomRadius The radius of the bottom of the cylinder.
- * @param {number} [options.slices=128] The number of edges around the perimeter of the cylinder.
- * @param {VertexFormat} [options.vertexFormat=VertexFormat.DEFAULT] The vertex attributes to be computed.
+ * @param {object} options 具有以下属性的对象：
+ * @param {number} options.length 圆柱体的长度。
+ * @param {number} options.topRadius 圆柱体顶部的半径。
+ * @param {number} options.bottomRadius 圆柱体底部的半径。
+ * @param {number} [options.slices=128] 在圆柱体周围的边缘数量。
+ * @param {VertexFormat} [options.vertexFormat=VertexFormat.DEFAULT] 要计算的顶点属性。
  *
- * @exception {DeveloperError} options.slices must be greater than or equal to 3.
+ * @exception {DeveloperError} options.slices 必须大于或等于 3。
  *
  * @see CylinderGeometry.createGeometry
  *
@@ -91,9 +91,10 @@ function CylinderGeometry(options) {
 }
 
 /**
- * The number of elements used to pack the object into an array.
+ * 将对象打包为数组所用的元素数量。
  * @type {number}
  */
+
 CylinderGeometry.packedLength = VertexFormat.packedLength + 5;
 
 /**
@@ -140,13 +141,14 @@ const scratchOptions = {
 };
 
 /**
- * 从打包数组中检索实例.
+ * 从打包数组中检索实例。
  *
- * @param {number[]} array 压缩数组.
- * @param {number} [startingIndex=0] 需要解包的元素的起始索引.
- * @param {CylinderGeometry} [result] 存储结果的对象.
- * @returns {CylinderGeometry} The modified result parameter or a new CylinderGeometry instance if one was not provided.
+ * @param {number[]} array 压缩数组。
+ * @param {number} [startingIndex=0] 需要解包的元素的起始索引。
+ * @param {CylinderGeometry} [result] 存储结果的对象。
+ * @returns {CylinderGeometry} 修改后的结果参数或如果未提供则返回一个新的 CylinderGeometry 实例。
  */
+
 CylinderGeometry.unpack = function (array, startingIndex, result) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(array)) {
@@ -191,11 +193,12 @@ CylinderGeometry.unpack = function (array, startingIndex, result) {
 };
 
 /**
- * Computes the geometric representation of a cylinder, including its vertices, indices, and a bounding sphere.
+ * 计算圆柱体的几何表示，包括其顶点、索引和边界球。
  *
- * @param {CylinderGeometry} cylinderGeometry A description of the cylinder.
- * @returns {Geometry|undefined} The computed vertices and indices.
+ * @param {CylinderGeometry} cylinderGeometry 圆柱体的描述。
+ * @returns {Geometry|undefined} 计算出的顶点和索引。
  */
+
 CylinderGeometry.createGeometry = function (cylinderGeometry) {
   let length = cylinderGeometry._length;
   const topRadius = cylinderGeometry._topRadius;
@@ -458,11 +461,12 @@ CylinderGeometry.createGeometry = function (cylinderGeometry) {
 let unitCylinderGeometry;
 
 /**
- * Returns the geometric representation of a unit cylinder, including its vertices, indices, and a bounding sphere.
- * @returns {Geometry} The computed vertices and indices.
+ * 返回单位圆柱体的几何表示，包括其顶点、索引和边界球。
+ * @returns {Geometry} 计算出的顶点和索引。
  *
  * @private
  */
+
 CylinderGeometry.getUnitCylinder = function () {
   if (!defined(unitCylinderGeometry)) {
     unitCylinderGeometry = CylinderGeometry.createGeometry(

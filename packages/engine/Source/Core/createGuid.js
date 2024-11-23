@@ -1,5 +1,5 @@
 /**
- * Creates a Globally unique identifier (GUID) string.  A GUID is 128 bits long, and can guarantee uniqueness across space and time.
+ * 创建一个全球唯一标识符 (GUID) 字符串。 GUID 是 128 位长，并且可以保证在空间和时间上具有唯一性。
  *
  * @function
  *

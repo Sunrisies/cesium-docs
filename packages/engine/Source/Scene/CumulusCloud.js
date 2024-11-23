@@ -7,23 +7,21 @@ import defined from "../Core/defined.js";
 
 /**
  * <div class="notice">
- * A cloud is created and its initial properties are set by calling {@link CloudCollection#add}.
- * and {@link CloudCollection#remove}. Do not call the constructor directly.
+ * 通过调用 {@link CloudCollection#add} 和 {@link CloudCollection#remove} 来创建云并设置其初始属性。
+ * 不要直接调用构造函数。
  * </div>
- * A cumulus cloud billboard positioned in the 3D scene, that is created and rendered using a {@link CloudCollection}.
+ * 在3D场景中定位的积云广告牌，通过 {@link CloudCollection} 创建并渲染。
  * <br /><br />
  * <div align='center'>
  * <img src='Images/CumulusCloud.png' width='400' height='300' /><br />
- * Example cumulus clouds
+ * 示例积云
  * </div>
  * @alias CumulusCloud
  *
- * @performance Similar to {@link Billboard}, reading a property, e.g., {@link CumulusCloud#show},
- * takes constant time. Assigning to a property is constant time but results in
- * CPU to GPU traffic when {@link CloudCollection#update} is called.  The per-cloud traffic is
- * the same regardless of how many properties were updated.  If most clouds in a collection need to be
- * updated, it may be more efficient to clear the collection with {@link CloudCollection#removeAll}
- * and add new clouds instead of modifying each one.
+ * @performance 类似于 {@link Billboard}，读取一个属性，例如 {@link CumulusCloud#show}，所需时间是恒定的。
+ * 赋值给一个属性的时间是恒定的，但在 {@link CloudCollection#update} 被调用时会导致 CPU 到 GPU 的流量。
+ * 每个云的流量与更新的属性数量无关。如果集合中的大多数云需要更新，
+ * 使用 {@link CloudCollection#removeAll} 清空集合并添加新云可能比修改每个云更高效。
  *
  * @see CloudCollection
  * @see CloudCollection#add
@@ -85,17 +83,17 @@ function makeDirty(cloud, propertyChanged) {
 
 Object.defineProperties(CumulusCloud.prototype, {
   /**
-   * Determines if this cumulus cloud will be shown.  Use this to hide or show a cloud, instead
-   * of removing it and re-adding it to the collection.
+   * 确定此积云是否会被显示。使用此属性来隐藏或显示云，而不是将其移除并重新添加到集合中。
    * @memberof CumulusCloud.prototype
    * @type {boolean}
    * @default true
    */
-  show: {
-    get: function () {
+  show
+    : {
+    get: function() {
       return this._show;
     },
-    set: function (value) {
+    set: function(value) {
       //>>includeStart('debug', pragmas.debug);
       Check.typeOf.bool("value", value);
       //>>includeEnd('debug');
@@ -107,16 +105,17 @@ Object.defineProperties(CumulusCloud.prototype, {
     },
   },
 
-  /**
-   * Gets or sets the Cartesian position of this cumulus cloud.
+ /**
+   * 获取或设置此积云的笛卡尔位置。
    * @memberof CumulusCloud.prototype
    * @type {Cartesian3}
    */
+
   position: {
-    get: function () {
+    get: function() {
       return this._position;
     },
-    set: function (value) {
+    set: function(value) {
       //>>includeStart('debug', pragmas.debug)
       Check.typeOf.object("value", value);
       //>>includeEnd('debug');
@@ -129,10 +128,10 @@ Object.defineProperties(CumulusCloud.prototype, {
     },
   },
 
-  /**
-   * <p>Gets or sets the scale of the cumulus cloud billboard in meters.
-   * The <code>scale</code> property will affect the size of the billboard,
-   * but not the cloud's actual appearance.</p>
+ /**
+   * <p>获取或设置积云广告牌的缩放比例（以米为单位）。
+   * <code>scale</code> 属性将影响广告牌的大小，
+   * 但不会影响云的实际外观。</p>
    * <div align='center'>
    * <table border='0' cellpadding='5'><tr>
    * <td align='center'>
@@ -146,19 +145,20 @@ Object.defineProperties(CumulusCloud.prototype, {
    * </tr></table>
    * </div>
    *
-   * <p>To modify the cloud's appearance, modify its <code>maximumSize</code>
-   * and <code>slice</code> properties.</p>
+   * <p>要修改云的外观，请修改其 <code>maximumSize</code>
+   * 和 <code>slice</code> 属性。</p>
    * @memberof CumulusCloud.prototype
    * @type {Cartesian2}
    *
    * @see CumulusCloud#maximumSize
    * @see CumulusCloud#slice
    */
+
   scale: {
-    get: function () {
+    get: function() {
       return this._scale;
     },
-    set: function (value) {
+    set: function(value) {
       //>>includeStart('debug', pragmas.debug)
       Check.typeOf.object("value", value);
       //>>includeEnd('debug');
@@ -172,13 +172,12 @@ Object.defineProperties(CumulusCloud.prototype, {
   },
 
   /**
-   * <p>Gets or sets the maximum size of the cumulus cloud rendered on the billboard.
-   * This defines a maximum ellipsoid volume that the cloud can appear in.
-   * Rather than guaranteeing a specific size, this specifies a boundary for the
-   * cloud to appear in, and changing it can affect the shape of the cloud.</p>
-   * <p>Changing the z-value of <code>maximumSize</code> has the most dramatic effect
-   * on the cloud's appearance because it changes the depth of the cloud, and thus the
-   * positions at which the cloud-shaping texture is sampled.</p>
+   * <p>获取或设置在广告牌上渲染的积云的最大大小。
+   * 这定义了云可以出现的最大椭球体积。
+   * 而不是保证一个特定的大小，这指定了云出现的边界，
+   * 改变它可能会影响云的形状。</p>
+   * <p>改变 <code>maximumSize</code> 的 z 值对云的外观有最显著的影响，
+   * 因为它改变了云的深度，从而影响了云形状纹理的采样位置。</p>
    * <div align='center'>
    * <table border='0' cellpadding='5'>
    * <tr>
@@ -204,17 +203,18 @@ Object.defineProperties(CumulusCloud.prototype, {
    * </table>
    * </div>
    *
-   * <p>To modify the billboard's actual size, modify the cloud's <code>scale</code> property.</p>
+   * <p>要修改广告牌的实际大小，请修改云的 <code>scale</code> 属性。</p>
    * @memberof CumulusCloud.prototype
    * @type {Cartesian3}
    *
    * @see CumulusCloud#scale
    */
+
   maximumSize: {
-    get: function () {
+    get: function() {
       return this._maximumSize;
     },
-    set: function (value) {
+    set: function(value) {
       //>>includeStart('debug', pragmas.debug)
       Check.typeOf.object("value", value);
       //>>includeEnd('debug');
@@ -227,16 +227,17 @@ Object.defineProperties(CumulusCloud.prototype, {
     },
   },
   /**
-   * Sets the color of the cloud
+   * 设置云的颜色
    * @memberof CumulusCloud.prototype
    * @type {Color}
    * @default Color.WHITE
    */
+
   color: {
-    get: function () {
+    get: function() {
       return this._color;
     },
-    set: function (value) {
+    set: function(value) {
       //>>includeStart('debug', pragmas.debug)
       Check.typeOf.object("value", value);
       //>>includeEnd('debug');
@@ -249,10 +250,8 @@ Object.defineProperties(CumulusCloud.prototype, {
     },
   },
   /**
-   * <p>Gets or sets the "slice" of the cloud that is rendered on the billboard, i.e.
-   * the specific cross-section of the cloud chosen for the billboard's appearance.
-   * Given a value between 0 and 1, the slice specifies how deeply into the cloud
-   * to intersect based on its maximum size in the z-direction.</p>
+   * <p>获取或设置在广告牌上渲染的云的“切片”，即为广告牌外观选择的云的特定横截面。
+   * 给定一个介于 0 和 1 之间的值，切片指定在云的 z 方向最大大小基础上切入云的深度。</p>
    * <div align='center'>
    * <table border='0' cellpadding='5'><tr>
    * <td align='center'><code>cloud.slice = 0.32;</code><br/><img src='Images/CumulusCloud.slice0.32.png' width='250' height='158' /></td>
@@ -262,11 +261,9 @@ Object.defineProperties(CumulusCloud.prototype, {
    * </div>
    *
    * <br />
-   * <p>Due to the nature in which this slice is calculated,
-   * values below <code>0.2</code> may result in cross-sections that are too small,
-   * and the edge of the ellipsoid will be visible. Similarly, values above <code>0.7</code>
-   * will cause the cloud to appear smaller. Values outside the range <code>[0.1, 0.9]</code>
-   * should be avoided entirely because they do not produce desirable results.</p>
+   * <p>由于此切片的计算方式，低于 <code>0.2</code> 的值可能会导致横截面过小，
+   * 椭球体的边缘将会可见。同样，高于 <code>0.7</code> 的值会导致云的外观变小。
+   * 完全应避免在 <code>[0.1, 0.9]</code> 范围之外的值，因为它们不会产生理想的结果。</p>
    *
    * <div align='center'>
    * <table border='0' cellpadding='5'><tr>
@@ -275,10 +272,9 @@ Object.defineProperties(CumulusCloud.prototype, {
    * </tr></table>
    * </div>
    *
-   * <p>If <code>slice</code> is set to a negative number, the cloud will not render a cross-section.
-   * Instead, it will render the outside of the ellipsoid that is visible. For clouds with
-   * small values of `maximumSize.z`, this can produce good-looking results, but for larger
-   * clouds, this can result in a cloud that is undesirably warped to the ellipsoid volume.</p>
+   * <p>如果将 <code>slice</code> 设置为负数，云将不会渲染横截面。
+   * 相反，它将渲染可见的椭球体外部。对于具有较小 `maximumSize.z` 值的云，这可以产生良好的效果，
+   * 但对于较大的云，这可能会导致云在椭球体体积中变形，效果不佳。</p>
    *
    * <div align='center'>
    * <table border='0' cellpadding='5'><tr>
@@ -296,11 +292,12 @@ Object.defineProperties(CumulusCloud.prototype, {
    * @type {number}
    * @default -1.0
    */
+
   slice: {
-    get: function () {
+    get: function() {
       return this._slice;
     },
-    set: function (value) {
+    set: function(value) {
       //>>includeStart('debug', pragmas.debug)
       Check.typeOf.number("value", value);
       //>>includeEnd('debug');
@@ -314,8 +311,7 @@ Object.defineProperties(CumulusCloud.prototype, {
   },
 
   /**
-   * Gets or sets the brightness of the cloud. This can be used to give clouds
-   * a darker, grayer appearance.
+   * 获取或设置云的亮度。可以用来使云呈现更暗、更灰的外观。
    * <br /><br />
    * <div align='center'>
    * <table border='0' cellpadding='5'><tr>
@@ -328,11 +324,12 @@ Object.defineProperties(CumulusCloud.prototype, {
    * @type {number}
    * @default 1.0
    */
+
   brightness: {
-    get: function () {
+    get: function() {
       return this._brightness;
     },
-    set: function (value) {
+    set: function(value) {
       //>>includeStart('debug', pragmas.debug)
       Check.typeOf.number("value", value);
       //>>includeEnd('debug');
@@ -346,7 +343,7 @@ Object.defineProperties(CumulusCloud.prototype, {
   },
 });
 
-CumulusCloud.prototype._destroy = function () {
+CumulusCloud.prototype._destroy = function() {
   this._cloudCollection = undefined;
 };
 

@@ -1,13 +1,13 @@
 import WebGLConstants from "../Core/WebGLConstants.js";
 
 /**
- * Determines which triangles, if any, are culled.
+ * 确定哪些三角形被剔除（如果有的话）。
  *
  * @enum {number}
  */
 const CullFace = {
   /**
-   * Front-facing triangles are culled.
+   * 剔除前向三角形。
    *
    * @type {number}
    * @constant
@@ -15,7 +15,7 @@ const CullFace = {
   FRONT: WebGLConstants.FRONT,
 
   /**
-   * Back-facing triangles are culled.
+   * 剔除后向三角形。
    *
    * @type {number}
    * @constant
@@ -23,11 +23,12 @@ const CullFace = {
   BACK: WebGLConstants.BACK,
 
   /**
-   * Both front-facing and back-facing triangles are culled.
+   * 同时剔除前向和后向三角形。
    *
    * @type {number}
    * @constant
    */
   FRONT_AND_BACK: WebGLConstants.FRONT_AND_BACK,
 };
+
 export default Object.freeze(CullFace);

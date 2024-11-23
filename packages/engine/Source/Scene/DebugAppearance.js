@@ -4,25 +4,25 @@ import DeveloperError from "../Core/DeveloperError.js";
 import Appearance from "./Appearance.js";
 
 /**
- * Visualizes a vertex attribute by displaying it as a color for debugging.
+ * 通过将其显示为颜色来可视化顶点属性，以便进行调试。
  * <p>
- * Components for well-known unit-length vectors, i.e., <code>normal</code>,
- * <code>tangent</code>, and <code>bitangent</code>, are scaled and biased
- * from [-1.0, 1.0] to (-1.0, 1.0).
+ * 组件适用于著名的单位长度向量，即 <code>normal</code>，
+ * <code>tangent</code> 和 <code>bitangent</code>，并且
+ * 从 [-1.0, 1.0] 缩放和偏移到 (-1.0, 1.0)。
  * </p>
  *
  * @alias DebugAppearance
  * @constructor
  *
- * @param {object} options Object with the following properties:
- * @param {string} options.attributeName The name of the attribute to visualize.
- * @param {boolean} [options.perInstanceAttribute=false] Boolean that determines whether this attribute is a per-instance geometry attribute.
- * @param {string} [options.glslDatatype='vec3'] The GLSL datatype of the attribute.  Supported datatypes are <code>float</code>, <code>vec2</code>, <code>vec3</code>, and <code>vec4</code>.
- * @param {string} [options.vertexShaderSource] Optional GLSL vertex shader source to override the default vertex shader.
- * @param {string} [options.fragmentShaderSource] Optional GLSL fragment shader source to override the default fragment shader.
- * @param {object} [options.renderState] Optional render state to override the default render state.
+ * @param {object} options 具有以下属性的对象：
+ * @param {string} options.attributeName 要可视化的属性名称。
+ * @param {boolean} [options.perInstanceAttribute=false] 布尔值，用于确定该属性是否为每实例几何属性。
+ * @param {string} [options.glslDatatype='vec3'] 属性的 GLSL 数据类型。支持的数据类型有 <code>float</code>、<code>vec2</code>、<code>vec3</code> 和 <code>vec4</code>。
+ * @param {string} [options.vertexShaderSource] 可选的 GLSL 顶点着色器源，用于覆盖默认的顶点着色器。
+ * @param {string} [options.fragmentShaderSource] 可选的 GLSL 片元着色器源，用于覆盖默认的片元着色器。
+ * @param {object} [options.renderState] 可选的渲染状态，用于覆盖默认的渲染状态。
  *
- * @exception {DeveloperError} options.glslDatatype must be float, vec2, vec3, or vec4.
+ * @exception {DeveloperError} options.glslDatatype 必须是 float、vec2、vec3 或 vec4。
  *
  * @example
  * const primitive = new Cesium.Primitive({
@@ -110,8 +110,7 @@ function DebugAppearance(options) {
     `}`;
 
   /**
-   * This property is part of the {@link Appearance} interface, but is not
-   * used by {@link DebugAppearance} since a fully custom fragment shader is used.
+   * 此属性是 {@link Appearance} 接口的一部分，但 {@link DebugAppearance} 不使用它，因为使用了完全自定义的片元着色器。
    *
    * @type Material
    *
@@ -120,12 +119,13 @@ function DebugAppearance(options) {
   this.material = undefined;
 
   /**
-   * When <code>true</code>, the geometry is expected to appear translucent.
+   * 当 <code>true</code> 时，几何体预计会呈现为半透明。
    *
    * @type {boolean}
    *
    * @default false
    */
+
   this.translucent = defaultValue(options.translucent, false);
 
   this._vertexShaderSource = defaultValue(options.vertexShaderSource, vs);
@@ -145,7 +145,7 @@ function DebugAppearance(options) {
 
 Object.defineProperties(DebugAppearance.prototype, {
   /**
-   * The GLSL source code for the vertex shader.
+   * 顶点着色器的 GLSL 源代码。
    *
    * @memberof DebugAppearance.prototype
    *
@@ -159,9 +159,9 @@ Object.defineProperties(DebugAppearance.prototype, {
   },
 
   /**
-   * The GLSL source code for the fragment shader.  The full fragment shader
-   * source is built procedurally taking into account the {@link DebugAppearance#material}.
-   * Use {@link DebugAppearance#getFragmentShaderSource} to get the full source.
+   * 片元着色器的 GLSL 源代码。完整的片元着色器
+   * 源代码是根据 {@link DebugAppearance#material} 逐步生成的。
+   * 使用 {@link DebugAppearance#getFragmentShaderSource} 获取完整源代码。
    *
    * @memberof DebugAppearance.prototype
    *
@@ -175,7 +175,7 @@ Object.defineProperties(DebugAppearance.prototype, {
   },
 
   /**
-   * The WebGL fixed-function state to use when rendering the geometry.
+   * 在渲染几何图形时使用的 WebGL 固定功能状态。
    *
    * @memberof DebugAppearance.prototype
    *
@@ -189,7 +189,7 @@ Object.defineProperties(DebugAppearance.prototype, {
   },
 
   /**
-   * 当 <code>true</code> 时，几何图形应闭合.
+   * 当 <code>true</code> 时，几何图形应闭合。
    *
    * @memberof DebugAppearance.prototype
    *
@@ -205,7 +205,7 @@ Object.defineProperties(DebugAppearance.prototype, {
   },
 
   /**
-   * The name of the attribute being visualized.
+   * 正在可视化的属性名称。
    *
    * @memberof DebugAppearance.prototype
    *
@@ -219,7 +219,7 @@ Object.defineProperties(DebugAppearance.prototype, {
   },
 
   /**
-   * The GLSL datatype of the attribute being visualized.
+   * 正在可视化的属性的 GLSL 数据类型。
    *
    * @memberof DebugAppearance.prototype
    *
@@ -234,33 +234,34 @@ Object.defineProperties(DebugAppearance.prototype, {
 });
 
 /**
- * Returns the full GLSL fragment shader source, which for {@link DebugAppearance} is just
- * {@link DebugAppearance#fragmentShaderSource}.
+ * 返回完整的 GLSL 片元着色器源代码，对于 {@link DebugAppearance} 来说就是
+ * {@link DebugAppearance#fragmentShaderSource}。
  *
  * @function
  *
- * @returns {string} The full GLSL fragment shader source.
+ * @returns {string} 完整的 GLSL 片元着色器源代码。
  */
+
 DebugAppearance.prototype.getFragmentShaderSource =
   Appearance.prototype.getFragmentShaderSource;
 
 /**
- * Determines if the geometry is translucent based on {@link DebugAppearance#translucent}.
+ * 根据 {@link DebugAppearance#translucent} 判断几何体是否是半透明的。
  *
  * @function
  *
- * @returns {boolean} <code>true</code> if the appearance is translucent.
+ * @returns {boolean} 如果外观是半透明的，则返回 <code>true</code>。
  */
 DebugAppearance.prototype.isTranslucent = Appearance.prototype.isTranslucent;
 
 /**
- * Creates a render state.  This is not the final render state instance; instead,
- * it can contain a subset of render state properties identical to the render state
- * created in the context.
+ * 创建一个渲染状态。此状态不是最终的渲染状态实例；相反，
+ * 它可以包含与在上下文中创建的渲染状态相同的渲染状态属性的子集。
  *
  * @function
  *
- * @returns {object} The render state.
+ * @returns {object} 渲染状态。
  */
+
 DebugAppearance.prototype.getRenderState = Appearance.prototype.getRenderState;
 export default DebugAppearance;

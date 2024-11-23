@@ -7,21 +7,22 @@ import Intersect from "./Intersect.js";
 import Plane from "./Plane.js";
 
 /**
- * The culling volume defined by planes.
+ * 由平面定义的剔除体积。
  *
  * @alias CullingVolume
  * @constructor
  *
- * @param {Cartesian4[]} [planes] An array of clipping planes.
+ * @param {Cartesian4[]} [planes] 一个裁剪平面数组。
  */
+
 function CullingVolume(planes) {
   /**
-   * Each plane is represented by a Cartesian4 object, where the x, y, and z components
-   * define the unit vector normal to the plane, and the w component is the distance of the
-   * plane from the origin.
+   * 每个平面由一个 Cartesian4 对象表示，其中 x、y 和 z 组件
+   * 定义法向量的单位向量，w 组件是平面距离原点的距离。
    * @type {Cartesian4[]}
    * @default []
    */
+
   this.planes = defaultValue(planes, []);
 }
 
@@ -35,13 +36,14 @@ const scratchPlaneNormal = new Cartesian3();
 const scratchPlane = new Plane(new Cartesian3(1.0, 0.0, 0.0), 0.0);
 
 /**
- * Constructs a culling volume from a bounding sphere. Creates six planes that create a box containing the sphere.
- * The planes are aligned to the x, y, and z axes in world coordinates.
+ * 从包围球构造剔除体积。创建六个平面，形成一个包含该球的盒子。
+ * 这些平面在世界坐标中与 x、y 和 z 轴对齐。
  *
- * @param {BoundingSphere} boundingSphere The bounding sphere used to create the culling volume.
- * @param {CullingVolume} [result] 存储结果的对象.
- * @returns {CullingVolume} The culling volume created from the bounding sphere.
+ * @param {BoundingSphere} boundingSphere 用于创建剔除体积的包围球。
+ * @param {CullingVolume} [result] 存储结果的对象。
+ * @returns {CullingVolume} 从包围球创建的剔除体积。
  */
+
 CullingVolume.fromBoundingSphere = function (boundingSphere, result) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(boundingSphere)) {
@@ -101,11 +103,12 @@ CullingVolume.fromBoundingSphere = function (boundingSphere, result) {
 };
 
 /**
- * Determines whether a bounding volume intersects the culling volume.
+ * 确定一个包围体是否与剔除体积相交。
  *
- * @param {object} boundingVolume The bounding volume whose intersection with the culling volume is to be tested.
- * @returns {Intersect}  Intersect.OUTSIDE, Intersect.INTERSECTING, or Intersect.INSIDE.
+ * @param {object} boundingVolume 要测试与剔除体积相交的包围体。
+ * @returns {Intersect}  Intersect.OUTSIDE、Intersect.INTERSECTING 或 Intersect.INSIDE。
  */
+
 CullingVolume.prototype.computeVisibility = function (boundingVolume) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(boundingVolume)) {
@@ -130,17 +133,17 @@ CullingVolume.prototype.computeVisibility = function (boundingVolume) {
 };
 
 /**
- * Determines whether a bounding volume intersects the culling volume.
+ * 确定一个包围体是否与剔除体积相交。
  *
- * @param {object} boundingVolume The bounding volume whose intersection with the culling volume is to be tested.
- * @param {number} parentPlaneMask A bit mask from the boundingVolume's parent's check against the same culling
- *                                 volume, such that if (planeMask & (1 << planeIndex) === 0), for k < 31, then
- *                                 the parent (and therefore this) volume is completely inside plane[planeIndex]
- *                                 and that plane check can be skipped.
- * @returns {number} A plane mask as described above (which can be applied to this boundingVolume's children).
+ * @param {object} boundingVolume 要测试与剔除体积相交的包围体。
+ * @param {number} parentPlaneMask 来自包围体父对象对同一剔除体积检查的位掩码，如果 (planeMask & (1 << planeIndex) === 0)，
+ *                                   对于 k < 31，则父体（因此这个体）完全在 plane[planeIndex] 内部，
+ *                                   可以跳过该平面的检查。
+ * @returns {number} 如上所述的平面掩码（可以应用于该包围体的子项）。
  *
  * @private
  */
+
 CullingVolume.prototype.computeVisibilityWithPlaneMask = function (
   boundingVolume,
   parentPlaneMask,
@@ -189,29 +192,32 @@ CullingVolume.prototype.computeVisibilityWithPlaneMask = function (
 };
 
 /**
- * For plane masks (as used in {@link CullingVolume#computeVisibilityWithPlaneMask}), this special value
- * represents the case where the object bounding volume is entirely outside the culling volume.
+ * 对于平面掩码（如在 {@link CullingVolume#computeVisibilityWithPlaneMask} 中使用），
+ * 这个特殊值表示对象包围体完全在剔除体积外的情况。
  *
  * @type {number}
  * @private
  */
+
 CullingVolume.MASK_OUTSIDE = 0xffffffff;
 
 /**
- * For plane masks (as used in {@link CullingVolume.prototype.computeVisibilityWithPlaneMask}), this value
- * represents the case where the object bounding volume is entirely inside the culling volume.
+ * 对于平面掩码（如在 {@link CullingVolume.prototype.computeVisibilityWithPlaneMask} 中使用），
+ * 这个值表示对象包围体完全在剔除体积内的情况。
  *
  * @type {number}
  * @private
  */
+
 CullingVolume.MASK_INSIDE = 0x00000000;
 
 /**
- * For plane masks (as used in {@link CullingVolume.prototype.computeVisibilityWithPlaneMask}), this value
- * represents the case where the object bounding volume (may) intersect all planes of the culling volume.
+ * 对于平面掩码（如在 {@link CullingVolume.prototype.computeVisibilityWithPlaneMask} 中使用），
+ * 这个值表示对象包围体（可能）与剔除体积的所有平面相交的情况。
  *
  * @type {number}
  * @private
  */
+
 CullingVolume.MASK_INDETERMINATE = 0x7fffffff;
 export default CullingVolume;

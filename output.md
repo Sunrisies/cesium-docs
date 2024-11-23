@@ -108,53 +108,54 @@
 - [x] createAnchorPointIndirect
 - [x] createCorrelationGroup
 - [x] createCovarianceMatrixFromUpperTriangle
-- [ ] createElevationBandMaterial
-- [ ] createElevationBandMaterialBand
-- [ ] createElevationBandMaterialEntry
-- [ ] createGooglePhotorealistic3DTileset
-- [ ] createGuid
-- [ ] createOsmBuildingsAsync
-- [ ] createTangentSpaceDebugPrimitive
-- [ ] createWorldBathymetryAsync
-- [ ] createWorldImageryAsync
-- [ ] createWorldTerrainAsync
-- [ ] Credit
-- [ ] CreditDisplay
-- [ ] CubicRealPolynomial
-- [ ] CullFace
-- [ ] CullingVolume
-- [ ] CumulusCloud
-- [ ] CustomDataSource
-- [ ] CustomHeightmapTerrainProvider
-- [ ] CustomShader
-- [ ] CustomShaderMode
-- [ ] CustomShaderTranslucencyMode
-- [ ] CylinderGeometry
-- [ ] CylinderGeometryUpdater
-- [ ] CylinderGraphics
-- [ ] CylinderOutlineGeometry
-- [ ] CzmlDataSource
-- [ ] DataSource
-- [ ] DataSourceClock
-- [ ] DataSourceCollection
-- [ ] DataSourceDisplay
-- [ ] DebugAppearance
-- [ ] DebugCameraPrimitive
-- [ ] DebugModelMatrixPrimitive
-- [ ] DefaultProxy
-- [ ] defaultValue
-- [ ] defined
-- [ ] DepthFunction
-- [ ] destroyObject
-- [ ] DeveloperError
-- [ ] DirectionalLight
-- [ ] DirectionUp
-- [ ] DiscardEmptyTileImagePolicy
-- [ ] DiscardMissingTileImagePolicy
-- [ ] DistanceDisplayCondition
-- [ ] DistanceDisplayConditionGeometryInstanceAttribute
-- [ ] DynamicAtmosphereLightingType
-- [ ] DynamicEnvironmentMapManager
+- [x] createElevationBandMaterial
+- [x] createElevationBandMaterialBand
+- [x] createElevationBandMaterialEntry
+- [x] createGooglePhotorealistic3DTileset
+- [x] createGuid
+- [x] createOsmBuildingsAsync
+- [x] createTangentSpaceDebugPrimitive
+- [x] createWorldBathymetryAsync
+- [x] createWorldImageryAsync
+- [x] createWorldTerrainAsync
+- [x] Credit
+- [x] CreditDisplay
+- [x] CubicRealPolynomial
+- [x] CullFace
+- [x] CullingVolume
+- [x] CumulusCloud
+- [x] CustomDataSource
+- [x] CustomHeightmapTerrainProvider
+- [x] CustomShader
+- [x] CustomShaderMode
+- [x] CustomShaderTranslucencyMode
+- [x] CylinderGeometry
+- [x] CylinderGeometryUpdater
+- [x] CylinderGraphics
+- [x] CylinderOutlineGeometry
+- [x] CzmlDataSource
+- [x] DataSource
+- [x] DataSourceClock
+- [x] DataSourceCollection
+- [x] DataSourceDisplay
+- [x] DebugAppearance
+- [x] DebugCameraPrimitive
+- [x] DebugModelMatrixPrimitive
+- [x] DefaultProxy
+- [x] defaultValue
+- [x] defined
+- [x] DepthFunction
+- [x] destroyObject
+- [x] DeveloperError
+- [x] DirectionalLight
+- [x] DirectionUp
+- [x] DiscardEmptyTileImagePolicy
+- [x] DiscardMissingTileImagePolicy
+- [x] DistanceDisplayCondition
+- [x] DistanceDisplayConditionGeometryInstanceAttribute
+- [x] DynamicAtmosphereLightingType
+- [x] DynamicEnvironmentMapManager
+
 - [ ] EasingFunction
 - [ ] EllipseGeometry
 - [ ] EllipseGeometryUpdater

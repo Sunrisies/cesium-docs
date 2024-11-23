@@ -411,29 +411,30 @@ function createLayeredEntries(layers) {
 /**
  * @typedef createElevationBandMaterialEntry
  *
- * @property {number} height The height.
- * @property {Color} color The color at this height.
- */
-/**
- * @typedef createElevationBandMaterialBand
- *
- * @property {createElevationBandMaterialEntry[]} entries A list of elevation entries. They will automatically be sorted from lowest to highest. If there is only one entry and <code>extendsDownards</code> and <code>extendUpwards</code> are both <code>false</code>, they will both be set to <code>true</code>.
- * @property {boolean} [extendDownwards=false] If <code>true</code>, the band's minimum elevation color will extend infinitely downwards.
- * @property {boolean} [extendUpwards=false] If <code>true</code>, the band's maximum elevation color will extend infinitely upwards.
+ * @property {number} height 高度。
+ * @property {Color} color 在该高度的颜色。
  */
 
 /**
- * Creates a {@link Material} that combines multiple layers of color/gradient bands and maps them to terrain heights.
+ * @typedef createElevationBandMaterialBand
  *
- * The shader does a binary search over all the heights to find out which colors are above and below a given height, and
- * interpolates between them for the final color. This material supports hundreds of entries relatively cheaply.
+ * @property {createElevationBandMaterialEntry[]} entries 高程条目的列表。它们将自动从最低到最高排序。如果只有一个条目并且 <code>extendsDownwards</code> 和 <code>extendUpwards</code> 都为 <code>false</code>，它们将都被设置为 <code>true</code>。
+ * @property {boolean} [extendDownwards=false] 如果 <code>true</code>，则该带的最小高程颜色将无限向下延伸。
+ * @property {boolean} [extendUpwards=false] 如果 <code>true</code>，则该带的最大高程颜色将无限向上延伸。
+ */
+
+
+/**
+ * 创建一个 {@link Material}，该材质将多个颜色/渐变条带组合在一起，并将它们映射到地形高度上。
+ *
+ * 着色器对所有高度进行二分搜索，以确定给定高度上方和下方的颜色，并在它们之间进行插值以得到最终颜色。此材质支持数百个条目，相对便宜。
  *
  * @function createElevationBandMaterial
  *
- * @param {object} options Object with the following properties:
- * @param {Scene} options.scene The scene where the visualization is taking place.
- * @param {createElevationBandMaterialBand[]} options.layers A list of bands ordered from lowest to highest precedence.
- * @returns {Material} A new {@link Material} instance.
+ * @param {object} options 包含以下属性的对象：
+ * @param {Scene} options.scene 可视化发生的场景。
+ * @param {createElevationBandMaterialBand[]} options.layers 按照优先级从低到高排序的条带列表。
+ * @returns {Material} 一个新的 {@link Material} 实例。
  *
  * @demo {@link https://sandcastle.cesium.com/index.html?src=Elevation%20Band%20Material.html|Cesium Sandcastle Elevation Band Demo}
  *
@@ -547,34 +548,36 @@ function createElevationBandMaterial(options) {
 }
 
 /**
- * Function for checking if the context will allow floating point textures for heights.
+ * 检查上下文是否允许使用浮点纹理来表示高度的函数。
  *
- * @param {Context} context The {@link Context}.
- * @returns {boolean} <code>true</code> if floating point textures can be used for heights.
+ * @param {Context} context {@link Context}。
+ * @returns {boolean} 如果可以使用浮点纹理表示高度，则返回 <code>true</code>。
  * @private
  */
+
 createElevationBandMaterial._useFloatTexture = function (context) {
   return context.floatingPointTexture;
 };
 
 /**
- * This is the height that gets stored in the texture when using extendUpwards.
- * There's nothing special about it, it's just a really big number.
+ * 当使用 extendUpwards 时存储在纹理中的高度。
+ * 这个高度没有什么特别之处，只是一个非常大的数字。
  * @private
  */
 createElevationBandMaterial._maximumHeight = +5906376425472;
 
 /**
- * This is the height that gets stored in the texture when using extendDownwards.
- * There's nothing special about it, it's just a really big number.
+ * 当使用 extendDownwards 时存储在纹理中的高度。
+ * 这个高度没有什么特别之处，只是一个非常大的数字。
  * @private
  */
 createElevationBandMaterial._minimumHeight = -5906376425472;
 
 /**
- * Color used to create empty space in the color texture
+ * 用于在颜色纹理中创建空白区域的颜色
  * @private
  */
+
 createElevationBandMaterial._emptyColor = new Color(0.0, 0.0, 0.0, 0.0);
 
 export default createElevationBandMaterial;

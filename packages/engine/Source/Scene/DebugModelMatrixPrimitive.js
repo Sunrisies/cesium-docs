@@ -11,29 +11,27 @@ import PolylineColorAppearance from "./PolylineColorAppearance.js";
 import Primitive from "./Primitive.js";
 
 /**
- * Draws the axes of a reference frame defined by a matrix that transforms to world
- * coordinates, i.e., Earth's WGS84 coordinates.  The most prominent example is
- * a primitives <code>modelMatrix</code>.
+ * 绘制由转换到世界坐标的矩阵定义的参考框架的轴，即地球的WGS84坐标。
  * <p>
- * The X axis is red; Y is green; and Z is blue.
+ * X轴为红色；Y轴为绿色；Z轴为蓝色。
  * </p>
  * <p>
- * This is for debugging only; it is not optimized for production use.
+ * 这只用于调试；它没有为生产使用进行优化。
  * </p>
  *
  * @alias DebugModelMatrixPrimitive
  * @constructor
  *
- * @param {object} [options] Object with the following properties:
- * @param {number} [options.length=10000000.0] The length of the axes in meters.
- * @param {number} [options.width=2.0] The width of the axes in pixels.
- * @param {Matrix4} [options.modelMatrix=Matrix4.IDENTITY] The 4x4 matrix that defines the reference frame, i.e., origin plus axes, to visualize.
- * @param {boolean} [options.show=true] Determines if this primitive will be shown.
- * @param {object} [options.id] A user-defined object to return when the instance is picked with {@link Scene#pick}
+ * @param {object} [options] 具有以下属性的对象：
+ * @param {number} [options.length=10000000.0] 轴的长度，单位为米。
+ * @param {number} [options.width=2.0] 轴的宽度，单位为像素。
+ * @param {Matrix4} [options.modelMatrix=Matrix4.IDENTITY] 定义参考框架的4x4矩阵，即原点加轴，用于可视化。
+ * @param {boolean} [options.show=true] 确定这个原语是否会被显示。
+ * @param {object} [options.id] 用户定义的对象，在实例被 {@link Scene#pick} 拾取时返回。
  *
  * @example
  * primitives.add(new Cesium.DebugModelMatrixPrimitive({
- *   modelMatrix : primitive.modelMatrix,  // primitive to debug
+ *   modelMatrix : primitive.modelMatrix,  // 要调试的原语
  *   length : 100000.0,
  *   width : 10.0
  * }));
@@ -42,7 +40,7 @@ function DebugModelMatrixPrimitive(options) {
   options = defaultValue(options, defaultValue.EMPTY_OBJECT);
 
   /**
-   * The length of the axes in meters.
+   * 轴的长度，单位为米。
    *
    * @type {number}
    * @default 10000000.0
@@ -51,7 +49,7 @@ function DebugModelMatrixPrimitive(options) {
   this._length = undefined;
 
   /**
-   * The width of the axes in pixels.
+   * 轴的宽度，单位为像素。
    *
    * @type {number}
    * @default 2.0
@@ -60,7 +58,7 @@ function DebugModelMatrixPrimitive(options) {
   this._width = undefined;
 
   /**
-   * Determines if this primitive will be shown.
+   * 确定这个原语是否会被显示。
    *
    * @type {boolean}
    * @default true
@@ -68,7 +66,7 @@ function DebugModelMatrixPrimitive(options) {
   this.show = defaultValue(options.show, true);
 
   /**
-   * The 4x4 matrix that defines the reference frame, i.e., origin plus axes, to visualize.
+   * 定义参考框架的4x4矩阵，即原点加轴，用于可视化。
    *
    * @type {Matrix4}
    * @default {@link Matrix4.IDENTITY}
@@ -79,12 +77,10 @@ function DebugModelMatrixPrimitive(options) {
   this._modelMatrix = new Matrix4();
 
   /**
-   * User-defined value returned when the primitive is picked.
+   * 用户定义的对象，在实例被 {@link Scene#pick} 拾取时返回。
    *
    * @type {*}
    * @default undefined
-   *
-   * @see Scene#pick
    */
   this.id = options.id;
   this._id = undefined;
@@ -116,7 +112,7 @@ DebugModelMatrixPrimitive.prototype.update = function (frameState) {
       this._primitive.destroy();
     }
 
-    // Workaround projecting (0, 0, 0)
+    // 避免投影 (0, 0, 0)
     if (
       this.modelMatrix[12] === 0.0 &&
       this.modelMatrix[13] === 0.0 &&
@@ -185,13 +181,12 @@ DebugModelMatrixPrimitive.prototype.update = function (frameState) {
 };
 
 /**
- * Returns true if this object was destroyed; otherwise, false.
+ * 返回此对象是否已被销毁；如果没有被销毁，则返回 false。
  * <p>
- * If this object was destroyed, it should not be used; calling any function other than
- * <code>isDestroyed</code> will result in a {@link DeveloperError} exception.
+ * 如果此对象已被销毁，则不应再使用；调用任何除 <code>isDestroyed</code> 之外的函数都会抛出 {@link DeveloperError} 异常。
  * </p>
  *
- * @returns {boolean} <code>true</code> if this object was destroyed; otherwise, <code>false</code>.
+ * @returns {boolean} 如果此对象已被销毁，则返回 <code>true</code>；否则返回 <code>false</code>。
  *
  * @see DebugModelMatrixPrimitive#destroy
  */
@@ -200,15 +195,12 @@ DebugModelMatrixPrimitive.prototype.isDestroyed = function () {
 };
 
 /**
- * Destroys the WebGL resources held by this object.  Destroying an object allows for deterministic
- * release of WebGL resources, instead of relying on the garbage collector to destroy this object.
+ * 销毁此对象所持有的WebGL资源。销毁一个对象允许确定性地释放WebGL资源，而不是依赖垃圾收集器来销毁此对象。
  * <p>
- * Once an object is destroyed, it should not be used; calling any function other than
- * <code>isDestroyed</code> will result in a {@link DeveloperError} exception.  Therefore,
- * assign the return value (<code>undefined</code>) to the object as done in the example.
+ * 一旦对象被销毁，就不应再使用；调用任何除 <code>isDestroyed</code> 之外的函数都会抛出 {@link DeveloperError} 异常。因此，将返回值（<code>undefined</code>）赋值给对象，如示例中所做的。
  * </p>
  *
- * @exception {DeveloperError} This object was destroyed, i.e., destroy() was called.
+ * @exception {DeveloperError} 此对象已被销毁，即调用了 destroy()。
  *
  * @example
  * p = p && p.destroy();
@@ -219,4 +211,5 @@ DebugModelMatrixPrimitive.prototype.destroy = function () {
   this._primitive = this._primitive && this._primitive.destroy();
   return destroyObject(this);
 };
+
 export default DebugModelMatrixPrimitive;

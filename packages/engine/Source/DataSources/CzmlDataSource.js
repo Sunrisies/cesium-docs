@@ -4830,21 +4830,23 @@ function DocumentPacket() {
 /**
  * @typedef {object} CzmlDataSource.LoadOptions
  *
- * Initialization options for the <code>load</code> method.
+ * <code>load</code> 方法的初始化选项。
  *
- * @property {Resource|string} [sourceUri] Overrides the url to use for resolving relative links.
- * @property {Credit|string} [credit] A credit for the data source, which is displayed on the canvas.
+ * @property {Resource|string} [sourceUri] 用于解析相对链接的 URL 的覆盖。
+ * @property {Credit|string} [credit] 数据源的信用信息，将显示在画布上。
  */
 
+
 /**
- * A {@link DataSource} which processes {@link https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/CZML-Guide|CZML}.
+ * 一个处理 {@link https://github.com/AnalyticalGraphicsInc/czml-writer/wiki/CZML-Guide|CZML} 的 {@link DataSource}。
  * @alias CzmlDataSource
  * @constructor
  *
- * @param {string} [name] An optional name for the data source.  This value will be overwritten if a loaded document contains a name.
+ * @param {string} [name] 数据源的可选名称。如果加载的文档包含名称，则该值将被覆盖。
  *
  * @demo {@link https://sandcastle.cesium.com/index.html?src=CZML.html|Cesium Sandcastle CZML Demo}
  */
+
 function CzmlDataSource(name) {
   this._name = name;
   this._changed = new Event();
@@ -4861,20 +4863,21 @@ function CzmlDataSource(name) {
 }
 
 /**
- * Creates a Promise to a new instance loaded with the provided CZML data.
+ * 创建一个 Promise，以新实例加载提供的 CZML 数据。
  *
- * @param {Resource|string|object} czml A url or CZML object to be processed.
- * @param {CzmlDataSource.LoadOptions} [options] An object specifying configuration options
+ * @param {Resource|string|object} czml 要处理的 URL 或 CZML 对象。
+ * @param {CzmlDataSource.LoadOptions} [options] 一个对象，指定配置选项。
  *
- * @returns {Promise<CzmlDataSource>} A promise that resolves to the new instance once the data is processed.
+ * @returns {Promise<CzmlDataSource>} 一个 Promise，解析为新实例，一旦数据被处理。
  */
+
 CzmlDataSource.load = function (czml, options) {
   return new CzmlDataSource().load(czml, options);
 };
 
 Object.defineProperties(CzmlDataSource.prototype, {
   /**
-   * Gets a human-readable name for this instance.
+   * 获取此实例的人类可读名称。
    * @memberof CzmlDataSource.prototype
    * @type {string}
    */
@@ -4883,10 +4886,10 @@ Object.defineProperties(CzmlDataSource.prototype, {
       return this._name;
     },
   },
+  
   /**
-   * Gets the clock settings defined by the loaded CZML.  If no clock is explicitly
-   * defined in the CZML, the combined availability of all objects is returned.  If
-   * only static data exists, this value is undefined.
+   * 获取加载的 CZML 定义的时钟设置。如果 CZML 中没有明确定义的时钟，
+   * 则返回所有对象的可用性的组合。如果只有静态数据存在，则该值为未定义。
    * @memberof CzmlDataSource.prototype
    * @type {DataSourceClock}
    */
@@ -4895,8 +4898,9 @@ Object.defineProperties(CzmlDataSource.prototype, {
       return this._clock;
     },
   },
+  
   /**
-   * Gets the collection of {@link Entity} instances.
+   * 获取 {@link Entity} 实例的集合。
    * @memberof CzmlDataSource.prototype
    * @type {EntityCollection}
    */
@@ -4905,8 +4909,9 @@ Object.defineProperties(CzmlDataSource.prototype, {
       return this._entityCollection;
     },
   },
+  
   /**
-   * Gets a value indicating if the data source is currently loading data.
+   * 获取一个值，指示数据源当前是否正在加载数据。
    * @memberof CzmlDataSource.prototype
    * @type {boolean}
    */
@@ -4915,8 +4920,9 @@ Object.defineProperties(CzmlDataSource.prototype, {
       return this._isLoading;
     },
   },
+  
   /**
-   * Gets an event that will be raised when the underlying data changes.
+   * 获取一个事件，当基础数据更改时，将触发该事件。
    * @memberof CzmlDataSource.prototype
    * @type {Event}
    */
@@ -4925,8 +4931,9 @@ Object.defineProperties(CzmlDataSource.prototype, {
       return this._changed;
     },
   },
+  
   /**
-   * Gets an event that will be raised if an error is encountered during processing.
+   * 获取一个事件，当处理过程中遇到错误时，将触发该事件。
    * @memberof CzmlDataSource.prototype
    * @type {Event}
    */
@@ -4935,8 +4942,9 @@ Object.defineProperties(CzmlDataSource.prototype, {
       return this._error;
     },
   },
+  
   /**
-   * Gets an event that will be raised when the data source either starts or stops loading.
+   * 获取一个事件，当数据源开始或停止加载时，将触发该事件。
    * @memberof CzmlDataSource.prototype
    * @type {Event}
    */
@@ -4945,8 +4953,9 @@ Object.defineProperties(CzmlDataSource.prototype, {
       return this._loading;
     },
   },
+  
   /**
-   * Gets whether or not this data source should be displayed.
+   * 获取或设置此数据源是否应显示的状态。
    * @memberof CzmlDataSource.prototype
    * @type {boolean}
    */
@@ -4960,7 +4969,7 @@ Object.defineProperties(CzmlDataSource.prototype, {
   },
 
   /**
-   * Gets or sets the clustering options for this data source. This object can be shared between multiple data sources.
+   * 获取或设置此数据源的聚类选项。该对象可以在多个数据源之间共享。
    *
    * @memberof CzmlDataSource.prototype
    * @type {EntityCluster}
@@ -4978,8 +4987,9 @@ Object.defineProperties(CzmlDataSource.prototype, {
       this._entityCluster = value;
     },
   },
+  
   /**
-   * Gets the credit that will be displayed for the data source
+   * 获取将为数据源显示的信用信息
    * @memberof CzmlDataSource.prototype
    * @type {Credit}
    */
@@ -4990,23 +5000,26 @@ Object.defineProperties(CzmlDataSource.prototype, {
   },
 });
 
+
 /**
  * @callback CzmlDataSource.UpdaterFunction
  *
- * A CZML processing function that adds or updates entities in the provided
- * collection based on the provided CZML packet.
+ * 一个 CZML 处理函数，根据提供的 CZML 数据包在提供的
+ * 集合中添加或更新实体。
  *
- * @param {Entity} entity
- * @param {object} packet
- * @param {EntityCollection} entityCollection
- * @param {string} sourceUri
+ * @param {Entity} entity 实体对象。
+ * @param {object} packet CZML 数据包。
+ * @param {EntityCollection} entityCollection 实体集合。
+ * @param {string} sourceUri 源 URI。
  */
 
+
 /**
- * Gets the array of CZML processing functions.
+ * 获取 CZML 处理函数的数组。
  * @memberof CzmlDataSource
  * @type {CzmlDataSource.UpdaterFunction[]}
  */
+
 CzmlDataSource.updaters = [
   processBillboard,
   processBox,
@@ -5034,10 +5047,11 @@ CzmlDataSource.updaters = [
 ];
 
 /**
- * Add the provided updater to the list of updaters if not already included
+ * 将提供的更新器添加到更新器列表中（如果尚未包含）。
  * @private
- * @param {CzmlDataSource.UpdaterFunction} updater
+ * @param {CzmlDataSource.UpdaterFunction} updater 更新器。
  */
+
 CzmlDataSource.registerUpdater = function (updater) {
   if (!CzmlDataSource.updaters.includes(updater)) {
     CzmlDataSource.updaters.push(updater);
@@ -5045,10 +5059,11 @@ CzmlDataSource.registerUpdater = function (updater) {
 };
 
 /**
- * Remove the provided updater from the list of updaters if already included
+ * 从更新器列表中移除提供的更新器（如果已包含）。
  * @private
- * @param {CzmlDataSource.UpdaterFunction} updater
+ * @param {CzmlDataSource.UpdaterFunction} updater 更新器。
  */
+
 CzmlDataSource.unregisterUpdater = function (updater) {
   if (CzmlDataSource.updaters.includes(updater)) {
     const index = CzmlDataSource.updaters.indexOf(updater);
@@ -5057,83 +5072,88 @@ CzmlDataSource.unregisterUpdater = function (updater) {
 };
 
 /**
- * Processes the provided url or CZML object without clearing any existing data.
+ * 处理提供的 URL 或 CZML 对象，而不清除任何现有数据。
  *
- * @param {Resource|string|object} czml A url or CZML object to be processed.
- * @param {CzmlDataSource.LoadOptions} [options] An object specifying configuration options
+ * @param {Resource|string|object} czml 要处理的 URL 或 CZML 对象。
+ * @param {CzmlDataSource.LoadOptions} [options] 一个对象，指定配置选项。
  *
- * @returns {Promise<CzmlDataSource>} A promise that resolves to this instances once the data is processed.
+ * @returns {Promise<CzmlDataSource>} 一个 Promise，当数据处理完成后解析为该实例。
  */
+
 CzmlDataSource.prototype.process = function (czml, options) {
   return load(this, czml, options, false);
 };
 
 /**
- * Loads the provided url or CZML object, replacing any existing data.
+ * 加载提供的 URL 或 CZML 对象，替换任何现有数据。
  *
- * @param {Resource|string|object} czml A url or CZML object to be processed.
- * @param {CzmlDataSource.LoadOptions} [options] An object specifying configuration options
+ * @param {Resource|string|object} czml 要处理的 URL 或 CZML 对象。
+ * @param {CzmlDataSource.LoadOptions} [options] 一个对象，指定配置选项。
  *
- * @returns {Promise<CzmlDataSource>} A promise that resolves to this instances once the data is processed.
+ * @returns {Promise<CzmlDataSource>} 一个 Promise，当数据处理完成后解析为该实例。
  */
+
 CzmlDataSource.prototype.load = function (czml, options) {
   return load(this, czml, options, true);
 };
 
 /**
- * Updates the data source to the provided time.  This function is optional and
- * is not required to be implemented.  It is provided for data sources which
- * retrieve data based on the current animation time or scene state.
- * If implemented, update will be called by {@link DataSourceDisplay} once a frame.
+ * 将数据源更新到提供的时间。此函数是可选的，并不要求实现。
+ * 它提供给那些基于当前动画时间或场景状态检索数据的数据源。
+ * 如果实现，update 将由 {@link DataSourceDisplay} 每帧调用一次。
  *
- * @param {JulianDate} time The simulation time.
- * @returns {boolean} True if this data source is ready to be displayed at the provided time, false otherwise.
+ * @param {JulianDate} time 模拟时间。
+ * @returns {boolean} 如果此数据源准备好在提供的时间显示，则返回 true；否则返回 false。
  */
+
 CzmlDataSource.prototype.update = function (time) {
   return true;
 };
 
 /**
- * A helper function used by custom CZML updater functions
- * which creates or updates a {@link Property} from a CZML packet.
+ * 自定义 CZML 更新器函数使用的辅助函数，
+ * 该函数从 CZML 数据包创建或更新 {@link Property}。
  * @function
  *
- * @param {Function} type The constructor function for the property being processed.
- * @param {object} object The object on which the property will be added or updated.
- * @param {string} propertyName The name of the property on the object.
- * @param {object} packetData The CZML packet being processed.
- * @param {TimeInterval} interval A constraining interval for which the data is valid.
- * @param {string} sourceUri The originating uri of the data being processed.
- * @param {EntityCollection} entityCollection The collection being processsed.
+ * @param {Function} type 正在处理的属性的构造函数。
+ * @param {object} object 要添加或更新属性的对象。
+ * @param {string} propertyName 对象上属性的名称。
+ * @param {object} packetData 正在处理的 CZML 数据包。
+ * @param {TimeInterval} interval 数据有效的约束区间。
+ * @param {string} sourceUri 正在处理的数据的来源 URI。
+ * @param {EntityCollection} entityCollection 正在处理的集合。
  */
+
 CzmlDataSource.processPacketData = processPacketData;
 
 /**
- * A helper function used by custom CZML updater functions
- * which creates or updates a {@link PositionProperty} from a CZML packet.
+ * 自定义 CZML 更新器函数使用的辅助函数，
+ * 该函数从 CZML 数据包创建或更新 {@link PositionProperty}。
  * @function
  *
- * @param {object} object The object on which the property will be added or updated.
- * @param {string} propertyName The name of the property on the object.
- * @param {object} packetData The CZML packet being processed.
- * @param {TimeInterval} interval A constraining interval for which the data is valid.
- * @param {string} sourceUri The originating uri of the data being processed.
- * @param {EntityCollection} entityCollection The collection being processsed.
+ * @param {object} object 要添加或更新属性的对象。
+ * @param {string} propertyName 对象上属性的名称。
+ * @param {object} packetData 正在处理的 CZML 数据包。
+ * @param {TimeInterval} interval 数据有效的约束区间。
+ * @param {string} sourceUri 正在处理的数据的来源 URI。
+ * @param {EntityCollection} entityCollection 正在处理的集合。
  */
+
 CzmlDataSource.processPositionPacketData = processPositionPacketData;
 
 /**
- * A helper function used by custom CZML updater functions
- * which creates or updates a {@link MaterialProperty} from a CZML packet.
+ * 自定义 CZML 更新器函数使用的辅助函数，
+ * 该函数从 CZML 数据包创建或更新 {@link MaterialProperty}。
  * @function
  *
- * @param {object} object The object on which the property will be added or updated.
- * @param {string} propertyName The name of the property on the object.
- * @param {object} packetData The CZML packet being processed.
- * @param {TimeInterval} interval A constraining interval for which the data is valid.
- * @param {string} sourceUri The originating uri of the data being processed.
- * @param {EntityCollection} entityCollection The collection being processsed.
+ * @param {object} object 要添加或更新属性的对象。
+ * @param {string} propertyName 对象上属性的名称。
+ * @param {object} packetData 正在处理的 CZML 数据包。
+ * @param {TimeInterval} interval 数据有效的约束区间。
+ * @param {string} sourceUri 正在处理的数据的来源 URI。
+ * @param {EntityCollection} entityCollection 正在处理的集合。
  */
+
 CzmlDataSource.processMaterialPacketData = processMaterialPacketData;
 
 CzmlDataSource._processCzml = function (

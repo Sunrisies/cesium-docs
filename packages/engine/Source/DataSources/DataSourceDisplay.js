@@ -21,17 +21,18 @@ import PointVisualizer from "./PointVisualizer.js";
 import PolylineVisualizer from "./PolylineVisualizer.js";
 
 /**
- * Visualizes a collection of {@link DataSource} instances.
+ * 可视化 {@link DataSource} 实例的集合。
  * @alias DataSourceDisplay
  * @constructor
  *
- * @param {object} options Object with the following properties:
- * @param {Scene} options.scene The scene in which to display the data.
- * @param {DataSourceCollection} options.dataSourceCollection The data sources to display.
+ * @param {object} options 具有以下属性的对象：
+ * @param {Scene} options.scene 显示数据的场景。
+ * @param {DataSourceCollection} options.dataSourceCollection 要显示的数据源。
  * @param {DataSourceDisplay.VisualizersCallback} [options.visualizersCallback=DataSourceDisplay.defaultVisualizersCallback]
- *        A function which creates an array of visualizers used for visualization.
- *        If undefined, all standard visualizers are used.
+ *        一个用于创建可视化所需的可视化器数组的函数。
+ *        如果未定义，则使用所有标准可视化器。
  */
+
 function DataSourceDisplay(options) {
   //>>includeStart('debug', pragmas.debug);
   Check.typeOf.object("options", options);
@@ -122,9 +123,9 @@ function DataSourceDisplay(options) {
 
 const ExtraVisualizers = [];
 /**
- * Add the provided Visualizer to the default visualizers callback if not already included
+ * 如果提供的可视化器尚未包含，则将其添加到默认可视化器回调中。
  * @private
- * @param {Visualizer} visualizer Visualizer class to add
+ * @param {Visualizer} visualizer 要添加的可视化器类。
  */
 DataSourceDisplay.registerVisualizer = function (visualizer) {
   if (!ExtraVisualizers.includes(visualizer)) {
@@ -133,10 +134,11 @@ DataSourceDisplay.registerVisualizer = function (visualizer) {
 };
 
 /**
- * Remove the provided Visualizer from the default visualizers callback if it's already included
+ * 如果提供的可视化器已经包含，则将其从默认可视化器回调中移除。
  * @private
- * @param {Visualizer} visualizer Visualizer class to remove
+ * @param {Visualizer} visualizer 要移除的可视化器类。
  */
+
 DataSourceDisplay.unregisterVisualizer = function (visualizer) {
   if (ExtraVisualizers.includes(visualizer)) {
     const index = ExtraVisualizers.indexOf(visualizer);
@@ -145,11 +147,12 @@ DataSourceDisplay.unregisterVisualizer = function (visualizer) {
 };
 
 /**
- * Gets or sets the default function which creates an array of visualizers used for visualization.
- * By default, this function uses all standard visualizers.
+ * 获取或设置用于创建可视化器数组的默认函数。
+ * 默认情况下，此函数使用所有标准可视化器。
  *
  * @type {DataSourceDisplay.VisualizersCallback}
  */
+
 DataSourceDisplay.defaultVisualizersCallback = function (
   scene,
   entityCluster,
@@ -183,7 +186,7 @@ DataSourceDisplay.defaultVisualizersCallback = function (
 
 Object.defineProperties(DataSourceDisplay.prototype, {
   /**
-   * Gets the scene associated with this display.
+   * 获取与此显示相关的场景。
    * @memberof DataSourceDisplay.prototype
    * @type {Scene}
    */
@@ -192,8 +195,9 @@ Object.defineProperties(DataSourceDisplay.prototype, {
       return this._scene;
     },
   },
+  
   /**
-   * Gets the collection of data sources to display.
+   * 获取要显示的数据源集合。
    * @memberof DataSourceDisplay.prototype
    * @type {DataSourceCollection}
    */
@@ -202,11 +206,12 @@ Object.defineProperties(DataSourceDisplay.prototype, {
       return this._dataSourceCollection;
     },
   },
+
   /**
-   * Gets the default data source instance which can be used to
-   * manually create and visualize entities not tied to
-   * a specific data source. This instance is always available
-   * and does not appear in the list dataSources collection.
+   * 获取默认数据源实例，可用于
+   * 手动创建和可视化未绑定到
+   * 特定数据源的实体。此实例始终可用
+   * 且不会出现在数据源集合的列表中。
    * @memberof DataSourceDisplay.prototype
    * @type {CustomDataSource}
    */
@@ -217,7 +222,7 @@ Object.defineProperties(DataSourceDisplay.prototype, {
   },
 
   /**
-   * Gets a value indicating whether or not all entities in the data source are ready
+   * 获取一个值，指示数据源中的所有实体是否准备就绪。
    * @memberof DataSourceDisplay.prototype
    * @type {boolean}
    * @readonly
@@ -229,30 +234,31 @@ Object.defineProperties(DataSourceDisplay.prototype, {
   },
 });
 
+
 /**
- * Returns true if this object was destroyed; otherwise, false.
+ * 如果此对象已被销毁，则返回 true；否则返回 false。
  * <br /><br />
- * If this object was destroyed, it should not be used; calling any function other than
- * <code>isDestroyed</code> will result in a {@link DeveloperError} exception.
+ * 如果此对象已被销毁，则不应使用；调用除
+ * <code>isDestroyed</code> 以外的任何函数将导致 {@link DeveloperError} 异常。
  *
- * @returns {boolean} True if this object was destroyed; otherwise, false.
+ * @returns {boolean} 如果此对象已被销毁，则返回 true；否则返回 false。
  *
  * @see DataSourceDisplay#destroy
  */
+
 DataSourceDisplay.prototype.isDestroyed = function () {
   return false;
 };
 
 /**
- * Destroys the WebGL resources held by this object.  Destroying an object allows for deterministic
- * release of WebGL resources, instead of relying on the garbage collector to destroy this object.
+ * 销毁此对象所持有的 WebGL 资源。显式销毁对象允许确定性地
+ * 释放 WebGL 资源，而不是依赖垃圾收集器来销毁此对象。
  * <br /><br />
- * Once an object is destroyed, it should not be used; calling any function other than
- * <code>isDestroyed</code> will result in a {@link DeveloperError} exception.  Therefore,
- * assign the return value (<code>undefined</code>) to the object as done in the example.
+ * 一旦对象被销毁，则不应使用；调用除
+ * <code>isDestroyed</code> 以外的任何函数将导致 {@link DeveloperError} 异常。因此，
+ * 将返回值（<code>undefined</code>）赋值给对象，如示例所示。
  *
- * @exception {DeveloperError} This object was destroyed, i.e., destroy() was called.
- *
+ * @exception {DeveloperError} 此对象已被销毁，即调用了 destroy()。
  *
  * @example
  * dataSourceDisplay = dataSourceDisplay.destroy();
@@ -283,11 +289,12 @@ DataSourceDisplay.prototype.destroy = function () {
 };
 
 /**
- * Updates the display to the provided time.
+ * 更新显示到提供的时间。
  *
- * @param {JulianDate} time The simulation time.
- * @returns {boolean} True if all data sources are ready to be displayed, false otherwise.
+ * @param {JulianDate} time 模拟时间。
+ * @returns {boolean} 如果所有数据源准备好显示，则返回 true；否则返回 false。
  */
+
 DataSourceDisplay.prototype.update = function (time) {
   //>>includeStart('debug', pragmas.debug);
   Check.defined("time", time);
@@ -363,18 +370,19 @@ const getBoundingSphereArrayScratch = [];
 const getBoundingSphereBoundingSphereScratch = new BoundingSphere();
 
 /**
- * Computes a bounding sphere which encloses the visualization produced for the specified entity.
- * The bounding sphere is in the fixed frame of the scene's globe.
+ * 计算包围指定实体所生成可视化的包围球。
+ * 包围球位于场景地球的固定坐标系中。
  *
- * @param {Entity} entity The entity whose bounding sphere to compute.
- * @param {boolean} allowPartial If true, pending bounding spheres are ignored and an answer will be returned from the currently available data.
- *                               If false, the the function will halt and return pending if any of the bounding spheres are pending.
- * @param {BoundingSphere} result The bounding sphere onto which to store the result.
- * @returns {BoundingSphereState} BoundingSphereState.DONE if the result contains the bounding sphere,
- *                       BoundingSphereState.PENDING if the result is still being computed, or
- *                       BoundingSphereState.FAILED if the entity has no visualization in the current scene.
+ * @param {Entity} entity 要计算包围球的实体。
+ * @param {boolean} allowPartial 如果为 true，则忽略待处理的包围球，将从当前可用的数据中返回答案。
+ *                                如果为 false，一旦有任何包围球待处理，该函数将暂停并返回待处理状态。
+ * @param {BoundingSphere} result 用于存储结果的包围球。
+ * @returns {BoundingSphereState} 如果结果包含包围球，则返回 BoundingSphereState.DONE，
+ *                       如果结果仍在计算中，则返回 BoundingSphereState.PENDING，
+ *                       如果实体在当前场景中没有可视化，则返回 BoundingSphereState.FAILED。
  * @private
  */
+
 DataSourceDisplay.prototype.getBoundingSphere = function (
   entity,
   allowPartial,
@@ -527,17 +535,18 @@ DataSourceDisplay.prototype._onDataSourceMoved = function (
 };
 
 /**
- * A function which creates an array of visualizers used for visualization.
+ * 创建用于可视化的可视化器数组的函数。
  * @callback DataSourceDisplay.VisualizersCallback
  *
- * @param {Scene} scene The scene to create visualizers for.
- * @param {EntityCluster} entityCluster The entity cluster to create visualizers for.
- * @param {DataSource} dataSource The data source to create visualizers for.
- * @returns {Visualizer[]} An array of visualizers used for visualization.
+ * @param {Scene} scene 要为其创建可视化器的场景。
+ * @param {EntityCluster} entityCluster 要为其创建可视化器的实体集群。
+ * @param {DataSource} dataSource 要为其创建可视化器的数据源。
+ * @returns {Visualizer[]} 用于可视化的可视化器数组。
  *
  * @example
  * function createVisualizers(scene, entityCluster, dataSource) {
  *     return [new Cesium.BillboardVisualizer(entityCluster, dataSource.entities)];
  * }
  */
+
 export default DataSourceDisplay;

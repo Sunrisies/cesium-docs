@@ -6,10 +6,11 @@ import Event from "../Core/Event.js";
 import CesiumMath from "../Core/Math.js";
 
 /**
- * A collection of {@link DataSource} instances.
+ * 一个 {@link DataSource} 实例的集合。
  * @alias DataSourceCollection
  * @constructor
  */
+
 function DataSourceCollection() {
   this._dataSources = [];
   this._dataSourceAdded = new Event();
@@ -19,7 +20,7 @@ function DataSourceCollection() {
 
 Object.defineProperties(DataSourceCollection.prototype, {
   /**
-   * Gets the number of data sources in this collection.
+   * 获取此集合中的数据源数量。
    * @memberof DataSourceCollection.prototype
    * @type {number}
    * @readonly
@@ -31,8 +32,8 @@ Object.defineProperties(DataSourceCollection.prototype, {
   },
 
   /**
-   * An event that is raised when a data source is added to the collection.
-   * Event handlers are passed the data source that was added.
+   * 当数据源被添加到集合时触发的事件。
+   * 事件处理程序会接收到被添加的数据源。
    * @memberof DataSourceCollection.prototype
    * @type {Event}
    * @readonly
@@ -44,8 +45,8 @@ Object.defineProperties(DataSourceCollection.prototype, {
   },
 
   /**
-   * An event that is raised when a data source is removed from the collection.
-   * Event handlers are passed the data source that was removed.
+   * 当数据源从集合中移除时触发的事件。
+   * 事件处理程序会接收到被移除的数据源。
    * @memberof DataSourceCollection.prototype
    * @type {Event}
    * @readonly
@@ -57,8 +58,8 @@ Object.defineProperties(DataSourceCollection.prototype, {
   },
 
   /**
-   * An event that is raised when a data source changes position in the collection.  Event handlers are passed the data source
-   * that was moved, its new index after the move, and its old index prior to the move.
+   * 当数据源在集合中的位置发生变化时触发的事件。
+   * 事件处理程序会接收到被移动的数据源、移动后的新索引以及移动前的旧索引。
    * @memberof DataSourceCollection.prototype
    * @type {Event}
    * @readonly
@@ -70,14 +71,16 @@ Object.defineProperties(DataSourceCollection.prototype, {
   },
 });
 
+
 /**
- * Adds a data source to the collection.
+ * 将数据源添加到集合中。
  *
- * @param {DataSource|Promise<DataSource>} dataSource A data source or a promise to a data source to add to the collection.
- *                                        When passing a promise, the data source will not actually be added
- *                                        to the collection until the promise resolves successfully.
- * @returns {Promise<DataSource>} A Promise that resolves once the data source has been added to the collection.
+ * @param {DataSource|Promise<DataSource>} dataSource 要添加到集合中的数据源或数据源的 Promise。
+ *                                        当传递一个 Promise 时，数据源在 Promise 成功解析之前不会实际添加
+ *                                        到集合中。
+ * @returns {Promise<DataSource>} 一旦数据源被添加到集合中，就会解析的 Promise。
  */
+
 DataSourceCollection.prototype.add = function (dataSource) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(dataSource)) {
@@ -99,13 +102,14 @@ DataSourceCollection.prototype.add = function (dataSource) {
 };
 
 /**
- * Removes a data source from this collection, if present.
+ * 从此集合中移除数据源（如果存在）。
  *
- * @param {DataSource} dataSource The data source to remove.
- * @param {boolean} [destroy=false] Whether to destroy the data source in addition to removing it.
- * @returns {boolean} true if the data source was in the collection and was removed,
- *                    false if the data source was not in the collection.
+ * @param {DataSource} dataSource 要移除的数据源。
+ * @param {boolean} [destroy=false] 是否在移除的数据源的同时销毁它。
+ * @returns {boolean} 如果数据源在集合中并已被移除，则返回 true；
+ *                    如果数据源不在集合中，则返回 false。
  */
+
 DataSourceCollection.prototype.remove = function (dataSource, destroy) {
   destroy = defaultValue(destroy, false);
 
@@ -125,10 +129,11 @@ DataSourceCollection.prototype.remove = function (dataSource, destroy) {
 };
 
 /**
- * Removes all data sources from this collection.
+ * 从此集合中移除所有数据源。
  *
- * @param {boolean} [destroy=false] whether to destroy the data sources in addition to removing them.
+ * @param {boolean} [destroy=false] 是否在移除数据源的同时销毁它们。
  */
+
 DataSourceCollection.prototype.removeAll = function (destroy) {
   destroy = defaultValue(destroy, false);
 
@@ -145,31 +150,34 @@ DataSourceCollection.prototype.removeAll = function (destroy) {
 };
 
 /**
- * Checks to see if the collection contains a given data source.
+ * 检查集合中是否包含给定的数据源。
  *
- * @param {DataSource} dataSource The data source to check for.
- * @returns {boolean} true if the collection contains the data source, false otherwise.
+ * @param {DataSource} dataSource 要检查的数据源。
+ * @returns {boolean} 如果集合中包含该数据源则返回 true；否则返回 false。
  */
+
 DataSourceCollection.prototype.contains = function (dataSource) {
   return this.indexOf(dataSource) !== -1;
 };
 
 /**
- * Determines the index of a given data source in the collection.
+ * 确定给定数据源在集合中的索引。
  *
- * @param {DataSource} dataSource The data source to find the index of.
- * @returns {number} The index of the data source in the collection, or -1 if the data source does not exist in the collection.
+ * @param {DataSource} dataSource 要查找索引的数据源。
+ * @returns {number} 数据源在集合中的索引，如果数据源不在集合中则返回 -1。
  */
+
 DataSourceCollection.prototype.indexOf = function (dataSource) {
   return this._dataSources.indexOf(dataSource);
 };
 
 /**
- * Gets a data source by index from the collection.
+ * 从集合中按索引获取数据源。
  *
- * @param {number} index the index to retrieve.
- * @returns {DataSource} The data source at the specified index.
+ * @param {number} index 要检索的索引。
+ * @returns {DataSource} 在指定索引处的数据源。
  */
+
 DataSourceCollection.prototype.get = function (index) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(index)) {
@@ -181,11 +189,12 @@ DataSourceCollection.prototype.get = function (index) {
 };
 
 /**
- * Gets a data source by name from the collection.
+ * 从集合中按名称获取数据源。
  *
- * @param {string} name The name to retrieve.
- * @returns {DataSource[]} A list of all data sources matching the provided name.
+ * @param {string} name 要检索的名称。
+ * @returns {DataSource[]} 匹配提供名称的所有数据源的列表。
  */
+
 DataSourceCollection.prototype.getByName = function (name) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(name)) {
@@ -234,39 +243,42 @@ function swapDataSources(collection, i, j) {
 }
 
 /**
- * Raises a data source up one position in the collection.
+ * 将数据源在集合中向上移动一位。
  *
- * @param {DataSource} dataSource The data source to move.
+ * @param {DataSource} dataSource 要移动的数据源。
  *
- * @exception {DeveloperError} dataSource is not in this collection.
- * @exception {DeveloperError} This object was destroyed, i.e., destroy() was called.
+ * @exception {DeveloperError} 数据源不在此集合中。
+ * @exception {DeveloperError} 此对象已被销毁，即调用了 destroy()。
  */
+
 DataSourceCollection.prototype.raise = function (dataSource) {
   const index = getIndex(this._dataSources, dataSource);
   swapDataSources(this, index, index + 1);
 };
 
 /**
- * Lowers a data source down one position in the collection.
+ * 将数据源在集合中向下移动一位。
  *
- * @param {DataSource} dataSource The data source to move.
+ * @param {DataSource} dataSource 要移动的数据源。
  *
- * @exception {DeveloperError} dataSource is not in this collection.
- * @exception {DeveloperError} This object was destroyed, i.e., destroy() was called.
+ * @exception {DeveloperError} 数据源不在此集合中。
+ * @exception {DeveloperError} 此对象已被销毁，即调用了 destroy()。
  */
+
 DataSourceCollection.prototype.lower = function (dataSource) {
   const index = getIndex(this._dataSources, dataSource);
   swapDataSources(this, index, index - 1);
 };
 
 /**
- * Raises a data source to the top of the collection.
+ * 将数据源提升到集合的顶部。
  *
- * @param {DataSource} dataSource The data source to move.
+ * @param {DataSource} dataSource 要移动的数据源。
  *
- * @exception {DeveloperError} dataSource is not in this collection.
- * @exception {DeveloperError} This object was destroyed, i.e., destroy() was called.
+ * @exception {DeveloperError} 数据源不在此集合中。
+ * @exception {DeveloperError} 此对象已被销毁，即调用了 destroy()。
  */
+
 DataSourceCollection.prototype.raiseToTop = function (dataSource) {
   const index = getIndex(this._dataSources, dataSource);
   if (index === this._dataSources.length - 1) {
@@ -283,13 +295,14 @@ DataSourceCollection.prototype.raiseToTop = function (dataSource) {
 };
 
 /**
- * Lowers a data source to the bottom of the collection.
+ * 将数据源移到底部集合。
  *
- * @param {DataSource} dataSource The data source to move.
+ * @param {DataSource} dataSource 要移动的数据源。
  *
- * @exception {DeveloperError} dataSource is not in this collection.
- * @exception {DeveloperError} This object was destroyed, i.e., destroy() was called.
+ * @exception {DeveloperError} 数据源不在此集合中。
+ * @exception {DeveloperError} 此对象已被销毁，即调用了 destroy()。
  */
+
 DataSourceCollection.prototype.lowerToBottom = function (dataSource) {
   const index = getIndex(this._dataSources, dataSource);
   if (index === 0) {
@@ -302,27 +315,27 @@ DataSourceCollection.prototype.lowerToBottom = function (dataSource) {
 };
 
 /**
- * Returns true if this object was destroyed; otherwise, false.
- * If this object was destroyed, it should not be used; calling any function other than
- * <code>isDestroyed</code> will result in a {@link DeveloperError} exception.
+ * 如果此对象已被销毁，则返回 true；否则返回 false。
+ * 如果此对象已被销毁，则不应使用；调用除
+ * <code>isDestroyed</code> 以外的任何函数将导致 {@link DeveloperError} 异常。
  *
- * @returns {boolean} true if this object was destroyed; otherwise, false.
+ * @returns {boolean} 如果此对象已被销毁，则返回 true；否则返回 false。
  *
  * @see DataSourceCollection#destroy
  */
+
 DataSourceCollection.prototype.isDestroyed = function () {
   return false;
 };
 
 /**
- * Destroys the resources held by all data sources in this collection.  Explicitly destroying this
- * object allows for deterministic release of WebGL resources, instead of relying on the garbage
- * collector. Once this object is destroyed, it should not be used; calling any function other than
- * <code>isDestroyed</code> will result in a {@link DeveloperError} exception.  Therefore,
- * assign the return value (<code>undefined</code>) to the object as done in the example.
+ * 销毁此集合中所有数据源所占用的资源。显式地销毁此
+ * 对象允许确定性地释放 WebGL 资源，而不是依赖垃圾
+ * 收集器。一旦此对象被销毁，则不应使用；调用除
+ * <code>isDestroyed</code> 以外的任何函数将导致 {@link DeveloperError} 异常。因此，
+ * 将返回值（<code>undefined</code>）赋值给对象，如示例所示。
  *
- * @exception {DeveloperError} This object was destroyed, i.e., destroy() was called.
- *
+ * @exception {DeveloperError} 此对象已被销毁，即调用了 destroy()。
  *
  * @example
  * dataSourceCollection = dataSourceCollection && dataSourceCollection.destroy();

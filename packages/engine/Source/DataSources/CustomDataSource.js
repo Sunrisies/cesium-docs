@@ -6,12 +6,12 @@ import EntityCluster from "./EntityCluster.js";
 import EntityCollection from "./EntityCollection.js";
 
 /**
- * A {@link DataSource} implementation which can be used to manually manage a group of entities.
+ * 一个 {@link DataSource} 实现，可用于手动管理一组实体。
  *
  * @alias CustomDataSource
  * @constructor
  *
- * @param {string} [name] A human-readable name for this instance.
+ * @param {string} [name] 此实例的人类可读名称。
  *
  * @example
  * const dataSource = new Cesium.CustomDataSource('myData');
@@ -38,10 +38,11 @@ function CustomDataSource(name) {
 
 Object.defineProperties(CustomDataSource.prototype, {
   /**
-   * Gets or sets a human-readable name for this instance.
+   * 获取或设置此实例的人类可读名称。
    * @memberof CustomDataSource.prototype
    * @type {string}
    */
+
   name: {
     get: function () {
       return this._name;
@@ -54,10 +55,11 @@ Object.defineProperties(CustomDataSource.prototype, {
     },
   },
   /**
-   * Gets or sets the clock for this instance.
+   * 获取或设置此实例的时钟。
    * @memberof CustomDataSource.prototype
    * @type {DataSourceClock}
    */
+
   clock: {
     get: function () {
       return this._clock;
@@ -69,21 +71,23 @@ Object.defineProperties(CustomDataSource.prototype, {
       }
     },
   },
-  /**
-   * Gets the collection of {@link Entity} instances.
+ /**
+   * 获取 {@link Entity} 实例的集合。
    * @memberof CustomDataSource.prototype
    * @type {EntityCollection}
    */
+
   entities: {
     get: function () {
       return this._entityCollection;
     },
   },
   /**
-   * Gets or sets whether the data source is currently loading data.
+   * 获取或设置数据源当前是否正在加载数据。
    * @memberof CustomDataSource.prototype
    * @type {boolean}
    */
+
   isLoading: {
     get: function () {
       return this._isLoading;
@@ -93,17 +97,18 @@ Object.defineProperties(CustomDataSource.prototype, {
     },
   },
   /**
-   * Gets an event that will be raised when the underlying data changes.
+   * 获取将在基础数据更改时被触发的事件。
    * @memberof CustomDataSource.prototype
    * @type {Event}
    */
+
   changedEvent: {
     get: function () {
       return this._changed;
     },
   },
   /**
-   * Gets an event that will be raised if an error is encountered during processing.
+   * 获取在处理过程中遇到错误时将被触发的事件。
    * @memberof CustomDataSource.prototype
    * @type {Event}
    */
@@ -113,7 +118,7 @@ Object.defineProperties(CustomDataSource.prototype, {
     },
   },
   /**
-   * Gets an event that will be raised when the data source either starts or stops loading.
+   * 获取在数据源开始或停止加载时将被触发的事件。
    * @memberof CustomDataSource.prototype
    * @type {Event}
    */
@@ -123,7 +128,7 @@ Object.defineProperties(CustomDataSource.prototype, {
     },
   },
   /**
-   * Gets whether or not this data source should be displayed.
+   * 获取此数据源是否应显示的状态。
    * @memberof CustomDataSource.prototype
    * @type {boolean}
    */
@@ -137,11 +142,12 @@ Object.defineProperties(CustomDataSource.prototype, {
   },
 
   /**
-   * Gets or sets the clustering options for this data source. This object can be shared between multiple data sources.
+   * 获取或设置此数据源的聚类选项。该对象可以在多个数据源之间共享。
    *
    * @memberof CustomDataSource.prototype
    * @type {EntityCluster}
    */
+
   clustering: {
     get: function () {
       return this._entityCluster;
@@ -158,14 +164,14 @@ Object.defineProperties(CustomDataSource.prototype, {
 });
 
 /**
- * Updates the data source to the provided time.  This function is optional and
- * is not required to be implemented.  It is provided for data sources which
- * retrieve data based on the current animation time or scene state.
- * If implemented, update will be called by {@link DataSourceDisplay} once a frame.
+ * 更新数据源到提供的时间。此函数是可选的，
+ * 并不要求实现。它提供给那些基于当前动画时间或场景状态检索数据的数据源。
+ * 如果实现，update 将由 {@link DataSourceDisplay} 每帧调用一次。
  *
- * @param {JulianDate} time The simulation time.
- * @returns {boolean} True if this data source is ready to be displayed at the provided time, false otherwise.
+ * @param {JulianDate} time 模拟时间。
+ * @returns {boolean} 如果此数据源准备好在提供的时间显示，则返回 true；否则返回 false。
  */
+
 CustomDataSource.prototype.update = function (time) {
   return true;
 };

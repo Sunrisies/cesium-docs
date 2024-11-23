@@ -6,12 +6,12 @@ import GoogleMaps from "../Core/GoogleMaps.js";
 import Resource from "../Core/Resource.js";
 
 /**
- * Creates a {@link Cesium3DTileset} instance for the Google Photorealistic 3D Tiles tileset.
+ * 创建一个 {@link Cesium3DTileset} 实例，用于 Google Photorealistic 3D Tiles 瓦片集。
  *
  * @function
  *
- * @param {string} [key=GoogleMaps.defaultApiKey] Your API key to access Google Photorealistic 3D Tiles. See {@link https://developers.google.com/maps/documentation/javascript/get-api-key} for instructions on how to create your own key.
- * @param {Cesium3DTileset.ConstructorOptions} [options] An object describing initialization options.
+ * @param {string} [key=GoogleMaps.defaultApiKey] 用于访问 Google Photorealistic 3D Tiles 的 API 密钥。有关如何创建您自己的密钥的说明，请参阅 {@link https://developers.google.com/maps/documentation/javascript/get-api-key}。
+ * @param {Cesium3DTileset.ConstructorOptions} [options] 描述初始化选项的对象。
  * @returns {Promise<Cesium3DTileset>}
  *
  * @see GoogleMaps

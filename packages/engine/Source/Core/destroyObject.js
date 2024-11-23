@@ -6,25 +6,21 @@ function returnTrue() {
 }
 
 /**
- * Destroys an object.  Each of the object's functions, including functions in its prototype,
- * is replaced with a function that throws a {@link DeveloperError}, except for the object's
- * <code>isDestroyed</code> function, which is set to a function that returns <code>true</code>.
- * The object's properties are removed with <code>delete</code>.
+ * 销毁一个对象。对象的每个函数，包括其原型中的函数，都被替换为抛出 {@link DeveloperError} 的函数，
+ * 除了对象的 <code>isDestroyed</code> 函数，它被设置为返回 <code>true</code> 的函数。
+ * 对象的属性使用 <code>delete</code> 移除。
  * <br /><br />
- * This function is used by objects that hold native resources, e.g., WebGL resources, which
- * need to be explicitly released.  Client code calls an object's <code>destroy</code> function,
- * which then releases the native resource and calls <code>destroyObject</code> to put itself
- * in a destroyed state.
+ * 这个函数被持有原生资源的对象使用，例如，WebGL资源，这些资源需要被显式释放。客户端代码调用对象的
+ * <code>destroy</code> 函数，它然后释放原生资源并调用 <code>destroyObject</code> 将自己置于已销毁状态。
  *
  * @function
  *
- * @param {object} object The object to destroy.
- * @param {string} [message] The message to include in the exception that is thrown if
- *                           a destroyed object's function is called.
+ * @param {object} object 要销毁的对象。
+ * @param {string} [message] 如果调用了已销毁对象的函数，则在抛出的异常中包含的消息。
  *
  *
  * @example
- * // How a texture would destroy itself.
+ * // 一个纹理如何销毁自己。
  * this.destroy = function () {
  *     _gl.deleteTexture(_texture);
  *     return Cesium.destroyObject(this);

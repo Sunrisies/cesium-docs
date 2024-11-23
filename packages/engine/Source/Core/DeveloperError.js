@@ -1,39 +1,36 @@
 import defined from "./defined.js";
 
 /**
- * Constructs an exception object that is thrown due to a developer error, e.g., invalid argument,
- * argument out of range, etc.  This exception should only be thrown during development;
- * it usually indicates a bug in the calling code.  This exception should never be
- * caught; instead the calling code should strive not to generate it.
+ * 构造一个由于开发者错误而抛出的异常对象，例如无效的参数、参数超出范围等。
+ * 这个异常应该只在开发期间抛出；它通常表示调用代码中的一个bug。
+ * 这个异常不应该被捕获；相反，调用代码应该努力不产生它。
  * <br /><br />
- * On the other hand, a {@link RuntimeError} indicates an exception that may
- * be thrown at runtime, e.g., out of memory, that the calling code should be prepared
- * to catch.
+ * 另一方面，{@link RuntimeError} 表示可能在运行时抛出的异常，例如内存不足，调用代码应该准备好捕获。
  *
  * @alias DeveloperError
  * @constructor
  * @extends Error
  *
- * @param {string} [message] The error message for this exception.
+ * @param {string} [message] 这个异常的错误消息。
  *
  * @see RuntimeError
  */
 function DeveloperError(message) {
   /**
-   * 'DeveloperError' indicating that this exception was thrown due to a developer error.
+   * 'DeveloperError' 表示这个异常是由于开发者错误而抛出的。
    * @type {string}
    * @readonly
    */
   this.name = "DeveloperError";
 
   /**
-   * The explanation for why this exception was thrown.
+   * 为什么抛出这个异常的解释。
    * @type {string}
    * @readonly
    */
   this.message = message;
 
-  //Browsers such as IE don't have a stack property until you actually throw the error.
+  // 在某些浏览器（如IE）中，直到实际抛出错误之前，都没有stack属性。
   let stack;
   try {
     throw new Error();
@@ -42,7 +39,7 @@ function DeveloperError(message) {
   }
 
   /**
-   * The stack trace of this exception, if available.
+   * 这个异常的堆栈跟踪，如果可用的话。
    * @type {string}
    * @readonly
    */
@@ -72,4 +69,5 @@ DeveloperError.throwInstantiationError = function () {
     "This function defines an interface and should not be called directly.",
   );
 };
+
 export default DeveloperError;

@@ -1,29 +1,26 @@
 /**
- * Atmosphere lighting effects (sky atmosphere, ground atmosphere, fog) can be
- * further modified with dynamic lighting from the sun or other light source
- * that changes over time. This enum determines which light source to use.
+ * 大气光照效果（天空大气、地面大气、雾）可以通过随时间变化的太阳或其他光源的动态光照进一步修改。
+ * 这个枚举决定了使用哪个光源。
  *
  * @enum {number}
  */
 const DynamicAtmosphereLightingType = {
   /**
-   * Do not use dynamic atmosphere lighting. Atmosphere lighting effects will
-   * be lit from directly above rather than using the scene's light source.
+   * 不使用动态大气光照。大气光照效果将直接从正上方照亮，而不是使用场景的光源。
    *
    * @type {number}
    * @constant
    */
   NONE: 0,
   /**
-   * Use the scene's current light source for dynamic atmosphere lighting.
+   * 使用场景的当前光源进行动态大气光照。
    *
    * @type {number}
    * @constant
    */
   SCENE_LIGHT: 1,
   /**
-   * Force the dynamic atmosphere lighting to always use the sunlight direction,
-   * even if the scene uses a different light source.
+   * 强制动态大气光照始终使用阳光方向，即使场景使用不同的光源。
    *
    * @type {number}
    * @constant
@@ -32,10 +29,10 @@ const DynamicAtmosphereLightingType = {
 };
 
 /**
- * Get the lighting enum from the older globe flags
+ * 从旧的地球仪标志中获取光照枚举
  *
- * @param {Globe} globe The globe
- * @return {DynamicAtmosphereLightingType} The corresponding enum value
+ * @param {Globe} globe 地球仪
+ * @return {DynamicAtmosphereLightingType} 对应的枚举值
  *
  * @private
  */
@@ -45,7 +42,7 @@ DynamicAtmosphereLightingType.fromGlobeFlags = function (globe) {
     return DynamicAtmosphereLightingType.NONE;
   }
 
-  // Force sunlight
+  // 强制使用阳光
   if (globe.dynamicAtmosphereLightingFromSun) {
     return DynamicAtmosphereLightingType.SUNLIGHT;
   }

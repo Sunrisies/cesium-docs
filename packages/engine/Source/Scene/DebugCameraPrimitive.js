@@ -18,18 +18,18 @@ import PerInstanceColorAppearance from "./PerInstanceColorAppearance.js";
 import Primitive from "./Primitive.js";
 
 /**
- * Draws the outline of the camera's view frustum.
+ * 绘制相机视锥的轮廓。
  *
  * @alias DebugCameraPrimitive
  * @constructor
  *
- * @param {object} options Object with the following properties:
- * @param {Camera} options.camera The camera.
- * @param {number[]} [options.frustumSplits] Distances to the near and far planes of the camera frustums. This overrides the camera's frustum near and far values.
- * @param {Color} [options.color=Color.CYAN] The color of the debug outline.
- * @param {boolean} [options.updateOnChange=true] Whether the primitive updates when the underlying camera changes.
- * @param {boolean} [options.show=true] Determines if this primitive will be shown.
- * @param {object} [options.id] A user-defined object to return when the instance is picked with {@link Scene#pick}.
+ * @param {object} options 具有以下属性的对象：
+ * @param {Camera} options.camera 相机。
+ * @param {number[]} [options.frustumSplits] 相机视锥的近远平面的距离。这会覆盖相机的视锥近远值。
+ * @param {Color} [options.color=Color.CYAN] 调试轮廓的颜色。
+ * @param {boolean} [options.updateOnChange=true] 当底层相机发生变化时，是否更新该图元。
+ * @param {boolean} [options.show=true] 确定是否显示此图元。
+ * @param {object} [options.id] 当实例通过 {@link Scene#pick} 被选取时返回的用户定义对象。
  *
  * @example
  * primitives.add(new Cesium.DebugCameraPrimitive({
@@ -52,7 +52,7 @@ function DebugCameraPrimitive(options) {
   this._updateOnChange = defaultValue(options.updateOnChange, true);
 
   /**
-   * Determines if this primitive will be shown.
+   * 确定此图元是否显示。
    *
    * @type {boolean}
    * @default true
@@ -60,13 +60,14 @@ function DebugCameraPrimitive(options) {
   this.show = defaultValue(options.show, true);
 
   /**
-   * User-defined value returned when the primitive is picked.
+   * 用户定义的值，当图元被选取时返回。
    *
    * @type {*}
    * @default undefined
    *
    * @see Scene#pick
    */
+
   this.id = options.id;
   this._id = undefined;
 
@@ -214,30 +215,31 @@ DebugCameraPrimitive.prototype.update = function (frameState) {
 };
 
 /**
- * Returns true if this object was destroyed; otherwise, false.
+ * 如果此对象已被销毁，则返回 true；否则返回 false。
  * <p>
- * If this object was destroyed, it should not be used; calling any function other than
- * <code>isDestroyed</code> will result in a {@link DeveloperError} exception.
+ * 如果此对象已被销毁，则不应使用；调用除
+ * <code>isDestroyed</code> 以外的任何函数将导致 {@link DeveloperError} 异常。
  * </p>
  *
- * @returns {boolean} <code>true</code> if this object was destroyed; otherwise, <code>false</code>.
+ * @returns {boolean} 如果此对象已被销毁，则返回 <code>true</code>；否则返回 <code>false</code>。
  *
  * @see DebugCameraPrimitive#destroy
  */
+
 DebugCameraPrimitive.prototype.isDestroyed = function () {
   return false;
 };
 
 /**
- * Destroys the WebGL resources held by this object.  Destroying an object allows for deterministic
- * release of WebGL resources, instead of relying on the garbage collector to destroy this object.
+ * 销毁此对象所持有的 WebGL 资源。显式地销毁对象允许确定性地
+ * 释放 WebGL 资源，而不是依赖垃圾收集器来销毁此对象。
  * <p>
- * Once an object is destroyed, it should not be used; calling any function other than
- * <code>isDestroyed</code> will result in a {@link DeveloperError} exception.  Therefore,
- * assign the return value (<code>undefined</code>) to the object as done in the example.
+ * 一旦对象被销毁，则不应使用；调用除
+ * <code>isDestroyed</code> 以外的任何函数将导致 {@link DeveloperError} 异常。因此，
+ * 将返回值（<code>undefined</code>）赋值给对象，如示例所示。
  * </p>
  *
- * @exception {DeveloperError} This object was destroyed, i.e., destroy() was called.
+ * @exception {DeveloperError} 此对象已被销毁，即调用了 destroy()。
  *
  * @example
  * p = p && p.destroy();
