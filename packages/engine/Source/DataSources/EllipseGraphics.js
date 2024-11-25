@@ -8,40 +8,39 @@ import createPropertyDescriptor from "./createPropertyDescriptor.js";
 /**
  * @typedef {object} EllipseGraphics.ConstructorOptions
  *
- * Initialization options for the EllipseGraphics constructor
+ * EllipseGraphics 构造函数的初始化选项
  *
- * @property {Property | boolean} [show=true] A boolean Property specifying the visibility of the ellipse.
- * @property {Property | number} [semiMajorAxis] The numeric Property specifying the semi-major axis.
- * @property {Property | number} [semiMinorAxis] The numeric Property specifying the semi-minor axis.
- * @property {Property | number} [height=0] A numeric Property specifying the altitude of the ellipse relative to the ellipsoid surface.
- * @property {Property | HeightReference} [heightReference=HeightReference.NONE] A Property specifying what the height is relative to.
- * @property {Property | number} [extrudedHeight] A numeric Property specifying the altitude of the ellipse's extruded face relative to the ellipsoid surface.
- * @property {Property | HeightReference} [extrudedHeightReference=HeightReference.NONE] A Property specifying what the extrudedHeight is relative to.
- * @property {Property | number} [rotation=0.0] A numeric property specifying the rotation of the ellipse counter-clockwise from north.
- * @property {Property | number} [stRotation=0.0] A numeric property specifying the rotation of the ellipse texture counter-clockwise from north.
- * @property {Property | number} [granularity=Cesium.Math.RADIANS_PER_DEGREE] A numeric Property specifying the angular distance between points on the ellipse.
- * @property {Property | boolean} [fill=true] A boolean Property specifying whether the ellipse is filled with the provided material.
- * @property {MaterialProperty | Color} [material=Color.WHITE] A Property specifying the material used to fill the ellipse.
- * @property {Property | boolean} [outline=false] A boolean Property specifying whether the ellipse is outlined.
- * @property {Property | Color} [outlineColor=Color.BLACK] A Property specifying the {@link Color} of the outline.
- * @property {Property | number} [outlineWidth=1.0] A numeric Property specifying the width of the outline.
- * @property {Property | number} [numberOfVerticalLines=16] A numeric Property specifying the number of vertical lines to draw along the perimeter for the outline.
- * @property {Property | ShadowMode} [shadows=ShadowMode.DISABLED] An enum Property specifying whether the ellipse casts or receives shadows from light sources.
- * @property {Property | DistanceDisplayCondition} [distanceDisplayCondition] A Property specifying at what distance from the camera that this ellipse will be displayed.
- * @property {Property | ClassificationType} [classificationType=ClassificationType.BOTH] An enum Property specifying whether this ellipse will classify terrain, 3D Tiles, or both when on the ground.
- * @property {ConstantProperty | number} [zIndex=0] A property specifying the zIndex of the Ellipse.  Used for ordering ground geometry.  Only has an effect if the ellipse is constant and neither height or exturdedHeight are specified.
+ * @property {Property | boolean} [show=true] 指定椭圆可见性的布尔属性。
+ * @property {Property | number} [semiMajorAxis] 指定半长轴的数值属性。
+ * @property {Property | number} [semiMinorAxis] 指定半短轴的数值属性。
+ * @property {Property | number} [height=0] 指定椭圆相对于椭球体表面的高程的数值属性。
+ * @property {Property | HeightReference} [heightReference=HeightReference.NONE] 指定高度参照的属性。
+ * @property {Property | number} [extrudedHeight] 指定椭圆挤出面相对于椭球体表面的高程的数值属性。
+ * @property {Property | HeightReference} [extrudedHeightReference=HeightReference.NONE] 指定挤出高度参照的属性。
+ * @property {Property | number} [rotation=0.0] 指定椭圆从北方向起逆时针旋转角度的数值属性。
+ * @property {Property | number} [stRotation=0.0] 指定椭圆纹理从北方向起逆时针旋转角度的数值属性。
+ * @property {Property | number} [granularity=Cesium.Math.RADIANS_PER_DEGREE] 指定椭圆上点之间角距离的数值属性。
+ * @property {Property | boolean} [fill=true] 指定是否用提供的材料填充椭圆的布尔属性。
+ * @property {MaterialProperty | Color} [material=Color.WHITE] 指定用于填充椭圆的材料的属性。
+ * @property {Property | boolean} [outline=false] 指定是否绘制椭圆轮廓的布尔属性。
+ * @property {Property | Color} [outlineColor=Color.BLACK] 指定轮廓颜色的属性。
+ * @property {Property | number} [outlineWidth=1.0] 指定轮廓宽度的数值属性。
+ * @property {Property | number} [numberOfVerticalLines=16] 指定沿周长绘制垂直线数量的数值属性。
+ * @property {Property | ShadowMode} [shadows=ShadowMode.DISABLED] 指定椭圆是否投射或接收光源阴影的枚举属性。
+ * @property {Property | DistanceDisplayCondition} [distanceDisplayCondition] 指定椭圆从相机显示距离的属性。
+ * @property {Property | ClassificationType} [classificationType=ClassificationType.BOTH] 指定椭圆在地面上时对地形、3D Tiles或两者进行分类的枚举属性。
+ * @property {ConstantProperty | number} [zIndex=0] 指定椭圆的 zIndex 属性。用于排序地面几何体。仅当椭圆是常数且未指定高度或挤出高度时有效。
  */
 
 /**
- * Describes an ellipse defined by a center point and semi-major and semi-minor axes.
- * The ellipse conforms to the curvature of the globe and can be placed on the surface or
- * at altitude and can optionally be extruded into a volume.
- * The center point is determined by the containing {@link Entity}.
+ * 描述由中心点和半长轴、半短轴定义的椭圆。
+ * 椭圆符合地球的曲率，可以放置在表面或海拔高度上，并且可以被选择性地挤出成一个体积。
+ * 中心点由包含的 {@link Entity} 确定。
  *
  * @alias EllipseGraphics
  * @constructor
  *
- * @param {EllipseGraphics.ConstructorOptions} [options] Object describing initialization options
+ * @param {EllipseGraphics.ConstructorOptions} [options] 描述初始化选项的对象
  *
  * @demo {@link https://sandcastle.cesium.com/index.html?src=Circles and Ellipses.html|Cesium Sandcastle Circles and Ellipses Demo}
  */
@@ -93,7 +92,7 @@ function EllipseGraphics(options) {
 
 Object.defineProperties(EllipseGraphics.prototype, {
   /**
-   * Gets the event that is raised whenever a property or sub-property is changed or modified.
+   * 获取在属性或子属性更改或修改时引发的事件。
    * @memberof EllipseGraphics.prototype
    *
    * @type {Event}
@@ -106,7 +105,7 @@ Object.defineProperties(EllipseGraphics.prototype, {
   },
 
   /**
-   * Gets or sets the boolean Property specifying the visibility of the ellipse.
+   * 获取或设置布尔属性，指定椭圆的可见性。
    * @memberof EllipseGraphics.prototype
    * @type {Property|undefined}
    * @default true
@@ -114,21 +113,21 @@ Object.defineProperties(EllipseGraphics.prototype, {
   show: createPropertyDescriptor("show"),
 
   /**
-   * Gets or sets the numeric Property specifying the semi-major axis.
+   * 获取或设置数值属性，指定半长轴。
    * @memberof EllipseGraphics.prototype
    * @type {Property|undefined}
    */
   semiMajorAxis: createPropertyDescriptor("semiMajorAxis"),
 
   /**
-   * Gets or sets the numeric Property specifying the semi-minor axis.
+   * 获取或设置数值属性，指定半短轴。
    * @memberof EllipseGraphics.prototype
    * @type {Property|undefined}
    */
   semiMinorAxis: createPropertyDescriptor("semiMinorAxis"),
 
   /**
-   * Gets or sets the numeric Property specifying the altitude of the ellipse.
+   * 获取或设置数值属性，指定椭圆的高度。
    * @memberof EllipseGraphics.prototype
    * @type {Property|undefined}
    * @default 0.0
@@ -136,7 +135,7 @@ Object.defineProperties(EllipseGraphics.prototype, {
   height: createPropertyDescriptor("height"),
 
   /**
-   * Gets or sets the Property specifying the {@link HeightReference}.
+   * 获取或设置属性，指定 {@link HeightReference}。
    * @memberof EllipseGraphics.prototype
    * @type {Property|undefined}
    * @default HeightReference.NONE
@@ -144,15 +143,15 @@ Object.defineProperties(EllipseGraphics.prototype, {
   heightReference: createPropertyDescriptor("heightReference"),
 
   /**
-   * Gets or sets the numeric Property specifying the altitude of the ellipse extrusion.
-   * Setting this property creates volume starting at height and ending at this altitude.
+   * 获取或设置数值属性，指定椭圆挤出高度。
+   * 设置此属性会创建从高度开始到此高度结束的体积。
    * @memberof EllipseGraphics.prototype
    * @type {Property|undefined}
    */
   extrudedHeight: createPropertyDescriptor("extrudedHeight"),
 
   /**
-   * Gets or sets the Property specifying the extruded {@link HeightReference}.
+   * 获取或设置属性，指定挤出的 {@link HeightReference}。
    * @memberof EllipseGraphics.prototype
    * @type {Property|undefined}
    * @default HeightReference.NONE
@@ -160,7 +159,7 @@ Object.defineProperties(EllipseGraphics.prototype, {
   extrudedHeightReference: createPropertyDescriptor("extrudedHeightReference"),
 
   /**
-   * Gets or sets the numeric property specifying the rotation of the ellipse counter-clockwise from north.
+   * 获取或设置数值属性，指定椭圆逆时针旋转的角度，参考北方。
    * @memberof EllipseGraphics.prototype
    * @type {Property|undefined}
    * @default 0
@@ -168,7 +167,7 @@ Object.defineProperties(EllipseGraphics.prototype, {
   rotation: createPropertyDescriptor("rotation"),
 
   /**
-   * Gets or sets the numeric property specifying the rotation of the ellipse texture counter-clockwise from north.
+   * 获取或设置数值属性，指定椭圆纹理逆时针旋转的角度，参考北方。
    * @memberof EllipseGraphics.prototype
    * @type {Property|undefined}
    * @default 0
@@ -176,7 +175,7 @@ Object.defineProperties(EllipseGraphics.prototype, {
   stRotation: createPropertyDescriptor("stRotation"),
 
   /**
-   * Gets or sets the numeric Property specifying the angular distance between points on the ellipse.
+   * 获取或设置数值属性，指定椭圆上点之间的角距离。
    * @memberof EllipseGraphics.prototype
    * @type {Property|undefined}
    * @default {CesiumMath.RADIANS_PER_DEGREE}
@@ -184,7 +183,7 @@ Object.defineProperties(EllipseGraphics.prototype, {
   granularity: createPropertyDescriptor("granularity"),
 
   /**
-   * Gets or sets the boolean Property specifying whether the ellipse is filled with the provided material.
+   * 获取或设置布尔属性，指定椭圆是否填充提供的材质。
    * @memberof EllipseGraphics.prototype
    * @type {Property|undefined}
    * @default true
@@ -192,7 +191,7 @@ Object.defineProperties(EllipseGraphics.prototype, {
   fill: createPropertyDescriptor("fill"),
 
   /**
-   * Gets or sets the Property specifying the material used to fill the ellipse.
+   * 获取或设置属性，指定用于填充椭圆的材质。
    * @memberof EllipseGraphics.prototype
    * @type {MaterialProperty|undefined}
    * @default Color.WHITE
@@ -200,7 +199,7 @@ Object.defineProperties(EllipseGraphics.prototype, {
   material: createMaterialPropertyDescriptor("material"),
 
   /**
-   * Gets or sets the Property specifying whether the ellipse is outlined.
+   * 获取或设置布尔属性，指定椭圆是否有轮廓。
    * @memberof EllipseGraphics.prototype
    * @type {Property|undefined}
    * @default false
@@ -208,7 +207,7 @@ Object.defineProperties(EllipseGraphics.prototype, {
   outline: createPropertyDescriptor("outline"),
 
   /**
-   * Gets or sets the Property specifying the {@link Color} of the outline.
+   * 获取或设置属性，指定轮廓的 {@link Color}。
    * @memberof EllipseGraphics.prototype
    * @type {Property|undefined}
    * @default Color.BLACK
@@ -216,9 +215,9 @@ Object.defineProperties(EllipseGraphics.prototype, {
   outlineColor: createPropertyDescriptor("outlineColor"),
 
   /**
-   * Gets or sets the numeric Property specifying the width of the outline.
+   * 获取或设置数值属性，指定轮廓的宽度。
    * <p>
-   * Note: This property will be ignored on all major browsers on Windows platforms. For details, see (@link https://github.com/CesiumGS/cesium/issues/40}.
+   * 注意：此属性将在所有主要浏览器的Windows平台上被忽略。详细信息请参阅 (@link https://github.com/CesiumGS/cesium/issues/40}。
    * </p>
    * @memberof EllipseGraphics.prototype
    * @type {Property|undefined}
@@ -227,7 +226,7 @@ Object.defineProperties(EllipseGraphics.prototype, {
   outlineWidth: createPropertyDescriptor("outlineWidth"),
 
   /**
-   * Gets or sets the numeric Property specifying the number of vertical lines to draw along the perimeter for the outline.
+   * 获取或设置数值属性，指定沿轮廓绘制的垂直线数。
    * @memberof EllipseGraphics.prototype
    * @type {Property|undefined}
    * @default 16
@@ -235,8 +234,7 @@ Object.defineProperties(EllipseGraphics.prototype, {
   numberOfVerticalLines: createPropertyDescriptor("numberOfVerticalLines"),
 
   /**
-   * Get or sets the enum Property specifying whether the ellipse
-   * casts or receives shadows from light sources.
+   * 获取或设置枚举属性，指定椭圆是否从光源投射或接收阴影。
    * @memberof EllipseGraphics.prototype
    * @type {Property|undefined}
    * @default ShadowMode.DISABLED
@@ -244,7 +242,7 @@ Object.defineProperties(EllipseGraphics.prototype, {
   shadows: createPropertyDescriptor("shadows"),
 
   /**
-   * Gets or sets the {@link DistanceDisplayCondition} Property specifying at what distance from the camera that this ellipse will be displayed.
+   * 获取或设置 {@link DistanceDisplayCondition} 属性，指定从相机到此椭圆的显示距离。
    * @memberof EllipseGraphics.prototype
    * @type {Property|undefined}
    */
@@ -253,7 +251,7 @@ Object.defineProperties(EllipseGraphics.prototype, {
   ),
 
   /**
-   * Gets or sets the {@link ClassificationType} Property specifying whether this ellipse will classify terrain, 3D Tiles, or both when on the ground.
+   * 获取或设置 {@link ClassificationType} 属性，指定当在地面时此椭圆将分类地形、3D Tiles或两者。
    * @memberof EllipseGraphics.prototype
    * @type {Property|undefined}
    * @default ClassificationType.BOTH
@@ -261,7 +259,7 @@ Object.defineProperties(EllipseGraphics.prototype, {
   classificationType: createPropertyDescriptor("classificationType"),
 
   /**
-   * Gets or sets the zIndex Property specifying the ellipse ordering.  Only has an effect if the ellipse is constant and neither height or extrudedHeight are specified
+   * 获取或设置 zIndex 属性，指定椭圆的排序。 仅在椭圆是常量且未指定高度或挤出高度时有效。
    * @memberof EllipseGraphics.prototype
    * @type {ConstantProperty|undefined}
    * @default 0
@@ -270,11 +268,12 @@ Object.defineProperties(EllipseGraphics.prototype, {
 });
 
 /**
- * Duplicates this instance.
+ * 复制此实例。
  *
- * @param {EllipseGraphics} [result] 存储结果的对象.
- * @returns {EllipseGraphics} The modified result parameter or a new instance if one was not provided.
+ * @param {EllipseGraphics} [result] 存储结果的对象。
+ * @returns {EllipseGraphics} 修改后的结果参数，或者如果未提供，则返回一个新实例。
  */
+
 EllipseGraphics.prototype.clone = function (result) {
   if (!defined(result)) {
     return new EllipseGraphics(this);
@@ -303,11 +302,11 @@ EllipseGraphics.prototype.clone = function (result) {
 };
 
 /**
- * Assigns each unassigned property on this object to the value
- * of the same property on the provided source object.
+ * 将此对象上每个未分配的属性分配为提供的源对象上相同属性的值。
  *
- * @param {EllipseGraphics} source The object to be merged into this object.
+ * @param {EllipseGraphics} source 要合并到此对象中的对象。
  */
+
 EllipseGraphics.prototype.merge = function (source) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(source)) {

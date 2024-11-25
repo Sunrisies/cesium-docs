@@ -11,20 +11,20 @@ import jsep from "jsep";
 import ExpressionNodeType from "./ExpressionNodeType.js";
 
 /**
- * An expression for a style applied to a {@link Cesium3DTileset}.
+ * 应用于 {@link Cesium3DTileset} 的样式表达式。
  * <p>
- * Evaluates an expression defined using the
- * {@link https://github.com/CesiumGS/3d-tiles/tree/main/specification/Styling|3D Tiles Styling language}.
+ * 评估使用 {@link https://github.com/CesiumGS/3d-tiles/tree/main/specification/Styling|3D Tiles Styling language} 定义的表达式。
  * </p>
  * <p>
- * Implements the {@link StyleExpression} interface.
+ * 实现 {@link StyleExpression} 接口。
  * </p>
  *
  * @alias Expression
  * @constructor
  *
- * @param {string} [expression] The expression defined using the 3D Tiles Styling language.
- * @param {object} [defines] Defines in the style.
+ * @param {string} [expression] 使用 3D Tiles 样式语言定义的表达式。
+ * @param {object} [defines] 样式中的定义。
+
  *
  * @example
  * const expression = new Cesium.Expression('(regExp("^Chest").test(${County})) && (${YearBuilt} >= 1970)');
@@ -59,7 +59,7 @@ function Expression(expression, defines) {
 
 Object.defineProperties(Expression.prototype, {
   /**
-   * Gets the expression defined in the 3D Tiles Styling language.
+   * 获取使用 3D Tiles 样式语言定义的表达式。
    *
    * @memberof Expression.prototype
    *
@@ -68,6 +68,7 @@ Object.defineProperties(Expression.prototype, {
    *
    * @default undefined
    */
+
   expression: {
     get: function () {
       return this._expression;
@@ -121,19 +122,19 @@ const scratchStorage = {
 };
 
 /**
- * Evaluates the result of an expression, optionally using the provided feature's properties. If the result of
- * the expression in the
+ * 评估表达式的结果，选择性地使用提供特征的属性。如果表达式的结果在
  * {@link https://github.com/CesiumGS/3d-tiles/tree/main/specification/Styling|3D Tiles Styling language}
- * is of type <code>Boolean</code>, <code>Number</code>, or <code>String</code>, the corresponding JavaScript
- * primitive type will be returned. If the result is a <code>RegExp</code>, a Javascript <code>RegExp</code>
- * object will be returned. If the result is a <code>Cartesian2</code>, <code>Cartesian3</code>, or <code>Cartesian4</code>,
- * a {@link Cartesian2}, {@link Cartesian3}, or {@link Cartesian4} object will be returned. If the <code>result</code> argument is
- * a {@link Color}, the {@link Cartesian4} value is converted to a {@link Color} and then returned.
+ * 中类型为 <code>Boolean</code>、<code>Number</code> 或 <code>String</code>，则返回对应的 JavaScript
+ * 原始类型。如果结果是 <code>RegExp</code>，则返回一个 JavaScript <code>RegExp</code>
+ * 对象。如果结果是 <code>Cartesian2</code>、<code>Cartesian3</code> 或 <code>Cartesian4</code>，
+ * 则返回一个 {@link Cartesian2}、{@link Cartesian3} 或 {@link Cartesian4} 对象。如果 <code>result</code> 参数是
+ * {@link Color}，则将 {@link Cartesian4} 值转换为 {@link Color} 然后返回。
  *
- * @param {Cesium3DTileFeature} feature The feature whose properties may be used as variables in the expression.
- * @param {object} [result] 存储结果的对象.
- * @returns {boolean|number|string|RegExp|Cartesian2|Cartesian3|Cartesian4|Color} The result of evaluating the expression.
+ * @param {Cesium3DTileFeature} feature 可能在表达式中作为变量使用的特征。
+ * @param {object} [result] 用于存储结果的对象。
+ * @returns {boolean|number|string|RegExp|Cartesian2|Cartesian3|Cartesian4|Color} 评估表达式的结果。
  */
+
 Expression.prototype.evaluate = function (feature, result) {
   scratchStorage.reset();
   const value = this._runtimeAst.evaluate(feature);
@@ -151,15 +152,16 @@ Expression.prototype.evaluate = function (feature, result) {
 };
 
 /**
- * Evaluates the result of a Color expression, optionally using the provided feature's properties.
+ * 评估颜色表达式的结果，可选择性地使用提供特征的属性。
  * <p>
- * This is equivalent to {@link Expression#evaluate} but always returns a {@link Color} object.
+ * 这等同于 {@link Expression#evaluate}，但总是返回一个 {@link Color} 对象。
  * </p>
  *
- * @param {Cesium3DTileFeature} feature The feature whose properties may be used as variables in the expression.
- * @param {Color} [result] The object in which to store the result
- * @returns {Color} The modified result parameter or a new Color instance if one was not provided.
+ * @param {Cesium3DTileFeature} feature 可能在表达式中作为变量使用的特征。
+ * @param {Color} [result] 用于存储结果的对象。
+ * @returns {Color} 修改后的结果参数，或者如果未提供则返回一个新的 Color 实例。
  */
+
 Expression.prototype.evaluateColor = function (feature, result) {
   scratchStorage.reset();
   const color = this._runtimeAst.evaluate(feature);
@@ -167,18 +169,19 @@ Expression.prototype.evaluateColor = function (feature, result) {
 };
 
 /**
- * Gets the shader function for this expression.
- * Returns undefined if the shader function can't be generated from this expression.
+ * 获取此表达式的着色器函数。
+ * 如果无法从此表达式生成着色器函数，则返回 undefined。
  *
- * @param {string} functionSignature Signature of the generated function.
- * @param {object} variableSubstitutionMap Maps variable names to shader variable names.
- * @param {object} shaderState Stores information about the generated shader function, including whether it is translucent.
- * @param {string} returnType The return type of the generated function.
+ * @param {string} functionSignature 生成函数的签名。
+ * @param {object} variableSubstitutionMap 将变量名称映射到着色器变量名称的映射。
+ * @param {object} shaderState 存储生成的着色器函数的信息，包括它是否是半透明的。
+ * @param {string} returnType 生成函数的返回类型。
  *
- * @returns {string} The shader function.
+ * @returns {string} 着色器函数。
  *
  * @private
  */
+
 Expression.prototype.getShaderFunction = function (
   functionSignature,
   variableSubstitutionMap,
@@ -200,16 +203,17 @@ Expression.prototype.getShaderFunction = function (
 };
 
 /**
- * Gets the shader expression for this expression.
- * Returns undefined if the shader expression can't be generated from this expression.
+ * 获取此表达式的着色器表达式。
+ * 如果无法从此表达式生成着色器表达式，则返回 undefined。
  *
- * @param {object} variableSubstitutionMap Maps variable names to shader variable names.
- * @param {object} shaderState Stores information about the generated shader function, including whether it is translucent.
+ * @param {object} variableSubstitutionMap 将变量名称映射到着色器变量名称的映射。
+ * @param {object} shaderState 存储生成的着色器函数的信息，包括它是否是半透明的。
  *
- * @returns {string} The shader expression.
+ * @returns {string} 着色器表达式。
  *
  * @private
  */
+
 Expression.prototype.getShaderExpression = function (
   variableSubstitutionMap,
   shaderState,
@@ -221,12 +225,13 @@ Expression.prototype.getShaderExpression = function (
 };
 
 /**
- * Gets the variables used by the expression.
+ * 获取表达式使用的变量。
  *
- * @returns {string[]} The variables used by the expression.
+ * @returns {string[]} 表达式使用的变量。
  *
  * @private
  */
+
 Expression.prototype.getVariables = function () {
   let variables = [];
 

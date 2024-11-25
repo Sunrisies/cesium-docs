@@ -189,3 +189,36 @@
 - [x] DistanceDisplayConditionGeometryInstanceAttribute
 - [x] DynamicAtmosphereLightingType
 - [x] DynamicEnvironmentMapManager
+
+### 2024.11.25 翻译内容
+
+- 28
+
+- [x] EasingFunction
+- [x] EllipseGeometry
+- [x] EllipseGeometryUpdater
+- [x] EllipseGraphics
+- [x] EllipseOutlineGeometry
+- [x] Ellipsoid
+- [x] EllipsoidGeodesic
+- [x] EllipsoidGeometry
+- [x] EllipsoidGeometryUpdater
+- [x] EllipsoidGraphics
+- [x] EllipsoidOutlineGeometry
+- [x] EllipsoidRhumbLine
+- [x] EllipsoidSurfaceAppearance
+- [x] EllipsoidTangentPlane
+- [x] EllipsoidTerrainProvider
+- [x] Entity
+- [x] EntityCluster
+- [x] EntityCollection
+- [x] EntityView
+- [x] Event
+- [x] EventHelper
+- [x] excludesReverseAxis
+- [x] exportKml
+- [x] exportKmlModelCallback
+- [x] exportKmlResultKml
+- [x] exportKmlResultKmz
+- [x] Expression
+- [x] ExtrapolationType

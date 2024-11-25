@@ -1,6 +1,5 @@
 /**
- * Constants to determine how an interpolated value is extrapolated
- * when querying outside the bounds of available data.
+ * 常量，用于确定在查询可用数据边界之外时如何外推插值值。
  *
  * @enum {number}
  *
@@ -8,7 +7,7 @@
  */
 const ExtrapolationType = {
   /**
-   * No extrapolation occurs.
+   * 不发生外推。
    *
    * @type {number}
    * @constant
@@ -16,7 +15,7 @@ const ExtrapolationType = {
   NONE: 0,
 
   /**
-   * The first or last value is used when outside the range of sample data.
+   * 当超出样本数据范围时使用第一个或最后一个值。
    *
    * @type {number}
    * @constant
@@ -24,7 +23,7 @@ const ExtrapolationType = {
   HOLD: 1,
 
   /**
-   * The value is extrapolated.
+   * 进行外推。
    *
    * @type {number}
    * @constant

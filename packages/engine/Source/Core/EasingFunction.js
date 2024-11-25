@@ -1,15 +1,15 @@
 import { Easing } from "@tweenjs/tween.js";
 
 /**
- * Easing functions for use with TweenCollection.  These function are from
- * {@link https://github.com/sole/tween.js/|Tween.js} and Robert Penner.  See the
+ * 用于TweenCollection的缓动函数。这些函数来自
+ * {@link https://github.com/sole/tween.js/|Tween.js} 和 Robert Penner。查看
  * {@link http://sole.github.io/tween.js/examples/03_graphs.html|Tween.js graphs for each function}.
  *
  * @namespace
  */
 const EasingFunction = {
   /**
-   * Linear easing.
+   * 线性缓动。
    *
    * @type {EasingFunction.Callback}
    * @constant
@@ -17,21 +17,21 @@ const EasingFunction = {
   LINEAR_NONE: Easing.Linear.None,
 
   /**
-   * Quadratic in.
+   * 二次方入。
    *
    * @type {EasingFunction.Callback}
    * @constant
    */
   QUADRATIC_IN: Easing.Quadratic.In,
   /**
-   * Quadratic out.
+   * 二次方出。
    *
    * @type {EasingFunction.Callback}
    * @constant
    */
   QUADRATIC_OUT: Easing.Quadratic.Out,
   /**
-   * Quadratic in then out.
+   * 二次方入后出。
    *
    * @type {EasingFunction.Callback}
    * @constant
@@ -39,21 +39,21 @@ const EasingFunction = {
   QUADRATIC_IN_OUT: Easing.Quadratic.InOut,
 
   /**
-   * Cubic in.
+   * 三次方入。
    *
    * @type {EasingFunction.Callback}
    * @constant
    */
   CUBIC_IN: Easing.Cubic.In,
   /**
-   * Cubic out.
+   * 三次方出。
    *
    * @type {EasingFunction.Callback}
    * @constant
    */
   CUBIC_OUT: Easing.Cubic.Out,
   /**
-   * Cubic in then out.
+   * 三次方入后出。
    *
    * @type {EasingFunction.Callback}
    * @constant
@@ -61,21 +61,21 @@ const EasingFunction = {
   CUBIC_IN_OUT: Easing.Cubic.InOut,
 
   /**
-   * Quartic in.
+   * 四次方入。
    *
    * @type {EasingFunction.Callback}
    * @constant
    */
   QUARTIC_IN: Easing.Quartic.In,
   /**
-   * Quartic out.
+   * 四次方出。
    *
    * @type {EasingFunction.Callback}
    * @constant
    */
   QUARTIC_OUT: Easing.Quartic.Out,
   /**
-   * Quartic in then out.
+   * 四次方入后出。
    *
    * @type {EasingFunction.Callback}
    * @constant
@@ -83,21 +83,21 @@ const EasingFunction = {
   QUARTIC_IN_OUT: Easing.Quartic.InOut,
 
   /**
-   * Quintic in.
+   * 五次方入。
    *
    * @type {EasingFunction.Callback}
    * @constant
    */
   QUINTIC_IN: Easing.Quintic.In,
   /**
-   * Quintic out.
+   * 五次方出。
    *
    * @type {EasingFunction.Callback}
    * @constant
    */
   QUINTIC_OUT: Easing.Quintic.Out,
   /**
-   * Quintic in then out.
+   * 五次方入后出。
    *
    * @type {EasingFunction.Callback}
    * @constant
@@ -105,21 +105,21 @@ const EasingFunction = {
   QUINTIC_IN_OUT: Easing.Quintic.InOut,
 
   /**
-   * Sinusoidal in.
+   * 正弦入。
    *
    * @type {EasingFunction.Callback}
    * @constant
    */
   SINUSOIDAL_IN: Easing.Sinusoidal.In,
   /**
-   * Sinusoidal out.
+   * 正弦出。
    *
    * @type {EasingFunction.Callback}
    * @constant
    */
   SINUSOIDAL_OUT: Easing.Sinusoidal.Out,
   /**
-   * Sinusoidal in then out.
+   * 正弦入后出。
    *
    * @type {EasingFunction.Callback}
    * @constant
@@ -127,21 +127,21 @@ const EasingFunction = {
   SINUSOIDAL_IN_OUT: Easing.Sinusoidal.InOut,
 
   /**
-   * Exponential in.
+   * 指数入。
    *
    * @type {EasingFunction.Callback}
    * @constant
    */
   EXPONENTIAL_IN: Easing.Exponential.In,
   /**
-   * Exponential out.
+   * 指数出。
    *
    * @type {EasingFunction.Callback}
    * @constant
    */
   EXPONENTIAL_OUT: Easing.Exponential.Out,
   /**
-   * Exponential in then out.
+   * 指数入后出。
    *
    * @type {EasingFunction.Callback}
    * @constant
@@ -149,21 +149,21 @@ const EasingFunction = {
   EXPONENTIAL_IN_OUT: Easing.Exponential.InOut,
 
   /**
-   * Circular in.
+   * 圆形入。
    *
    * @type {EasingFunction.Callback}
    * @constant
    */
   CIRCULAR_IN: Easing.Circular.In,
   /**
-   * Circular out.
+   * 圆形出。
    *
    * @type {EasingFunction.Callback}
    * @constant
    */
   CIRCULAR_OUT: Easing.Circular.Out,
   /**
-   * Circular in then out.
+   * 圆形入后出。
    *
    * @type {EasingFunction.Callback}
    * @constant
@@ -171,21 +171,21 @@ const EasingFunction = {
   CIRCULAR_IN_OUT: Easing.Circular.InOut,
 
   /**
-   * Elastic in.
+   * 弹性入。
    *
    * @type {EasingFunction.Callback}
    * @constant
    */
   ELASTIC_IN: Easing.Elastic.In,
   /**
-   * Elastic out.
+   * 弹性出。
    *
    * @type {EasingFunction.Callback}
    * @constant
    */
   ELASTIC_OUT: Easing.Elastic.Out,
   /**
-   * Elastic in then out.
+   * 弹性入后出。
    *
    * @type {EasingFunction.Callback}
    * @constant
@@ -193,21 +193,21 @@ const EasingFunction = {
   ELASTIC_IN_OUT: Easing.Elastic.InOut,
 
   /**
-   * Back in.
+   * 回退入。
    *
    * @type {EasingFunction.Callback}
    * @constant
    */
   BACK_IN: Easing.Back.In,
   /**
-   * Back out.
+   * 回退出。
    *
    * @type {EasingFunction.Callback}
    * @constant
    */
   BACK_OUT: Easing.Back.Out,
   /**
-   * Back in then out.
+   * 回退入后出。
    *
    * @type {EasingFunction.Callback}
    * @constant
@@ -215,21 +215,21 @@ const EasingFunction = {
   BACK_IN_OUT: Easing.Back.InOut,
 
   /**
-   * Bounce in.
+   * 弹跳入。
    *
    * @type {EasingFunction.Callback}
    * @constant
    */
   BOUNCE_IN: Easing.Bounce.In,
   /**
-   * Bounce out.
+   * 弹跳出。
    *
    * @type {EasingFunction.Callback}
    * @constant
    */
   BOUNCE_OUT: Easing.Bounce.Out,
   /**
-   * Bounce in then out.
+   * 弹跳入后出。
    *
    * @type {EasingFunction.Callback}
    * @constant
@@ -238,10 +238,10 @@ const EasingFunction = {
 };
 
 /**
- * Function interface for implementing a custom easing function.
+ * 实现自定义缓动函数的函数接口。
  * @callback EasingFunction.Callback
- * @param {number} time The time in the range <code>[0, 1]</code>.
- * @returns {number} The value of the function at the given time.
+ * @param {number} time 时间值在范围 <code>[0, 1]</code> 内。
+ * @returns {number} 给定时间的函数值。
  *
  * @example
  * function quadraticIn(time) {

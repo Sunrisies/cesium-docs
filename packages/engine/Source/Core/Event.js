@@ -2,9 +2,9 @@ import Check from "./Check.js";
 import defined from "./defined.js";
 
 /**
- * A generic utility class for managing subscribers for a particular event.
- * This class is usually instantiated inside of a container class and
- * exposed as a property for others to subscribe to.
+ * 一个通用的工具类，用于管理特定事件的订阅者。
+ * 此类通常在容器类内部实例化，并
+ * 作为属性公开供其他人订阅。
  *
  * @alias Event
  * @template Listener extends (...args: any[]) => void = (...args: any[]) => void
@@ -30,11 +30,12 @@ function Event() {
 
 Object.defineProperties(Event.prototype, {
   /**
-   * The number of listeners currently subscribed to the event.
+   * 当前订阅该事件的监听器数量。
    * @memberof Event.prototype
    * @type {number}
    * @readonly
    */
+
   numberOfListeners: {
     get: function () {
       return this._listeners.length - this._toRemove.length;
@@ -43,18 +44,19 @@ Object.defineProperties(Event.prototype, {
 });
 
 /**
- * Registers a callback function to be executed whenever the event is raised.
- * An optional scope can be provided to serve as the <code>this</code> pointer
- * in which the function will execute.
+ * 注册一个回调函数，当事件被触发时执行。
+ * 可以提供一个可选的作用域作为 <code>this</code> 指针，
+ * 来执行该函数。
  *
- * @param {Listener} listener The function to be executed when the event is raised.
- * @param {object} [scope] An optional object scope to serve as the <code>this</code>
- *        pointer in which the listener function will execute.
- * @returns {Event.RemoveCallback} A function that will remove this event listener when invoked.
+ * @param {Listener} listener 事件触发时要执行的函数。
+ * @param {object} [scope] 可选的对象作用域，用作 <code>this</code>
+ *        指针，供监听器函数执行时使用。
+ * @returns {Event.RemoveCallback} 一个函数，当调用时将移除此事件监听器。
  *
  * @see Event#raiseEvent
  * @see Event#removeEventListener
  */
+
 Event.prototype.addEventListener = function (listener, scope) {
   //>>includeStart('debug', pragmas.debug);
   Check.typeOf.func("listener", listener);
@@ -70,15 +72,16 @@ Event.prototype.addEventListener = function (listener, scope) {
 };
 
 /**
- * Unregisters a previously registered callback.
+ * 注销先前注册的回调函数。
  *
- * @param {Listener} listener The function to be unregistered.
- * @param {object} [scope] The scope that was originally passed to addEventListener.
- * @returns {boolean} <code>true</code> if the listener was removed; <code>false</code> if the listener and scope are not registered with the event.
+ * @param {Listener} listener 要注销的函数。
+ * @param {object} [scope] 最初传递给 addEventListener 的作用域。
+ * @returns {boolean} 如果监听器被移除则返回 <code>true</code>；如果监听器和作用域未注册到事件中则返回 <code>false</code>。
  *
  * @see Event#addEventListener
  * @see Event#raiseEvent
  */
+
 Event.prototype.removeEventListener = function (listener, scope) {
   //>>includeStart('debug', pragmas.debug);
   Check.typeOf.func("listener", listener);
@@ -118,13 +121,14 @@ function compareNumber(a, b) {
 }
 
 /**
- * Raises the event by calling each registered listener with all supplied arguments.
+ * 通过调用每个注册的监听器并传递所有提供的参数来触发事件。
  *
- * @param {...Parameters<Listener>} arguments This method takes any number of parameters and passes them through to the listener functions.
+ * @param {...Parameters<Listener>} arguments 此方法可以接受任意数量的参数，并将它们传递给监听器函数。
  *
  * @see Event#addEventListener
  * @see Event#removeEventListener
  */
+
 Event.prototype.raiseEvent = function () {
   this._insideRaiseEvent = true;
 
@@ -157,8 +161,9 @@ Event.prototype.raiseEvent = function () {
 };
 
 /**
- * A function that removes a listener.
+ * 一个用于移除监听器的函数。
  * @callback Event.RemoveCallback
  */
+
 
 export default Event;

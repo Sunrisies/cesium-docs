@@ -56,7 +56,7 @@ function OrientedBoundingBox(center, halfAxes) {
 }
 
 /**
- * The number of elements used to pack the object into an array.
+ * 用于将对象打包到数组中的元素数量。
  * @type {number}
  */
 OrientedBoundingBox.packedLength =

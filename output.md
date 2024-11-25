@@ -155,35 +155,35 @@
 - [x] DistanceDisplayConditionGeometryInstanceAttribute
 - [x] DynamicAtmosphereLightingType
 - [x] DynamicEnvironmentMapManager
+- [x] EasingFunction
+- [x] EllipseGeometry
+- [x] EllipseGeometryUpdater
+- [x] EllipseGraphics
+- [x] EllipseOutlineGeometry
+- [x] Ellipsoid
+- [x] EllipsoidGeodesic
+- [x] EllipsoidGeometry
+- [x] EllipsoidGeometryUpdater
+- [x] EllipsoidGraphics
+- [x] EllipsoidOutlineGeometry
+- [x] EllipsoidRhumbLine
+- [x] EllipsoidSurfaceAppearance
+- [x] EllipsoidTangentPlane
+- [x] EllipsoidTerrainProvider
+- [x] Entity
+- [x] EntityCluster
+- [x] EntityCollection
+- [x] EntityView
+- [x] Event
+- [x] EventHelper
+- [x] excludesReverseAxis
+- [x] exportKml
+- [x] exportKmlModelCallback
+- [x] exportKmlResultKml
+- [x] exportKmlResultKmz
+- [x] Expression
+- [x] ExtrapolationType
 
-- [ ] EasingFunction
-- [ ] EllipseGeometry
-- [ ] EllipseGeometryUpdater
-- [ ] EllipseGraphics
-- [ ] EllipseOutlineGeometry
-- [ ] Ellipsoid
-- [ ] EllipsoidGeodesic
-- [ ] EllipsoidGeometry
-- [ ] EllipsoidGeometryUpdater
-- [ ] EllipsoidGraphics
-- [ ] EllipsoidOutlineGeometry
-- [ ] EllipsoidRhumbLine
-- [ ] EllipsoidSurfaceAppearance
-- [ ] EllipsoidTangentPlane
-- [ ] EllipsoidTerrainProvider
-- [ ] Entity
-- [ ] EntityCluster
-- [ ] EntityCollection
-- [ ] EntityView
-- [ ] Event
-- [ ] EventHelper
-- [ ] excludesReverseAxis
-- [ ] exportKml
-- [ ] exportKmlModelCallback
-- [ ] exportKmlResultKml
-- [ ] exportKmlResultKmz
-- [ ] Expression
-- [ ] ExtrapolationType
 - [ ] FeatureDetection
 - [ ] Fog
 - [ ] formatError
@@ -231,6 +231,7 @@
 - [ ] GroundPolylineGeometry
 - [ ] GroundPolylinePrimitive
 - [ ] GroundPrimitive
+
 - [ ] HeadingPitchRange
 - [ ] HeadingPitchRoll
 - [ ] HeadingPitchRollValues
@@ -271,6 +272,7 @@
 - [ ] isLeapYear
 - [ ] Iso8601
 - [ ] JulianDate
+
 - [ ] KeyboardEventModifier
 - [ ] KmlCamera
 - [ ] KmlDataSource
@@ -291,6 +293,7 @@
 - [ ] LinearApproximation
 - [ ] LinearSpline
 - [ ] loadGltfJson
+
 - [ ] MapboxImageryProvider
 - [ ] MapboxStyleImageryProvider
 - [ ] MapMode2D
@@ -333,6 +336,7 @@
 - [ ] OrientedBoundingBox
 - [ ] OrthographicFrustum
 - [ ] OrthographicOffCenterFrustum
+
 - [ ] PackableForInterpolation
 - [ ] Particle
 - [ ] ParticleBurst
@@ -395,6 +399,7 @@
 - [ ] PropertyBag
 - [ ] propertyName
 - [ ] Proxy
+
 - [ ] QuadraticRealPolynomial
 - [ ] QuantizedMeshTerrainData
 - [ ] QuarticRealPolynomial
@@ -418,6 +423,7 @@
 - [ ] RequestType
 - [ ] Resource
 - [ ] RuntimeError
+
 - [ ] SampledPositionProperty
 - [ ] SampledProperty
 - [ ] sampleTerrain
@@ -460,6 +466,7 @@
 - [ ] subdivideArray
 - [ ] Sun
 - [ ] SunLight
+
 - [ ] TaskProcessor
 - [ ] Terrain
 - [ ] TerrainData
@@ -502,6 +509,7 @@
 - [ ] VoxelProvider
 - [ ] VoxelShapeType
 - [ ] VRTheWorldTerrainProvider
+
 - [ ] WallGeometry
 - [ ] WallGeometryUpdater
 - [ ] WallGraphics

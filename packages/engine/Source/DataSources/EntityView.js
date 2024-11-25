@@ -271,14 +271,15 @@ function updateTransform(
 }
 
 /**
- * A utility object for tracking an entity with the camera.
+ * 用于通过相机跟踪实体的工具对象。
  * @alias EntityView
  * @constructor
  *
- * @param {Entity} entity The entity to track with the camera.
- * @param {Scene} scene The scene to use.
- * @param {Ellipsoid} [ellipsoid=Ellipsoid.default] The ellipsoid to use for orienting the camera.
+ * @param {Entity} entity 要通过相机跟踪的实体。
+ * @param {Scene} scene 要使用的场景。
+ * @param {Ellipsoid} [ellipsoid=Ellipsoid.default] 用于定向相机的椭球体。
  */
+
 function EntityView(entity, scene, ellipsoid) {
   //>>includeStart('debug', pragmas.debug);
   Check.defined("entity", entity);
@@ -286,27 +287,28 @@ function EntityView(entity, scene, ellipsoid) {
   //>>includeEnd('debug');
 
   /**
-   * The entity to track with the camera.
+   * 要通过相机跟踪的实体。
    * @type {Entity}
    */
   this.entity = entity;
 
   /**
-   * The scene in which to track the object.
+   * 跟踪对象的场景。
    * @type {Scene}
    */
   this.scene = scene;
 
   /**
-   * The ellipsoid to use for orienting the camera.
+   * 用于定向相机的椭球体。
    * @type {Ellipsoid}
    */
   this.ellipsoid = defaultValue(ellipsoid, Ellipsoid.default);
 
   /**
-   * The bounding sphere of the object.
+   * 对象的包围球。
    * @type {BoundingSphere}
    */
+
   this.boundingSphere = undefined;
 
   // Shadow copies of the objects so we can detect changes.
@@ -322,11 +324,11 @@ function EntityView(entity, scene, ellipsoid) {
 // STATIC properties defined here, not per-instance.
 Object.defineProperties(EntityView, {
   /**
-   * Gets or sets a camera offset that will be used to
-   * initialize subsequent EntityViews.
+   * 获取或设置将用于初始化后续 EntityViews 的相机偏移。
    * @memberof EntityView
    * @type {Cartesian3}
    */
+
   defaultOffset3D: {
     get: function () {
       return this._defaultOffset3D;
@@ -344,11 +346,12 @@ const scratchHeadingPitchRange = new HeadingPitchRange();
 const scratchCartesian = new Cartesian3();
 
 /**
- * Should be called each animation frame to update the camera
- * to the latest settings.
- * @param {JulianDate} time The current animation time.
- * @param {BoundingSphere} [boundingSphere] bounding sphere of the object.
+ * 应在每个动画帧中调用，以更新相机
+ * 以反映最新的设置。
+ * @param {JulianDate} time 当前动画时间。
+ * @param {BoundingSphere} [boundingSphere] 对象的包围球。
  */
+
 EntityView.prototype.update = function (time, boundingSphere) {
   //>>includeStart('debug', pragmas.debug);
   Check.defined("time", time);

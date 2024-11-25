@@ -2,9 +2,8 @@ import defined from "./defined.js";
 import DeveloperError from "./DeveloperError.js";
 
 /**
- * A convenience object that simplifies the common pattern of attaching event listeners
- * to several events, then removing all those listeners at once later, for example, in
- * a destroy method.
+ * 一个方便的对象，简化了将事件监听器附加到多个事件的常见模式，
+ * 然后在以后（例如，在销毁方法中）同时移除所有这些监听器。
  *
  * @alias EventHelper
  * @constructor
@@ -26,16 +25,17 @@ function EventHelper() {
 }
 
 /**
- * Adds a listener to an event, and records the registration to be cleaned up later.
+ * 将监听器添加到事件，并记录注册以便稍后清理。
  *
- * @param {Event} event The event to attach to.
- * @param {Function} listener The function to be executed when the event is raised.
- * @param {object} [scope] An optional object scope to serve as the <code>this</code>
- *        pointer in which the listener function will execute.
- * @returns {EventHelper.RemoveCallback} A function that will remove this event listener when invoked.
+ * @param {Event} event 要附加的事件。
+ * @param {Function} listener 当事件被触发时要执行的函数。
+ * @param {object} [scope] 可选的对象作用域，用作 <code>this</code>
+ *        指针，以便在执行监听函数时使用。
+ * @returns {EventHelper.RemoveCallback} 一个函数，当被调用时将移除此事件监听器。
  *
  * @see Event#addEventListener
  */
+
 EventHelper.prototype.add = function (event, listener, scope) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(event)) {
@@ -55,10 +55,11 @@ EventHelper.prototype.add = function (event, listener, scope) {
 };
 
 /**
- * Unregisters all previously added listeners.
+ * 注销之前添加的所有监听器。
  *
  * @see Event#removeEventListener
  */
+
 EventHelper.prototype.removeAll = function () {
   const removalFunctions = this._removalFunctions;
   for (let i = 0, len = removalFunctions.length; i < len; ++i) {
@@ -68,7 +69,8 @@ EventHelper.prototype.removeAll = function () {
 };
 
 /**
- * A function that removes a listener.
+ * 一个用于移除监听器的函数。
  * @callback EventHelper.RemoveCallback
  */
+
 export default EventHelper;

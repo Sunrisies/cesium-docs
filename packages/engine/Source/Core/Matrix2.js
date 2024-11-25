@@ -33,7 +33,7 @@ function Matrix2(column0Row0, column1Row0, column0Row1, column1Row1) {
 }
 
 /**
- * The number of elements used to pack the object into an array.
+ * 用于将对象打包到数组中的元素数量。
  * @type {number}
  */
 Matrix2.packedLength = 4;

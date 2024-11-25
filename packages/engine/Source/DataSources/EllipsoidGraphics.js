@@ -8,35 +8,35 @@ import createPropertyDescriptor from "./createPropertyDescriptor.js";
 /**
  * @typedef {object} EllipsoidGraphics.ConstructorOptions
  *
- * Initialization options for the EllipsoidGraphics constructor
+ * EllipsoidGraphics 构造函数的初始化选项
  *
- * @property {Property | boolean} [show=true] A boolean Property specifying the visibility of the ellipsoid.
- * @property {Property | Cartesian3} [radii] A {@link Cartesian3} Property specifying the radii of the ellipsoid.
- * @property {Property | Cartesian3} [innerRadii] A {@link Cartesian3} Property specifying the inner radii of the ellipsoid.
- * @property {Property | number} [minimumClock=0.0] A Property specifying the minimum clock angle of the ellipsoid.
- * @property {Property | number} [maximumClock=2*PI] A Property specifying the maximum clock angle of the ellipsoid.
- * @property {Property | number} [minimumCone=0.0] A Property specifying the minimum cone angle of the ellipsoid.
- * @property {Property | number} [maximumCone=PI] A Property specifying the maximum cone angle of the ellipsoid.
- * @property {Property | HeightReference} [heightReference=HeightReference.NONE] A Property specifying what the height from the entity position is relative to.
- * @property {Property | boolean} [fill=true] A boolean Property specifying whether the ellipsoid is filled with the provided material.
- * @property {MaterialProperty | Color} [material=Color.WHITE] A Property specifying the material used to fill the ellipsoid.
- * @property {Property | boolean} [outline=false] A boolean Property specifying whether the ellipsoid is outlined.
- * @property {Property | Color} [outlineColor=Color.BLACK] A Property specifying the {@link Color} of the outline.
- * @property {Property | number} [outlineWidth=1.0] A numeric Property specifying the width of the outline.
- * @property {Property | number} [stackPartitions=64] A Property specifying the number of stacks.
- * @property {Property | number} [slicePartitions=64] A Property specifying the number of radial slices.
- * @property {Property | number} [subdivisions=128] A Property specifying the number of samples per outline ring, determining the granularity of the curvature.
- * @property {Property | ShadowMode} [shadows=ShadowMode.DISABLED] An enum Property specifying whether the ellipsoid casts or receives shadows from light sources.
- * @property {Property | DistanceDisplayCondition} [distanceDisplayCondition] A Property specifying at what distance from the camera that this ellipsoid will be displayed.
+ * @property {Property | boolean} [show=true] 指定椭球体可见性的布尔属性。
+ * @property {Property | Cartesian3} [radii] 一个 {@link Cartesian3} 属性，指定椭球体的半径。
+ * @property {Property | Cartesian3} [innerRadii] 一个 {@link Cartesian3} 属性，指定椭球体的内半径。
+ * @property {Property | number} [minimumClock=0.0] 一个属性，指定椭球体的最小时钟角度。
+ * @property {Property | number} [maximumClock=2*PI] 一个属性，指定椭球体的最大时钟角度。
+ * @property {Property | number} [minimumCone=0.0] 一个属性，指定椭球体的最小锥角。
+ * @property {Property | number} [maximumCone=PI] 一个属性，指定椭球体的最大锥角。
+ * @property {Property | HeightReference} [heightReference=HeightReference.NONE] 一个属性，指定实体位置的高度参考。
+ * @property {Property | boolean} [fill=true] 指定椭球体是否使用提供的材质填充的布尔属性。
+ * @property {MaterialProperty | Color} [material=Color.WHITE] 一个属性，指定用于填充椭球体的材质。
+ * @property {Property | boolean} [outline=false] 指定椭球体是否有轮廓的布尔属性。
+ * @property {Property | Color} [outlineColor=Color.BLACK] 一个属性，指定轮廓的 {@link Color}。
+ * @property {Property | number} [outlineWidth=1.0] 一个数值属性，指定轮廓的宽度。
+ * @property {Property | number} [stackPartitions=64] 一个属性，指定堆的数量。
+ * @property {Property | number} [slicePartitions=64] 一个属性，指定径向切片的数量。
+ * @property {Property | number} [subdivisions=128] 一个属性，指定每个轮廓环的样本数量，决定曲率的细分程度。
+ * @property {Property | ShadowMode} [shadows=ShadowMode.DISABLED] 一个枚举属性，指定椭球体是否投射或接收光源的阴影。
+ * @property {Property | DistanceDisplayCondition} [distanceDisplayCondition] 一个属性，指定距离相机多远时显示该椭球体。
  */
 
 /**
- * Describe an ellipsoid or sphere.  The center position and orientation are determined by the containing {@link Entity}.
+ * 描述一个椭球体或球体。中心位置和方向由包含该 {@link Entity} 决定。
  *
  * @alias EllipsoidGraphics
  * @constructor
  *
- * @param {EllipsoidGraphics.ConstructorOptions} [options] Object describing initialization options
+ * @param {EllipsoidGraphics.ConstructorOptions} [options] 描述初始化选项的对象。
  *
  * @demo {@link https://sandcastle.cesium.com/index.html?src=Spheres%20and%20Ellipsoids.html|Cesium Sandcastle Spheres and Ellipsoids Demo}
  */
@@ -84,7 +84,7 @@ function EllipsoidGraphics(options) {
 
 Object.defineProperties(EllipsoidGraphics.prototype, {
   /**
-   * Gets the event that is raised whenever a property or sub-property is changed or modified.
+   * 获取在属性或子属性更改或修改时引发的事件。
    * @memberof EllipsoidGraphics.prototype
    *
    * @type {Event}
@@ -97,7 +97,7 @@ Object.defineProperties(EllipsoidGraphics.prototype, {
   },
 
   /**
-   * Gets or sets the boolean Property specifying the visibility of the ellipsoid.
+   * 获取或设置布尔属性，指定椭球体的可见性。
    * @memberof EllipsoidGraphics.prototype
    * @type {Property|undefined}
    * @default true
@@ -105,14 +105,14 @@ Object.defineProperties(EllipsoidGraphics.prototype, {
   show: createPropertyDescriptor("show"),
 
   /**
-   * Gets or sets the {@link Cartesian3} {@link Property} specifying the radii of the ellipsoid.
+   * 获取或设置 {@link Cartesian3} {@link Property}，指定椭球体的半径。
    * @memberof EllipsoidGraphics.prototype
    * @type {Property|undefined}
    */
   radii: createPropertyDescriptor("radii"),
 
   /**
-   * Gets or sets the {@link Cartesian3} {@link Property} specifying the inner radii of the ellipsoid.
+   * 获取或设置 {@link Cartesian3} {@link Property}，指定椭球体的内半径。
    * @memberof EllipsoidGraphics.prototype
    * @type {Property|undefined}
    * @default radii
@@ -120,7 +120,7 @@ Object.defineProperties(EllipsoidGraphics.prototype, {
   innerRadii: createPropertyDescriptor("innerRadii"),
 
   /**
-   * Gets or sets the Property specifying the minimum clock angle of the ellipsoid.
+   * 获取或设置属性，指定椭球体的最小时钟角。
    * @memberof EllipsoidGraphics.prototype
    * @type {Property|undefined}
    * @default 0.0
@@ -128,7 +128,7 @@ Object.defineProperties(EllipsoidGraphics.prototype, {
   minimumClock: createPropertyDescriptor("minimumClock"),
 
   /**
-   * Gets or sets the Property specifying the maximum clock angle of the ellipsoid.
+   * 获取或设置属性，指定椭球体的最大时钟角。
    * @memberof EllipsoidGraphics.prototype
    * @type {Property|undefined}
    * @default 2*PI
@@ -136,7 +136,7 @@ Object.defineProperties(EllipsoidGraphics.prototype, {
   maximumClock: createPropertyDescriptor("maximumClock"),
 
   /**
-   * Gets or sets the Property specifying the minimum cone angle of the ellipsoid.
+   * 获取或设置属性，指定椭球体的最小锥角。
    * @memberof EllipsoidGraphics.prototype
    * @type {Property|undefined}
    * @default 0.0
@@ -144,7 +144,7 @@ Object.defineProperties(EllipsoidGraphics.prototype, {
   minimumCone: createPropertyDescriptor("minimumCone"),
 
   /**
-   * Gets or sets the Property specifying the maximum cone angle of the ellipsoid.
+   * 获取或设置属性，指定椭球体的最大锥角。
    * @memberof EllipsoidGraphics.prototype
    * @type {Property|undefined}
    * @default PI
@@ -152,7 +152,7 @@ Object.defineProperties(EllipsoidGraphics.prototype, {
   maximumCone: createPropertyDescriptor("maximumCone"),
 
   /**
-   * Gets or sets the Property specifying the {@link HeightReference}.
+   * 获取或设置属性，指定 {@link HeightReference}。
    * @memberof EllipsoidGraphics.prototype
    * @type {Property|undefined}
    * @default HeightReference.NONE
@@ -160,7 +160,7 @@ Object.defineProperties(EllipsoidGraphics.prototype, {
   heightReference: createPropertyDescriptor("heightReference"),
 
   /**
-   * Gets or sets the boolean Property specifying whether the ellipsoid is filled with the provided material.
+   * 获取或设置布尔属性，指定椭球体是否使用提供的材质填充。
    * @memberof EllipsoidGraphics.prototype
    * @type {Property|undefined}
    * @default true
@@ -168,7 +168,7 @@ Object.defineProperties(EllipsoidGraphics.prototype, {
   fill: createPropertyDescriptor("fill"),
 
   /**
-   * Gets or sets the Property specifying the material used to fill the ellipsoid.
+   * 获取或设置属性，指定用于填充椭球体的材质。
    * @memberof EllipsoidGraphics.prototype
    * @type {MaterialProperty}
    * @default Color.WHITE
@@ -176,7 +176,7 @@ Object.defineProperties(EllipsoidGraphics.prototype, {
   material: createMaterialPropertyDescriptor("material"),
 
   /**
-   * Gets or sets the Property specifying whether the ellipsoid is outlined.
+   * 获取或设置属性，指定椭球体是否有轮廓。
    * @memberof EllipsoidGraphics.prototype
    * @type {Property|undefined}
    * @default false
@@ -184,7 +184,7 @@ Object.defineProperties(EllipsoidGraphics.prototype, {
   outline: createPropertyDescriptor("outline"),
 
   /**
-   * Gets or sets the Property specifying the {@link Color} of the outline.
+   * 获取或设置属性，指定轮廓的 {@link Color}。
    * @memberof EllipsoidGraphics.prototype
    * @type {Property|undefined}
    * @default Color.BLACK
@@ -192,9 +192,9 @@ Object.defineProperties(EllipsoidGraphics.prototype, {
   outlineColor: createPropertyDescriptor("outlineColor"),
 
   /**
-   * Gets or sets the numeric Property specifying the width of the outline.
+   * 获取或设置数值属性，指定轮廓的宽度。
    * <p>
-   * Note: This property will be ignored on all major browsers on Windows platforms. For details, see (@link https://github.com/CesiumGS/cesium/issues/40}.
+   * 注意：此属性将在所有主要浏览器的Windows平台上被忽略。详细信息请参阅 (@link https://github.com/CesiumGS/cesium/issues/40}。
    * </p>
    * @memberof EllipsoidGraphics.prototype
    * @type {Property|undefined}
@@ -203,7 +203,7 @@ Object.defineProperties(EllipsoidGraphics.prototype, {
   outlineWidth: createPropertyDescriptor("outlineWidth"),
 
   /**
-   * Gets or sets the Property specifying the number of stacks.
+   * 获取或设置属性，指定堆的数量。
    * @memberof EllipsoidGraphics.prototype
    * @type {Property|undefined}
    * @default 64
@@ -211,7 +211,7 @@ Object.defineProperties(EllipsoidGraphics.prototype, {
   stackPartitions: createPropertyDescriptor("stackPartitions"),
 
   /**
-   * Gets or sets the Property specifying the number of radial slices per 360 degrees.
+   * 获取或设置属性，指定每 360 度的径向切片数量。
    * @memberof EllipsoidGraphics.prototype
    * @type {Property|undefined}
    * @default 64
@@ -219,7 +219,7 @@ Object.defineProperties(EllipsoidGraphics.prototype, {
   slicePartitions: createPropertyDescriptor("slicePartitions"),
 
   /**
-   * Gets or sets the Property specifying the number of samples per outline ring, determining the granularity of the curvature.
+   * 获取或设置属性，指定每个轮廓环的样本数量，决定曲率的细分程度。
    * @memberof EllipsoidGraphics.prototype
    * @type {Property|undefined}
    * @default 128
@@ -227,8 +227,7 @@ Object.defineProperties(EllipsoidGraphics.prototype, {
   subdivisions: createPropertyDescriptor("subdivisions"),
 
   /**
-   * Get or sets the enum Property specifying whether the ellipsoid
-   * casts or receives shadows from light sources.
+   * 获取或设置枚举属性，指定椭球体是否投射或接收光源的阴影。
    * @memberof EllipsoidGraphics.prototype
    * @type {Property|undefined}
    * @default ShadowMode.DISABLED
@@ -236,7 +235,7 @@ Object.defineProperties(EllipsoidGraphics.prototype, {
   shadows: createPropertyDescriptor("shadows"),
 
   /**
-   * Gets or sets the {@link DistanceDisplayCondition} Property specifying at what distance from the camera that this ellipsoid will be displayed.
+   * 获取或设置 {@link DistanceDisplayCondition} 属性，指定距离相机多远时显示该椭球体。
    * @memberof EllipsoidGraphics.prototype
    * @type {Property|undefined}
    */
@@ -246,11 +245,12 @@ Object.defineProperties(EllipsoidGraphics.prototype, {
 });
 
 /**
- * Duplicates this instance.
+ * 复制此实例。
  *
- * @param {EllipsoidGraphics} [result] 存储结果的对象.
- * @returns {EllipsoidGraphics} The modified result parameter or a new instance if one was not provided.
+ * @param {EllipsoidGraphics} [result] 存储结果的对象。
+ * @returns {EllipsoidGraphics} 修改后的结果参数，或者如果未提供，则返回一个新的实例。
  */
+
 EllipsoidGraphics.prototype.clone = function (result) {
   if (!defined(result)) {
     return new EllipsoidGraphics(this);
@@ -277,11 +277,11 @@ EllipsoidGraphics.prototype.clone = function (result) {
 };
 
 /**
- * Assigns each unassigned property on this object to the value
- * of the same property on the provided source object.
+ * 将此对象上每个未分配的属性分配为提供的源对象上相同属性的值。
  *
- * @param {EllipsoidGraphics} source The object to be merged into this object.
+ * @param {EllipsoidGraphics} source 要合并到此对象中的对象。
  */
+
 EllipsoidGraphics.prototype.merge = function (source) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(source)) {
