@@ -3,11 +3,11 @@ import defined from "./defined.js";
 import DeveloperError from "./DeveloperError.js";
 
 /**
- * Given a URI, returns the last segment of the URI, removing any path or query information.
+ * 给定一个 URI，返回该 URI 的最后一个部分，去除任何路径或查询信息。
  * @function getFilenameFromUri
  *
- * @param {string} uri The Uri.
- * @returns {string} The last segment of the Uri.
+ * @param {string} uri URI。
+ * @returns {string} URI 的最后一个部分。
  *
  * @example
  * //fileName will be"simple.czml";

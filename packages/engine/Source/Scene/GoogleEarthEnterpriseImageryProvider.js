@@ -21,19 +21,20 @@ function GoogleEarthEnterpriseDiscardPolicy() {
 }
 
 /**
- * Determines if the discard policy is ready to process images.
- * @returns {boolean} True if the discard policy is ready to process images; otherwise, false.
+ * 确定丢弃策略是否准备好处理图像。
+ * @returns {boolean} 如果丢弃策略准备好处理图像则为 true；否则为 false。
  */
 GoogleEarthEnterpriseDiscardPolicy.prototype.isReady = function () {
   return true;
 };
 
 /**
- * Given a tile image, decide whether to discard that image.
+ * 给定一个瓦片图像，决定是否丢弃该图像。
  *
- * @param {HTMLImageElement} image An image to test.
- * @returns {boolean} True if the image should be discarded; otherwise, false.
+ * @param {HTMLImageElement} image 要测试的图像。
+ * @returns {boolean} 如果图像应该被丢弃则为 true；否则为 false。
  */
+
 GoogleEarthEnterpriseDiscardPolicy.prototype.shouldDiscardImage = function (
   image,
 ) {
@@ -43,29 +44,27 @@ GoogleEarthEnterpriseDiscardPolicy.prototype.shouldDiscardImage = function (
 /**
  * @typedef {object} GoogleEarthEnterpriseImageryProvider.ConstructorOptions
  *
- * Initialization options for the GoogleEarthEnterpriseImageryProvider constructor
+ * GoogleEarthEnterpriseImageryProvider 构造函数的初始化选项
  *
- * @property {Ellipsoid} [ellipsoid=Ellipsoid.default] The ellipsoid.  If not specified, the default ellipsoid is used.
- * @property {TileDiscardPolicy} [tileDiscardPolicy] The policy that determines if a tile
- *        is invalid and should be discarded. If this value is not specified, a default
- *        is to discard tiles that fail to download.
- * @property {Credit|string} [credit] A credit for the data source, which is displayed on the canvas.
+ * @property {Ellipsoid} [ellipsoid=Ellipsoid.default] 椭球体。如果未指定，则使用默认椭球体。
+ * @property {TileDiscardPolicy} [tileDiscardPolicy] 确定瓦片是否无效并应被丢弃的策略。如果未指定此值，默认情况下将丢弃下载失败的瓦片。
+ * @property {Credit|string} [credit] 数据源的信用信息，将显示在画布上。
  */
 
 /**
  * <div class="notice">
- * To construct a GoogleEarthEnterpriseImageryProvider, call {@link GoogleEarthEnterpriseImageryProvider.fromMetadata}. Do not call the constructor directly.
+ * 要构造 GoogleEarthEnterpriseImageryProvider，请调用 {@link GoogleEarthEnterpriseImageryProvider.fromMetadata}。请勿直接调用构造函数。
  * </div>
  *
- * Provides tiled imagery using the Google Earth Enterprise REST API.
+ * 使用 Google Earth Enterprise REST API 提供分块影像。
  *
- * Notes: This provider is for use with the 3D Earth API of Google Earth Enterprise,
- *        {@link GoogleEarthEnterpriseMapsProvider} should be used with 2D Maps API.
+ * 注意：此提供程序用于 Google Earth Enterprise 的 3D 地球 API，
+ *        {@link GoogleEarthEnterpriseMapsProvider} 应与 2D 地图 API 一起使用。
  *
  * @alias GoogleEarthEnterpriseImageryProvider
  * @constructor
  *
- * @param {GoogleEarthEnterpriseImageryProvider.ConstructorOptions} [options] Object describing initialization options
+ * @param {GoogleEarthEnterpriseImageryProvider.ConstructorOptions} [options] 描述初始化选项的对象
  *
  * @see GoogleEarthEnterpriseImageryProvider.fromMetadata
  * @see GoogleEarthEnterpriseTerrainProvider
@@ -132,7 +131,7 @@ function GoogleEarthEnterpriseImageryProvider(options) {
 
 Object.defineProperties(GoogleEarthEnterpriseImageryProvider.prototype, {
   /**
-   * Gets the name of the Google Earth Enterprise server url hosting the imagery.
+   * 获取托管影像的 Google Earth Enterprise 服务器 URL 的名称。
    * @memberof GoogleEarthEnterpriseImageryProvider.prototype
    * @type {string}
    * @readonly
@@ -144,7 +143,7 @@ Object.defineProperties(GoogleEarthEnterpriseImageryProvider.prototype, {
   },
 
   /**
-   * Gets the proxy used by this provider.
+   * 获取此提供者使用的代理。
    * @memberof GoogleEarthEnterpriseImageryProvider.prototype
    * @type {Proxy}
    * @readonly
@@ -156,7 +155,7 @@ Object.defineProperties(GoogleEarthEnterpriseImageryProvider.prototype, {
   },
 
   /**
-   * Gets the width of each tile, in pixels.
+   * 获取每个瓦片的宽度，以像素为单位。
    * @memberof GoogleEarthEnterpriseImageryProvider.prototype
    * @type {number}
    * @readonly
@@ -168,7 +167,7 @@ Object.defineProperties(GoogleEarthEnterpriseImageryProvider.prototype, {
   },
 
   /**
-   * Gets the height of each tile, in pixels.
+   * 获取每个瓦片的高度，以像素为单位。
    * @memberof GoogleEarthEnterpriseImageryProvider.prototype
    * @type {number}
    * @readonly
@@ -180,7 +179,7 @@ Object.defineProperties(GoogleEarthEnterpriseImageryProvider.prototype, {
   },
 
   /**
-   * Gets the maximum level-of-detail that can be requested.
+   * 获取可以请求的最大细节层级。
    * @memberof GoogleEarthEnterpriseImageryProvider.prototype
    * @type {number|undefined}
    * @readonly
@@ -192,7 +191,7 @@ Object.defineProperties(GoogleEarthEnterpriseImageryProvider.prototype, {
   },
 
   /**
-   * Gets the minimum level-of-detail that can be requested.
+   * 获取可以请求的最小细节层级。
    * @memberof GoogleEarthEnterpriseImageryProvider.prototype
    * @type {number}
    * @readonly
@@ -204,7 +203,7 @@ Object.defineProperties(GoogleEarthEnterpriseImageryProvider.prototype, {
   },
 
   /**
-   * Gets the tiling scheme used by this provider.
+   * 获取此提供者使用的瓦片方案。
    * @memberof GoogleEarthEnterpriseImageryProvider.prototype
    * @type {TilingScheme}
    * @readonly
@@ -216,7 +215,7 @@ Object.defineProperties(GoogleEarthEnterpriseImageryProvider.prototype, {
   },
 
   /**
-   * Gets the rectangle, in radians, of the imagery provided by this instance.
+   * 获取此实例提供的影像的矩形，以弧度为单位。
    * @memberof GoogleEarthEnterpriseImageryProvider.prototype
    * @type {Rectangle}
    * @readonly
@@ -228,9 +227,9 @@ Object.defineProperties(GoogleEarthEnterpriseImageryProvider.prototype, {
   },
 
   /**
-   * Gets the tile discard policy.  If not undefined, the discard policy is responsible
-   * for filtering out "missing" tiles via its shouldDiscardImage function.  If this function
-   * returns undefined, no tiles are filtered.
+   * 获取瓦片丢弃策略。如果未定义，则丢弃策略负责
+   * 通过其 shouldDiscardImage 函数过滤掉“缺失”的瓦片。如果该函数
+   * 返回 undefined，则不会过滤任何瓦片。
    * @memberof GoogleEarthEnterpriseImageryProvider.prototype
    * @type {TileDiscardPolicy}
    * @readonly
@@ -242,9 +241,9 @@ Object.defineProperties(GoogleEarthEnterpriseImageryProvider.prototype, {
   },
 
   /**
-   * Gets an event that is raised when the imagery provider encounters an asynchronous error.  By subscribing
-   * to the event, you will be notified of the error and can potentially recover from it.  Event listeners
-   * are passed an instance of {@link TileProviderError}.
+   * 获取一个事件，当影像提供者遇到异步错误时触发。通过订阅
+   * 该事件，您将收到错误通知，并可以潜在地从中恢复。事件监听器
+   * 将被传递一个 {@link TileProviderError} 实例。
    * @memberof GoogleEarthEnterpriseImageryProvider.prototype
    * @type {Event}
    * @readonly
@@ -256,8 +255,8 @@ Object.defineProperties(GoogleEarthEnterpriseImageryProvider.prototype, {
   },
 
   /**
-   * Gets the credit to display when this imagery provider is active.  Typically this is used to credit
-   * the source of the imagery.
+   * 获取在此影像提供者处于活动状态时显示的信用信息。通常用于为
+   * 影像源提供信用。
    * @memberof GoogleEarthEnterpriseImageryProvider.prototype
    * @type {Credit}
    * @readonly
@@ -269,11 +268,11 @@ Object.defineProperties(GoogleEarthEnterpriseImageryProvider.prototype, {
   },
 
   /**
-   * Gets a value indicating whether or not the images provided by this imagery provider
-   * include an alpha channel.  If this property is false, an alpha channel, if present, will
-   * be ignored.  If this property is true, any images without an alpha channel will be treated
-   * as if their alpha is 1.0 everywhere.  Setting this property to false reduces memory usage
-   * and texture upload time.
+   * 获取一个值，指示此影像提供者提供的图像是否包含 alpha 通道。
+   * 如果此属性为假，则如果存在，alpha 通道将被忽略。
+   * 如果此属性为真，则任何没有 alpha 通道的图像将被视为
+   * 其 alpha 到处为 1.0。将此属性设置为假将减少内存使用
+   * 和纹理上传时间。
    * @memberof GoogleEarthEnterpriseImageryProvider.prototype
    * @type {boolean}
    * @readonly
@@ -285,13 +284,14 @@ Object.defineProperties(GoogleEarthEnterpriseImageryProvider.prototype, {
   },
 });
 
+
 /**
- * Creates a tiled imagery provider using the Google Earth Enterprise REST API.
- * @param {GoogleEarthEnterpriseMetadata} metadata A metadata object that can be used to share metadata requests with a GoogleEarthEnterpriseTerrainProvider.
- * @param {GoogleEarthEnterpriseImageryProvider.ConstructorOptions} options Object describing initialization options.
+ * 使用 Google Earth Enterprise REST API 创建一个瓦片影像提供者。
+ * @param {GoogleEarthEnterpriseMetadata} metadata 可以与 GoogleEarthEnterpriseTerrainProvider 共享元数据请求的元数据对象。
+ * @param {GoogleEarthEnterpriseImageryProvider.ConstructorOptions} options 描述初始化选项的对象。
  * @returns {GoogleEarthEnterpriseImageryProvider}
  *
- * @exception {RuntimeError} The metadata url does not have imagery
+ * @exception {RuntimeError} 元数据 URL 不包含影像。
  *
  * @example
  * const geeMetadata = await GoogleEarthEnterpriseMetadata.fromUrl("http://www.example.com");
@@ -315,13 +315,14 @@ GoogleEarthEnterpriseImageryProvider.fromMetadata = function (
 };
 
 /**
- * Gets the credits to be displayed when a given tile is displayed.
+ * 获取在显示给定瓦片时显示的信用信息。
  *
- * @param {number} x The tile X coordinate.
- * @param {number} y The tile Y coordinate.
- * @param {number} level The tile level;
- * @returns {Credit[]} The credits to be displayed when the tile is displayed.
+ * @param {number} x 瓦片的 X 坐标。
+ * @param {number} y 瓦片的 Y 坐标。
+ * @param {number} level 瓦片级别；
+ * @returns {Credit[]} 显示给定瓦片时要显示的信用信息。
  */
+
 GoogleEarthEnterpriseImageryProvider.prototype.getTileCredits = function (
   x,
   y,
@@ -340,14 +341,14 @@ GoogleEarthEnterpriseImageryProvider.prototype.getTileCredits = function (
 };
 
 /**
- * Requests the image for a given tile.
+ * 请求给定瓦片的图像。
  *
- * @param {number} x The tile X coordinate.
- * @param {number} y The tile Y coordinate.
- * @param {number} level The tile level.
- * @param {Request} [request] The request object. Intended for internal use only.
- * @returns {Promise<ImageryTypes>|undefined} A promise for the image that will resolve when the image is available, or
- *          undefined if there are too many active requests to the server, and the request should be retried later.
+ * @param {number} x 瓦片的 X 坐标。
+ * @param {number} y 瓦片的 Y 坐标。
+ * @param {number} level 瓦片级别。
+ * @param {Request} [request] 请求对象。仅供内部使用。
+ * @returns {Promise<ImageryTypes>|undefined} 一种承诺，将在图像可用时解析，或者
+ *          如果对服务器的活动请求过多，则返回 undefined，此时应稍后重试请求。
  */
 GoogleEarthEnterpriseImageryProvider.prototype.requestImage = function (
   x,
@@ -418,16 +419,17 @@ GoogleEarthEnterpriseImageryProvider.prototype.requestImage = function (
 };
 
 /**
- * Picking features is not currently supported by this imagery provider, so this function simply returns
- * undefined.
+ * 此影像提供程序当前不支持选择特征，因此此函数仅返回
+ * undefined。
  *
- * @param {number} x The tile X coordinate.
- * @param {number} y The tile Y coordinate.
- * @param {number} level The tile level.
- * @param {number} longitude The longitude at which to pick features.
- * @param {number} latitude  The latitude at which to pick features.
- * @return {undefined} Undefined since picking is not supported.
+ * @param {number} x 瓦片的 X 坐标。
+ * @param {number} y 瓦片的 Y 坐标。
+ * @param {number} level 瓦片级别。
+ * @param {number} longitude 要选择特征的经度。
+ * @param {number} latitude 要选择特征的纬度。
+ * @return {undefined} 由于不支持选择，因此返回 undefined。
  */
+
 GoogleEarthEnterpriseImageryProvider.prototype.pickFeatures = function (
   x,
   y,

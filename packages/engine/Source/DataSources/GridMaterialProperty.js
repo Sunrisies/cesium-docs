@@ -14,18 +14,19 @@ const defaultLineOffset = new Cartesian2(0, 0);
 const defaultLineThickness = new Cartesian2(1, 1);
 
 /**
- * A {@link MaterialProperty} that maps to grid {@link Material} uniforms.
+ * 一个 {@link MaterialProperty}，用于映射网格 {@link Material} 的制服。
  * @alias GridMaterialProperty
  *
- * @param {object} [options] Object with the following properties:
- * @param {Property|Color} [options.color=Color.WHITE] A Property specifying the grid {@link Color}.
- * @param {Property|number} [options.cellAlpha=0.1] A numeric Property specifying cell alpha values.
- * @param {Property|Cartesian2} [options.lineCount=new Cartesian2(8, 8)] A {@link Cartesian2} Property specifying the number of grid lines along each axis.
- * @param {Property|Cartesian2} [options.lineThickness=new Cartesian2(1.0, 1.0)] A {@link Cartesian2} Property specifying the thickness of grid lines along each axis.
- * @param {Property|Cartesian2} [options.lineOffset=new Cartesian2(0.0, 0.0)] A {@link Cartesian2} Property specifying starting offset of grid lines along each axis.
+ * @param {object} [options] 包含以下属性的对象：
+ * @param {Property|Color} [options.color=Color.WHITE] 指定网格 {@link Color} 的属性。
+ * @param {Property|number} [options.cellAlpha=0.1] 指定单元 alpha 值的数字属性。
+ * @param {Property|Cartesian2} [options.lineCount=new Cartesian2(8, 8)] 指定每个轴上网格线数量的 {@link Cartesian2} 属性。
+ * @param {Property|Cartesian2} [options.lineThickness=new Cartesian2(1.0, 1.0)] 指定每个轴上网格线厚度的 {@link Cartesian2} 属性。
+ * @param {Property|Cartesian2} [options.lineOffset=new Cartesian2(0.0, 0.0)] 指定每个轴上网格线起始偏移量的 {@link Cartesian2} 属性。
  *
  * @constructor
  */
+
 function GridMaterialProperty(options) {
   options = defaultValue(options, defaultValue.EMPTY_OBJECT);
 
@@ -50,8 +51,7 @@ function GridMaterialProperty(options) {
 
 Object.defineProperties(GridMaterialProperty.prototype, {
   /**
-   * Gets a value indicating if this property is constant.  A property is considered
-   * constant if getValue always returns the same result for the current definition.
+   * 获取一个值，指示此属性是否为常量。如果 getValue 始终返回相同的结果，则认为该属性为常量。
    * @memberof GridMaterialProperty.prototype
    *
    * @type {boolean}
@@ -70,9 +70,8 @@ Object.defineProperties(GridMaterialProperty.prototype, {
   },
 
   /**
-   * Gets the event that is raised whenever the definition of this property changes.
-   * The definition is considered to have changed if a call to getValue would return
-   * a different result for the same time.
+   * 获取每当此属性的定义发生变化时引发的事件。
+   * 如果对 getValue 的调用会返回相同时间的不同结果，则认为定义已发生变化。
    * @memberof GridMaterialProperty.prototype
    *
    * @type {Event}
@@ -85,7 +84,7 @@ Object.defineProperties(GridMaterialProperty.prototype, {
   },
 
   /**
-   * Gets or sets the Property specifying the grid {@link Color}.
+   * 获取或设置指定网格 {@link Color} 的属性。
    * @memberof GridMaterialProperty.prototype
    * @type {Property|undefined}
    * @default Color.WHITE
@@ -93,7 +92,7 @@ Object.defineProperties(GridMaterialProperty.prototype, {
   color: createPropertyDescriptor("color"),
 
   /**
-   * Gets or sets the numeric Property specifying cell alpha values.
+   * 获取或设置指定单元 alpha 值的数字属性。
    * @memberof GridMaterialProperty.prototype
    * @type {Property|undefined}
    * @default 0.1
@@ -101,7 +100,7 @@ Object.defineProperties(GridMaterialProperty.prototype, {
   cellAlpha: createPropertyDescriptor("cellAlpha"),
 
   /**
-   * Gets or sets the {@link Cartesian2} Property specifying the number of grid lines along each axis.
+   * 获取或设置指定每个轴上网格线数量的 {@link Cartesian2} 属性。
    * @memberof GridMaterialProperty.prototype
    * @type {Property|undefined}
    * @default new Cartesian2(8.0, 8.0)
@@ -109,7 +108,7 @@ Object.defineProperties(GridMaterialProperty.prototype, {
   lineCount: createPropertyDescriptor("lineCount"),
 
   /**
-   * Gets or sets the {@link Cartesian2} Property specifying the thickness of grid lines along each axis.
+   * 获取或设置指定每个轴上网格线厚度的 {@link Cartesian2} 属性。
    * @memberof GridMaterialProperty.prototype
    * @type {Property|undefined}
    * @default new Cartesian2(1.0, 1.0)
@@ -117,7 +116,7 @@ Object.defineProperties(GridMaterialProperty.prototype, {
   lineThickness: createPropertyDescriptor("lineThickness"),
 
   /**
-   * Gets or sets the {@link Cartesian2} Property specifying the starting offset of grid lines along each axis.
+   * 获取或设置指定每个轴上网格线起始偏移量的 {@link Cartesian2} 属性。
    * @memberof GridMaterialProperty.prototype
    * @type {Property|undefined}
    * @default new Cartesian2(0.0, 0.0)
@@ -126,11 +125,12 @@ Object.defineProperties(GridMaterialProperty.prototype, {
 });
 
 /**
- * Gets the {@link Material} type at the provided time.
+ * 获取提供时间的 {@link Material} 类型。
  *
- * @param {JulianDate} time The time for which to retrieve the type.
- * @returns {string} The type of material.
+ * @param {JulianDate} time 要检索类型的时间。
+ * @returns {string} 材料的类型。
  */
+
 GridMaterialProperty.prototype.getType = function (time) {
   return "Grid";
 };
@@ -138,12 +138,13 @@ GridMaterialProperty.prototype.getType = function (time) {
 const timeScratch = new JulianDate();
 
 /**
- * Gets the value of the property at the provided time.
+ * 获取在提供时间的属性值。
  *
- * @param {JulianDate} [time=JulianDate.now()] The time for which to retrieve the value. If omitted, the current system time is used.
- * @param {object} [result] The object to store the value into, if omitted, a new instance is created and returned.
- * @returns {object} The modified result parameter or a new instance if the result parameter was not supplied.
+ * @param {JulianDate} [time=JulianDate.now()] 要检索值的时间。如果省略，则使用当前系统时间。
+ * @param {object} [result] 用于存储值的对象，如果省略，则创建并返回一个新实例。
+ * @returns {object} 修改后的结果参数，如果未提供结果参数，则返回一个新实例。
  */
+
 GridMaterialProperty.prototype.getValue = function (time, result) {
   if (!defined(time)) {
     time = JulianDate.now(timeScratch);
@@ -184,12 +185,13 @@ GridMaterialProperty.prototype.getValue = function (time, result) {
 };
 
 /**
- * Compares this property to the provided property and returns
+ * 将此属性与提供的属性进行比较，并返回
  * 如果相等则为 <code>true</code>，否则为 <code>false</code>
  *
- * @param {Property} [other] The other property.
- * @returns {boolean} 如果左右相等，则 <code>true</code>，否则 <code>false</code>
+ * @param {Property} [other] 另一个属性。
+ * @returns {boolean} 如果两者相等，则 <code>true</code>，否则 <code>false</code>
  */
+
 GridMaterialProperty.prototype.equals = function (other) {
   return (
     this === other || //

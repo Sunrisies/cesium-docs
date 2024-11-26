@@ -346,23 +346,20 @@ DerivedCommand.createPickDerivedCommand = function (
 };
 
 /**
- * Replaces the value of the specified 'define' directive identifier
- * with the given value.
+ * 用给定值替换指定的 'define' 指令标识符的值。
  *
- * The given defines are the parts of the define directives that are
- * stored in the `ShaderSource`. For example, the defines may be
+ * 给定的定义是存储在 `ShaderSource` 中的 define 指令的部分。例如，定义可以是
  * `["EXAMPLE", "EXAMPLE_VALUE 123"]`
  *
- * Calling `replaceDefine(defines, "EXAMPLE", 999)` will result in
- * the defines being
- * `["EXAMPLE 999", "EXAMPLE_VALUE 123"]`
+ * 调用 `replaceDefine(defines, "EXAMPLE", 999)` 将导致
+ * 定义变为 `["EXAMPLE 999", "EXAMPLE_VALUE 123"]`
  *
- * @param {string[]} defines The define directive identifiers
- * @param {string} defineName The name (identifier) of the define directive
- * @param {any} newDefineValue The new value whose string representation
- * will become the token string for the define directive
+ * @param {string[]} defines 定义指令标识符
+ * @param {string} defineName 定义指令的名称（标识符）
+ * @param {any} newDefineValue 新值，其字符串表示将成为定义指令的标记字符串
  * @private
  */
+
 function replaceDefine(defines, defineName, newDefineValue) {
   const n = defines.length;
   for (let i = 0; i < n; i++) {
@@ -375,17 +372,18 @@ function replaceDefine(defines, defineName, newDefineValue) {
 }
 
 /**
- * Returns the component count for the given class property, or
- * its array length if it is an array.
+ * 返回给定类属性的组件数量，或
+ * 如果是数组，则返回其数组长度。
  *
- * This will be
- * `[1, 2, 3, 4]` for `[SCALAR, VEC2, VEC3, VEC4`] types,
- * or the array length if it is an array.
+ * 对于类型 `[SCALAR, VEC2, VEC3, VEC4]`，
+ * 此值将为 `[1, 2, 3, 4]`，
+ * 或者如果是数组则为数组长度。
  *
- * @param {MetadataClassProperty} classProperty The class property
- * @returns {number} The component count
+ * @param {MetadataClassProperty} classProperty 类属性
+ * @returns {number} 组件数量
  * @private
  */
+
 function getComponentCount(classProperty) {
   if (!classProperty.isArray) {
     return MetadataType.getComponentCount(classProperty.type);
@@ -394,14 +392,15 @@ function getComponentCount(classProperty) {
 }
 
 /**
- * Returns the type that the given class property has in a GLSL shader.
+ * 返回给定类属性在 GLSL 着色器中的类型。
  *
- * It returns the same string as `PropertyTextureProperty.prototype.getGlslType`
- * for a property texture property with the given class property
+ * 对于具有给定类属性的属性纹理属性，它返回与 `PropertyTextureProperty.prototype.getGlslType`
+ * 相同的字符串。
  *
- * @param {MetadataClassProperty} classProperty The class property
- * @returns {string} The GLSL shader type string for the property
+ * @param {MetadataClassProperty} classProperty 类属性
+ * @returns {string} 属性的 GLSL 着色器类型字符串
  */
+
 function getGlslType(classProperty) {
   const componentCount = getComponentCount(classProperty);
   if (classProperty.normalized) {
@@ -417,24 +416,24 @@ function getGlslType(classProperty) {
 }
 
 /**
- * Creates a new `ShaderProgram` from the given input that renders metadata
- * values into the frame buffer, according to the given picked metadata info.
+ * 根据给定的输入创建一个新的 `ShaderProgram`，将元数据
+ * 值呈现到帧缓冲区，根据给定的选中元数据信息。
  *
- * This will update the `defines` of the fragment shader of the given shader
- * program, by setting `METADATA_PICKING_ENABLED`, and updating the
- * `METADATA_PICKING_VALUE_*` defines so that they reflect the components
- * of the metadata that should be written into the RGBA (vec4) that
- * ends up as the 'color' in the frame buffer.
+ * 这将通过设置 `METADATA_PICKING_ENABLED` 更新给定着色器
+ * 程序的片段着色器的 `defines`，并更新
+ * `METADATA_PICKING_VALUE_*` 定义，以反映应写入 RGBA (vec4)
+ * 中的元数据组件，最终在帧缓冲区中作为 'color'。
  *
- * The RGBA values will eventually be converted back into an actual metadata
- * value in `Picking.js`, by calling `MetadataPicking.decodeMetadataValues`.
+ * RGBA 值最终将通过调用 `MetadataPicking.decodeMetadataValues` 在 `Picking.js` 中
+ * 转换回实际的元数据值。
  *
- * @param {Context} context The context
- * @param {ShaderProgram} shaderProgram The shader program
- * @param {PickedMetadataInfo} pickedMetadataInfo The picked metadata info
- * @returns {ShaderProgram} The new shader program
+ * @param {Context} context 上下文
+ * @param {ShaderProgram} shaderProgram 着色器程序
+ * @param {PickedMetadataInfo} pickedMetadataInfo 选中的元数据信息
+ * @returns {ShaderProgram} 新的着色器程序
  * @private
  */
+
 function getPickMetadataShaderProgram(
   context,
   shaderProgram,

@@ -3,19 +3,18 @@ import defined from "./defined.js";
 import DeveloperError from "./DeveloperError.js";
 
 /**
- * Values and type information for per-instance geometry attributes.
+ * 每个实例几何属性的值和类型信息。
  *
  * @alias GeometryInstanceAttribute
  * @constructor
  *
- * @param {object} options Object with the following properties:
- * @param {ComponentDatatype} options.componentDatatype The datatype of each component in the attribute, e.g., individual elements in values.
- * @param {number} options.componentsPerAttribute A number between 1 and 4 that defines the number of components in an attributes.
- * @param {boolean} [options.normalize=false] When <code>true</code> and <code>componentDatatype</code> is an integer format, indicate that the components should be mapped to the range [0, 1] (unsigned) or [-1, 1] (signed) when they are accessed as floating-point for rendering.
- * @param {number[]} options.value The value for the attribute.
+ * @param {object} options 具有以下属性的对象：
+ * @param {ComponentDatatype} options.componentDatatype 属性中每个组件的数据类型，例如 values 中的单个元素。
+ * @param {number} options.componentsPerAttribute 定义属性中组件数量的一个介于 1 和 4 之间的数字。
+ * @param {boolean} [options.normalize=false] 当 <code>true</code> 并且 <code>componentDatatype</code> 是整数格式时，指示在以浮点格式访问组件进行渲染时，组件应映射到范围 [0, 1]（无符号）或 [-1, 1]（有符号）。
+ * @param {number[]} options.value 属性的值。
  *
- * @exception {DeveloperError} options.componentsPerAttribute must be between 1 and 4.
- *
+ * @exception {DeveloperError} options.componentsPerAttribute 必须介于 1 和 4 之间。
  *
  * @example
  * const instance = new Cesium.GeometryInstance({
@@ -62,9 +61,9 @@ function GeometryInstanceAttribute(options) {
   }
   //>>includeEnd('debug');
 
-  /**
-   * The datatype of each component in the attribute, e.g., individual elements in
-   * {@link GeometryInstanceAttribute#value}.
+ /**
+   * 属性中每个组件的数据类型，例如，
+   * {@link GeometryInstanceAttribute#value} 中的单个元素。
    *
    * @type ComponentDatatype
    *
@@ -72,9 +71,9 @@ function GeometryInstanceAttribute(options) {
   this.componentDatatype = options.componentDatatype;
 
   /**
-   * A number between 1 and 4 that defines the number of components in an attributes.
-   * For example, a position attribute with x, y, and z components would have 3 as
-   * shown in the code example.
+   * 一个介于 1 和 4 之间的数字，定义属性中组件的数量。
+   * 例如，具有 x、y 和 z 组件的位置属性将有 3，如
+   * 代码示例所示。
    *
    * @type {number}
    *
@@ -89,11 +88,11 @@ function GeometryInstanceAttribute(options) {
   this.componentsPerAttribute = options.componentsPerAttribute;
 
   /**
-   * When <code>true</code> and <code>componentDatatype</code> is an integer format,
-   * indicate that the components should be mapped to the range [0, 1] (unsigned)
-   * or [-1, 1] (signed) when they are accessed as floating-point for rendering.
+   * 当 <code>true</code> 并且 <code>componentDatatype</code> 是整数格式时，
+   * 表示在以浮点格式访问组件以进行渲染时，
+   * 组件应映射到范围 [0, 1]（无符号）或 [-1, 1]（有符号）。
    * <p>
-   * This is commonly used when storing colors using {@link ComponentDatatype.UNSIGNED_BYTE}.
+   * 这通常在使用 {@link ComponentDatatype.UNSIGNED_BYTE} 存储颜色时使用。
    * </p>
    *
    * @type {boolean}
@@ -114,9 +113,9 @@ function GeometryInstanceAttribute(options) {
   this.normalize = defaultValue(options.normalize, false);
 
   /**
-   * The values for the attributes stored in a typed array.  In the code example,
-   * every three elements in <code>values</code> defines one attributes since
-   * <code>componentsPerAttribute</code> is 3.
+   * 存储在类型化数组中的属性值。在代码示例中，
+   * <code>values</code> 中的每三个元素定义一个属性，因为
+   * <code>componentsPerAttribute</code> 是 3。
    *
    * @type {number[]}
    *

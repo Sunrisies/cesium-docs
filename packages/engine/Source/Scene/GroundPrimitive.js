@@ -24,46 +24,44 @@ const GroundPrimitiveUniformMap = {
 };
 
 /**
- * A ground primitive represents geometry draped over terrain or 3D Tiles in the {@link Scene}.
+ * 地面原语表示在 {@link Scene} 中悬挂于地形或 3D Tiles 上的几何体。
  * <p>
- * A primitive combines geometry instances with an {@link Appearance} that describes the full shading, including
- * {@link Material} and {@link RenderState}.  Roughly, the geometry instance defines the structure and placement,
- * and the appearance defines the visual characteristics.  Decoupling geometry and appearance allows us to mix
- * and match most of them and add a new geometry or appearance independently of each other.
+ * 原语将几何体实例与描述完整着色的 {@link Appearance} 结合在一起，包括
+ * {@link Material} 和 {@link RenderState}。大致而言，几何体实例定义了结构和位置，
+ * 而外观定义了视觉特征。解耦几何体和外观使我们能够自由混合
+ * 和匹配大多数内容，并独立添加新的几何体或外观。
  * </p>
  * <p>
- * Support for the WEBGL_depth_texture extension is required to use GeometryInstances with different PerInstanceColors
- * or materials besides PerInstanceColorAppearance.
+ * 使用具有不同 PerInstanceColors 或材料的 GeometryInstances 需要支持 WEBGL_depth_texture 扩展。
  * </p>
  * <p>
- * Textured GroundPrimitives were designed for notional patterns and are not meant for precisely mapping
- * textures to terrain - for that use case, use {@link SingleTileImageryProvider}.
+ * 带纹理的 GroundPrimitives 是为概念图案设计的，旨在不精确地将
+ * 纹理映射到地形 - 对于该用例，请使用 {@link SingleTileImageryProvider}。
  * </p>
  * <p>
- * For correct rendering, this feature requires the EXT_frag_depth WebGL extension. For hardware that do not support this extension, there
- * will be rendering artifacts for some viewing angles.
+ * 为了正确渲染，此功能需要 EXT_frag_depth WebGL 扩展。对不支持此扩展的硬件，
+ * 某些视角会出现渲染伪影。
  * </p>
  * <p>
- * Valid geometries are {@link CircleGeometry}, {@link CorridorGeometry}, {@link EllipseGeometry}, {@link PolygonGeometry}, and {@link RectangleGeometry}.
+ * 有效几何体包括 {@link CircleGeometry}、{@link CorridorGeometry}、{@link EllipseGeometry}、{@link PolygonGeometry} 和 {@link RectangleGeometry}。
  * </p>
  *
  * @alias GroundPrimitive
  * @constructor
  *
- * @param {object} [options] Object with the following properties:
- * @param {Array|GeometryInstance} [options.geometryInstances] The geometry instances to render.
- * @param {Appearance} [options.appearance] The appearance used to render the primitive. Defaults to a flat PerInstanceColorAppearance when GeometryInstances have a color attribute.
- * @param {boolean} [options.show=true] Determines if this primitive will be shown.
- * @param {boolean} [options.vertexCacheOptimize=false] When <code>true</code>, geometry vertices are optimized for the pre and post-vertex-shader caches.
- * @param {boolean} [options.interleave=false] When <code>true</code>, geometry vertex attributes are interleaved, which can slightly improve rendering performance but increases load time.
- * @param {boolean} [options.compressVertices=true] When <code>true</code>, the geometry vertices are compressed, which will save memory.
- * @param {boolean} [options.releaseGeometryInstances=true] When <code>true</code>, the primitive does not keep a reference to the input <code>geometryInstances</code> to save memory.
- * @param {boolean} [options.allowPicking=true] When <code>true</code>, each geometry instance will only be pickable with {@link Scene#pick}.  When <code>false</code>, GPU memory is saved.
- * @param {boolean} [options.asynchronous=true] Determines if the primitive will be created asynchronously or block until ready. If false initializeTerrainHeights() must be called first.
- * @param {ClassificationType} [options.classificationType=ClassificationType.BOTH] Determines whether terrain, 3D Tiles or both will be classified.
- * @param {boolean} [options.debugShowBoundingVolume=false] For debugging only. Determines if this primitive's commands' bounding spheres are shown.
- * @param {boolean} [options.debugShowShadowVolume=false] For debugging only. Determines if the shadow volume for each geometry in the primitive is drawn. Must be <code>true</code> on
- *                  creation for the volumes to be created before the geometry is released or options.releaseGeometryInstance must be <code>false</code>.
+ * @param {object} [options] 包含以下属性的对象：
+ * @param {Array|GeometryInstance} [options.geometryInstances] 要渲染的几何体实例。
+ * @param {Appearance} [options.appearance] 用于渲染原语的外观。默认情况下，当 GeometryInstances 具有颜色属性时，默认为平面 PerInstanceColorAppearance。
+ * @param {boolean} [options.show=true] 确定该原语是否显示。
+ * @param {boolean} [options.vertexCacheOptimize=false] 当 <code>true</code> 时，几何体顶点经过优化，以适应顶点着色器之前和之后的缓存。
+ * @param {boolean} [options.interleave=false] 当 <code>true</code> 时，几何体顶点属性是交错的，这可以稍微提高渲染性能，但会增加加载时间。
+ * @param {boolean} [options.compressVertices=true] 当 <code>true</code> 时，几何体顶点被压缩，将节省内存。
+ * @param {boolean} [options.releaseGeometryInstances=true] 当 <code>true</code> 时，原语不会保留对输入 <code>geometryInstances</code> 的引用，以节省内存。
+ * @param {boolean} [options.allowPicking=true] 当 <code>true</code> 时，每个几何体实例只能通过 {@link Scene#pick} 被拾取。当 <code>false</code> 时，节省 GPU 内存。
+ * @param {boolean} [options.asynchronous=true] 确定原语是异步创建还是阻塞直到准备好。如果为 false，则必须首先调用 initializeTerrainHeights()。
+ * @param {ClassificationType} [options.classificationType=ClassificationType.BOTH] 确定是对地形、3D Tiles 还是两者进行分类。
+ * @param {boolean} [options.debugShowBoundingVolume=false] 仅用于调试。确定是否显示该原语命令的边界球。
+ * @param {boolean} [options.debugShowShadowVolume=false] 仅用于调试。确定每个几何体在原语中的阴影体是否被绘制。必须在创建时为 <code>true</code> 才能生效。
  *
  * @example
  * // Example 1: Create primitive with a single instance
@@ -132,10 +130,10 @@ function GroundPrimitive(options) {
     }
   }
   /**
-   * The {@link Appearance} used to shade this primitive. Each geometry
-   * instance is shaded with the same appearance.  Some appearances, like
-   * {@link PerInstanceColorAppearance} allow giving each instance unique
-   * properties.
+   * 用于给此原语着色的 {@link Appearance}。每个几何体
+   * 实例使用相同的外观进行着色。一些外观，例如
+   * {@link PerInstanceColorAppearance} 允许为每个实例赋予独特
+   * 的属性。
    *
    * @type Appearance
    *
@@ -144,11 +142,11 @@ function GroundPrimitive(options) {
   this.appearance = appearance;
 
   /**
-   * The geometry instances rendered with this primitive.  This may
-   * be <code>undefined</code> if <code>options.releaseGeometryInstances</code>
-   * is <code>true</code> when the primitive is constructed.
+   * 与此原语一起渲染的几何体实例。如果在构造原语时
+   * <code>options.releaseGeometryInstances</code> 为 <code>true</code>，
+   * 则可能为 <code>undefined</code>。
    * <p>
-   * Changing this property after the primitive is rendered has no effect.
+   * 在原语渲染后更改此属性没有效果。
    * </p>
    *
    * @readonly
@@ -157,17 +155,19 @@ function GroundPrimitive(options) {
    * @default undefined
    */
   this.geometryInstances = options.geometryInstances;
+
   /**
-   * Determines if the primitive will be shown.  This affects all geometry
-   * instances in the primitive.
+   * 确定该原语是否显示。此属性影响原语中的所有几何体
+   * 实例。
    *
    * @type {boolean}
    *
    * @default true
    */
+
   this.show = defaultValue(options.show, true);
   /**
-   * Determines whether terrain, 3D Tiles or both will be classified.
+   * 确定是否将地形、3D Tiles 或两者进行分类。
    *
    * @type {ClassificationType}
    *
@@ -177,10 +177,11 @@ function GroundPrimitive(options) {
     options.classificationType,
     ClassificationType.BOTH,
   );
+
   /**
-   * This property is for debugging only; it is not for production use nor is it optimized.
+   * 此属性仅用于调试；不适用于生产环境，也未经过优化。
    * <p>
-   * Draws the bounding sphere for each draw command in the primitive.
+   * 绘制原语中每个绘制命令的边界球。
    * </p>
    *
    * @type {boolean}
@@ -193,15 +194,16 @@ function GroundPrimitive(options) {
   );
 
   /**
-   * This property is for debugging only; it is not for production use nor is it optimized.
+   * 此属性仅用于调试；不适用于生产环境，也未经过优化。
    * <p>
-   * Draws the shadow volume for each geometry in the primitive.
+   * 绘制原语中每个几何体的阴影体。
    * </p>
    *
    * @type {boolean}
    *
    * @default false
    */
+
   this.debugShowShadowVolume = defaultValue(
     options.debugShowShadowVolume,
     false,
@@ -249,7 +251,7 @@ function GroundPrimitive(options) {
 
 Object.defineProperties(GroundPrimitive.prototype, {
   /**
-   * When <code>true</code>, geometry vertices are optimized for the pre and post-vertex-shader caches.
+   * 当 <code>true</code> 时，几何体顶点经过优化，以适应顶点着色器之前和之后的缓存。
    *
    * @memberof GroundPrimitive.prototype
    *
@@ -265,7 +267,7 @@ Object.defineProperties(GroundPrimitive.prototype, {
   },
 
   /**
-   * Determines if geometry vertex attributes are interleaved, which can slightly improve rendering performance.
+   * 确定几何体顶点属性是否交错，这可以略微提高渲染性能。
    *
    * @memberof GroundPrimitive.prototype
    *
@@ -281,7 +283,7 @@ Object.defineProperties(GroundPrimitive.prototype, {
   },
 
   /**
-   * When <code>true</code>, the primitive does not keep a reference to the input <code>geometryInstances</code> to save memory.
+   * 当 <code>true</code> 时，原语不会保留对输入 <code>geometryInstances</code> 的引用，以节省内存。
    *
    * @memberof GroundPrimitive.prototype
    *
@@ -297,7 +299,7 @@ Object.defineProperties(GroundPrimitive.prototype, {
   },
 
   /**
-   * When <code>true</code>, each geometry instance will only be pickable with {@link Scene#pick}.  When <code>false</code>, GPU memory is saved.
+   * 当 <code>true</code> 时，每个几何体实例只能通过 {@link Scene#pick} 被拾取。当 <code>false</code> 时，节省 GPU 内存。
    *
    * @memberof GroundPrimitive.prototype
    *
@@ -313,7 +315,7 @@ Object.defineProperties(GroundPrimitive.prototype, {
   },
 
   /**
-   * Determines if the geometry instances will be created and batched on a web worker.
+   * 确定几何体实例是否将在 Web Worker 中创建和批处理。
    *
    * @memberof GroundPrimitive.prototype
    *
@@ -329,7 +331,7 @@ Object.defineProperties(GroundPrimitive.prototype, {
   },
 
   /**
-   * When <code>true</code>, geometry vertices are compressed, which will save memory.
+   * 当 <code>true</code> 时，几何体顶点被压缩，将节省内存。
    *
    * @memberof GroundPrimitive.prototype
    *
@@ -345,9 +347,8 @@ Object.defineProperties(GroundPrimitive.prototype, {
   },
 
   /**
-   * Determines if the primitive is complete and ready to render.  If this property is
-   * true, the primitive will be rendered the next time that {@link GroundPrimitive#update}
-   * is called.
+   * 确定原语是否完成并准备渲染。如果此属性为
+   * true，则原语将在下一次调用 {@link GroundPrimitive#update} 时渲染。
    *
    * @memberof GroundPrimitive.prototype
    *
@@ -362,12 +363,13 @@ Object.defineProperties(GroundPrimitive.prototype, {
 });
 
 /**
- * Determines if GroundPrimitive rendering is supported.
+ * 确定是否支持 GroundPrimitive 渲染。
  *
  * @function
- * @param {Scene} scene The scene.
- * @returns {boolean} <code>true</code> if GroundPrimitives are supported; otherwise, returns <code>false</code>
+ * @param {Scene} scene 场景。
+ * @returns {boolean} 如果支持 GroundPrimitives，则返回 <code>true</code>；否则返回 <code>false</code>。
  */
+
 GroundPrimitive.isSupported = ClassificationPrimitive.isSupported;
 
 function getComputeMaximumHeightFunction(primitive) {
@@ -673,28 +675,27 @@ function updateAndQueueCommands(
 }
 
 /**
- * Initializes the minimum and maximum terrain heights. This only needs to be called if you are creating the
- * GroundPrimitive synchronously.
+ * 初始化最小和最大地形高度。只有在同步创建 GroundPrimitive 时才需要调用此方法。
  *
- * @returns {Promise<void>} A promise that will resolve once the terrain heights have been loaded.
+ * @returns {Promise<void>} 一旦地形高度加载完成，将解析的 Promise。
  *
  */
+
 GroundPrimitive.initializeTerrainHeights = function () {
   return ApproximateTerrainHeights.initialize();
 };
 
 /**
- * Called when {@link Viewer} or {@link CesiumWidget} render the scene to
- * get the draw commands needed to render this primitive.
+ * 当 {@link Viewer} 或 {@link CesiumWidget} 渲染场景时调用，以获取渲染此原语所需的绘制命令。
  * <p>
- * Do not call this function directly.  This is documented just to
- * list the exceptions that may be propagated when the scene is rendered:
+ * 不要直接调用此函数。此文档仅用于列出在渲染场景时可能传播的异常：
  * </p>
  *
- * @exception {DeveloperError} For synchronous GroundPrimitive, you must call GroundPrimitive.initializeTerrainHeights() and wait for the returned promise to resolve.
- * @exception {DeveloperError} All instance geometries must have the same primitiveType.
- * @exception {DeveloperError} Appearance and material have a uniform with the same name.
+ * @exception {DeveloperError} 对于同步的 GroundPrimitive，必须调用 GroundPrimitive.initializeTerrainHeights() 并等待返回的 Promise 解析。
+ * @exception {DeveloperError} 所有实例几何体必须具有相同的 primitiveType。
+ * @exception {DeveloperError} Appearance 和 material 具有相同名称的 uniform。
  */
+
 GroundPrimitive.prototype.update = function (frameState) {
   if (!defined(this._primitive) && !defined(this.geometryInstances)) {
     return;
@@ -924,18 +925,19 @@ GroundPrimitive.prototype.getBoundingSphere = function (id) {
 };
 
 /**
- * Returns the modifiable per-instance attributes for a {@link GeometryInstance}.
+ * 返回 {@link GeometryInstance} 的可修改每实例属性。
  *
- * @param {*} id The id of the {@link GeometryInstance}.
- * @returns {object} The typed array in the attribute's format or undefined if the is no instance with id.
+ * @param {*} id {@link GeometryInstance} 的 ID。
+ * @returns {object} 属性格式中的类型化数组，如果没有与 ID 匹配的实例，则为 undefined。
  *
- * @exception {DeveloperError} must call update before calling getGeometryInstanceAttributes.
+ * @exception {DeveloperError} 必须在调用 getGeometryInstanceAttributes 之前调用 update。
  *
  * @example
  * const attributes = primitive.getGeometryInstanceAttributes('an id');
  * attributes.color = Cesium.ColorGeometryInstanceAttribute.toValue(Cesium.Color.AQUA);
  * attributes.show = Cesium.ShowGeometryInstanceAttribute.toValue(true);
  */
+
 GroundPrimitive.prototype.getGeometryInstanceAttributes = function (id) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(this._primitive)) {
@@ -948,30 +950,31 @@ GroundPrimitive.prototype.getGeometryInstanceAttributes = function (id) {
 };
 
 /**
- * Returns true if this object was destroyed; otherwise, false.
+ * 如果此对象已被销毁，则返回 true；否则返回 false。
  * <p>
- * If this object was destroyed, it should not be used; calling any function other than
- * <code>isDestroyed</code> will result in a {@link DeveloperError} exception.
+ * 如果此对象已被销毁，则不应使用；调用任何其他函数
+ * 除 <code>isDestroyed</code> 将导致 {@link DeveloperError} 异常。
  * </p>
  *
- * @returns {boolean} <code>true</code> if this object was destroyed; otherwise, <code>false</code>.
+ * @returns {boolean} 如果此对象已被销毁，则为 <code>true</code>；否则为 <code>false</code>。
  *
  * @see GroundPrimitive#destroy
  */
+
 GroundPrimitive.prototype.isDestroyed = function () {
   return false;
 };
 
 /**
- * Destroys the WebGL resources held by this object.  Destroying an object allows for deterministic
- * release of WebGL resources, instead of relying on the garbage collector to destroy this object.
+ * 销毁此对象所持有的 WebGL 资源。销毁对象可以对 WebGL 资源的释放进行确定性管理，
+ * 而不是依赖于垃圾回收器来销毁该对象。
  * <p>
- * Once an object is destroyed, it should not be used; calling any function other than
- * <code>isDestroyed</code> will result in a {@link DeveloperError} exception.  Therefore,
- * assign the return value (<code>undefined</code>) to the object as done in the example.
+ * 一旦对象被销毁，则不应再使用；调用任何其他函数
+ * 除 <code>isDestroyed</code> 将导致 {@link DeveloperError} 异常。因此，
+ * 将返回值（<code>undefined</code>）赋值给对象，如例子中所示。
  * </p>
  *
- * @exception {DeveloperError} This object was destroyed, i.e., destroy() was called.
+ * @exception {DeveloperError} 此对象已被销毁，即调用了 destroy()。
  *
  * @example
  * e = e && e.destroy();
@@ -984,10 +987,10 @@ GroundPrimitive.prototype.destroy = function () {
 };
 
 /**
- * Exposed for testing.
+ * 暴露用于测试。
  *
- * @param {Context} context Rendering context
- * @returns {boolean} Whether or not the current context supports materials on GroundPrimitives.
+ * @param {Context} context 渲染上下文
+ * @returns {boolean} 当前上下文是否支持 GroundPrimitives 上的材料。
  * @private
  */
 GroundPrimitive._supportsMaterials = function (context) {
@@ -995,12 +998,13 @@ GroundPrimitive._supportsMaterials = function (context) {
 };
 
 /**
- * Checks if the given Scene supports materials on GroundPrimitives.
- * Materials on GroundPrimitives require support for the WEBGL_depth_texture extension.
+ * 检查给定的场景是否支持 GroundPrimitives 上的材料。
+ * GroundPrimitives 上的材料需要支持 WEBGL_depth_texture 扩展。
  *
- * @param {Scene} scene The current scene.
- * @returns {boolean} Whether or not the current scene supports materials on GroundPrimitives.
+ * @param {Scene} scene 当前场景。
+ * @returns {boolean} 当前场景是否支持 GroundPrimitives 上的材料。
  */
+
 GroundPrimitive.supportsMaterials = function (scene) {
   //>>includeStart('debug', pragmas.debug);
   Check.typeOf.object("scene", scene);

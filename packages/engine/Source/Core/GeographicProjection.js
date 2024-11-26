@@ -6,18 +6,18 @@ import DeveloperError from "./DeveloperError.js";
 import Ellipsoid from "./Ellipsoid.js";
 
 /**
- * A simple map projection where longitude and latitude are linearly mapped to X and Y by multiplying
- * them by the {@link Ellipsoid#maximumRadius}.  This projection
- * is commonly known as geographic, equirectangular, equidistant cylindrical, or plate carrée. When using the WGS84 ellipsoid, it
- * is also known as EPSG:4326.
+ * 一种简单的地图投影，其中经度和纬度通过乘以 {@link Ellipsoid#maximumRadius} 线性映射到 X 和 Y。该投影
+ * 通常被称为地理投影、等矩形投影、等距圆柱投影或平面投影。当使用 WGS84 椭球体时，
+ * 也称为 EPSG:4326。
  *
  * @alias GeographicProjection
  * @constructor
  *
- * @param {Ellipsoid} [ellipsoid=Ellipsoid.default] The ellipsoid.
+ * @param {Ellipsoid} [ellipsoid=Ellipsoid.default] 椭球体。
  *
  * @see WebMercatorProjection
  */
+
 function GeographicProjection(ellipsoid) {
   this._ellipsoid = defaultValue(ellipsoid, Ellipsoid.default);
   this._semimajorAxis = this._ellipsoid.maximumRadius;
@@ -26,7 +26,7 @@ function GeographicProjection(ellipsoid) {
 
 Object.defineProperties(GeographicProjection.prototype, {
   /**
-   * Gets the {@link Ellipsoid}.
+   * 获取 {@link Ellipsoid}.
    *
    * @memberof GeographicProjection.prototype
    *
@@ -41,17 +41,15 @@ Object.defineProperties(GeographicProjection.prototype, {
 });
 
 /**
- * Projects a set of {@link Cartographic} coordinates, in radians, to map coordinates, in meters.
- * X and Y are the longitude and latitude, respectively, multiplied by the maximum radius of the
- * ellipsoid.  Z is the unmodified height.
+ * 将一组 {@link Cartographic} 坐标（以弧度为单位）投影到地图坐标（以米为单位）。
+ * X 和 Y 分别是经度和纬度，乘以椭球体的最大半径。Z 是未修改的高度。
  *
- * @param {Cartographic} cartographic The coordinates to project.
- * @param {Cartesian3} [result] An instance into which to copy the result.  If this parameter is
- *        undefined, a new instance is created and returned.
- * @returns {Cartesian3} The projected coordinates.  If the result parameter is not undefined, the
- *          coordinates are copied there and that instance is returned.  Otherwise, a new instance is
- *          created and returned.
+ * @param {Cartographic} cartographic 要投影的坐标。
+ * @param {Cartesian3} [result] 用于复制结果的实例。如果此参数
+ *        未定义，将创建一个新实例并返回。
+ * @returns {Cartesian3} 投影后的坐标。如果结果参数不为未定义，坐标将复制到该实例中并返回。否则，将创建并返回一个新实例。
  */
+
 GeographicProjection.prototype.project = function (cartographic, result) {
   // Actually this is the special case of equidistant cylindrical called the plate carree
   const semimajorAxis = this._semimajorAxis;
@@ -70,17 +68,16 @@ GeographicProjection.prototype.project = function (cartographic, result) {
 };
 
 /**
- * Unprojects a set of projected {@link Cartesian3} coordinates, in meters, to {@link Cartographic}
- * coordinates, in radians.  Longitude and Latitude are the X and Y coordinates, respectively,
- * divided by the maximum radius of the ellipsoid.  Height is the unmodified Z coordinate.
+ * 将一组投影的 {@link Cartesian3} 坐标（以米为单位）逆投影到 {@link Cartographic}
+ * 坐标（以弧度为单位）。经度和纬度分别是 X 和 Y 坐标，
+ * 除以椭球体的最大半径。高度是未修改的 Z 坐标。
  *
- * @param {Cartesian3} cartesian The Cartesian position to unproject with height (z) in meters.
- * @param {Cartographic} [result] An instance into which to copy the result.  If this parameter is
- *        undefined, a new instance is created and returned.
- * @returns {Cartographic} The unprojected coordinates.  If the result parameter is not undefined, the
- *          coordinates are copied there and that instance is returned.  Otherwise, a new instance is
- *          created and returned.
+ * @param {Cartesian3} cartesian 要逆投影的笛卡尔位置（高度 z 以米为单位）。
+ * @param {Cartographic} [result] 用于复制结果的实例。如果此参数
+ *        未定义，将创建一个新实例并返回。
+ * @returns {Cartographic} 逆投影后的坐标。如果结果参数不为未定义，坐标将复制到该实例中并返回。否则，将创建并返回一个新实例。
  */
+
 GeographicProjection.prototype.unproject = function (cartesian, result) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(cartesian)) {

@@ -733,7 +733,7 @@ function load(dataSource, entityCollection, data, options) {
 }
 
 /**
- * A {@link DataSource} which processes the GPS Exchange Format (GPX).
+ * 一个 {@link DataSource}，用于处理 GPS 交换格式 (GPX)。
  *
  * @alias GpxDataSource
  * @constructor
@@ -763,35 +763,37 @@ function GpxDataSource() {
 }
 
 /**
- * Creates a Promise to a new instance loaded with the provided GPX data.
+ * 创建一个 Promise，用于加载提供的 GPX 数据的新实例。
  *
- * @param {string|Document|Blob} data A url, parsed GPX document, or Blob containing binary GPX data.
- * @param {object} [options] An object with the following properties:
- * @param {boolean} [options.clampToGround] True if the symbols should be rendered at the same height as the terrain
- * @param {string} [options.waypointImage] Image to use for waypoint billboards.
- * @param {string} [options.trackImage] Image to use for track billboards.
- * @param {string} [options.trackColor] Color to use for track lines.
- * @param {string} [options.routeColor] Color to use for route lines.
- * @returns {Promise<GpxDataSource>} A promise that will resolve to a new GpxDataSource instance once the gpx is loaded.
+ * @param {string|Document|Blob} data 一个 URL、解析过的 GPX 文档或包含二进制 GPX 数据的 Blob。
+ * @param {object} [options] 包含以下属性的对象：
+ * @param {boolean} [options.clampToGround] 如果符号应该在与地形相同的高度渲染，则为 true。
+ * @param {string} [options.waypointImage] 用于航点广告牌的图像。
+ * @param {string} [options.trackImage] 用于轨迹广告牌的图像。
+ * @param {string} [options.trackColor] 用于轨迹线的颜色。
+ * @param {string} [options.routeColor] 用于路线线的颜色。
+ * @returns {Promise<GpxDataSource>} 一个 Promise，一旦加载完 GPX，将解析为一个新的 GpxDataSource 实例。
  */
+
 GpxDataSource.load = function (data, options) {
   return new GpxDataSource().load(data, options);
 };
 
 Object.defineProperties(GpxDataSource.prototype, {
   /**
-   * Gets a human-readable name for this instance.
-   * This will be automatically be set to the GPX document name on load.
+   * 获取该实例的人类可读名称。
+   * 该名称将在加载时自动设置为 GPX 文档名称。
    * @memberof GpxDataSource.prototype
    * @type {string}
    */
+
   name: {
     get: function () {
       return this._name;
     },
   },
   /**
-   * Gets the version of the GPX Schema in use.
+   * 获取正在使用的 GPX Schema 版本。
    * @memberof GpxDataSource.prototype
    * @type {string}
    */
@@ -801,17 +803,18 @@ Object.defineProperties(GpxDataSource.prototype, {
     },
   },
   /**
-   * Gets the creator of the GPX document.
+   * 获取 GPX 文档的创建者。
    * @memberof GpxDataSource.prototype
    * @type {string}
    */
+
   creator: {
     get: function () {
       return this._creator;
     },
   },
   /**
-   * Gets an object containing metadata about the GPX file.
+   * 获取包含 GPX 文件元数据的对象。
    * @memberof GpxDataSource.prototype
    * @type {object}
    */
@@ -821,19 +824,19 @@ Object.defineProperties(GpxDataSource.prototype, {
     },
   },
   /**
-   * Gets the clock settings defined by the loaded GPX. This represents the total
-   * availability interval for all time-dynamic data. If the GPX does not contain
-   * time-dynamic data, this value is undefined.
+   * 获取加载的 GPX 定义的时钟设置。这表示所有时间动态数据的总可用时间区间。
+   * 如果 GPX 不包含时间动态数据，则该值为 undefined。
    * @memberof GpxDataSource.prototype
    * @type {DataSourceClock}
    */
+
   clock: {
     get: function () {
       return this._clock;
     },
   },
   /**
-   * Gets the collection of {@link Entity} instances.
+   * 获取 {@link Entity} 实例的集合。
    * @memberof GpxDataSource.prototype
    * @type {EntityCollection}
    */
@@ -843,17 +846,18 @@ Object.defineProperties(GpxDataSource.prototype, {
     },
   },
   /**
-   * Gets a value indicating if the data source is currently loading data.
+   * 获取一个值，指示数据源当前是否正在加载数据。
    * @memberof GpxDataSource.prototype
    * @type {boolean}
    */
+
   isLoading: {
     get: function () {
       return this._isLoading;
     },
   },
   /**
-   * Gets an event that will be raised when the underlying data changes.
+   * 获取将在底层数据更改时触发的事件。
    * @memberof GpxDataSource.prototype
    * @type {Event}
    */
@@ -863,7 +867,7 @@ Object.defineProperties(GpxDataSource.prototype, {
     },
   },
   /**
-   * Gets an event that will be raised if an error is encountered during processing.
+   * 获取在处理过程中遇到错误时将触发的事件。
    * @memberof GpxDataSource.prototype
    * @type {Event}
    */
@@ -873,7 +877,7 @@ Object.defineProperties(GpxDataSource.prototype, {
     },
   },
   /**
-   * Gets an event that will be raised when the data source either starts or stops loading.
+   * 获取在数据源开始或停止加载时将触发的事件。
    * @memberof GpxDataSource.prototype
    * @type {Event}
    */
@@ -883,7 +887,7 @@ Object.defineProperties(GpxDataSource.prototype, {
     },
   },
   /**
-   * Gets whether or not this data source should be displayed.
+   * 获取该数据源是否应该显示。
    * @memberof GpxDataSource.prototype
    * @type {boolean}
    */
@@ -897,11 +901,12 @@ Object.defineProperties(GpxDataSource.prototype, {
   },
 
   /**
-   * Gets or sets the clustering options for this data source. This object can be shared between multiple data sources.
+   * 获取或设置此数据源的聚类选项。该对象可以在多个数据源之间共享。
    *
    * @memberof GpxDataSource.prototype
    * @type {EntityCluster}
    */
+
   clustering: {
     get: function () {
       return this._entityCluster;
@@ -918,30 +923,32 @@ Object.defineProperties(GpxDataSource.prototype, {
 });
 
 /**
- * Updates the data source to the provided time.  This function is optional and
- * is not required to be implemented.  It is provided for data sources which
- * retrieve data based on the current animation time or scene state.
- * If implemented, update will be called by {@link DataSourceDisplay} once a frame.
+ * 将数据源更新为提供的时间。此函数是可选的，
+ * 不需要实现。它是为基于当前动画时间或场景状态
+ * 检索数据的数据源提供的。如果实现，更新将由
+ * {@link DataSourceDisplay} 每帧调用一次。
  *
- * @param {JulianDate} time The simulation time.
- * @returns {boolean} True if this data source is ready to be displayed at the provided time, false otherwise.
+ * @param {JulianDate} time 模拟时间。
+ * @returns {boolean} 如果该数据源准备好在提供的时间显示，则返回 true；否则返回 false。
  */
+
 GpxDataSource.prototype.update = function (time) {
   return true;
 };
 
 /**
- * Asynchronously loads the provided GPX data, replacing any existing data.
+ * 异步加载提供的 GPX 数据，替换任何现有的数据。
  *
- * @param {string|Document|Blob} data A url, parsed GPX document, or Blob containing binary GPX data or a parsed GPX document.
- * @param {object} [options] An object with the following properties:
- * @param {boolean} [options.clampToGround] True if the symbols should be rendered at the same height as the terrain
- * @param {string} [options.waypointImage] Image to use for waypoint billboards.
- * @param {string} [options.trackImage] Image to use for track billboards.
- * @param {string} [options.trackColor] Color to use for track lines.
- * @param {string} [options.routeColor] Color to use for route lines.
- * @returns {Promise<GpxDataSource>} A promise that will resolve to this instances once the GPX is loaded.
+ * @param {string|Document|Blob} data 一个 URL、解析过的 GPX 文档或包含二进制 GPX 数据的 Blob，或者一个解析过的 GPX 文档。
+ * @param {object} [options] 包含以下属性的对象：
+ * @param {boolean} [options.clampToGround] 如果符号应该在与地形相同的高度渲染，则为 true。
+ * @param {string} [options.waypointImage] 用于航点广告牌的图像。
+ * @param {string} [options.trackImage] 用于轨迹广告牌的图像。
+ * @param {string} [options.trackColor] 用于轨迹线的颜色。
+ * @param {string} [options.routeColor] 用于路线线的颜色。
+ * @returns {Promise<GpxDataSource>} 一个 Promise，一旦加载完 GPX，将解析为此实例。
  */
+
 GpxDataSource.prototype.load = function (data, options) {
   if (!defined(data)) {
     throw new DeveloperError("data is required.");

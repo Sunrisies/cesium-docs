@@ -183,54 +183,53 @@
 - [x] exportKmlResultKmz
 - [x] Expression
 - [x] ExtrapolationType
-
-- [ ] FeatureDetection
-- [ ] Fog
-- [ ] formatError
-- [ ] FrameRateMonitor
-- [ ] FrustumGeometry
-- [ ] FrustumOutlineGeometry
-- [ ] Fullscreen
-- [ ] GeocoderService
-- [ ] GeocodeType
-- [ ] GeographicProjection
-- [ ] GeographicTilingScheme
-- [ ] GeoJsonDataSource
-- [ ] Geometry
-- [ ] GeometryAttribute
-- [ ] GeometryAttributes
-- [ ] GeometryFactory
-- [ ] GeometryInstance
-- [ ] GeometryInstanceAttribute
-- [ ] GeometryPipeline
-- [ ] GeometryUpdater
-- [ ] geometryUpdaters
-- [ ] GeometryVisualizer
-- [ ] getAbsoluteUri
-- [ ] getBaseUri
-- [ ] getExtensionFromUri
-- [ ] GetFeatureInfoFormat
-- [ ] getFilenameFromUri
-- [ ] getGlslType
-- [ ] getImagePixels
-- [ ] getTimestamp
-- [ ] Globe
-- [ ] GlobeTranslucency
-- [ ] GltfGpmLocal
-- [ ] GoogleEarthEnterpriseImageryProvider
-- [ ] GoogleEarthEnterpriseMapsProvider
-- [ ] GoogleEarthEnterpriseMetadata
-- [ ] GoogleEarthEnterpriseTerrainData
-- [ ] GoogleEarthEnterpriseTerrainProvider
-- [ ] GoogleMaps
-- [ ] GpxDataSource
-- [ ] GregorianDate
-- [ ] GridImageryProvider
-- [ ] GridMaterialProperty
-- [ ] GroundGeometryUpdater
-- [ ] GroundPolylineGeometry
-- [ ] GroundPolylinePrimitive
-- [ ] GroundPrimitive
+- [x] FeatureDetection
+- [x] Fog
+- [x] formatError
+- [x] FrameRateMonitor
+- [x] FrustumGeometry
+- [x] FrustumOutlineGeometry
+- [x] Fullscreen
+- [x] GeocoderService
+- [x] GeocodeType
+- [x] GeographicProjection
+- [x] GeographicTilingScheme
+- [x] GeoJsonDataSource
+- [x] Geometry
+- [x] GeometryAttribute
+- [x] GeometryAttributes
+- [x] GeometryFactory
+- [x] GeometryInstance
+- [x] GeometryInstanceAttribute
+- [x] GeometryPipeline
+- [x] GeometryUpdater
+- [x] geometryUpdaters
+- [x] GeometryVisualizer
+- [x] getAbsoluteUri
+- [x] getBaseUri
+- [x] getExtensionFromUri
+- [x] GetFeatureInfoFormat
+- [x] getFilenameFromUri
+- [x] getGlslType
+- [x] getImagePixels
+- [x] getTimestamp
+- [x] Globe
+- [x] GlobeTranslucency
+- [x] GltfGpmLocal
+- [x] GoogleEarthEnterpriseImageryProvider
+- [x] GoogleEarthEnterpriseMapsProvider
+- [x] GoogleEarthEnterpriseMetadata
+- [x] GoogleEarthEnterpriseTerrainData
+- [x] GoogleEarthEnterpriseTerrainProvider
+- [x] GoogleMaps
+- [x] GpxDataSource
+- [x] GregorianDate
+- [x] GridImageryProvider
+- [x] GridMaterialProperty
+- [x] GroundGeometryUpdater
+- [x] GroundPolylineGeometry
+- [x] GroundPolylinePrimitive
+- [x] GroundPrimitive
 
 - [ ] HeadingPitchRange
 - [ ] HeadingPitchRoll
@@ -581,5 +580,9 @@
  * @returns {number} A plane mask as described above in {@link CullingVolume#computeVisibilityWithPlaneMask}.
  *
  * @private
- */ 是jsdoc格式写的注释，现在需要翻译注释，其他的不变
+ */ /**
+   * 用于将对象打包到数组中的元素数量。
+   * @type {number}
+   */ 这些是jsdoc注释的示例。我需要注释翻译成中文，其他不变
+
 ```

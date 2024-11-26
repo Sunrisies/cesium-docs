@@ -27,12 +27,13 @@ const geometryUpdaters = [
 ];
 
 /**
- * Manages a set of "updater" classes for the {@link GeometryVisualizer} for each entity
+ * 管理每个实体的 {@link GeometryVisualizer} 的一组 "更新器" 类。
  *
  * @private
- * @param {Entity} entity
- * @param {Scene} scene
+ * @param {Entity} entity 实体。
+ * @param {Scene} scene 场景。
  */
+
 function GeometryUpdaterSet(entity, scene) {
   this.entity = entity;
   this.scene = scene;
@@ -91,8 +92,8 @@ GeometryUpdaterSet.prototype.destroy = function () {
 };
 
 /**
- * Add the provided updater to the default list of updaters if not already included
- * @param {GeometryUpdater} updater
+ * 如果提供的更新器尚未包含，则将其添加到默认的更新器列表中。
+ * @param {GeometryUpdater} updater 更新器。
  */
 GeometryUpdaterSet.registerUpdater = function (updater) {
   if (!geometryUpdaters.includes(updater)) {
@@ -101,8 +102,8 @@ GeometryUpdaterSet.registerUpdater = function (updater) {
 };
 
 /**
- * Remove the provided updater from the default list of updaters if included
- * @param {GeometryUpdater} updater
+ * 从默认的更新器列表中移除提供的更新器（如果已包含）。
+ * @param {GeometryUpdater} updater 更新器。
  */
 GeometryUpdaterSet.unregisterUpdater = function (updater) {
   if (geometryUpdaters.includes(updater)) {

@@ -192,7 +192,7 @@
 
 ### 2024.11.25 翻译内容
 
-- 28
+- 34
 
 - [x] EasingFunction
 - [x] EllipseGeometry
@@ -222,3 +222,55 @@
 - [x] exportKmlResultKmz
 - [x] Expression
 - [x] ExtrapolationType
+- [x] FeatureDetection
+- [x] Fog
+- [x] formatError
+- [x] FrameRateMonitor
+- [x] FrustumGeometry
+- [x] FrustumOutlineGeometry
+- [x] Fullscreen
+
+### 2024.11.26 翻译内容
+
+- 39
+
+- [x] GeocoderService
+- [x] GeocodeType
+- [x] GeographicProjection
+- [x] GeographicTilingScheme
+- [x] GeoJsonDataSource
+- [x] Geometry
+- [x] GeometryAttribute
+- [x] GeometryAttributes
+- [x] GeometryFactory
+- [x] GeometryInstance
+- [x] GeometryInstanceAttribute
+- [x] GeometryPipeline
+- [x] GeometryUpdater
+- [x] geometryUpdaters
+- [x] GeometryVisualizer
+- [x] getAbsoluteUri
+- [x] getBaseUri
+- [x] getExtensionFromUri
+- [x] GetFeatureInfoFormat
+- [x] getFilenameFromUri
+- [x] getGlslType
+- [x] getImagePixels
+- [x] getTimestamp
+- [x] Globe
+- [x] GlobeTranslucency
+- [x] GltfGpmLocal
+- [x] GoogleEarthEnterpriseImageryProvider
+- [x] GoogleEarthEnterpriseMapsProvider
+- [x] GoogleEarthEnterpriseMetadata
+- [x] GoogleEarthEnterpriseTerrainData
+- [x] GoogleEarthEnterpriseTerrainProvider
+- [x] GoogleMaps
+- [x] GpxDataSource
+- [x] GregorianDate
+- [x] GridImageryProvider
+- [x] GridMaterialProperty
+- [x] GroundGeometryUpdater
+- [x] GroundPolylineGeometry
+- [x] GroundPolylinePrimitive
+- [x] GroundPrimitive

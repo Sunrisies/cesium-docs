@@ -67,23 +67,23 @@ TerrainCache.prototype.tidy = function () {
 /**
  * @typedef {Object} GoogleEarthEnterpriseTerrainProvider.ConstructorOptions
  *
- * Initialization options for GoogleEarthEnterpriseTerrainProvider constructor
+ * 初始化 GoogleEarthEnterpriseTerrainProvider 构造函数的选项
  *
- * @property {Ellipsoid} [ellipsoid=Ellipsoid.default] The ellipsoid.  If not specified, the default ellipsoid is used.
- * @property {Credit|string} [credit] A credit for the data source, which is displayed on the canvas.
+ * @property {Ellipsoid} [ellipsoid=Ellipsoid.default] 地球椭球体。如果不指定，则使用默认地球椭球体。
+ * @property {Credit|string} [credit] 数据源的版权声明，显示在画布上。
  */
 
 /**
  * <div class="notice">
- * To construct a GoogleEarthEnterpriseTerrainProvider, call {@link  GoogleEarthEnterpriseTerrainProvider.fromMetadata}. Do not call the constructor directly.
+ * 要构造 GoogleEarthEnterpriseTerrainProvider，请调用 {@link GoogleEarthEnterpriseTerrainProvider.fromMetadata}。不要直接调用构造函数。
  * </div>
  *
- * Provides tiled terrain using the Google Earth Enterprise REST API.
+ * 使用 Google Earth Enterprise REST API 提供瓦片地形。
  *
  * @alias GoogleEarthEnterpriseTerrainProvider
  * @constructor
  *
- * @param {GoogleEarthEnterpriseTerrainProvider.ConstructorOptions} [options] An object describing initialization options
+ * @param {GoogleEarthEnterpriseTerrainProvider.ConstructorOptions} [options] 一个描述初始化选项的对象
  *
  * @see GoogleEarthEnterpriseTerrainProvider.fromMetadata
  * @see GoogleEarthEnterpriseMetadata.fromUrl
@@ -129,7 +129,7 @@ function GoogleEarthEnterpriseTerrainProvider(options) {
 
 Object.defineProperties(GoogleEarthEnterpriseTerrainProvider.prototype, {
   /**
-   * Gets the name of the Google Earth Enterprise server url hosting the imagery.
+   * 获取托管影像的数据的 Google Earth Enterprise 服务器 URL。
    * @memberof GoogleEarthEnterpriseTerrainProvider.prototype
    * @type {string}
    * @readonly
@@ -141,7 +141,7 @@ Object.defineProperties(GoogleEarthEnterpriseTerrainProvider.prototype, {
   },
 
   /**
-   * Gets the proxy used by this provider.
+   * 获取此提供程序使用的代理。
    * @memberof GoogleEarthEnterpriseTerrainProvider.prototype
    * @type {Proxy}
    * @readonly
@@ -153,7 +153,7 @@ Object.defineProperties(GoogleEarthEnterpriseTerrainProvider.prototype, {
   },
 
   /**
-   * Gets the tiling scheme used by this provider.
+   * 获取此提供程序使用的瓦片方案。
    * @memberof GoogleEarthEnterpriseTerrainProvider.prototype
    * @type {TilingScheme}
    * @readonly
@@ -165,9 +165,7 @@ Object.defineProperties(GoogleEarthEnterpriseTerrainProvider.prototype, {
   },
 
   /**
-   * Gets an event that is raised when the imagery provider encounters an asynchronous error.  By subscribing
-   * to the event, you will be notified of the error and can potentially recover from it.  Event listeners
-   * are passed an instance of {@link TileProviderError}.
+   * 获取一个在影像提供程序遇到异步错误时触发的事件。通过订阅此事件，您可以得知错误并可能从中恢复。事件监听器会传递一个 {@link TileProviderError} 实例。
    * @memberof GoogleEarthEnterpriseTerrainProvider.prototype
    * @type {Event}
    * @readonly
@@ -179,8 +177,7 @@ Object.defineProperties(GoogleEarthEnterpriseTerrainProvider.prototype, {
   },
 
   /**
-   * Gets the credit to display when this terrain provider is active.  Typically this is used to credit
-   * the source of the terrain.
+   * 获取当此地形提供程序活动时显示的版权声明。通常用于引用地形的数据源。
    * @memberof GoogleEarthEnterpriseTerrainProvider.prototype
    * @type {Credit}
    * @readonly
@@ -192,9 +189,8 @@ Object.defineProperties(GoogleEarthEnterpriseTerrainProvider.prototype, {
   },
 
   /**
-   * Gets a value indicating whether or not the provider includes a water mask.  The water mask
-   * indicates which areas of the globe are water rather than land, so they can be rendered
-   * as a reflective surface with animated waves.
+   * 获取一个值，指示提供程序是否包含水掩码。水掩码用于标识地球上的哪些区域是水域而不是陆地，
+   * 因此可以作为具有动画波浪的反射表面进行渲染。
    * @memberof GoogleEarthEnterpriseTerrainProvider.prototype
    * @type {boolean}
    * @readonly
@@ -206,7 +202,7 @@ Object.defineProperties(GoogleEarthEnterpriseTerrainProvider.prototype, {
   },
 
   /**
-   * Gets a value indicating whether or not the requested tiles include vertex normals.
+   * 获取一个值，指示请求的瓦片是否包含顶点法线。
    * @memberof GoogleEarthEnterpriseTerrainProvider.prototype
    * @type {boolean}
    * @readonly
@@ -218,13 +214,11 @@ Object.defineProperties(GoogleEarthEnterpriseTerrainProvider.prototype, {
   },
 
   /**
-   * Gets an object that can be used to determine availability of terrain from this provider, such as
-   * at points and in rectangles. This property may be undefined if availability
-   * information is not available.
-   * @memberof GoogleEarthEnterpriseTerrainProvider.prototype
-   * @type {TileAvailability}
-   * @readonly
-   */
+ * 获取一个对象，可以用于确定此提供程序是否在特定点或矩形区域内可用。如果可用性信息不可用，则此属性可能未定义。
+ * @memberof GoogleEarthEnterpriseTerrainProvider.prototype
+ * @type {TileAvailability}
+ * @readonly
+ */
   availability: {
     get: function () {
       return undefined;
@@ -233,20 +227,21 @@ Object.defineProperties(GoogleEarthEnterpriseTerrainProvider.prototype, {
 });
 
 /**
- * Creates a GoogleEarthTerrainProvider from GoogleEarthEnterpriseMetadata
+ * 从 GoogleEarthEnterpriseMetadata 创建一个 GoogleEarthTerrainProvider。
  *
- * @param {GoogleEarthEnterpriseMetadata} metadata A metadata object that can be used to share metadata requests with a GoogleEarthEnterpriseImageryProvider.
- * @param {GoogleEarthEnterpriseTerrainProvider.ConstructorOptions} options An object describing initialization options
+ * @param {GoogleEarthEnterpriseMetadata} metadata 一个可以与 GoogleEarthEnterpriseImageryProvider 共享元数据请求的元数据对象。
+ * @param {GoogleEarthEnterpriseTerrainProvider.ConstructorOptions} options 描述初始化选项的对象。
  * @returns {GoogleEarthEnterpriseTerrainProvider}
  *
  * @see GoogleEarthEnterpriseMetadata.fromUrl
  *
- * @exception {RuntimeError} metadata does not specify terrain
+ * @exception {RuntimeError} 元数据未指定地形。
  *
  * @example
  * const geeMetadata = await GoogleEarthEnterpriseMetadata.fromUrl("http://www.example.com");
  * const gee = Cesium.GoogleEarthEnterpriseTerrainProvider.fromMetadata(geeMetadata);
  */
+
 GoogleEarthEnterpriseTerrainProvider.fromMetadata = function (
   metadata,
   options,
@@ -287,17 +282,15 @@ function computeChildMask(quadKey, info, metadata) {
 }
 
 /**
- * Requests the geometry for a given tile.   The result must include terrain data and
- * may optionally include a water mask and an indication of which child tiles are available.
+ * 请求给定瓦片的几何体。结果必须包含地形数据，并且可以选择性地包含水体掩模和可用子瓦片的指示。
  *
- * @param {number} x The X coordinate of the tile for which to request geometry.
- * @param {number} y The Y coordinate of the tile for which to request geometry.
- * @param {number} level The level of the tile for which to request geometry.
- * @param {Request} [request] The request object. Intended for internal use only.
- * @returns {Promise<TerrainData>|undefined} A promise for the requested geometry.  If this method
- *          returns undefined instead of a promise, it is an indication that too many requests are already
- *          pending and the request will be retried later.
+ * @param {number} x 请求几何体的瓦片的 X 坐标。
+ * @param {number} y 请求几何体的瓦片的 Y 坐标。
+ * @param {number} level 请求几何体的瓦片的级别。
+ * @param {Request} [request] 请求对象。仅供内部使用。
+ * @returns {Promise<TerrainData>|undefined} 请求几何体的 Promise。如果该方法返回 undefined 而不是一个 Promise，则表示已经有太多请求挂起，该请求将稍后重试。
  */
+
 GoogleEarthEnterpriseTerrainProvider.prototype.requestTileGeometry = function (
   x,
   y,
@@ -481,24 +474,26 @@ GoogleEarthEnterpriseTerrainProvider.prototype.requestTileGeometry = function (
 };
 
 /**
- * Gets the maximum geometric error allowed in a tile at a given level.
+ * 获取给定级别瓦片允许的最大几何误差。
  *
- * @param {number} level The tile level for which to get the maximum geometric error.
- * @returns {number} The maximum geometric error.
+ * @param {number} level 要获取最大几何误差的瓦片级别。
+ * @returns {number} 最大几何误差。
  */
+
 GoogleEarthEnterpriseTerrainProvider.prototype.getLevelMaximumGeometricError =
   function (level) {
     return this._levelZeroMaximumGeometricError / (1 << level);
   };
 
 /**
- * Determines whether data for a tile is available to be loaded.
+ * 确定给定瓦片的数据是否可以加载。
  *
- * @param {number} x The X coordinate of the tile for which to request geometry.
- * @param {number} y The Y coordinate of the tile for which to request geometry.
- * @param {number} level The level of the tile for which to request geometry.
- * @returns {boolean|undefined} Undefined if not supported, otherwise true or false.
+ * @param {number} x 请求几何体的瓦片的 X 坐标。
+ * @param {number} y 请求几何体的瓦片的 Y 坐标。
+ * @param {number} level 请求几何体的瓦片的级别。
+ * @returns {boolean|undefined} 如果不支持则为 undefined，否则返回 true 或 false。
  */
+
 GoogleEarthEnterpriseTerrainProvider.prototype.getTileDataAvailable = function (
   x,
   y,
@@ -549,13 +544,14 @@ GoogleEarthEnterpriseTerrainProvider.prototype.getTileDataAvailable = function (
 };
 
 /**
- * Makes sure we load availability data for a tile
+ * 确保我们加载瓦片的可用性数据。
  *
- * @param {number} x The X coordinate of the tile for which to request geometry.
- * @param {number} y The Y coordinate of the tile for which to request geometry.
- * @param {number} level The level of the tile for which to request geometry.
+ * @param {number} x 请求几何体的瓦片的 X 坐标。
+ * @param {number} y 请求几何体的瓦片的 Y 坐标。
+ * @param {number} level 请求几何体的瓦片的级别。
  * @returns {undefined}
  */
+
 GoogleEarthEnterpriseTerrainProvider.prototype.loadTileDataAvailability =
   function (x, y, level) {
     return undefined;

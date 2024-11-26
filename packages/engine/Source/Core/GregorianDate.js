@@ -6,22 +6,23 @@ import isLeapYear from "./isLeapYear.js";
 const daysInYear = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
 /**
- * Represents a Gregorian date in a more precise format than the JavaScript Date object.
- * In addition to submillisecond precision, this object can also represent leap seconds.
+ * 表示比 JavaScript Date 对象更精确格式的公历日期。
+ * 除了亚毫秒精度外，该对象还可以表示闰秒。
  * @alias GregorianDate
  * @constructor
  *
- * @param {number} [year] The year as a whole number.
- * @param {number} [month] The month as a whole number with range [1, 12].
- * @param {number} [day] The day of the month as a whole number starting at 1.
- * @param {number} [hour] The hour as a whole number with range [0, 23].
- * @param {number} [minute] The minute of the hour as a whole number with range [0, 59].
- * @param {number} [second] The second of the minute as a whole number with range [0, 60], with 60 representing a leap second.
- * @param {number} [millisecond] The millisecond of the second as a floating point number with range [0.0, 1000.0).
- * @param {boolean} [isLeapSecond] Whether this time is during a leap second.
+ * @param {number} [year] 年份，整数。
+ * @param {number} [month] 月份，范围为 [1, 12] 的整数。
+ * @param {number} [day] 日期，以 1 开始的整数。
+ * @param {number} [hour] 小时，范围为 [0, 23] 的整数。
+ * @param {number} [minute] 分钟，范围为 [0, 59] 的整数。
+ * @param {number} [second] 秒数，范围为 [0, 60] 的整数，其中 60 表示闰秒。
+ * @param {number} [millisecond] 秒的毫秒部分，范围为 [0.0, 1000.0) 的浮点数。
+ * @param {boolean} [isLeapSecond] 此时间是否在闰秒期间。
  *
  * @see JulianDate#toGregorianDate
  */
+
 function GregorianDate(
   year,
   month,
@@ -54,44 +55,45 @@ function GregorianDate(
   //>>includeEnd('debug');
 
   /**
-   * Gets or sets the year as a whole number.
+   * 获取或设置年份，整数。
    * @type {number}
    */
   this.year = year;
   /**
-   * Gets or sets the month as a whole number with range [1, 12].
+   * 获取或设置月份，范围为 [1, 12] 的整数。
    * @type {number}
    */
   this.month = month;
   /**
-   * Gets or sets the day of the month as a whole number starting at 1.
+   * 获取或设置日期，以 1 开始的整数。
    * @type {number}
    */
   this.day = day;
   /**
-   * Gets or sets the hour as a whole number with range [0, 23].
+   * 获取或设置小时，范围为 [0, 23] 的整数。
    * @type {number}
    */
   this.hour = hour;
   /**
-   * Gets or sets the minute of the hour as a whole number with range [0, 59].
+   * 获取或设置分钟，范围为 [0, 59] 的整数。
    * @type {number}
    */
   this.minute = minute;
   /**
-   * Gets or sets the second of the minute as a whole number with range [0, 60], with 60 representing a leap second.
+   * 获取或设置秒，范围为 [0, 60] 的整数，其中 60 表示闰秒。
    * @type {number}
    */
   this.second = second;
   /**
-   * Gets or sets the millisecond of the second as a floating point number with range [0.0, 1000.0).
+   * 获取或设置秒的毫秒部分，范围为 [0.0, 1000.0) 的浮点数。
    * @type {number}
    */
   this.millisecond = millisecond;
   /**
-   * Gets or sets whether this time is during a leap second.
+   * 获取或设置此时间是否在闰秒期间。
    * @type {boolean}
    */
+
   this.isLeapSecond = isLeapSecond;
 
   function validateRange() {

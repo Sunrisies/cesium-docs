@@ -31,7 +31,7 @@ import CesiumMath from "../Core/Math.js";
  */
 const Rotation = {
   /**
-   * The number of elements used to pack the object into an array.
+   * 用于将对象打包到数组中的元素数量。
    * @type {number}
    */
   packedLength: 1,

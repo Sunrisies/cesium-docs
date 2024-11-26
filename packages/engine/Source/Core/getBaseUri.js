@@ -3,12 +3,12 @@ import defined from "./defined.js";
 import DeveloperError from "./DeveloperError.js";
 
 /**
- * Given a URI, returns the base path of the URI.
+ * 给定一个 URI，返回该 URI 的基础路径。
  * @function
  *
- * @param {string} uri The Uri.
- * @param {boolean} [includeQuery = false] Whether or not to include the query string and fragment form the uri
- * @returns {string} The base path of the Uri.
+ * @param {string} uri URI。
+ * @param {boolean} [includeQuery = false] 是否包含 URI 的查询字符串和片段。
+ * @returns {string} URI 的基础路径。
  *
  * @example
  * // basePath will be "/Gallery/";

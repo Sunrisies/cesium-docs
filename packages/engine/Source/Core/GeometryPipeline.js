@@ -25,12 +25,13 @@ import PrimitiveType from "./PrimitiveType.js";
 import Tipsify from "./Tipsify.js";
 
 /**
- * Content pipeline functions for geometries.
+ * 几何体的内容处理管道函数。
  *
  * @namespace GeometryPipeline
  *
  * @see Geometry
  */
+
 const GeometryPipeline = {};
 
 function addTriangle(lines, index, i0, i1, i2) {
@@ -101,17 +102,17 @@ function triangleFanToLines(triangles) {
 }
 
 /**
- * Converts a geometry's triangle indices to line indices.  If the geometry has an <code>indices</code>
- * and its <code>primitiveType</code> is <code>TRIANGLES</code>, <code>TRIANGLE_STRIP</code>,
- * <code>TRIANGLE_FAN</code>, it is converted to <code>LINES</code>; otherwise, the geometry is not changed.
+ * 将几何体的三角形索引转换为线索引。如果几何体具有 <code>indices</code>
+ * 且其 <code>primitiveType</code> 为 <code>TRIANGLES</code>、<code>TRIANGLE_STRIP</code>、
+ * <code>TRIANGLE_FAN</code>，则转换为 <code>LINES</code>；否则，几何体不变。
  * <p>
- * This is commonly used to create a wireframe geometry for visual debugging.
+ * 这通常用于创建用于视觉调试的线框几何体。
  * </p>
  *
- * @param {Geometry} geometry The geometry to modify.
- * @returns {Geometry} The modified <code>geometry</code> argument, with its triangle indices converted to lines.
+ * @param {Geometry} geometry 要修改的几何体。
+ * @returns {Geometry} 修改后的 <code>geometry</code> 参数，其三角形索引已转换为线。
  *
- * @exception {DeveloperError} geometry.primitiveType must be TRIANGLES, TRIANGLE_STRIP, or TRIANGLE_FAN.
+ * @exception {DeveloperError} geometry.primitiveType 必须是 TRIANGLES、TRIANGLE_STRIP 或 TRIANGLE_FAN。
  *
  * @example
  * geometry = Cesium.GeometryPipeline.toWireframe(geometry);
@@ -150,16 +151,16 @@ GeometryPipeline.toWireframe = function (geometry) {
 };
 
 /**
- * Creates a new {@link Geometry} with <code>LINES</code> representing the provided
- * attribute (<code>attributeName</code>) for the provided geometry.  This is used to
- * visualize vector attributes like normals, tangents, and bitangents.
+ * 创建一个新的 {@link Geometry}，其 <code>LINES</code> 表示提供的
+ * 属性（<code>attributeName</code>）对应于提供的几何体。这用于
+ * 可视化向量属性，如法线、切线和副切线。
  *
- * @param {Geometry} geometry The <code>Geometry</code> instance with the attribute.
- * @param {string} [attributeName='normal'] The name of the attribute.
- * @param {number} [length=10000.0] The length of each line segment in meters.  This can be negative to point the vector in the opposite direction.
- * @returns {Geometry} A new <code>Geometry</code> instance with line segments for the vector.
+ * @param {Geometry} geometry 包含该属性的 <code>Geometry</code> 实例。
+ * @param {string} [attributeName='normal'] 属性的名称。
+ * @param {number} [length=10000.0] 每个线段的长度（以米为单位）。可以为负值，以使向量指向相反方向。
+ * @returns {Geometry} 一个新的 <code>Geometry</code> 实例，其中包含代表向量的线段。
  *
- * @exception {DeveloperError} geometry.attributes must have an attribute with the same name as the attributeName parameter.
+ * @exception {DeveloperError} geometry.attributes 必须有与 attributeName 参数同名的属性。
  *
  * @example
  * const geometry = Cesium.GeometryPipeline.createLineSegmentsForVectors(instance.geometry, 'bitangent', 100000.0);
@@ -224,11 +225,11 @@ GeometryPipeline.createLineSegmentsForVectors = function (
 };
 
 /**
- * Creates an object that maps attribute names to unique locations (indices)
- * for matching vertex attributes and shader programs.
+ * 创建一个对象，将属性名称映射到唯一位置（索引），
+ * 用于匹配顶点属性和着色器程序。
  *
- * @param {Geometry} geometry The geometry, which is not modified, to create the object for.
- * @returns {object} An object with attribute name / index pairs.
+ * @param {Geometry} geometry 准备创建对象的几何体，该几何体不会被修改。
+ * @returns {object} 一个包含属性名称/索引对的对象。
  *
  * @example
  * const attributeLocations = Cesium.GeometryPipeline.createAttributeLocations(geometry);
@@ -300,13 +301,12 @@ GeometryPipeline.createAttributeLocations = function (geometry) {
 };
 
 /**
- * Reorders a geometry's attributes and <code>indices</code> to achieve better performance from the GPU's pre-vertex-shader cache.
+ * 重新排序几何体的属性和 <code>indices</code>，以提高 GPU 的预顶点着色器缓存性能。
  *
- * @param {Geometry} geometry The geometry to modify.
- * @returns {Geometry} The modified <code>geometry</code> argument, with its attributes and indices reordered for the GPU's pre-vertex-shader cache.
+ * @param {Geometry} geometry 要修改的几何体。
+ * @returns {Geometry} 修改后的 <code>geometry</code> 参数，其属性和索引已为 GPU 的预顶点着色器缓存重新排序。
  *
- * @exception {DeveloperError} Each attribute array in geometry.attributes must have the same number of attributes.
- *
+ * @exception {DeveloperError} geometry.attributes 中的每个属性数组必须具有相同数量的属性。
  *
  * @example
  * geometry = Cesium.GeometryPipeline.reorderForPreVertexCache(geometry);
@@ -389,15 +389,14 @@ GeometryPipeline.reorderForPreVertexCache = function (geometry) {
 };
 
 /**
- * Reorders a geometry's <code>indices</code> to achieve better performance from the GPU's
- * post vertex-shader cache by using the Tipsify algorithm.  If the geometry <code>primitiveType</code>
- * is not <code>TRIANGLES</code> or the geometry does not have an <code>indices</code>, this function has no effect.
+ * 重新排序几何体的 <code>indices</code>，以通过使用 Tipsify 算法提高 GPU 的后顶点着色器缓存性能。如果几何体的 <code>primitiveType</code>
+ * 不是 <code>TRIANGLES</code> 或几何体没有 <code>indices</code>，则此函数不会产生效果。
  *
- * @param {Geometry} geometry The geometry to modify.
- * @param {number} [cacheCapacity=24] The number of vertices that can be held in the GPU's vertex cache.
- * @returns {Geometry} The modified <code>geometry</code> argument, with its indices reordered for the post-vertex-shader cache.
+ * @param {Geometry} geometry 要修改的几何体。
+ * @param {number} [cacheCapacity=24] GPU 顶点缓存中可以容纳的顶点数量。
+ * @returns {Geometry} 修改后的 <code>geometry</code> 参数，其索引已为后顶点着色器缓存重新排序。
  *
- * @exception {DeveloperError} cacheCapacity must be greater than two.
+ * @exception {DeveloperError} cacheCapacity 必须大于 2。
  *
  *
  * @example
@@ -477,18 +476,17 @@ function copyVertex(destinationAttributes, sourceAttributes, index) {
 }
 
 /**
- * Splits a geometry into multiple geometries, if necessary, to ensure that indices in the
- * <code>indices</code> fit into unsigned shorts.  This is used to meet the WebGL requirements
- * when unsigned int indices are not supported.
+ * 将几何体拆分为多个几何体（如果必要），以确保 <code>indices</code> 中的索引适合无符号短整型。这用于满足 WebGL 的要求
+ * 当不支持无符号整型索引时。
  * <p>
- * If the geometry does not have any <code>indices</code>, this function has no effect.
+ * 如果几何体没有任何 <code>indices</code>，则此函数不会产生效果。
  * </p>
  *
- * @param {Geometry} geometry The geometry to be split into multiple geometries.
- * @returns {Geometry[]} An array of geometries, each with indices that fit into unsigned shorts.
+ * @param {Geometry} geometry 要拆分为多个几何体的几何体。
+ * @returns {Geometry[]} 一个几何体数组，每个几何体的索引适合无符号短整型。
  *
- * @exception {DeveloperError} geometry.primitiveType must equal to PrimitiveType.TRIANGLES, PrimitiveType.LINES, or PrimitiveType.POINTS
- * @exception {DeveloperError} All geometry attribute lists must have the same number of attributes.
+ * @exception {DeveloperError} geometry.primitiveType 必须等于 PrimitiveType.TRIANGLES、PrimitiveType.LINES 或 PrimitiveType.POINTS。
+ * @exception {DeveloperError} 所有几何体属性列表必须具有相同数量的属性。
  *
  * @example
  * const geometries = Cesium.GeometryPipeline.fitToUnsignedShortIndices(geometry);
@@ -594,22 +592,21 @@ const scratchProjectTo2DCartesian3 = new Cartesian3();
 const scratchProjectTo2DCartographic = new Cartographic();
 
 /**
- * Projects a geometry's 3D <code>position</code> attribute to 2D, replacing the <code>position</code>
- * attribute with separate <code>position3D</code> and <code>position2D</code> attributes.
+ * 将几何体的 3D <code>position</code> 属性投影到 2D，通过用单独的 <code>position3D</code> 和 <code>position2D</code> 属性替换 <code>position</code> 属性。
  * <p>
- * If the geometry does not have a <code>position</code>, this function has no effect.
+ * 如果几何体没有 <code>position</code>，则此函数不会产生效果。
  * </p>
  *
- * @param {Geometry} geometry The geometry to modify.
- * @param {string} attributeName The name of the attribute.
- * @param {string} attributeName3D The name of the attribute in 3D.
- * @param {string} attributeName2D The name of the attribute in 2D.
- * @param {object} [projection=new GeographicProjection()] The projection to use.
- * @returns {Geometry} The modified <code>geometry</code> argument with <code>position3D</code> and <code>position2D</code> attributes.
+ * @param {Geometry} geometry 要修改的几何体。
+ * @param {string} attributeName 属性的名称。
+ * @param {string} attributeName3D 3D 中的属性名称。
+ * @param {string} attributeName2D 2D 中的属性名称。
+ * @param {object} [projection=new GeographicProjection()] 要使用的投影。
+ * @returns {Geometry} 修改后的 <code>geometry</code> 参数，具有 <code>position3D</code> 和 <code>position2D</code> 属性。
  *
- * @exception {DeveloperError} geometry must have attribute matching the attributeName argument.
- * @exception {DeveloperError} The attribute componentDatatype must be ComponentDatatype.DOUBLE.
- * @exception {DeveloperError} Could not project a point to 2D.
+ * @exception {DeveloperError} geometry 必须具有与 attributeName 参数匹配的属性。
+ * @exception {DeveloperError} 属性组件数据类型必须为 ComponentDatatype.DOUBLE。
+ * @exception {DeveloperError} 无法将点投影到 2D。
  *
  * @example
  * geometry = Cesium.GeometryPipeline.projectTo2D(geometry, 'position', 'position3D', 'position2D');
@@ -707,20 +704,19 @@ const encodedResult = {
 };
 
 /**
- * Encodes floating-point geometry attribute values as two separate attributes to improve
- * rendering precision.
+ * 将浮点几何属性值编码为两个单独的属性，以提高渲染精度。
  * <p>
- * This is commonly used to create high-precision position vertex attributes.
+ * 这通常用于创建高精度位置顶点属性。
  * </p>
  *
- * @param {Geometry} geometry The geometry to modify.
- * @param {string} attributeName The name of the attribute.
- * @param {string} attributeHighName The name of the attribute for the encoded high bits.
- * @param {string} attributeLowName The name of the attribute for the encoded low bits.
- * @returns {Geometry} The modified <code>geometry</code> argument, with its encoded attribute.
+ * @param {Geometry} geometry 要修改的几何体。
+ * @param {string} attributeName 属性的名称。
+ * @param {string} attributeHighName 用于编码高位的属性名称。
+ * @param {string} attributeLowName 用于编码低位的属性名称。
+ * @returns {Geometry} 修改后的 <code>geometry</code> 参数，具有其编码的属性。
  *
- * @exception {DeveloperError} geometry must have attribute matching the attributeName argument.
- * @exception {DeveloperError} The attribute componentDatatype must be ComponentDatatype.DOUBLE.
+ * @exception {DeveloperError} geometry 必须具有与 attributeName 参数匹配的属性。
+ * @exception {DeveloperError} 属性组件数据类型必须为 ComponentDatatype.DOUBLE。
  *
  * @example
  * geometry = Cesium.GeometryPipeline.encodeAttribute(geometry, 'position3D', 'position3DHigh', 'position3DLow');
@@ -822,13 +818,12 @@ const inverseTranspose = new Matrix4();
 const normalMatrix = new Matrix3();
 
 /**
- * Transforms a geometry instance to world coordinates.  This changes
- * the instance's <code>modelMatrix</code> to {@link Matrix4.IDENTITY} and transforms the
- * following attributes if they are present: <code>position</code>, <code>normal</code>,
- * <code>tangent</code>, and <code>bitangent</code>.
+ * 将几何体实例转换为世界坐标。这将更改
+ * 实例的 <code>modelMatrix</code> 为 {@link Matrix4.IDENTITY}，并转换以下属性（如果存在）：<code>position</code>、<code>normal</code>、
+ * <code>tangent</code> 和 <code>bitangent</code>。
  *
- * @param {GeometryInstance} instance The geometry instance to modify.
- * @returns {GeometryInstance} The modified <code>instance</code> argument, with its attributes transforms to world coordinates.
+ * @param {GeometryInstance} instance 要修改的几何体实例。
+ * @returns {GeometryInstance} 修改后的 <code>instance</code> 参数，其属性转换为世界坐标。
  *
  * @example
  * Cesium.GeometryPipeline.transformToWorldCoordinates(instance);
@@ -1070,25 +1065,23 @@ function combineGeometries(instances, propertyName) {
 }
 
 /**
- * Combines geometry from several {@link GeometryInstance} objects into one geometry.
- * This concatenates the attributes, concatenates and adjusts the indices, and creates
- * a bounding sphere encompassing all instances.
+ * 将来自多个 {@link GeometryInstance} 对象的几何体合并为一个几何体。
+ * 这会连接属性，连接并调整索引，并创建一个包围球，包含所有实例。
  * <p>
- * If the instances do not have the same attributes, a subset of attributes common
- * to all instances is used, and the others are ignored.
+ * 如果实例具有不同的属性，则将使用所有实例共有的属性子集，其余属性将被忽略。
  * </p>
  * <p>
- * This is used by {@link Primitive} to efficiently render a large amount of static data.
+ * 这被 {@link Primitive} 用于高效渲染大量静态数据。
  * </p>
  *
  * @private
  *
- * @param {GeometryInstance[]} [instances] The array of {@link GeometryInstance} objects whose geometry will be combined.
- * @returns {Geometry} A single geometry created from the provided geometry instances.
+ * @param {GeometryInstance[]} [instances] 要合并几何体的 {@link GeometryInstance} 对象数组。
+ * @returns {Geometry} 从提供的几何体实例创建的单个几何体。
  *
- * @exception {DeveloperError} All instances must have the same modelMatrix.
- * @exception {DeveloperError} All instance geometries must have an indices or not have one.
- * @exception {DeveloperError} All instance geometries must have the same primitiveType.
+ * @exception {DeveloperError} 所有实例必须具有相同的 modelMatrix。
+ * @exception {DeveloperError} 所有实例几何体必须具有索引或不具有索引。
+ * @exception {DeveloperError} 所有实例几何体必须具有相同的 primitiveType。
  *
  *
  * @example
@@ -1147,15 +1140,15 @@ const v1 = new Cartesian3();
 const v2 = new Cartesian3();
 
 /**
- * Computes per-vertex normals for a geometry containing <code>TRIANGLES</code> by averaging the normals of
- * all triangles incident to the vertex.  The result is a new <code>normal</code> attribute added to the geometry.
- * This assumes a counter-clockwise winding order.
+ * 通过对所有与顶点相邻的三角形的法线进行平均，为包含 <code>TRIANGLES</code> 的几何体计算每个顶点的法线。
+ * 结果是一个新添加到几何体的 <code>normal</code> 属性。
+ * 这假设采用逆时针的缠绕顺序。
  *
- * @param {Geometry} geometry The geometry to modify.
- * @returns {Geometry} The modified <code>geometry</code> argument with the computed <code>normal</code> attribute.
+ * @param {Geometry} geometry 要修改的几何体。
+ * @returns {Geometry} 修改后的 <code>geometry</code> 参数，其中包含计算得出的 <code>normal</code> 属性。
  *
- * @exception {DeveloperError} geometry.indices length must be greater than 0 and be a multiple of 3.
- * @exception {DeveloperError} geometry.primitiveType must be {@link PrimitiveType.TRIANGLES}.
+ * @exception {DeveloperError} geometry.indices 的长度必须大于 0 并且是 3 的倍数。
+ * @exception {DeveloperError} geometry.primitiveType 必须是 {@link PrimitiveType.TRIANGLES}。
  *
  * @example
  * Cesium.GeometryPipeline.computeNormal(geometry);
@@ -1314,19 +1307,18 @@ const normalScale = new Cartesian3();
 const tScratch = new Cartesian3();
 
 /**
- * Computes per-vertex tangents and bitangents for a geometry containing <code>TRIANGLES</code>.
- * The result is new <code>tangent</code> and <code>bitangent</code> attributes added to the geometry.
- * This assumes a counter-clockwise winding order.
+ * 为包含 <code>TRIANGLES</code> 的几何体计算每个顶点的切线和副切线。
+ * 结果是新添加到几何体的 <code>tangent</code> 和 <code>bitangent</code> 属性。
+ * 这假设采用逆时针的缠绕顺序。
  * <p>
- * Based on <a href="http://www.terathon.com/code/tangent.html">Computing Tangent Space Basis Vectors
- * for an Arbitrary Mesh</a> by Eric Lengyel.
+ * 基于 Eric Lengyel 的 <a href="http://www.terathon.com/code/tangent.html">为任意网格计算切线空间基向量</a>。
  * </p>
  *
- * @param {Geometry} geometry The geometry to modify.
- * @returns {Geometry} The modified <code>geometry</code> argument with the computed <code>tangent</code> and <code>bitangent</code> attributes.
+ * @param {Geometry} geometry 要修改的几何体。
+ * @returns {Geometry} 修改后的 <code>geometry</code> 参数，其中包含计算得出的 <code>tangent</code> 和 <code>bitangent</code> 属性。
  *
- * @exception {DeveloperError} geometry.indices length must be greater than 0 and be a multiple of 3.
- * @exception {DeveloperError} geometry.primitiveType must be {@link PrimitiveType.TRIANGLES}.
+ * @exception {DeveloperError} geometry.indices 的长度必须大于 0 并且是 3 的倍数。
+ * @exception {DeveloperError} geometry.primitiveType 必须是 {@link PrimitiveType.TRIANGLES}。
  *
  * @example
  * Cesium.GeometryPipeline.computeTangentAndBiTangent(geometry);
@@ -1470,10 +1462,10 @@ const toEncode2 = new Cartesian3();
 const toEncode3 = new Cartesian3();
 let encodeResult2 = new Cartesian2();
 /**
- * Compresses and packs geometry normal attribute values to save memory.
+ * 压缩并打包几何体法线属性值以节省内存。
  *
- * @param {Geometry} geometry The geometry to modify.
- * @returns {Geometry} The modified <code>geometry</code> argument, with its normals compressed and packed.
+ * @param {Geometry} geometry 要修改的几何体。
+ * @returns {Geometry} 修改后的 <code>geometry</code> 参数，其法线已被压缩和打包。
  *
  * @example
  * geometry = Cesium.GeometryPipeline.compressVertices(geometry);
@@ -3233,15 +3225,15 @@ function splitLongitudePolyline(instance) {
 }
 
 /**
- * Splits the instances's geometry, by introducing new vertices and indices,that
- * intersect the International Date Line and Prime Meridian so that no primitives cross longitude
- * -180/180 degrees.  This is not required for 3D drawing, but is required for
- * correcting drawing in 2D and Columbus view.
+ * 通过引入新顶点和索引来拆分实例的几何体，使其
+ * 与国际日期变更线和本初子午线相交，从而确保没有图元跨越经度
+ * -180/180度。这对于 3D 绘制不是必需的，但对于
+ * 在 2D 和哥伦布视图中纠正绘制是必需的。
  *
  * @private
  *
- * @param {GeometryInstance} instance The instance to modify.
- * @returns {GeometryInstance} The modified <code>instance</code> argument, with it's geometry split at the International Date Line.
+ * @param {GeometryInstance} instance 要修改的实例。
+ * @returns {GeometryInstance} 修改后的 <code>instance</code> 参数，其几何体已在国际日期变更线上拆分。
  *
  * @example
  * instance = Cesium.GeometryPipeline.splitLongitude(instance);

@@ -5,11 +5,12 @@ import NearFarScalar from "../Core/NearFarScalar.js";
 import Rectangle from "../Core/Rectangle.js";
 
 /**
- * Properties for controlling globe translucency.
+ * 控制地球透明度的属性。
  *
  * @alias GlobeTranslucency
  * @constructor
  */
+
 function GlobeTranslucency() {
   this._enabled = false;
   this._frontFaceAlpha = 1.0;
@@ -21,16 +22,16 @@ function GlobeTranslucency() {
 
 Object.defineProperties(GlobeTranslucency.prototype, {
   /**
-   * When true, the globe is rendered as a translucent surface.
+   * 当为 true 时，地球作为透明表面进行渲染。
    * <br /><br />
-   * The alpha is computed by blending {@link Globe#material}, {@link Globe#imageryLayers},
-   * and {@link Globe#baseColor}, all of which may contain translucency, and then multiplying by
-   * {@link GlobeTranslucency#frontFaceAlpha} and {@link GlobeTranslucency#frontFaceAlphaByDistance} for front faces and
-   * {@link GlobeTranslucency#backFaceAlpha} and {@link GlobeTranslucency#backFaceAlphaByDistance} for back faces.
-   * When the camera is underground back faces and front faces are swapped, i.e. back-facing geometry
-   * is considered front facing.
+   * alpha 值通过混合 {@link Globe#material}、{@link Globe#imageryLayers} 和
+   * {@link Globe#baseColor} 来计算，这些都可能包含透明度，然后乘以
+   * {@link GlobeTranslucency#frontFaceAlpha} 和 {@link GlobeTranslucency#frontFaceAlphaByDistance} 处理前面，以及
+   * {@link GlobeTranslucency#backFaceAlpha} 和 {@link GlobeTranslucency#backFaceAlphaByDistance} 处理后面。
+   * 当相机位于地下时，背面和前面的面会交换，即背面几何体
+   * 被视为正面。
    * <br /><br />
-   * Translucency is disabled by default.
+   * 默认情况下禁用透明度。
    *
    * @memberof GlobeTranslucency.prototype
    *
@@ -55,9 +56,9 @@ Object.defineProperties(GlobeTranslucency.prototype, {
   },
 
   /**
-   * A constant translucency to apply to front faces of the globe.
+   * 应用于地球前面面的常量透明度。
    * <br /><br />
-   * {@link GlobeTranslucency#enabled} must be set to true for this option to take effect.
+   * {@link GlobeTranslucency#enabled} 必须设置为 true 才能使此选项生效。
    *
    * @memberof GlobeTranslucency.prototype
    *
@@ -68,10 +69,11 @@ Object.defineProperties(GlobeTranslucency.prototype, {
    * @see GlobeTranslucency#frontFaceAlphaByDistance
    *
    * @example
-   * // Set front face translucency to 0.5.
+   * // 将前面面的透明度设置为 0.5。
    * globe.translucency.frontFaceAlpha = 0.5;
    * globe.translucency.enabled = true;
    */
+
   frontFaceAlpha: {
     get: function () {
       return this._frontFaceAlpha;
@@ -85,14 +87,13 @@ Object.defineProperties(GlobeTranslucency.prototype, {
     },
   },
   /**
-   * Gets or sets near and far translucency properties of front faces of the globe based on the distance to the camera.
-   * The translucency will interpolate between the {@link NearFarScalar#nearValue} and
-   * {@link NearFarScalar#farValue} while the camera distance falls within the lower and upper bounds
-   * of the specified {@link NearFarScalar#near} and {@link NearFarScalar#far}.
-   * Outside of these ranges the translucency remains clamped to the nearest bound.  If undefined,
-   * frontFaceAlphaByDistance will be disabled.
+   * 获取或设置地球前面面的近距离和远距离透明度属性，基于与相机的距离。
+   * 当相机距离在指定的 {@link NearFarScalar#near} 和 {@link NearFarScalar#far} 的上下限内时，透明度将在
+   * {@link NearFarScalar#nearValue} 和 {@link NearFarScalar#farValue} 之间进行插值。
+   * 在这些范围之外，透明度保持在最近的边界。如果未定义，
+   * frontFaceAlphaByDistance 将被禁用。
    * <br /><br />
-   * {@link GlobeTranslucency#enabled} must be set to true for this option to take effect.
+   * {@link GlobeTranslucency#enabled} 必须设置为 true 才能使此选项生效。
    *
    * @memberof GlobeTranslucency.prototype
    *
@@ -135,9 +136,9 @@ Object.defineProperties(GlobeTranslucency.prototype, {
   },
 
   /**
-   * A constant translucency to apply to back faces of the globe.
+   * 应用于地球背面面的常量透明度。
    * <br /><br />
-   * {@link GlobeTranslucency#enabled} must be set to true for this option to take effect.
+   * {@link GlobeTranslucency#enabled} 必须设置为 true 才能使此选项生效。
    *
    * @memberof GlobeTranslucency.prototype
    *
@@ -165,14 +166,13 @@ Object.defineProperties(GlobeTranslucency.prototype, {
     },
   },
   /**
-   * Gets or sets near and far translucency properties of back faces of the globe based on the distance to the camera.
-   * The translucency will interpolate between the {@link NearFarScalar#nearValue} and
-   * {@link NearFarScalar#farValue} while the camera distance falls within the lower and upper bounds
-   * of the specified {@link NearFarScalar#near} and {@link NearFarScalar#far}.
-   * Outside of these ranges the translucency remains clamped to the nearest bound.  If undefined,
-   * backFaceAlphaByDistance will be disabled.
+   * 获取或设置地球背面面的近距离和远距离透明度属性，基于与相机的距离。
+   * 当相机距离在指定的 {@link NearFarScalar#near} 和 {@link NearFarScalar#far} 的上下限内时，透明度将在
+   * {@link NearFarScalar#nearValue} 和 {@link NearFarScalar#farValue} 之间进行插值。
+   * 在这些范围之外，透明度保持在最近的边界。如果未定义，
+   * backFaceAlphaByDistance 将被禁用。
    * <br /><br />
-   * {@link GlobeTranslucency#enabled} must be set to true for this option to take effect.
+   * {@link GlobeTranslucency#enabled} 必须设置为 true 才能使此选项生效。
    *
    * @memberof GlobeTranslucency.prototype
    *
@@ -215,8 +215,8 @@ Object.defineProperties(GlobeTranslucency.prototype, {
   },
 
   /**
-   * A property specifying a {@link Rectangle} used to limit translucency to a cartographic area.
-   * Defaults to the maximum extent of cartographic coordinates.
+   * 指定一个 {@link Rectangle} 的属性，用于限制透明度在一个大地区域内。
+   * 默认为大地坐标的最大范围。
    *
    * @memberof GlobeTranslucency.prototype
    *

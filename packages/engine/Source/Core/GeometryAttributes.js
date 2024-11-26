@@ -1,22 +1,23 @@
 import defaultValue from "./defaultValue.js";
 
 /**
- * Attributes, which make up a geometry's vertices.  Each property in this object corresponds to a
- * {@link GeometryAttribute} containing the attribute's data.
+ * 组成几何体顶点的属性。此对象中的每个属性对应于一个
+ * {@link GeometryAttribute}，包含属性的数据。
  * <p>
- * Attributes are always stored non-interleaved in a Geometry.
+ * 属性始终以非交错的方式存储在几何体中。
  * </p>
  *
  * @alias GeometryAttributes
  * @constructor
  */
+
 function GeometryAttributes(options) {
   options = defaultValue(options, defaultValue.EMPTY_OBJECT);
 
   /**
-   * The 3D position attribute.
+   * 3D 位置属性。
    * <p>
-   * 64-bit floating-point (for precision).  3 components per attribute.
+   * 64位浮点数（为了精确）。每个属性3个分量。
    * </p>
    *
    * @type {GeometryAttribute|undefined}
@@ -26,9 +27,9 @@ function GeometryAttributes(options) {
   this.position = options.position;
 
   /**
-   * The normal attribute (normalized), which is commonly used for lighting.
+   * 法线属性（归一化），常用于光照。
    * <p>
-   * 32-bit floating-point.  3 components per attribute.
+   * 32位浮点数。每个属性3个分量。
    * </p>
    *
    * @type {GeometryAttribute|undefined}
@@ -37,10 +38,10 @@ function GeometryAttributes(options) {
    */
   this.normal = options.normal;
 
-  /**
-   * The 2D texture coordinate attribute.
+ /**
+   * 2D 纹理坐标属性。
    * <p>
-   * 32-bit floating-point.  2 components per attribute
+   * 32位浮点数。每个属性2个分量。
    * </p>
    *
    * @type {GeometryAttribute|undefined}
@@ -50,9 +51,9 @@ function GeometryAttributes(options) {
   this.st = options.st;
 
   /**
-   * The bitangent attribute (normalized), which is used for tangent-space effects like bump mapping.
+   * 切向属性（归一化），用于切线空间效果，如凹凸映射。
    * <p>
-   * 32-bit floating-point.  3 components per attribute.
+   * 32位浮点数。每个属性3个分量。
    * </p>
    *
    * @type {GeometryAttribute|undefined}
@@ -62,9 +63,9 @@ function GeometryAttributes(options) {
   this.bitangent = options.bitangent;
 
   /**
-   * The tangent attribute (normalized), which is used for tangent-space effects like bump mapping.
+   * 切线属性（归一化），用于切线空间效果，如凹凸映射。
    * <p>
-   * 32-bit floating-point.  3 components per attribute.
+   * 32位浮点数。每个属性3个分量。
    * </p>
    *
    * @type {GeometryAttribute|undefined}
@@ -74,9 +75,9 @@ function GeometryAttributes(options) {
   this.tangent = options.tangent;
 
   /**
-   * The color attribute.
+   * 颜色属性。
    * <p>
-   * 8-bit unsigned integer. 4 components per attribute.
+   * 8位无符号整数。每个属性4个分量。
    * </p>
    *
    * @type {GeometryAttribute|undefined}

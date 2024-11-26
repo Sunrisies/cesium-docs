@@ -22,15 +22,16 @@ import StaticOutlineGeometryBatch from "./StaticOutlineGeometryBatch.js";
 const emptyArray = [];
 
 /**
- * A general purpose visualizer for geometry represented by {@link Primitive} instances.
+ * 用于可视化由 {@link Primitive} 实例表示的几何体的通用可视化器。
  * @alias GeometryVisualizer
  * @constructor
  *
- * @param {Scene} scene The scene the primitives will be rendered in.
- * @param {EntityCollection} entityCollection The entityCollection to visualize.
- * @param {PrimitiveCollection} [primitives=scene.primitives] A collection to add primitives related to the entities
- * @param {PrimitiveCollection} [groundPrimitives=scene.groundPrimitives] A collection to add ground primitives related to the entities
+ * @param {Scene} scene 要在其中渲染图元的场景。
+ * @param {EntityCollection} entityCollection 要可视化的实体集合。
+ * @param {PrimitiveCollection} [primitives=scene.primitives] 用于添加与实体相关的图元的集合。
+ * @param {PrimitiveCollection} [groundPrimitives=scene.groundPrimitives] 用于添加与实体相关的地面图元的集合。
  */
+
 function GeometryVisualizer(
   scene,
   entityCollection,
@@ -207,31 +208,30 @@ function GeometryVisualizer(
 }
 
 /**
- * Add the provided updater to the default list of updaters if not already included
+ * 如果提供的更新器尚未包含，则将其添加到默认的更新器列表中。
  * @private
- * @param {GeometryUpdater} updater
+ * @param {GeometryUpdater} updater 更新器。
  */
 GeometryVisualizer.registerUpdater = function (updater) {
   GeometryUpdaterSet.registerUpdater(updater);
 };
 
 /**
- * Remove the provided updater from the default list of updaters if included
+ * 从默认的更新器列表中移除提供的更新器（如果已包含）。
  * @private
- * @param {GeometryUpdater} updater
+ * @param {GeometryUpdater} updater 更新器。
  */
 GeometryVisualizer.unregisterUpdater = function (updater) {
   GeometryUpdaterSet.unregisterUpdater(updater);
 };
 
 /**
- * Updates all of the primitives created by this visualizer to match their
- * Entity counterpart at the given time.
+ * 更新此可视化器创建的所有图元，以匹配其在给定时间的实体对应物。
  *
- * @param {JulianDate} time The time to update to.
- * @returns {boolean} True if the visualizer successfully updated to the provided time,
- * false if the visualizer is waiting for asynchronous primitives to be created.
+ * @param {JulianDate} time 要更新到的时间。
+ * @returns {boolean} 如果可视化器成功更新到提供的时间，则返回 true；如果可视化器正在等待异步图元创建，则返回 false。
  */
+
 GeometryVisualizer.prototype.update = function (time) {
   //>>includeStart('debug', pragmas.debug);
   Check.defined("time", time);
@@ -317,16 +317,16 @@ const getBoundingSphereArrayScratch = [];
 const getBoundingSphereBoundingSphereScratch = new BoundingSphere();
 
 /**
- * Computes a bounding sphere which encloses the visualization produced for the specified entity.
- * The bounding sphere is in the fixed frame of the scene's globe.
+ * 计算包含指定实体可视化的包围球。包围球位于场景地球的固定坐标系中。
  *
- * @param {Entity} entity The entity whose bounding sphere to compute.
- * @param {BoundingSphere} result The bounding sphere onto which to store the result.
- * @returns {BoundingSphereState} BoundingSphereState.DONE if the result contains the bounding sphere,
- *                       BoundingSphereState.PENDING if the result is still being computed, or
- *                       BoundingSphereState.FAILED if the entity has no visualization in the current scene.
+ * @param {Entity} entity 要计算其包围球的实体。
+ * @param {BoundingSphere} result 用于存储结果的包围球。
+ * @returns {BoundingSphereState} 如果结果包含包围球，则返回 BoundingSphereState.DONE，
+ *                       如果结果仍在计算中，则返回 BoundingSphereState.PENDING，或
+ *                       如果实体在当前场景中没有可视化，则返回 BoundingSphereState.FAILED。
  * @private
  */
+
 GeometryVisualizer.prototype.getBoundingSphere = function (entity, result) {
   //>>includeStart('debug', pragmas.debug);
   Check.defined("entity", entity);
@@ -370,16 +370,16 @@ GeometryVisualizer.prototype.getBoundingSphere = function (entity, result) {
 };
 
 /**
- * Returns true if this object was destroyed; otherwise, false.
+ * 如果此对象已被销毁，则返回 true；否则返回 false。
  *
- * @returns {boolean} True if this object was destroyed; otherwise, false.
+ * @returns {boolean} 如果此对象已被销毁，则返回 true；否则返回 false。
  */
 GeometryVisualizer.prototype.isDestroyed = function () {
   return false;
 };
 
 /**
- * Removes and destroys all primitives created by this instance.
+ * 移除并销毁此实例创建的所有图元。
  */
 GeometryVisualizer.prototype.destroy = function () {
   this._entityCollection.collectionChanged.removeEventListener(

@@ -20,17 +20,18 @@ const PERSPECTIVE = 0;
 const ORTHOGRAPHIC = 1;
 
 /**
- * Describes a frustum at the given the origin and orientation.
+ * 描述给定原点和方向的视锥体。
  *
  * @alias FrustumGeometry
  * @constructor
  *
- * @param {object} options Object with the following properties:
- * @param {PerspectiveFrustum|OrthographicFrustum} options.frustum The frustum.
- * @param {Cartesian3} options.origin The origin of the frustum.
- * @param {Quaternion} options.orientation The orientation of the frustum.
- * @param {VertexFormat} [options.vertexFormat=VertexFormat.DEFAULT] The vertex attributes to be computed.
+ * @param {object} options 具有以下属性的对象：
+ * @param {PerspectiveFrustum|OrthographicFrustum} options.frustum 视锥体。
+ * @param {Cartesian3} options.origin 视锥体的原点。
+ * @param {Quaternion} options.orientation 视锥体的方向。
+ * @param {VertexFormat} [options.vertexFormat=VertexFormat.DEFAULT] 要计算的顶点属性。
  */
+
 function FrustumGeometry(options) {
   //>>includeStart('debug', pragmas.debug);
   Check.typeOf.object("options", options);
@@ -68,9 +69,10 @@ function FrustumGeometry(options) {
   this._workerName = "createFrustumGeometry";
 
   /**
-   * The number of elements used to pack the object into an array.
+   * 用于将对象打包到数组中的元素数量。
    * @type {number}
    */
+
   this.packedLength =
     2 +
     frustumPackedLength +
@@ -376,11 +378,12 @@ FrustumGeometry._computeNearFarPlanes = function (
 };
 
 /**
- * Computes the geometric representation of a frustum, including its vertices, indices, and a bounding sphere.
+ * 计算视锥体的几何表示，包括其顶点、索引和包围球。
  *
- * @param {FrustumGeometry} frustumGeometry A description of the frustum.
- * @returns {Geometry|undefined} The computed vertices and indices.
+ * @param {FrustumGeometry} frustumGeometry 视锥体的描述。
+ * @returns {Geometry|undefined} 计算得到的顶点和索引。
  */
+
 FrustumGeometry.createGeometry = function (frustumGeometry) {
   const frustumType = frustumGeometry._frustumType;
   const frustum = frustumGeometry._frustum;
