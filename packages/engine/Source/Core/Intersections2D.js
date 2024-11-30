@@ -5,33 +5,28 @@ import defined from "./defined.js";
 import DeveloperError from "./DeveloperError.js";
 
 /**
- * Contains functions for operating on 2D triangles.
+ * 包含用于操作 2D 三角形的函数。
  *
  * @namespace Intersections2D
  */
+
 const Intersections2D = {};
 
 /**
- * Splits a 2D triangle at given axis-aligned threshold value and returns the resulting
- * polygon on a given side of the threshold.  The resulting polygon may have 0, 1, 2,
- * 3, or 4 vertices.
+ * 在给定的轴对齐阈值处拆分一个 2D 三角形，并返回阈值一侧的结果多边形。
+ * 结果多边形可能有 0、1、2、3 或 4 个顶点。
  *
- * @param {number} threshold The threshold coordinate value at which to clip the triangle.
- * @param {boolean} keepAbove true to keep the portion of the triangle above the threshold, or false
- *                            to keep the portion below.
- * @param {number} u0 The coordinate of the first vertex in the triangle, in counter-clockwise order.
- * @param {number} u1 The coordinate of the second vertex in the triangle, in counter-clockwise order.
- * @param {number} u2 The coordinate of the third vertex in the triangle, in counter-clockwise order.
- * @param {number[]} [result] The array into which to copy the result.  If this parameter is not supplied,
- *                            a new array is constructed and returned.
- * @returns {number[]} The polygon that results after the clip, specified as a list of
- *                     vertices.  The vertices are specified in counter-clockwise order.
- *                     Each vertex is either an index from the existing list (identified as
- *                     a 0, 1, or 2) or -1 indicating a new vertex not in the original triangle.
- *                     For new vertices, the -1 is followed by three additional numbers: the
- *                     index of each of the two original vertices forming the line segment that
- *                     the new vertex lies on, and the fraction of the distance from the first
- *                     vertex to the second one.
+ * @param {number} threshold 用于裁剪三角形的阈值坐标。
+ * @param {boolean} keepAbove 如果为 true，则保留阈值上方的三角形部分；如果为 false，则保留阈值下方的部分。
+ * @param {number} u0 三角形中第一个顶点的坐标，按逆时针顺序。
+ * @param {number} u1 三角形中第二个顶点的坐标，按逆时针顺序。
+ * @param {number} u2 三角形中第三个顶点的坐标，按逆时针顺序。
+ * @param {number[]} [result] 将结果复制到的数组。如果未提供此参数，将构造并返回一个新数组。
+ * @returns {number[]} 裁剪后得到的多边形，以顶点列表的形式指定。
+ *                     顶点按逆时针顺序指定。每个顶点是现有列表中的索引（标识为
+ *                     0, 1 或 2）或 -1，表示新的顶点不在原始三角形中。
+ *                     对于新顶点，-1 后面跟随三个附加数字：形成包含新顶点的线段的两个原始顶点的索引，
+ *                     以及从第一个顶点到第二个顶点的距离比例。
  *
  * @example
  * const result = Cesium.Intersections2D.clipTriangleAtAxisAlignedThreshold(0.5, false, 0.2, 0.6, 0.4);
@@ -215,19 +210,18 @@ Intersections2D.clipTriangleAtAxisAlignedThreshold = function (
 };
 
 /**
- * Compute the barycentric coordinates of a 2D position within a 2D triangle.
+ * 计算 2D 三角形中某个 2D 位置的重心坐标。
  *
- * @param {number} x The x coordinate of the position for which to find the barycentric coordinates.
- * @param {number} y The y coordinate of the position for which to find the barycentric coordinates.
- * @param {number} x1 The x coordinate of the triangle's first vertex.
- * @param {number} y1 The y coordinate of the triangle's first vertex.
- * @param {number} x2 The x coordinate of the triangle's second vertex.
- * @param {number} y2 The y coordinate of the triangle's second vertex.
- * @param {number} x3 The x coordinate of the triangle's third vertex.
- * @param {number} y3 The y coordinate of the triangle's third vertex.
- * @param {Cartesian3} [result] The instance into to which to copy the result.  If this parameter
- *                     is undefined, a new instance is created and returned.
- * @returns {Cartesian3} The barycentric coordinates of the position within the triangle.
+ * @param {number} x 要查找重心坐标的位置的 x 坐标。
+ * @param {number} y 要查找重心坐标的位置的 y 坐标。
+ * @param {number} x1 三角形第一个顶点的 x 坐标。
+ * @param {number} y1 三角形第一个顶点的 y 坐标。
+ * @param {number} x2 三角形第二个顶点的 x 坐标。
+ * @param {number} y2 三角形第二个顶点的 y 坐标。
+ * @param {number} x3 三角形第三个顶点的 x 坐标。
+ * @param {number} y3 三角形第三个顶点的 y 坐标。
+ * @param {Cartesian3} [result] 要将结果复制到的实例。如果此参数未定义，将创建并返回一个新实例。
+ * @returns {Cartesian3} 该位置在三角形内的重心坐标。
  *
  * @example
  * const result = Cesium.Intersections2D.computeBarycentricCoordinates(0.0, 0.0, 0.0, 1.0, -1, -0.5, 1, -0.5);
@@ -292,19 +286,18 @@ Intersections2D.computeBarycentricCoordinates = function (
 };
 
 /**
- * Compute the intersection between 2 line segments
+ * 计算两条线段之间的交点。
  *
- * @param {number} x00 The x coordinate of the first line's first vertex.
- * @param {number} y00 The y coordinate of the first line's first vertex.
- * @param {number} x01 The x coordinate of the first line's second vertex.
- * @param {number} y01 The y coordinate of the first line's second vertex.
- * @param {number} x10 The x coordinate of the second line's first vertex.
- * @param {number} y10 The y coordinate of the second line's first vertex.
- * @param {number} x11 The x coordinate of the second line's second vertex.
- * @param {number} y11 The y coordinate of the second line's second vertex.
- * @param {Cartesian2} [result] The instance into to which to copy the result. If this parameter
- *                     is undefined, a new instance is created and returned.
- * @returns {Cartesian2} The intersection point, undefined if there is no intersection point or lines are coincident.
+ * @param {number} x00 第一条线的第一个顶点的 x 坐标。
+ * @param {number} y00 第一条线的第一个顶点的 y 坐标。
+ * @param {number} x01 第一条线的第二个顶点的 x 坐标。
+ * @param {number} y01 第一条线的第二个顶点的 y 坐标。
+ * @param {number} x10 第二条线的第一个顶点的 x 坐标。
+ * @param {number} y10 第二条线的第一个顶点的 y 坐标。
+ * @param {number} x11 第二条线的第二个顶点的 x 坐标。
+ * @param {number} y11 第二条线的第二个顶点的 y 坐标。
+ * @param {Cartesian2} [result] 要将结果复制到的实例。如果此参数未定义，将创建并返回一个新实例。
+ * @returns {Cartesian2} 交点，如果没有交点或线重合则返回 undefined。
  *
  * @example
  * const result = Cesium.Intersections2D.computeLineSegmentLineSegmentIntersection(0.0, 0.0, 0.0, 2.0, -1, 1, 1, 1);

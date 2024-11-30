@@ -230,111 +230,108 @@
 - [x] GroundPolylineGeometry
 - [x] GroundPolylinePrimitive
 - [x] GroundPrimitive
-
-- [ ] HeadingPitchRange
-- [ ] HeadingPitchRoll
-- [ ] HeadingPitchRollValues
-- [ ] HeightmapEncoding
-- [ ] HeightmapTerrainData
-- [ ] HeightReference
-- [ ] HermitePolynomialApproximation
-- [ ] HermiteSpline
-- [ ] HilbertOrder
-- [ ] HorizontalOrigin
-- [ ] I3SDataProvider
-- [ ] I3SFeature
-- [ ] I3SField
-- [ ] I3SGeometry
-- [ ] I3SLayer
-- [ ] I3SNode
-- [ ] I3SStatistics
-- [ ] I3SSublayer
-- [ ] I3SSymbology
-- [ ] ImageBasedLighting
-- [ ] ImageMaterialProperty
-- [ ] ImageryLayer
-- [ ] ImageryLayerCollection
-- [ ] ImageryLayerFeatureInfo
-- [ ] ImageryProvider
-- [ ] ImageryTypes
-- [ ] includesReverseAxis
-- [ ] IndexDatatype
-- [ ] Intersect
-- [ ] Intersections2D
-- [ ] IntersectionTests
-- [ ] Interval
-- [ ] Ion
-- [ ] IonGeocoderService
-- [ ] IonImageryProvider
-- [ ] IonResource
-- [ ] IonWorldImageryStyle
-- [ ] isLeapYear
-- [ ] Iso8601
-- [ ] JulianDate
-
-- [ ] KeyboardEventModifier
-- [ ] KmlCamera
-- [ ] KmlDataSource
-- [ ] KmlFeatureData
-- [ ] KmlLookAt
-- [ ] KmlTour
-- [ ] KmlTourFlyTo
-- [ ] KmlTourWait
-- [ ] Label
-- [ ] LabelCollection
-- [ ] LabelGraphics
-- [ ] LabelStyle
-- [ ] LabelVisualizer
-- [ ] LagrangePolynomialApproximation
-- [ ] LeapSecond
-- [ ] Light
-- [ ] LightingModel
-- [ ] LinearApproximation
-- [ ] LinearSpline
-- [ ] loadGltfJson
-
-- [ ] MapboxImageryProvider
-- [ ] MapboxStyleImageryProvider
-- [ ] MapMode2D
-- [ ] MapProjection
-- [ ] Material
-- [ ] MaterialAppearance
-- [ ] MaterialSupport
-- [ ] MaterialProperty
-- [ ] Math
-- [ ] Matrix2
-- [ ] Matrix3
-- [ ] Matrix4
-- [ ] mergeSort
-- [ ] mergeSortComparator
-- [ ] MetadataClass
-- [ ] MetadataClassProperty
-- [ ] MetadataComponentType
-- [ ] MetadataEnum
-- [ ] MetadataEnumValue
-- [ ] MetadataSchema
-- [ ] MetadataType
-- [ ] Model
-- [ ] ModelAnimation
-- [ ] ModelAnimationCollection
-- [ ] ModelAnimationLoop
-- [ ] ModelFeature
-- [ ] ModelGraphics
-- [ ] ModelNode
-- [ ] ModelVisualizer
-- [ ] Moon
-- [ ] MorphWeightSpline
-- [ ] NearFarScalar
-- [ ] NeverTileDiscardPolicy
-- [ ] NodeTransformationProperty
-- [ ] objectToQuery
-- [ ] obtainTranslucentCommandExecutionFunction
-- [ ] Occluder
-- [ ] OpenCageGeocoderService
-- [ ] OpenStreetMapImageryProvider
-- [ ] OrientedBoundingBox
-- [ ] OrthographicFrustum
-- [ ] OrthographicOffCenterFrustum
+- [x] HeadingPitchRange
+- [x] HeadingPitchRoll
+- [x] HeadingPitchRollValues
+- [x] HeightmapEncoding
+- [x] HeightmapTerrainData
+- [x] HeightReference
+- [x] HermitePolynomialApproximation
+- [x] HermiteSpline
+- [x] HilbertOrder
+- [x] HorizontalOrigin
+- [x] I3SDataProvider
+- [x] I3SFeature
+- [x] I3SField
+- [x] I3SGeometry
+- [x] I3SLayer
+- [x] I3SNode
+- [x] I3SStatistics
+- [x] I3SSublayer
+- [x] I3SSymbology
+- [x] ImageBasedLighting
+- [x] ImageMaterialProperty
+- [x] ImageryLayer
+- [x] ImageryLayerCollection
+- [x] ImageryLayerFeatureInfo
+- [x] ImageryProvider
+- [x] ImageryTypes
+- [x] includesReverseAxis
+- [x] IndexDatatype
+- [x] Intersect
+- [x] Intersections2D
+- [x] IntersectionTests
+- [x] Interval
+- [x] Ion
+- [x] IonGeocoderService
+- [x] IonImageryProvider
+- [x] IonResource
+- [x] IonWorldImageryStyle
+- [x] isLeapYear
+- [x] Iso8601
+- [x] JulianDate
+- [x] KeyboardEventModifier
+- [x] KmlCamera
+- [x] KmlDataSource
+- [x] KmlFeatureData
+- [x] KmlLookAt
+- [x] KmlTour
+- [x] KmlTourFlyTo
+- [x] KmlTourWait
+- [x] Label
+- [x] LabelCollection
+- [x] LabelGraphics
+- [x] LabelStyle
+- [x] LabelVisualizer
+- [x] LagrangePolynomialApproximation
+- [x] LeapSecond
+- [x] Light
+- [x] LightingModel
+- [x] LinearApproximation
+- [x] LinearSpline
+- [x] loadGltfJson
+- [x] MapboxImageryProvider
+- [x] MapboxStyleImageryProvider
+- [x] MapMode2D
+- [x] MapProjection
+- [x] Material
+- [x] MaterialAppearance
+- [x] MaterialSupport
+- [x] MaterialProperty
+- [x] Math
+- [x] Matrix2
+- [x] Matrix3
+- [x] Matrix4
+- [x] mergeSort
+- [x] mergeSortComparator
+- [x] MetadataClass
+- [x] MetadataClassProperty
+- [x] MetadataComponentType
+- [x] MetadataEnum
+- [x] MetadataEnumValue
+- [x] MetadataSchema
+- [x] MetadataType
+- [x] Model
+- [x] ModelAnimation
+- [x] ModelAnimationCollection
+- [x] ModelAnimationLoop
+- [x] ModelFeature
+- [x] ModelGraphics
+- [x] ModelNode
+- [x] ModelVisualizer
+- [x] Moon
+- [x] MorphWeightSpline
+- [x] NearFarScalar
+- [x] NeverTileDiscardPolicy
+- [x] NodeTransformationProperty
+- [x] objectToQuery
+- [x] obtainTranslucentCommandExecutionFunction
+- [x] Occluder
+- [x] OpenCageGeocoderService
+- [x] OpenStreetMapImageryProvider
+- [x] OrientedBoundingBox
+- [x] OrthographicFrustum
+- [x] OrthographicOffCenterFrustum
 
 - [ ] PackableForInterpolation
 - [ ] Particle

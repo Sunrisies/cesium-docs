@@ -53,12 +53,12 @@ function sort(array, compare, userDefinedObject, start, end) {
 }
 
 /**
- * A stable merge sort.
+ * 一个稳定的归并排序。
  *
  * @function mergeSort
- * @param {Array} array The array to sort.
- * @param {mergeSortComparator} comparator The function to use to compare elements in the array.
- * @param {*} [userDefinedObject] Any item to pass as the third parameter to <code>comparator</code>.
+ * @param {Array} array 要排序的数组。
+ * @param {mergeSortComparator} comparator 用于比较数组中元素的函数。
+ * @param {*} [userDefinedObject] 作为第三个参数传递给 <code>comparator</code> 的任何项目。
  *
  * @example
  * // Assume array contains BoundingSpheres in world coordinates.
@@ -93,15 +93,15 @@ function mergeSort(array, comparator, userDefinedObject) {
 }
 
 /**
- * A function used to compare two items while performing a merge sort.
+ * 在执行归并排序时用于比较两个项目的函数。
  * @callback mergeSortComparator
  *
- * @param {*} a An item in the array.
- * @param {*} b An item in the array.
- * @param {*} [userDefinedObject] An object that was passed to {@link mergeSort}.
- * @returns {number} Returns a negative value if <code>a</code> is less than <code>b</code>,
- *          a positive value if <code>a</code> is greater than <code>b</code>, or
- *          0 if <code>a</code> is equal to <code>b</code>.
+ * @param {*} a 数组中的一个项目。
+ * @param {*} b 数组中的一个项目。
+ * @param {*} [userDefinedObject] 作为参数传递给 {@link mergeSort} 的对象。
+ * @returns {number} 如果 <code>a</code> 小于 <code>b</code> 则返回负值，
+ *          如果 <code>a</code> 大于 <code>b</code> 则返回正值，
+ *          如果 <code>a</code> 等于 <code>b</code> 则返回 0。
  *
  * @example
  * function compareNumbers(a, b, userDefinedObject) {

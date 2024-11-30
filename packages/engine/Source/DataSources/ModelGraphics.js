@@ -21,45 +21,46 @@ function createArticulationStagePropertyBag(value) {
 /**
  * @typedef {object} ModelGraphics.ConstructorOptions
  *
- * Initialization options for the ModelGraphics constructor
+ * ModelGraphics 构造函数的初始化选项
  *
- * @property {Property | boolean} [show=true] A boolean Property specifying the visibility of the model.
- * @property {Property | string | Resource} [uri] A string or Resource Property specifying the URI of the glTF asset.
- * @property {Property | number} [scale=1.0] A numeric Property specifying a uniform linear scale.
- * @property {Property | boolean} [enableVerticalExaggeration=true] A boolean Property specifying if the model is exaggerated along the ellipsoid normal when {@link Scene.verticalExaggeration} is set to a value other than <code>1.0</code>.
- * @property {Property | number} [minimumPixelSize=0.0] A numeric Property specifying the approximate minimum pixel size of the model regardless of zoom.
- * @property {Property | number} [maximumScale] The maximum scale size of a model. An upper limit for minimumPixelSize.
- * @property {Property | boolean} [incrementallyLoadTextures=true] Determine if textures may continue to stream in after the model is loaded.
- * @property {Property | boolean} [runAnimations=true] A boolean Property specifying if glTF animations specified in the model should be started.
- * @property {Property | boolean} [clampAnimations=true] A boolean Property specifying if glTF animations should hold the last pose for time durations with no keyframes.
- * @property {Property | ShadowMode} [shadows=ShadowMode.ENABLED] An enum Property specifying whether the model casts or receives shadows from light sources.
- * @property {Property | HeightReference} [heightReference=HeightReference.NONE] A Property specifying what the height is relative to.
- * @property {Property | Color} [silhouetteColor=Color.RED] A Property specifying the {@link Color} of the silhouette.
- * @property {Property | number} [silhouetteSize=0.0] A numeric Property specifying the size of the silhouette in pixels.
- * @property {Property | Color} [color=Color.WHITE] A Property specifying the {@link Color} that blends with the model's rendered color.
- * @property {Property | ColorBlendMode} [colorBlendMode=ColorBlendMode.HIGHLIGHT] An enum Property specifying how the color blends with the model.
- * @property {Property | number} [colorBlendAmount=0.5] A numeric Property specifying the color strength when the <code>colorBlendMode</code> is <code>MIX</code>. A value of 0.0 results in the model's rendered color while a value of 1.0 results in a solid color, with any value in-between resulting in a mix of the two.
- * @property {Property | Cartesian2} [imageBasedLightingFactor=new Cartesian2(1.0, 1.0)] A property specifying the contribution from diffuse and specular image-based lighting.
- * @property {Property | Color} [lightColor] A property specifying the light color when shading the model. When <code>undefined</code> the scene's light color is used instead.
- * @property {Property | DistanceDisplayCondition} [distanceDisplayCondition] A Property specifying at what distance from the camera that this model will be displayed.
- * @property {PropertyBag | Object<string, TranslationRotationScale>} [nodeTransformations] An object, where keys are names of nodes, and values are {@link TranslationRotationScale} Properties describing the transformation to apply to that node. The transformation is applied after the node's existing transformation as specified in the glTF, and does not replace the node's existing transformation.
- * @property {PropertyBag | Object<string, number>} [articulations] An object, where keys are composed of an articulation name, a single space, and a stage name, and the values are numeric properties.
- * @property {Property | ClippingPlaneCollection} [clippingPlanes] A property specifying the {@link ClippingPlaneCollection} used to selectively disable rendering the model.
- * @property {Property | CustomShader} [customShader] A property specifying the {@link CustomShader} to apply to this model.
+ * @property {Property | boolean} [show=true] 一个布尔属性，指定模型的可见性。
+ * @property {Property | string | Resource} [uri] 一个字符串或资源属性，指定 glTF 资产的 URI。
+ * @property {Property | number} [scale=1.0] 一个数值属性，指定统一线性缩放。
+ * @property {Property | boolean} [enableVerticalExaggeration=true] 一个布尔属性，指定当 {@link Scene.verticalExaggeration} 设置为非 <code>1.0</code> 的值时，模型是否在椭球法线方向上夸张。
+ * @property {Property | number} [minimumPixelSize=0.0] 一个数值属性，指定模型的近似最小像素大小，忽略缩放。
+ * @property {Property | number} [maximumScale] 模型的最大缩放大小，最低像素大小的上限。
+ * @property {Property | boolean} [incrementallyLoadTextures=true] 确定模型加载后纹理是否可以继续流入。
+ * @property {Property | boolean} [runAnimations=true] 一个布尔属性，指定是否应该开始模型中指定的 glTF 动画。
+ * @property {Property | boolean} [clampAnimations=true] 一个布尔属性，指定在没有关键帧的时间段内，glTF 动画是否应保持最后的姿态。
+ * @property {Property | ShadowMode} [shadows=ShadowMode.ENABLED] 一个枚举属性，指定模型是否从光源投射或接收阴影。
+ * @property {Property | HeightReference} [heightReference=HeightReference.NONE] 一个属性，指定高度相对于什么。
+ * @property {Property | Color} [silhouetteColor=Color.RED] 一个属性，指定轮廓的 {@link Color}。
+ * @property {Property | number} [silhouetteSize=0.0] 一个数值属性，指定轮廓的大小（以像素为单位）。
+ * @property {Property | Color} [color=Color.WHITE] 一个属性，指定与模型渲染颜色混合的 {@link Color}。
+ * @property {Property | ColorBlendMode} [colorBlendMode=ColorBlendMode.HIGHLIGHT] 一个枚举属性，指定颜色如何与模型混合。
+ * @property {Property | number} [colorBlendAmount=0.5] 一个数值属性，指定当 <code>colorBlendMode</code> 为 <code>MIX</code> 时的颜色强度。值为 0.0 时会呈现模型的颜色，值为 1.0 时会呈现纯色，介于两者之间的值会导致两者的混合。
+ * @property {Property | Cartesian2} [imageBasedLightingFactor=new Cartesian2(1.0, 1.0)] 一个属性，指定来自漫反射和高光基于图像的光照的贡献。
+ * @property {Property | Color} [lightColor] 一个属性，指定在给模型上色时的光颜色。当 <code>undefined</code> 时，使用场景的光颜色。
+ * @property {Property | DistanceDisplayCondition} [distanceDisplayCondition] 一个属性，指定从相机的距离以显示该模型。
+ * @property {PropertyBag | Object<string, TranslationRotationScale>} [nodeTransformations] 一个对象，其中键是节点的名称，值是描述对该节点应用的转换的 {@link TranslationRotationScale} 属性。该转换在 glTF 中指定的节点现有转换之后应用，并不会替换节点的现有转换。
+ * @property {PropertyBag | Object<string, number>} [articulations] 一个对象，其中键由一个关节名称、一个空格和一个阶段名称组成，值是数值属性。
+ * @property {Property | ClippingPlaneCollection} [clippingPlanes] 一个属性，指定用于选择性禁用模型渲染的 {@link ClippingPlaneCollection}。
+ * @property {Property | CustomShader} [customShader] 一个属性，指定应用于该模型的 {@link CustomShader}。
  */
 
+
 /**
- * A 3D model based on {@link https://github.com/KhronosGroup/glTF|glTF}, the runtime asset format for WebGL, OpenGL ES, and OpenGL.
- * The position and orientation of the model is determined by the containing {@link Entity}.
+ * 基于 {@link https://github.com/KhronosGroup/glTF|glTF} 的 3D 模型，glTF 是 WebGL、OpenGL ES 和 OpenGL 的运行时资产格式。
+ * 模型的位置和方向由包含的 {@link Entity} 决定。
  * <p>
- * Cesium includes support for glTF geometry, materials, animations, and skinning.
- * Cameras and lights are not currently supported.
+ * Cesium 支持 glTF 几何图形、材质、动画和绑定功能。
+ * 目前不支持相机和光源。
  * </p>
  *
  * @alias ModelGraphics
  * @constructor
  *
- * @param {ModelGraphics.ConstructorOptions} [options] Object describing initialization options
+ * @param {ModelGraphics.ConstructorOptions} [options] 描述初始化选项的对象
  *
  * @demo {@link https://sandcastle.cesium.com/index.html?src=3D%20Models.html|Cesium Sandcastle 3D Models Demo}
  */
@@ -119,7 +120,7 @@ function ModelGraphics(options) {
 
 Object.defineProperties(ModelGraphics.prototype, {
   /**
-   * Gets the event that is raised whenever a property or sub-property is changed or modified.
+   * 当属性或子属性发生更改或修改时触发的事件。
    * @memberof ModelGraphics.prototype
    * @type {Event}
    * @readonly
@@ -131,7 +132,7 @@ Object.defineProperties(ModelGraphics.prototype, {
   },
 
   /**
-   * Gets or sets the boolean Property specifying the visibility of the model.
+   * 获取或设置布尔属性，指定模型的可见性。
    * @memberof ModelGraphics.prototype
    * @type {Property|undefined}
    * @default true
@@ -139,16 +140,15 @@ Object.defineProperties(ModelGraphics.prototype, {
   show: createPropertyDescriptor("show"),
 
   /**
-   * Gets or sets the string Property specifying the URI of the glTF asset.
+   * 获取或设置字符串属性，指定 glTF 资产的 URI。
    * @memberof ModelGraphics.prototype
    * @type {Property|undefined}
    */
   uri: createPropertyDescriptor("uri"),
 
   /**
-   * Gets or sets the numeric Property specifying a uniform linear scale
-   * for this model. Values greater than 1.0 increase the size of the model while
-   * values less than 1.0 decrease it.
+   * 获取或设置数值属性，指定此模型的统一线性缩放。
+   * 大于 1.0 的值增加模型的大小，而小于 1.0 的值减小模型的大小。
    * @memberof ModelGraphics.prototype
    * @type {Property|undefined}
    * @default 1.0
@@ -156,7 +156,7 @@ Object.defineProperties(ModelGraphics.prototype, {
   scale: createPropertyDescriptor("scale"),
 
   /**
-   * Gets or sets the boolean Property specifying if the model is exaggerated along the ellipsoid normal when {@link Scene.verticalExaggeration} is set to a value other than <code>1.0</code>.
+   * 获取或设置布尔属性，指定当 {@link Scene.verticalExaggeration} 设置为非 <code>1.0</code> 的值时，模型是否在椭球法线方向上夸张。
    * @memberof ModelGraphics.prototype
    * @type {Property|undefined}
    * @default true
@@ -166,10 +166,9 @@ Object.defineProperties(ModelGraphics.prototype, {
   ),
 
   /**
-   * Gets or sets the numeric Property specifying the approximate minimum
-   * pixel size of the model regardless of zoom. This can be used to ensure that
-   * a model is visible even when the viewer zooms out.  When <code>0.0</code>,
-   * no minimum size is enforced.
+   * 获取或设置数值属性，指定模型的近似最小像素大小，忽略缩放。
+   * 这可用于确保模型在查看器缩小时可见。当 <code>0.0</code> 时，
+   * 不强制执行最小大小。
    * @memberof ModelGraphics.prototype
    * @type {Property|undefined}
    * @default 0.0
@@ -177,17 +176,15 @@ Object.defineProperties(ModelGraphics.prototype, {
   minimumPixelSize: createPropertyDescriptor("minimumPixelSize"),
 
   /**
-   * Gets or sets the numeric Property specifying the maximum scale
-   * size of a model. This property is used as an upper limit for
-   * {@link ModelGraphics#minimumPixelSize}.
+   * 获取或设置数值属性，指定模型的最大缩放大小。
+   * 该属性用作 {@link ModelGraphics#minimumPixelSize} 的上限。
    * @memberof ModelGraphics.prototype
    * @type {Property|undefined}
    */
   maximumScale: createPropertyDescriptor("maximumScale"),
 
   /**
-   * Get or sets the boolean Property specifying whether textures
-   * may continue to stream in after the model is loaded.
+   * 获取或设置布尔属性，指定纹理是否可以在模型加载后继续流入。
    * @memberof ModelGraphics.prototype
    * @type {Property|undefined}
    */
@@ -196,7 +193,7 @@ Object.defineProperties(ModelGraphics.prototype, {
   ),
 
   /**
-   * Gets or sets the boolean Property specifying if glTF animations should be run.
+   * 获取或设置布尔属性，指定是否应运行 glTF 动画。
    * @memberof ModelGraphics.prototype
    * @type {Property|undefined}
    * @default true
@@ -204,7 +201,7 @@ Object.defineProperties(ModelGraphics.prototype, {
   runAnimations: createPropertyDescriptor("runAnimations"),
 
   /**
-   * Gets or sets the boolean Property specifying if glTF animations should hold the last pose for time durations with no keyframes.
+   * 获取或设置布尔属性，指定在没有关键帧的时间段内，glTF 动画是否应保持最后的姿态。
    * @memberof ModelGraphics.prototype
    * @type {Property|undefined}
    * @default true
@@ -212,8 +209,7 @@ Object.defineProperties(ModelGraphics.prototype, {
   clampAnimations: createPropertyDescriptor("clampAnimations"),
 
   /**
-   * Get or sets the enum Property specifying whether the model
-   * casts or receives shadows from light sources.
+   * 获取或设置枚举属性，指定模型是否从光源投射或接收阴影。
    * @memberof ModelGraphics.prototype
    * @type {Property|undefined}
    * @default ShadowMode.ENABLED
@@ -221,7 +217,7 @@ Object.defineProperties(ModelGraphics.prototype, {
   shadows: createPropertyDescriptor("shadows"),
 
   /**
-   * Gets or sets the Property specifying the {@link HeightReference}.
+   * 获取或设置指定 {@link HeightReference} 的属性。
    * @memberof ModelGraphics.prototype
    * @type {Property|undefined}
    * @default HeightReference.NONE
@@ -229,7 +225,7 @@ Object.defineProperties(ModelGraphics.prototype, {
   heightReference: createPropertyDescriptor("heightReference"),
 
   /**
-   * Gets or sets the Property specifying the {@link Color} of the silhouette.
+   * 获取或设置指定轮廓颜色的属性 {@link Color}。
    * @memberof ModelGraphics.prototype
    * @type {Property|undefined}
    * @default Color.RED
@@ -237,7 +233,7 @@ Object.defineProperties(ModelGraphics.prototype, {
   silhouetteColor: createPropertyDescriptor("silhouetteColor"),
 
   /**
-   * Gets or sets the numeric Property specifying the size of the silhouette in pixels.
+   * 获取或设置数值属性，指定轮廓的大小（以像素为单位）。
    * @memberof ModelGraphics.prototype
    * @type {Property|undefined}
    * @default 0.0
@@ -245,7 +241,7 @@ Object.defineProperties(ModelGraphics.prototype, {
   silhouetteSize: createPropertyDescriptor("silhouetteSize"),
 
   /**
-   * Gets or sets the Property specifying the {@link Color} that blends with the model's rendered color.
+   * 获取或设置指定 {@link Color} 的属性，该属性与模型渲染颜色混合。
    * @memberof ModelGraphics.prototype
    * @type {Property|undefined}
    * @default Color.WHITE
@@ -253,7 +249,7 @@ Object.defineProperties(ModelGraphics.prototype, {
   color: createPropertyDescriptor("color"),
 
   /**
-   * Gets or sets the enum Property specifying how the color blends with the model.
+   * 获取或设置枚举属性，指定颜色如何与模型混合。
    * @memberof ModelGraphics.prototype
    * @type {Property|undefined}
    * @default ColorBlendMode.HIGHLIGHT
@@ -261,9 +257,8 @@ Object.defineProperties(ModelGraphics.prototype, {
   colorBlendMode: createPropertyDescriptor("colorBlendMode"),
 
   /**
-   * A numeric Property specifying the color strength when the <code>colorBlendMode</code> is MIX.
-   * A value of 0.0 results in the model's rendered color while a value of 1.0 results in a solid color, with
-   * any value in-between resulting in a mix of the two.
+   * 指定当 <code>colorBlendMode</code> 为 MIX 时的颜色强度的数值属性。
+   * 值为 0.0 时呈现模型渲染颜色，值为 1.0 时呈现纯色，介于两者之间的值导致两者的混合。
    * @memberof ModelGraphics.prototype
    * @type {Property|undefined}
    * @default 0.5
@@ -271,7 +266,7 @@ Object.defineProperties(ModelGraphics.prototype, {
   colorBlendAmount: createPropertyDescriptor("colorBlendAmount"),
 
   /**
-   * A property specifying the {@link Cartesian2} used to scale the diffuse and specular image-based lighting contribution to the final color.
+   * 指定 {@link Cartesian2} 的属性，用于缩放漫反射和高光基于图像的光照对最终颜色的贡献。
    * @memberof ModelGraphics.prototype
    * @type {Property|undefined}
    */
@@ -280,14 +275,14 @@ Object.defineProperties(ModelGraphics.prototype, {
   ),
 
   /**
-   * A property specifying the {@link Cartesian3} light color when shading the model. When <code>undefined</code> the scene's light color is used instead.
+   * 指定在给模型上色时的 {@link Cartesian3} 光颜色的属性。当 <code>undefined</code> 时，使用场景的光颜色。
    * @memberOf ModelGraphics.prototype
    * @type {Property|undefined}
    */
   lightColor: createPropertyDescriptor("lightColor"),
 
   /**
-   * Gets or sets the {@link DistanceDisplayCondition} Property specifying at what distance from the camera that this model will be displayed.
+   * 获取或设置 {@link DistanceDisplayCondition} 属性，指定从相机的距离以显示该模型。
    * @memberof ModelGraphics.prototype
    * @type {Property|undefined}
    */
@@ -296,9 +291,9 @@ Object.defineProperties(ModelGraphics.prototype, {
   ),
 
   /**
-   * Gets or sets the set of node transformations to apply to this model.  This is represented as an {@link PropertyBag}, where keys are
-   * names of nodes, and values are {@link TranslationRotationScale} Properties describing the transformation to apply to that node.
-   * The transformation is applied after the node's existing transformation as specified in the glTF, and does not replace the node's existing transformation.
+   * 获取或设置应用于此模型的节点变换集合。这表示为 {@link PropertyBag}，其中键是
+   * 节点的名称，值是描述要应用于该节点的转换的 {@link TranslationRotationScale} 属性。
+   * 转换在 glTF 中指定的节点现有转换之后应用，并不会替换节点的现有转换。
    * @memberof ModelGraphics.prototype
    * @type {PropertyBag}
    */
@@ -309,8 +304,8 @@ Object.defineProperties(ModelGraphics.prototype, {
   ),
 
   /**
-   * Gets or sets the set of articulation values to apply to this model.  This is represented as an {@link PropertyBag}, where keys are
-   * composed as the name of the articulation, a single space, and the name of the stage.
+   * 获取或设置应用于此模型的关节值集合。这表示为 {@link PropertyBag}，其中键由
+   * 关节名称、一个空格和阶段名称组成。
    * @memberof ModelGraphics.prototype
    * @type {PropertyBag}
    */
@@ -321,26 +316,28 @@ Object.defineProperties(ModelGraphics.prototype, {
   ),
 
   /**
-   * A property specifying the {@link ClippingPlaneCollection} used to selectively disable rendering the model.
+   * 指定用于选择性禁用模型渲染的 {@link ClippingPlaneCollection} 的属性。
    * @memberof ModelGraphics.prototype
    * @type {Property|undefined}
    */
   clippingPlanes: createPropertyDescriptor("clippingPlanes"),
 
   /**
-   * Gets or sets the {@link CustomShader} to apply to this model. When <code>undefined</code>, no custom shader code is used.
+   * 获取或设置要应用于此模型的 {@link CustomShader} 属性。当 <code>undefined</code> 时，不使用自定义着色器代码。
    * @memberof ModelGraphics.prototype
    * @type {Property|undefined}
    */
   customShader: createPropertyDescriptor("customShader"),
 });
 
+
 /**
- * Duplicates this instance.
+ * 复制此实例。
  *
- * @param {ModelGraphics} [result] 存储结果的对象.
- * @returns {ModelGraphics} The modified result parameter or a new instance if one was not provided.
+ * @param {ModelGraphics} [result] 存储结果的对象。
+ * @returns {ModelGraphics} 修改后的结果参数，如果未提供，则返回一个新实例。
  */
+
 ModelGraphics.prototype.clone = function (result) {
   if (!defined(result)) {
     return new ModelGraphics(this);
@@ -371,11 +368,11 @@ ModelGraphics.prototype.clone = function (result) {
 };
 
 /**
- * Assigns each unassigned property on this object to the value
- * of the same property on the provided source object.
+ * 将此对象上每个未分配的属性赋值为提供的源对象上相同属性的值。
  *
- * @param {ModelGraphics} source The object to be merged into this object.
+ * @param {ModelGraphics} source 要合并到此对象中的对象。
  */
+
 ModelGraphics.prototype.merge = function (source) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(source)) {

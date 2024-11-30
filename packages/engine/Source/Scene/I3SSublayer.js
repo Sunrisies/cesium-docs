@@ -6,13 +6,14 @@ import I3SLayer from "./I3SLayer.js";
 import Resource from "../Core/Resource.js";
 
 /**
- * This class implements an I3S sublayer for Building Scene Layer.
+ * 该类实现了建筑场景层的 I3S 子图层。
  * <p>
- * This object is normally not instantiated directly, use {@link I3SSublayer.fromData}.
+ * 此对象通常不直接实例化，而是使用 {@link I3SSublayer.fromData}。
  * </p>
  * @alias I3SSublayer
  * @internalConstructor
  */
+
 function I3SSublayer(dataProvider, parent, sublayerData) {
   this._dataProvider = dataProvider;
   this._parent = parent;
@@ -27,7 +28,7 @@ function I3SSublayer(dataProvider, parent, sublayerData) {
 
 Object.defineProperties(I3SSublayer.prototype, {
   /**
-   * Gets the resource for the sublayer
+   * 获取子图层的资源
    * @memberof I3SSublayer.prototype
    * @type {Resource}
    * @readonly
@@ -39,7 +40,7 @@ Object.defineProperties(I3SSublayer.prototype, {
   },
 
   /**
-   * Gets the I3S data for this object.
+   * 获取此对象的 I3S 数据。
    * @memberof I3SSublayer.prototype
    * @type {object}
    * @readonly
@@ -51,7 +52,7 @@ Object.defineProperties(I3SSublayer.prototype, {
   },
 
   /**
-   * Gets the name for the sublayer.
+   * 获取子图层的名称。
    * @memberof I3SSublayer.prototype
    * @type {string}
    * @readonly
@@ -63,7 +64,7 @@ Object.defineProperties(I3SSublayer.prototype, {
   },
 
   /**
-   * Gets the model name for the sublayer.
+   * 获取子图层的模型名称。
    * @memberof I3SSublayer.prototype
    * @type {string}
    * @readonly
@@ -75,7 +76,7 @@ Object.defineProperties(I3SSublayer.prototype, {
   },
 
   /**
-   * Gets the collection of child sublayers.
+   * 获取子图层的子图层集合。
    * @memberof I3SSublayer.prototype
    * @type {I3SSublayer[]}
    * @readonly
@@ -87,7 +88,7 @@ Object.defineProperties(I3SSublayer.prototype, {
   },
 
   /**
-   * Gets or sets the sublayer visibility.
+   * 获取或设置子图层的可见性。
    * @memberof I3SSublayer.prototype
    * @type {boolean}
    */
@@ -110,7 +111,7 @@ Object.defineProperties(I3SSublayer.prototype, {
   },
 
   /**
-   * Determines if the sublayer will be shown.
+   * 确定子图层是否会被显示。
    * @memberof I3SSublayer.prototype
    * @type {boolean}
    * @readonly
@@ -121,6 +122,7 @@ Object.defineProperties(I3SSublayer.prototype, {
     },
   },
 });
+
 
 /**
  * @private

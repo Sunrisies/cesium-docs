@@ -88,54 +88,56 @@ function parseFont(label) {
 /**
  * @typedef {object} Label.ConstructorOptions
  *
- * Initialization options for the Label constructor
+ * Label 构造函数的初始化选项
  *
- * @property {Cartesian3} position The cartesian position of the label.
- * @property {*} [id] A user-defined object to return when the label is picked with {@link Scene#pick}.
- * @property {boolean} [show=true] Determines if this label will be shown.
- * @property {string} [text] A string specifying the text of the label.
- * @property {string} [font='30px sans-serif'] A string specifying the font used to draw this label. Fonts are specified using the same syntax as the CSS 'font' property.
- * @property {LabelStyle} [style=LabelStyle.FILL] A {@link LabelStyle} specifying the style of the label.
- * @property {number} [scale=1.0] A number specifying the uniform scale that is multiplied with the label size.
- * @property {boolean} [showBackground=false] Determines if a background behind this label will be shown.
- * @property {Color} [backgroundColor=new Color(0.165, 0.165, 0.165, 0.8)] A {@link Color} specifying the background color of the label.
- * @property {Cartesian2} [backgroundPadding=new Cartesian2(7, 5)] A {@link Cartesian2} Specifying the horizontal and vertical background padding in pixels.
- * @property {Cartesian2} [pixelOffset=Cartesian2.ZERO] A {@link Cartesian2} specifying the pixel offset in screen space from the origin of this label.
- * @property {Cartesian3} [eyeOffset=Cartesian3.ZERO] A {@link Cartesian3} specifying the 3D Cartesian offset applied to this label in eye coordinates.
- * @property {HorizontalOrigin} [horizontalOrigin=HorizontalOrigin.LEFT] A {@link HorizontalOrigin} specifying the horizontal origin of this label.
- * @property {VerticalOrigin} [verticalOrigin=VerticalOrigin.BASELINE] A {@link VerticalOrigin} specifying the vertical origin of this label.
- * @property {HeightReference} [heightReference=HeightReference.NONE] A {@link HeightReference} specifying the height reference of this label.
- * @property {Color} [fillColor=Color.WHITE] A {@link Color} specifying the fill color of the label.
- * @property {Color} [outlineColor=Color.BLACK] A {@link Color} specifying the outline color of the label.
- * @property {number} [outlineWidth=1.0] A number specifying the outline width of the label.
- * @property {NearFarScalar} [translucencyByDistance] A {@link NearFarScalar} specifying near and far translucency properties of the label based on the label's distance from the camera.
- * @property {NearFarScalar} [pixelOffsetScaleByDistance] A {@link NearFarScalar} specifying near and far pixel offset scaling properties of the label based on the label's distance from the camera.
- * @property {NearFarScalar} [scaleByDistance] A {@link NearFarScalar} specifying near and far scaling properties of the label based on the label's distance from the camera.
- * @property {DistanceDisplayCondition} [distanceDisplayCondition] A {@link DistanceDisplayCondition} specifying at what distance from the camera that this label will be displayed.
- * @property {number} [disableDepthTestDistance] A number specifying the distance from the camera at which to disable the depth test to, for example, prevent clipping against terrain.
+ * @property {Cartesian3} position 标签的笛卡尔位置。
+ * @property {*} [id] 用户自定义的对象，当使用 {@link Scene#pick} 选择标签时返回。
+ * @property {boolean} [show=true] 决定该标签是否显示。
+ * @property {string} [text] 指定标签文本的字符串。
+ * @property {string} [font='30px sans-serif'] 指定用于绘制该标签的字体的字符串。字体使用与 CSS 'font' 属性相同的语法指定。
+ * @property {LabelStyle} [style=LabelStyle.FILL] 指定标签样式的 {@link LabelStyle}。
+ * @property {number} [scale=1.0] 指定与标签大小相乘的均匀缩放数字。
+ * @property {boolean} [showBackground=false] 决定是否显示该标签后面的背景。
+ * @property {Color} [backgroundColor=new Color(0.165, 0.165, 0.165, 0.8)] 指定标签背景颜色的 {@link Color}。
+ * @property {Cartesian2} [backgroundPadding=new Cartesian2(7, 5)] 指定背景的水平和垂直填充（以像素为单位）的 {@link Cartesian2}。
+ * @property {Cartesian2} [pixelOffset=Cartesian2.ZERO] 指定该标签在屏幕空间中从原点的像素偏移的 {@link Cartesian2}。
+ * @property {Cartesian3} [eyeOffset=Cartesian3.ZERO] 指定在眼坐标系中应用于该标签的 3D 笛卡尔偏移的 {@link Cartesian3}。
+ * @property {HorizontalOrigin} [horizontalOrigin=HorizontalOrigin.LEFT] 指定该标签的水平原点的 {@link HorizontalOrigin}。
+ * @property {VerticalOrigin} [verticalOrigin=VerticalOrigin.BASELINE] 指定该标签的垂直原点的 {@link VerticalOrigin}。
+ * @property {HeightReference} [heightReference=HeightReference.NONE] 指定该标签的高度参考的 {@link HeightReference}。
+ * @property {Color} [fillColor=Color.WHITE] 指定标签填充颜色的 {@link Color}。
+ * @property {Color} [outlineColor=Color.BLACK] 指定标签轮廓颜色的 {@link Color}。
+ * @property {number} [outlineWidth=1.0] 指定标签轮廓宽度的数字。
+ * @property {NearFarScalar} [translucencyByDistance] 指定基于标签与相机距离的标签的近远半透明属性的 {@link NearFarScalar}。
+ * @property {NearFarScalar} [pixelOffsetScaleByDistance] 指定基于标签与相机距离的标签的近远像素偏移缩放属性的 {@link NearFarScalar}。
+ * @property {NearFarScalar} [scaleByDistance] 指定基于标签与相机距离的标签的近远缩放属性的 {@link NearFarScalar}。
+ * @property {DistanceDisplayCondition} [distanceDisplayCondition] 指定在距离相机的某个距离内显示该标签的 {@link DistanceDisplayCondition}。
+ * @property {number} [disableDepthTestDistance] 指定距离相机的距离，在此处禁用深度测试，以防止与地形剪裁。
  */
+
 
 /**
  * <div class="notice">
- * Create labels by calling {@link LabelCollection#add}. Do not call the constructor directly.
+ * 通过调用 {@link LabelCollection#add} 创建标签。请勿直接调用构造函数。
  * </div>
  *
  * @alias Label
  * @internalConstructor
  * @class
  *
- * @param {Label.ConstructorOptions} options Object describing initialization options
- * @param {LabelCollection} labelCollection Instance of LabelCollection
+ * @param {Label.ConstructorOptions} options 描述初始化选项的对象
+ * @param {LabelCollection} labelCollection LabelCollection 的实例
  *
- * @exception {DeveloperError} translucencyByDistance.far must be greater than translucencyByDistance.near
- * @exception {DeveloperError} pixelOffsetScaleByDistance.far must be greater than pixelOffsetScaleByDistance.near
- * @exception {DeveloperError} distanceDisplayCondition.far must be greater than distanceDisplayCondition.near
+ * @exception {DeveloperError} translucencyByDistance.far 必须大于 translucencyByDistance.near
+ * @exception {DeveloperError} pixelOffsetScaleByDistance.far 必须大于 pixelOffsetScaleByDistance.near
+ * @exception {DeveloperError} distanceDisplayCondition.far 必须大于 distanceDisplayCondition.near
  *
  * @see LabelCollection
  * @see LabelCollection#add
  *
  * @demo {@link https://sandcastle.cesium.com/index.html?src=Labels.html|Cesium Sandcastle Labels Demo}
  */
+
 function Label(options, labelCollection) {
   options = defaultValue(options, defaultValue.EMPTY_OBJECT);
 
@@ -270,17 +272,17 @@ function Label(options, labelCollection) {
 
 Object.defineProperties(Label.prototype, {
   /**
-   * Determines if this label will be shown.  Use this to hide or show a label, instead
-   * of removing it and re-adding it to the collection.
+   * 决定该标签是否显示。使用此属性来隐藏或显示标签，而不是移除它并重新添加到集合中。
    * @memberof Label.prototype
    * @type {boolean}
    * @default true
    */
+
   show: {
-    get: function () {
+    get: function() {
       return this._show;
     },
-    set: function (value) {
+    set: function(value) {
       //>>includeStart('debug', pragmas.debug);
       if (!defined(value)) {
         throw new DeveloperError("value is required.");
@@ -306,15 +308,16 @@ Object.defineProperties(Label.prototype, {
   },
 
   /**
-   * Gets or sets the Cartesian position of this label.
-   * @memberof Label.prototype
-   * @type {Cartesian3}
-   */
+     * 获取或设置该标签的笛卡尔位置。
+     * @memberof Label.prototype
+     * @type {Cartesian3}
+     */
+
   position: {
-    get: function () {
+    get: function() {
       return this._position;
     },
-    set: function (value) {
+    set: function(value) {
       //>>includeStart('debug', pragmas.debug);
       if (!defined(value)) {
         throw new DeveloperError("value is required.");
@@ -343,16 +346,17 @@ Object.defineProperties(Label.prototype, {
   },
 
   /**
-   * Gets or sets the height reference of this billboard.
+   * 获取或设置该公告牌的高度参考。
    * @memberof Label.prototype
    * @type {HeightReference}
    * @default HeightReference.NONE
    */
+
   heightReference: {
-    get: function () {
+    get: function() {
       return this._heightReference;
     },
-    set: function (value) {
+    set: function(value) {
       //>>includeStart('debug', pragmas.debug);
       if (!defined(value)) {
         throw new DeveloperError("value is required.");
@@ -382,15 +386,16 @@ Object.defineProperties(Label.prototype, {
   },
 
   /**
-   * Gets or sets the text of this label.
+   * 获取或设置该标签的文本。
    * @memberof Label.prototype
    * @type {string}
    */
+
   text: {
-    get: function () {
+    get: function() {
       return this._text;
     },
-    set: function (value) {
+    set: function(value) {
       //>>includeStart('debug', pragmas.debug);
       if (!defined(value)) {
         throw new DeveloperError("value is required.");
@@ -411,17 +416,17 @@ Object.defineProperties(Label.prototype, {
   },
 
   /**
-   * Gets or sets the font used to draw this label. Fonts are specified using the same syntax as the CSS 'font' property.
+   * 获取或设置用于绘制该标签的字体。字体使用与 CSS 'font' 属性相同的语法指定。
    * @memberof Label.prototype
    * @type {string}
    * @default '30px sans-serif'
    * @see {@link http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#text-styles|HTML canvas 2D context text styles}
    */
   font: {
-    get: function () {
+    get: function() {
       return this._font;
     },
-    set: function (value) {
+    set: function(value) {
       //>>includeStart('debug', pragmas.debug);
       if (!defined(value)) {
         throw new DeveloperError("value is required.");
@@ -437,17 +442,17 @@ Object.defineProperties(Label.prototype, {
   },
 
   /**
-   * Gets or sets the fill color of this label.
+   * 获取或设置该标签的填充颜色
    * @memberof Label.prototype
    * @type {Color}
    * @default Color.WHITE
    * @see {@link http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#fill-and-stroke-styles|HTML canvas 2D context fill and stroke styles}
    */
   fillColor: {
-    get: function () {
+    get: function() {
       return this._fillColor;
     },
-    set: function (value) {
+    set: function(value) {
       //>>includeStart('debug', pragmas.debug);
       if (!defined(value)) {
         throw new DeveloperError("value is required.");
@@ -463,17 +468,17 @@ Object.defineProperties(Label.prototype, {
   },
 
   /**
-   * Gets or sets the outline color of this label.
+   * 获取或设置该标签的轮廓颜色。
    * @memberof Label.prototype
    * @type {Color}
    * @default Color.BLACK
    * @see {@link http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#fill-and-stroke-styles|HTML canvas 2D context fill and stroke styles}
    */
   outlineColor: {
-    get: function () {
+    get: function() {
       return this._outlineColor;
     },
-    set: function (value) {
+    set: function(value) {
       //>>includeStart('debug', pragmas.debug);
       if (!defined(value)) {
         throw new DeveloperError("value is required.");
@@ -489,17 +494,17 @@ Object.defineProperties(Label.prototype, {
   },
 
   /**
-   * Gets or sets the outline width of this label.
+   * 获取或设置该标签的轮廓宽度。
    * @memberof Label.prototype
    * @type {number}
    * @default 1.0
    * @see {@link http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#fill-and-stroke-styles|HTML canvas 2D context fill and stroke styles}
    */
   outlineWidth: {
-    get: function () {
+    get: function() {
       return this._outlineWidth;
     },
-    set: function (value) {
+    set: function(value) {
       //>>includeStart('debug', pragmas.debug);
       if (!defined(value)) {
         throw new DeveloperError("value is required.");
@@ -514,16 +519,16 @@ Object.defineProperties(Label.prototype, {
   },
 
   /**
-   * Determines if a background behind this label will be shown.
+   * 决定该标签后面是否将显示背景。
    * @memberof Label.prototype
    * @default false
    * @type {boolean}
    */
   showBackground: {
-    get: function () {
+    get: function() {
       return this._showBackground;
     },
-    set: function (value) {
+    set: function(value) {
       //>>includeStart('debug', pragmas.debug);
       if (!defined(value)) {
         throw new DeveloperError("value is required.");
@@ -538,16 +543,17 @@ Object.defineProperties(Label.prototype, {
   },
 
   /**
-   * Gets or sets the background color of this label.
+   * 获取或设置该标签的背景颜色。
    * @memberof Label.prototype
    * @type {Color}
    * @default new Color(0.165, 0.165, 0.165, 0.8)
    */
+
   backgroundColor: {
-    get: function () {
+    get: function() {
       return this._backgroundColor;
     },
-    set: function (value) {
+    set: function(value) {
       //>>includeStart('debug', pragmas.debug);
       if (!defined(value)) {
         throw new DeveloperError("value is required.");
@@ -567,17 +573,17 @@ Object.defineProperties(Label.prototype, {
   },
 
   /**
-   * Gets or sets the background padding, in pixels, of this label.  The <code>x</code> value
-   * controls horizontal padding, and the <code>y</code> value controls vertical padding.
+   * 获取或设置该标签的背景填充，单位为像素。<code>x</code> 值控制水平填充，<code>y</code> 值控制垂直填充。
    * @memberof Label.prototype
    * @type {Cartesian2}
    * @default new Cartesian2(7, 5)
    */
+
   backgroundPadding: {
-    get: function () {
+    get: function() {
       return this._backgroundPadding;
     },
-    set: function (value) {
+    set: function(value) {
       //>>includeStart('debug', pragmas.debug);
       if (!defined(value)) {
         throw new DeveloperError("value is required.");
@@ -593,16 +599,17 @@ Object.defineProperties(Label.prototype, {
   },
 
   /**
-   * Gets or sets the style of this label.
+   * 获取或设置该标签的样式。
    * @memberof Label.prototype
    * @type {LabelStyle}
    * @default LabelStyle.FILL
    */
+
   style: {
-    get: function () {
+    get: function() {
       return this._style;
     },
-    set: function (value) {
+    set: function(value) {
       //>>includeStart('debug', pragmas.debug);
       if (!defined(value)) {
         throw new DeveloperError("value is required.");
@@ -617,27 +624,26 @@ Object.defineProperties(Label.prototype, {
   },
 
   /**
-   * Gets or sets the pixel offset in screen space from the origin of this label.  This is commonly used
-   * to align multiple labels and billboards at the same position, e.g., an image and text.  The
-   * screen space origin is the top, left corner of the canvas; <code>x</code> increases from
-   * left to right, and <code>y</code> increases from top to bottom.
+   * 获取或设置该标签在屏幕空间中从原点的像素偏移。通常用于使多个标签和公告牌在同一位置对齐，例如图像和文本。
+   * 屏幕空间原点是画布的左上角；<code>x</code> 从左到右增加，<code>y</code> 从上到下增加。
    * <br /><br />
    * <div align='center'>
    * <table border='0' cellpadding='5'><tr>
    * <td align='center'><code>default</code><br/><img src='Images/Label.setPixelOffset.default.png' width='250' height='188' /></td>
    * <td align='center'><code>l.pixeloffset = new Cartesian2(25, 75);</code><br/><img src='Images/Label.setPixelOffset.x50y-25.png' width='250' height='188' /></td>
    * </tr></table>
-   * The label's origin is indicated by the yellow point.
+   * 标签的原点由黄色点表示。
    * </div>
    * @memberof Label.prototype
    * @type {Cartesian2}
    * @default Cartesian2.ZERO
    */
+
   pixelOffset: {
-    get: function () {
+    get: function() {
       return this._pixelOffset;
     },
-    set: function (value) {
+    set: function(value) {
       //>>includeStart('debug', pragmas.debug);
       if (!defined(value)) {
         throw new DeveloperError("value is required.");
@@ -664,12 +670,12 @@ Object.defineProperties(Label.prototype, {
   },
 
   /**
-   * Gets or sets near and far translucency properties of a Label based on the Label's distance from the camera.
-   * A label's translucency will interpolate between the {@link NearFarScalar#nearValue} and
-   * {@link NearFarScalar#farValue} while the camera distance falls within the lower and upper bounds
-   * of the specified {@link NearFarScalar#near} and {@link NearFarScalar#far}.
-   * Outside of these ranges the label's translucency remains clamped to the nearest bound.  If undefined,
-   * translucencyByDistance will be disabled.
+   * 获取或设置标签基于与相机距离的近远半透明属性。
+   * 标签的半透明度将在 {@link NearFarScalar#nearValue} 和
+   * {@link NearFarScalar#farValue} 之间插值，而相机距离处于指定的
+   * {@link NearFarScalar#near} 和 {@link NearFarScalar#far} 的上下限内。
+   * 超出这些范围，标签的半透明度将保持在最近的边界。如果未定义，
+   * translucencyByDistance 将被禁用。
    * @memberof Label.prototype
    * @type {NearFarScalar}
    *
@@ -686,10 +692,10 @@ Object.defineProperties(Label.prototype, {
    * text.translucencyByDistance = undefined;
    */
   translucencyByDistance: {
-    get: function () {
+    get: function() {
       return this._translucencyByDistance;
     },
-    set: function (value) {
+    set: function(value) {
       //>>includeStart('debug', pragmas.debug);
       if (defined(value) && value.far <= value.near) {
         throw new DeveloperError(
@@ -721,33 +727,33 @@ Object.defineProperties(Label.prototype, {
   },
 
   /**
-   * Gets or sets near and far pixel offset scaling properties of a Label based on the Label's distance from the camera.
-   * A label's pixel offset will be scaled between the {@link NearFarScalar#nearValue} and
-   * {@link NearFarScalar#farValue} while the camera distance falls within the lower and upper bounds
-   * of the specified {@link NearFarScalar#near} and {@link NearFarScalar#far}.
-   * Outside of these ranges the label's pixel offset scaling remains clamped to the nearest bound.  If undefined,
-   * pixelOffsetScaleByDistance will be disabled.
-   * @memberof Label.prototype
-   * @type {NearFarScalar}
-   *
-   * @example
-   * // Example 1.
-   * // Set a label's pixel offset scale to 0.0 when the
-   * // camera is 1500 meters from the label and scale pixel offset to 10.0 pixels
-   * // in the y direction the camera distance approaches 8.0e6 meters.
-   * text.pixelOffset = new Cesium.Cartesian2(0.0, 1.0);
-   * text.pixelOffsetScaleByDistance = new Cesium.NearFarScalar(1.5e2, 0.0, 8.0e6, 10.0);
-   *
-   * @example
-   * // Example 2.
-   * // disable pixel offset by distance
-   * text.pixelOffsetScaleByDistance = undefined;
-   */
+    * 获取或设置标签基于与相机距离的近远像素偏移缩放属性。
+    * 标签的像素偏移将在 {@link NearFarScalar#nearValue} 和
+    * {@link NearFarScalar#farValue} 之间缩放，而相机距离处于指定的
+    * {@link NearFarScalar#near} 和 {@link NearFarScalar#far} 的上下限内。
+    * 超出这些范围，标签的像素偏移缩放将保持在最近的边界。如果未定义，
+    * pixelOffsetScaleByDistance 将被禁用。
+    * @memberof Label.prototype
+    * @type {NearFarScalar}
+    *
+    * @example
+    * // Example 1.
+    * // Set a label's pixel offset scale to 0.0 when the
+    * // camera is 1500 meters from the label and scale pixel offset to 10.0 pixels
+    * // in the y direction the camera distance approaches 8.0e6 meters.
+    * text.pixelOffset = new Cesium.Cartesian2(0.0, 1.0);
+    * text.pixelOffsetScaleByDistance = new Cesium.NearFarScalar(1.5e2, 0.0, 8.0e6, 10.0);
+    *
+    * @example
+    * // Example 2.
+    * // disable pixel offset by distance
+    * text.pixelOffsetScaleByDistance = undefined;
+    */
   pixelOffsetScaleByDistance: {
-    get: function () {
+    get: function() {
       return this._pixelOffsetScaleByDistance;
     },
-    set: function (value) {
+    set: function(value) {
       //>>includeStart('debug', pragmas.debug);
       if (defined(value) && value.far <= value.near) {
         throw new DeveloperError(
@@ -779,12 +785,12 @@ Object.defineProperties(Label.prototype, {
   },
 
   /**
-   * Gets or sets near and far scaling properties of a Label based on the label's distance from the camera.
-   * A label's scale will interpolate between the {@link NearFarScalar#nearValue} and
-   * {@link NearFarScalar#farValue} while the camera distance falls within the lower and upper bounds
-   * of the specified {@link NearFarScalar#near} and {@link NearFarScalar#far}.
-   * Outside of these ranges the label's scale remains clamped to the nearest bound.  If undefined,
-   * scaleByDistance will be disabled.
+   * 获取或设置标签基于与相机距离的近远缩放属性。
+   * 标签的缩放将在 {@link NearFarScalar#nearValue} 和
+   * {@link NearFarScalar#farValue} 之间插值，而相机距离处于指定的
+   * {@link NearFarScalar#near} 和 {@link NearFarScalar#far} 的上下限内。
+   * 超出这些范围，标签的缩放将保持在最近的边界。如果未定义，
+   * scaleByDistance 将被禁用。
    * @memberof Label.prototype
    * @type {NearFarScalar}
    *
@@ -801,10 +807,10 @@ Object.defineProperties(Label.prototype, {
    * label.scaleByDistance = undefined;
    */
   scaleByDistance: {
-    get: function () {
+    get: function() {
       return this._scaleByDistance;
     },
-    set: function (value) {
+    set: function(value) {
       //>>includeStart('debug', pragmas.debug);
       if (defined(value) && value.far <= value.near) {
         throw new DeveloperError(
@@ -833,16 +839,11 @@ Object.defineProperties(Label.prototype, {
   },
 
   /**
-   * Gets and sets the 3D Cartesian offset applied to this label in eye coordinates.  Eye coordinates is a left-handed
-   * coordinate system, where <code>x</code> points towards the viewer's right, <code>y</code> points up, and
-   * <code>z</code> points into the screen.  Eye coordinates use the same scale as world and model coordinates,
-   * which is typically meters.
+   * 获取和设置应用于该标签的 3D 笛卡尔偏移（在眼坐标系中）。眼坐标系是一个左手坐标系统，其中 <code>x</code> 指向观察者的右侧，<code>y</code> 指向上方，<code>z</code> 指向屏幕内侧。眼坐标系使用与世界和模型坐标相同的尺度，通常为米。
    * <br /><br />
-   * An eye offset is commonly used to arrange multiple label or objects at the same position, e.g., to
-   * arrange a label above its corresponding 3D model.
+   * 眼偏移通常用于将多个标签或对象排列在同一位置，例如，将标签放置在其对应的 3D 模型上方。
    * <br /><br />
-   * Below, the label is positioned at the center of the Earth but an eye offset makes it always
-   * appear on top of the Earth regardless of the viewer's or Earth's orientation.
+   * 在下面的示例中，标签位于地球的中心，但眼偏移使其始终出现在地球的顶部，不论观察者或地球的方向如何。
    * <br /><br />
    * <div align='center'>
    * <table border='0' cellpadding='5'><tr>
@@ -855,11 +856,12 @@ Object.defineProperties(Label.prototype, {
    * @type {Cartesian3}
    * @default Cartesian3.ZERO
    */
+
   eyeOffset: {
-    get: function () {
+    get: function() {
       return this._eyeOffset;
     },
-    set: function (value) {
+    set: function(value) {
       //>>includeStart('debug', pragmas.debug);
       if (!defined(value)) {
         throw new DeveloperError("value is required.");
@@ -886,8 +888,7 @@ Object.defineProperties(Label.prototype, {
   },
 
   /**
-   * Gets or sets the horizontal origin of this label, which determines if the label is drawn
-   * to the left, center, or right of its anchor position.
+   * 获取或设置该标签的水平原点，决定标签是在其锚点位置的左侧、中心还是右侧绘制。
    * <br /><br />
    * <div align='center'>
    * <img src='Images/Billboard.setHorizontalOrigin.png' width='648' height='196' /><br />
@@ -901,10 +902,10 @@ Object.defineProperties(Label.prototype, {
    * l.verticalOrigin = Cesium.VerticalOrigin.TOP;
    */
   horizontalOrigin: {
-    get: function () {
+    get: function() {
       return this._horizontalOrigin;
     },
-    set: function (value) {
+    set: function(value) {
       //>>includeStart('debug', pragmas.debug);
       if (!defined(value)) {
         throw new DeveloperError("value is required.");
@@ -919,8 +920,7 @@ Object.defineProperties(Label.prototype, {
   },
 
   /**
-   * Gets or sets the vertical origin of this label, which determines if the label is
-   * to the above, below, or at the center of its anchor position.
+   * 获取或设置该标签的垂直原点，决定标签是在其锚点位置的上方、下方还是中心。
    * <br /><br />
    * <div align='center'>
    * <img src='Images/Billboard.setVerticalOrigin.png' width='695' height='175' /><br />
@@ -934,10 +934,10 @@ Object.defineProperties(Label.prototype, {
    * l.verticalOrigin = Cesium.VerticalOrigin.TOP;
    */
   verticalOrigin: {
-    get: function () {
+    get: function() {
       return this._verticalOrigin;
     },
-    set: function (value) {
+    set: function(value) {
       //>>includeStart('debug', pragmas.debug);
       if (!defined(value)) {
         throw new DeveloperError("value is required.");
@@ -965,28 +965,25 @@ Object.defineProperties(Label.prototype, {
   },
 
   /**
-   * Gets or sets the uniform scale that is multiplied with the label's size in pixels.
-   * A scale of <code>1.0</code> does not change the size of the label; a scale greater than
-   * <code>1.0</code> enlarges the label; a positive scale less than <code>1.0</code> shrinks
-   * the label.
+   * 获取或设置与标签的像素大小相乘的均匀缩放因子。
+   * 缩放值为 <code>1.0</code> 时不会改变标签的大小；大于 <code>1.0</code> 的缩放值会放大标签；小于 <code>1.0</code> 的正缩放值会缩小标签。
    * <br /><br />
-   * Applying a large scale value may pixelate the label.  To make text larger without pixelation,
-   * use a larger font size when calling {@link Label#font} instead.
+   * 应用较大的缩放值可能会导致标签出现像素化。要使文本更大而不出现像素化，请在调用 {@link Label#font} 时使用较大的字体大小。
    * <br /><br />
    * <div align='center'>
    * <img src='Images/Label.setScale.png' width='400' height='300' /><br/>
-   * From left to right in the above image, the scales are <code>0.5</code>, <code>1.0</code>,
-   * and <code>2.0</code>.
+   * 上图中从左到右的缩放值分别是 <code>0.5</code>、<code>1.0</code> 和 <code>2.0</code>。
    * </div>
    * @memberof Label.prototype
    * @type {number}
    * @default 1.0
    */
+
   scale: {
-    get: function () {
+    get: function() {
       return this._scale;
     },
-    set: function (value) {
+    set: function(value) {
       //>>includeStart('debug', pragmas.debug);
       if (!defined(value)) {
         throw new DeveloperError("value is required.");
@@ -1014,29 +1011,29 @@ Object.defineProperties(Label.prototype, {
   },
 
   /**
-   * Gets the total scale of the label, which is the label's scale multiplied by the computed relative size
-   * of the desired font compared to the generated glyph size.
+   * 获取标签的总缩放值，即标签的缩放与所需字体的计算相对大小与生成的字形大小的乘积。
    * @memberof Label.prototype
    * @type {number}
    * @default 1.0
    */
   totalScale: {
-    get: function () {
+    get: function() {
       return this._scale * this._relativeSize;
     },
   },
 
   /**
-   * Gets or sets the condition specifying at what distance from the camera that this label will be displayed.
+   * 获取或设置指定在距离相机的多远时显示该标签的条件。
    * @memberof Label.prototype
    * @type {DistanceDisplayCondition}
    * @default undefined
    */
+
   distanceDisplayCondition: {
-    get: function () {
+    get: function() {
       return this._distanceDisplayCondition;
     },
-    set: function (value) {
+    set: function(value) {
       //>>includeStart('debug', pragmas.debug);
       if (defined(value) && value.far <= value.near) {
         throw new DeveloperError("far must be greater than near");
@@ -1066,16 +1063,17 @@ Object.defineProperties(Label.prototype, {
   },
 
   /**
-   * Gets or sets the distance from the camera at which to disable the depth test to, for example, prevent clipping against terrain.
-   * When set to zero, the depth test is always applied. When set to Number.POSITIVE_INFINITY, the depth test is never applied.
+   * 获取或设置距离相机的距离，在此距离禁用深度测试，防止与地形发生剪裁。
+   * 设置为零时，始终应用深度测试。设置为 Number.POSITIVE_INFINITY 时，深度测试将永远不应用。
    * @memberof Label.prototype
    * @type {number}
    */
+
   disableDepthTestDistance: {
-    get: function () {
+    get: function() {
       return this._disableDepthTestDistance;
     },
-    set: function (value) {
+    set: function(value) {
       if (this._disableDepthTestDistance !== value) {
         //>>includeStart('debug', pragmas.debug);
         if (defined(value) && value < 0.0) {
@@ -1102,15 +1100,16 @@ Object.defineProperties(Label.prototype, {
   },
 
   /**
-   * Gets or sets the user-defined value returned when the label is picked.
+   * 获取或设置当标签被选中时返回的用户定义值。
    * @memberof Label.prototype
    * @type {*}
    */
+
   id: {
-    get: function () {
+    get: function() {
       return this._id;
     },
-    set: function (value) {
+    set: function(value) {
       if (this._id !== value) {
         this._id = value;
 
@@ -1133,7 +1132,7 @@ Object.defineProperties(Label.prototype, {
    * @private
    */
   pickId: {
-    get: function () {
+    get: function() {
       if (this._glyphs.length === 0 || !defined(this._glyphs[0].billboard)) {
         return undefined;
       }
@@ -1142,16 +1141,17 @@ Object.defineProperties(Label.prototype, {
   },
 
   /**
-   * Keeps track of the position of the label based on the height reference.
+   * 基于高度参考跟踪标签的位置。
    * @memberof Label.prototype
    * @type {Cartesian3}
    * @private
    */
+
   _clampedPosition: {
-    get: function () {
+    get: function() {
       return this._actualClampedPosition;
     },
-    set: function (value) {
+    set: function(value) {
       this._actualClampedPosition = Cartesian3.clone(
         value,
         this._actualClampedPosition,
@@ -1174,17 +1174,18 @@ Object.defineProperties(Label.prototype, {
   },
 
   /**
-   * Determines whether or not this label will be shown or hidden because it was clustered.
+   * 决定该标签是否因聚合而显示或隐藏。
    * @memberof Label.prototype
    * @type {boolean}
    * @default true
    * @private
    */
+
   clusterShow: {
-    get: function () {
+    get: function() {
       return this._clusterShow;
     },
-    set: function (value) {
+    set: function(value) {
       if (this._clusterShow !== value) {
         this._clusterShow = value;
 
@@ -1204,19 +1205,17 @@ Object.defineProperties(Label.prototype, {
   },
 });
 
-Label.prototype._updateClamping = function () {
+Label.prototype._updateClamping = function() {
   Billboard._updateClamping(this._labelCollection, this);
 };
 
 /**
- * Computes the screen-space position of the label's origin, taking into account eye and pixel offsets.
- * The screen space origin is the top, left corner of the canvas; <code>x</code> increases from
- * left to right, and <code>y</code> increases from top to bottom.
+ * 计算标签原点的屏幕空间位置，考虑眼偏移和像素偏移。
+ * 屏幕空间原点是画布的左上角；<code>x</code> 从左到右增加，<code>y</code> 从上到下增加。
  *
- * @param {Scene} scene The scene the label is in.
- * @param {Cartesian2} [result] 存储结果的对象.
- * @returns {Cartesian2} The screen-space position of the label.
- *
+ * @param {Scene} scene 标签所在的场景。
+ * @param {Cartesian2} [result] 存储结果的对象。
+ * @returns {Cartesian2} 标签的屏幕空间位置。
  *
  * @example
  * console.log(l.computeScreenSpacePosition(scene).toString());
@@ -1224,7 +1223,7 @@ Label.prototype._updateClamping = function () {
  * @see Label#eyeOffset
  * @see Label#pixelOffset
  */
-Label.prototype.computeScreenSpacePosition = function (scene, result) {
+Label.prototype.computeScreenSpacePosition = function(scene, result) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(scene)) {
     throw new DeveloperError("scene is required.");
@@ -1253,15 +1252,16 @@ Label.prototype.computeScreenSpacePosition = function (scene, result) {
 };
 
 /**
- * Gets a label's screen space bounding box centered around screenSpacePosition.
- * @param {Label} label The label to get the screen space bounding box for.
- * @param {Cartesian2} screenSpacePosition The screen space center of the label.
- * @param {BoundingRectangle} [result] 存储结果的对象.
- * @returns {BoundingRectangle} The screen space bounding box.
+ * 获取围绕 screenSpacePosition 的标签屏幕空间边界框。
+ * @param {Label} label 要获取屏幕空间边界框的标签。
+ * @param {Cartesian2} screenSpacePosition 标签的屏幕空间中心。
+ * @param {BoundingRectangle} [result] 存储结果的对象。
+ * @returns {BoundingRectangle} 屏幕空间边界框。
  *
  * @private
  */
-Label.getScreenSpaceBoundingBox = function (
+
+Label.getScreenSpaceBoundingBox = function(
   label,
   screenSpacePosition,
   result,
@@ -1347,13 +1347,13 @@ Label.getScreenSpaceBoundingBox = function (
 };
 
 /**
- * Determines if this label equals another label.  Labels are equal if all their properties
- * are equal.  Labels in different collections can be equal.
+ * 确定该标签是否等于另一个标签。如果所有属性相等，则标签相等。不同集合中的标签也可以相等。
  *
- * @param {Label} other The label to compare for equality.
- * @returns {boolean} <code>true</code> if the labels are equal; otherwise, <code>false</code>.
+ * @param {Label} other 要比较是否相等的标签。
+ * @returns {boolean} 如果标签相等则返回 <code>true</code>；否则返回 <code>false</code>。
  */
-Label.prototype.equals = function (other) {
+
+Label.prototype.equals = function(other) {
   return (
     this === other ||
     (defined(other) &&
@@ -1393,19 +1393,19 @@ Label.prototype.equals = function (other) {
 };
 
 /**
- * Returns true if this object was destroyed; otherwise, false.
+ * 如果该对象已被销毁，则返回 true；否则返回 false。
  * <br /><br />
- * If this object was destroyed, it should not be used; calling any function other than
- * <code>isDestroyed</code> will result in a {@link DeveloperError} exception.
+ * 如果该对象已被销毁，则不应使用；调用除 <code>isDestroyed</code> 之外的任何函数将导致 {@link DeveloperError} 异常。
  *
- * @returns {boolean} True if this object was destroyed; otherwise, false.
+ * @returns {boolean} 如果该对象已被销毁，则返回 true；否则返回 false。
  */
-Label.prototype.isDestroyed = function () {
+
+Label.prototype.isDestroyed = function() {
   return false;
 };
 
 /**
- * Determines whether or not run the algorithm, that match the text of the label to right-to-left languages
+ * 决定是否运行算法，以匹配标签的文本为从右到左的语言。
  * @memberof Label
  * @type {boolean}
  * @default false
@@ -1509,10 +1509,11 @@ const rtlChars = new RegExp(`[${hebrew}${arabic}]`);
 
 /**
  *
- * @param {string} value the text to parse and reorder
- * @returns {string} the text as rightToLeft direction
+ * @param {string} value 要解析和重新排序的文本
+ * @returns {string} 以从右到左方向显示的文本
  * @private
  */
+
 function reverseRtl(value) {
   const texts = value.split("\n");
   let result = "";

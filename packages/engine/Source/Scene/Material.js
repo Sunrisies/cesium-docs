@@ -38,11 +38,9 @@ import WaterMaskMaterial from "../Shaders/Materials/WaterMaskMaterial.js";
 import WaterMaterial from "../Shaders/Materials/Water.js";
 
 /**
- * A Material defines surface appearance through a combination of diffuse, specular,
- * normal, emission, and alpha components. These values are specified using a
- * JSON schema called Fabric which gets parsed and assembled into glsl shader code
- * behind-the-scenes. Check out the {@link https://github.com/CesiumGS/cesium/wiki/Fabric|wiki page}
- * for more details on Fabric.
+ * 材料通过漫反射、镜面反射、法线、发射和 alpha 组件的组合定义表面外观。 
+ * 这些值使用称为 Fabric 的 JSON 架构进行指定，该架构在后台被解析并组装成 glsl 着色器代码。 
+ * 有关 Fabric 的更多详细信息，请查看 {@link https://github.com/CesiumGS/cesium/wiki/Fabric|wiki page}。
  * <br /><br />
  * <style type="text/css">
  *  #materialDescriptions code {
@@ -68,162 +66,162 @@ import WaterMaterial from "../Shaders/Materials/Water.js";
  *  }
  * </style>
  *
- * Base material types and their uniforms:
+ * 基础材料类型及其各种参数：
  * <div id='materialDescriptions'>
  * <ul>
  *  <li>Color</li>
  *  <ul>
- *      <li><code>color</code>:  rgba color object.</li>
+ *      <li><code>color</code>:  rgba 颜色对象。</li>
  *  </ul>
  *  <li>Image</li>
  *  <ul>
- *      <li><code>image</code>:  path to image.</li>
- *      <li><code>repeat</code>:  Object with x and y values specifying the number of times to repeat the image.</li>
+ *      <li><code>image</code>:  图像的路径。</li>
+ *      <li><code>repeat</code>:  包含 x 和 y 值的对象，指定重复图像的次数。</li>
  *  </ul>
  *  <li>DiffuseMap</li>
  *  <ul>
- *      <li><code>image</code>:  path to image.</li>
- *      <li><code>channels</code>:  Three character string containing any combination of r, g, b, and a for selecting the desired image channels.</li>
- *      <li><code>repeat</code>:  Object with x and y values specifying the number of times to repeat the image.</li>
+ *      <li><code>image</code>:  图像的路径。</li>
+ *      <li><code>channels</code>:  三字符字符串，包含 r、g、b 和 a 的任意组合，用于选择所需的图像通道。</li>
+ *      <li><code>repeat</code>:  包含 x 和 y 值的对象，指定重复图像的次数。</li>
  *  </ul>
  *  <li>AlphaMap</li>
  *  <ul>
- *      <li><code>image</code>:  path to image.</li>
- *      <li><code>channel</code>:  One character string containing r, g, b, or a for selecting the desired image channel. </li>
- *      <li><code>repeat</code>:  Object with x and y values specifying the number of times to repeat the image.</li>
+ *      <li><code>image</code>:  图像的路径。</li>
+ *      <li><code>channel</code>:  单字符字符串，包含 r、g、b 或 a，用于选择所需的图像通道。</li>
+ *      <li><code>repeat</code>:  包含 x 和 y 值的对象，指定重复图像的次数。</li>
  *  </ul>
  *  <li>SpecularMap</li>
  *  <ul>
- *      <li><code>image</code>: path to image.</li>
- *      <li><code>channel</code>: One character string containing r, g, b, or a for selecting the desired image channel. </li>
- *      <li><code>repeat</code>: Object with x and y values specifying the number of times to repeat the image.</li>
+ *      <li><code>image</code>:  图像的路径。</li>
+ *      <li><code>channel</code>:  单字符字符串，包含 r、g、b 或 a，用于选择所需的图像通道。</li>
+ *      <li><code>repeat</code>:  包含 x 和 y 值的对象，指定重复图像的次数。</li>
  *  </ul>
  *  <li>EmissionMap</li>
  *  <ul>
- *      <li><code>image</code>:  path to image.</li>
- *      <li><code>channels</code>:  Three character string containing any combination of r, g, b, and a for selecting the desired image channels. </li>
- *      <li><code>repeat</code>:  Object with x and y values specifying the number of times to repeat the image.</li>
+ *      <li><code>image</code>:  图像的路径。</li>
+ *      <li><code>channels</code>:  三字符字符串，包含 r、g、b 和 a 的任意组合，用于选择所需的图像通道。</li>
+ *      <li><code>repeat</code>:  包含 x 和 y 值的对象，指定重复图像的次数。</li>
  *  </ul>
  *  <li>BumpMap</li>
  *  <ul>
- *      <li><code>image</code>:  path to image.</li>
- *      <li><code>channel</code>:  One character string containing r, g, b, or a for selecting the desired image channel. </li>
- *      <li><code>repeat</code>:  Object with x and y values specifying the number of times to repeat the image.</li>
- *      <li><code>strength</code>:  Bump strength value between 0.0 and 1.0 where 0.0 is small bumps and 1.0 is large bumps.</li>
+ *      <li><code>image</code>:  图像的路径。</li>
+ *      <li><code>channel</code>:  单字符字符串，包含 r、g、b 或 a，用于选择所需的图像通道。</li>
+ *      <li><code>repeat</code>:  包含 x 和 y 值的对象，指定重复图像的次数。</li>
+ *      <li><code>strength</code>:  碰撞强度值，范围在 0.0 到 1.0 之间，0.0 为小碰撞，1.0 为大碰撞。</li>
  *  </ul>
  *  <li>NormalMap</li>
  *  <ul>
- *      <li><code>image</code>:  path to image.</li>
- *      <li><code>channels</code>:  Three character string containing any combination of r, g, b, and a for selecting the desired image channels. </li>
- *      <li><code>repeat</code>:  Object with x and y values specifying the number of times to repeat the image.</li>
- *      <li><code>strength</code>:  Bump strength value between 0.0 and 1.0 where 0.0 is small bumps and 1.0 is large bumps.</li>
+ *      <li><code>image</code>:  图像的路径。</li>
+ *      <li><code>channels</code>:  三字符字符串，包含 r、g、b 和 a 的任意组合，用于选择所需的图像通道。</li>
+ *      <li><code>repeat</code>:  包含 x 和 y 值的对象，指定重复图像的次数。</li>
+ *      <li><code>strength</code>:  碰撞强度值，范围在 0.0 到 1.0 之间，0.0 为小碰撞，1.0 为大碰撞。</li>
  *  </ul>
  *  <li>Grid</li>
  *  <ul>
- *      <li><code>color</code>:  rgba color object for the whole material.</li>
- *      <li><code>cellAlpha</code>: Alpha value for the cells between grid lines.  This will be combined with color.alpha.</li>
- *      <li><code>lineCount</code>:  Object with x and y values specifying the number of columns and rows respectively.</li>
- *      <li><code>lineThickness</code>:  Object with x and y values specifying the thickness of grid lines (in pixels where available).</li>
- *      <li><code>lineOffset</code>:  Object with x and y values specifying the offset of grid lines (range is 0 to 1).</li>
+ *      <li><code>color</code>:  整个材料的 rgba 颜色对象。</li>
+ *      <li><code>cellAlpha</code>: 网格线之间单元格的 alpha 值。将与 color.alpha 相结合。</li>
+ *      <li><code>lineCount</code>:  包含 x 和 y 值的对象，分别指定列和行的数量。</li>
+ *      <li><code>lineThickness</code>:  包含 x 和 y 值的对象，指定网格线的厚度（以像素为单位，如果可用）。</li>
+ *      <li><code>lineOffset</code>:  包含 x 和 y 值的对象，指定网格线的偏移量（范围是 0 到 1）。</li>
  *  </ul>
  *  <li>Stripe</li>
  *  <ul>
- *      <li><code>horizontal</code>:  Boolean that determines if the stripes are horizontal or vertical.</li>
- *      <li><code>evenColor</code>:  rgba color object for the stripe's first color.</li>
- *      <li><code>oddColor</code>:  rgba color object for the stripe's second color.</li>
- *      <li><code>offset</code>:  Number that controls at which point into the pattern to begin drawing; with 0.0 being the beginning of the even color, 1.0 the beginning of the odd color, 2.0 being the even color again, and any multiple or fractional values being in between.</li>
- *      <li><code>repeat</code>:  Number that controls the total number of stripes, half light and half dark.</li>
+ *      <li><code>horizontal</code>:  布尔值，确定条纹是水平的还是垂直的。</li>
+ *      <li><code>evenColor</code>:  条纹的第一个颜色的 rgba 颜色对象。</li>
+ *      <li><code>oddColor</code>:  条纹的第二个颜色的 rgba 颜色对象。</li>
+ *      <li><code>offset</code>:  控制在图案中开始绘制的点的数字；0.0 表示偶数颜色的开始，1.0 表示奇数颜色的开始，2.0 重新为偶数颜色，任何倍数或分数值位于之间。</li>
+ *      <li><code>repeat</code>:  控制条纹的总数，光明和黑暗各占一半。</li>
  *  </ul>
  *  <li>Checkerboard</li>
  *  <ul>
- *      <li><code>lightColor</code>:  rgba color object for the checkerboard's light alternating color.</li>
- *      <li><code>darkColor</code>: rgba color object for the checkerboard's dark alternating color.</li>
- *      <li><code>repeat</code>:  Object with x and y values specifying the number of columns and rows respectively.</li>
+ *      <li><code>lightColor</code>:  交替亮色的 rgba 颜色对象。</li>
+ *      <li><code>darkColor</code>:  交替暗色的 rgba 颜色对象。</li>
+ *      <li><code>repeat</code>:  包含 x 和 y 值的对象，分别指定列和行的数量。</li>
  *  </ul>
  *  <li>Dot</li>
  *  <ul>
- *      <li><code>lightColor</code>:  rgba color object for the dot color.</li>
- *      <li><code>darkColor</code>:  rgba color object for the background color.</li>
- *      <li><code>repeat</code>:  Object with x and y values specifying the number of columns and rows of dots respectively.</li>
+ *      <li><code>lightColor</code>:  点颜色的 rgba 颜色对象。</li>
+ *      <li><code>darkColor</code>:  背景颜色的 rgba 颜色对象。</li>
+ *      <li><code>repeat</code>:  包含 x 和 y 值的对象，分别指定点的列和行的数量。</li>
  *  </ul>
  *  <li>Water</li>
  *  <ul>
- *      <li><code>baseWaterColor</code>:  rgba color object base color of the water.</li>
- *      <li><code>blendColor</code>:  rgba color object used when blending from water to non-water areas.</li>
- *      <li><code>specularMap</code>:  Single channel texture used to indicate areas of water.</li>
- *      <li><code>normalMap</code>:  Normal map for water normal perturbation.</li>
- *      <li><code>frequency</code>:  Number that controls the number of waves.</li>
- *      <li><code>animationSpeed</code>:  Number that controls the animations speed of the water.</li>
- *      <li><code>amplitude</code>:  Number that controls the amplitude of water waves.</li>
- *      <li><code>specularIntensity</code>:  Number that controls the intensity of specular reflections.</li>
+ *      <li><code>baseWaterColor</code>:  水的基本 rgba 颜色对象。</li>
+ *      <li><code>blendColor</code>:  用于从水域过渡到非水域区域的 rgba 颜色对象。</li>
+ *      <li><code>specularMap</code>:  单通道纹理，用于指示水域区域。</li>
+ *      <li><code>normalMap</code>:  用于水面法线扰动的法线图。</li>
+ *      <li><code>frequency</code>:  控制波浪数量的数字。</li>
+ *      <li><code>animationSpeed</code>:  控制水面动画速度的数字。</li>
+ *      <li><code>amplitude</code>:  控制水波振幅的数字。</li>
+ *      <li><code>specularIntensity</code>:  控制镜面反射强度的数字。</li>
  *  </ul>
  *  <li>RimLighting</li>
  *  <ul>
- *      <li><code>color</code>:  diffuse color and alpha.</li>
- *      <li><code>rimColor</code>:  diffuse color and alpha of the rim.</li>
- *      <li><code>width</code>:  Number that determines the rim's width.</li>
+ *      <li><code>color</code>:  漫反射颜色和 alpha。</li>
+ *      <li><code>rimColor</code>:  边缘的漫反射颜色和 alpha。</li>
+ *      <li><code>width</code>:  确定边缘宽度的数字。</li>
  *  </ul>
  *  <li>Fade</li>
  *  <ul>
- *      <li><code>fadeInColor</code>: diffuse color and alpha at <code>time</code></li>
- *      <li><code>fadeOutColor</code>: diffuse color and alpha at <code>maximumDistance</code> from <code>time</code></li>
- *      <li><code>maximumDistance</code>: Number between 0.0 and 1.0 where the <code>fadeInColor</code> becomes the <code>fadeOutColor</code>. A value of 0.0 gives the entire material a color of <code>fadeOutColor</code> and a value of 1.0 gives the the entire material a color of <code>fadeInColor</code></li>
- *      <li><code>repeat</code>: true if the fade should wrap around the texture coodinates.</li>
- *      <li><code>fadeDirection</code>: Object with x and y values specifying if the fade should be in the x and y directions.</li>
- *      <li><code>time</code>: Object with x and y values between 0.0 and 1.0 of the <code>fadeInColor</code> position</li>
+ *      <li><code>fadeInColor</code>:  在 <code>time</code> 时的漫反射颜色和 alpha。</li>
+ *      <li><code>fadeOutColor</code>:  在 <code>maximumDistance</code> 处的漫反射颜色和 alpha，相对 <code>time</code>。</li>
+ *      <li><code>maximumDistance</code>:  数字，范围在 0.0 到 1.0 之间，表示 <code>fadeInColor</code> 变为 <code>fadeOutColor</code> 的位置。值为 0.0 使整个材料的颜色为 <code>fadeOutColor</code>，而值为 1.0 则使整个材料的颜色为 <code>fadeInColor</code>。</li>
+ *      <li><code>repeat</code>:  如果淡化应环绕纹理坐标，则为 true。</li>
+ *      <li><code>fadeDirection</code>:  包含 x 和 y 值的对象，指定淡化是否应在 x 和 y 方向上进行。</li>
+ *      <li><code>time</code>:  包含 0.0 到 1.0 之间的 x 和 y 值，表示 <code>fadeInColor</code> 的位置。</li>
  *  </ul>
  *  <li>PolylineArrow</li>
  *  <ul>
- *      <li><code>color</code>: diffuse color and alpha.</li>
+ *      <li><code>color</code>:  漫反射颜色和 alpha。</li>
  *  </ul>
  *  <li>PolylineDash</li>
  *  <ul>
- *      <li><code>color</code>: color for the line.</li>
- *      <li><code>gapColor</code>: color for the gaps in the line.</li>
- *      <li><code>dashLength</code>: Dash length in pixels.</li>
- *      <li><code>dashPattern</code>: The 16 bit stipple pattern for the line..</li>
+ *      <li><code>color</code>:  线条的颜色。</li>
+ *      <li><code>gapColor</code>:  线条中的间隙颜色。</li>
+ *      <li><code>dashLength</code>:  虚线长度（以像素为单位）。</li>
+ *      <li><code>dashPattern</code>:  线条的 16 位图案。</li>
  *  </ul>
  *  <li>PolylineGlow</li>
  *  <ul>
- *      <li><code>color</code>: color and maximum alpha for the glow on the line.</li>
- *      <li><code>glowPower</code>: strength of the glow, as a percentage of the total line width (less than 1.0).</li>
- *      <li><code>taperPower</code>: strength of the tapering effect, as a percentage of the total line length.  If 1.0 or higher, no taper effect is used.</li>
+ *      <li><code>color</code>:  线条的光晕颜色和最大 alpha。</li>
+ *      <li><code>glowPower</code>:  光晕强度，相对于总线宽的百分比（小于 1.0）。</li>
+ *      <li><code>taperPower</code>:  收缩效果的强度，相对于总线长的百分比。如果为 1.0 或更高，则不使用收缩效果。</li>
  *  </ul>
  *  <li>PolylineOutline</li>
  *  <ul>
- *      <li><code>color</code>: diffuse color and alpha for the interior of the line.</li>
- *      <li><code>outlineColor</code>: diffuse color and alpha for the outline.</li>
- *      <li><code>outlineWidth</code>: width of the outline in pixels.</li>
+ *      <li><code>color</code>:  线条内部的漫反射颜色和 alpha。</li>
+ *      <li><code>outlineColor</code>:  边框的漫反射颜色和 alpha。</li>
+ *      <li><code>outlineWidth</code>:  边框的宽度（以像素为单位）。</li>
  *  </ul>
  *  <li>ElevationContour</li>
  *  <ul>
- *      <li><code>color</code>: color and alpha for the contour line.</li>
- *      <li><code>spacing</code>: spacing for contour lines in meters.</li>
- *      <li><code>width</code>: Number specifying the width of the grid lines in pixels.</li>
+ *      <li><code>color</code>:  等高线的颜色和 alpha。</li>
+ *      <li><code>spacing</code>:  等高线在米单位下的间距。</li>
+ *      <li><code>width</code>:  指定网格线宽度的数字，以像素为单位。</li>
  *  </ul>
  *  <li>ElevationRamp</li>
  *  <ul>
- *      <li><code>image</code>: color ramp image to use for coloring the terrain.</li>
- *      <li><code>minimumHeight</code>: minimum height for the ramp.</li>
- *      <li><code>maximumHeight</code>: maximum height for the ramp.</li>
+ *      <li><code>image</code>:  用于着色地形的颜色渐变图像。</li>
+ *      <li><code>minimumHeight</code>:  渐变的最小高度。</li>
+ *      <li><code>maximumHeight</code>:  渐变的最大高度。</li>
  *  </ul>
  *  <li>SlopeRamp</li>
  *  <ul>
- *      <li><code>image</code>: color ramp image to use for coloring the terrain by slope.</li>
+ *      <li><code>image</code>:  用于根据坡度为地形着色的颜色渐变图像。</li>
  *  </ul>
  *  <li>AspectRamp</li>
  *  <ul>
- *      <li><code>image</code>: color ramp image to use for color the terrain by aspect.</li>
+ *      <li><code>image</code>:  用于根据朝向为地形着色的颜色渐变图像。</li>
  *  </ul>
  *  <li>ElevationBand</li>
  *  <ul>
- *      <li><code>heights</code>: image of heights sorted from lowest to highest.</li>
- *      <li><code>colors</code>: image of colors at the corresponding heights.</li>
+ *      <li><code>heights</code>:  从最低到最高的高度图像。</li>
+ *      <li><code>colors</code>:  在相应高度下的颜色图像。</li>
  * </ul>
  * <li>WaterMask</li>
  * <ul>
- *      <li><code>waterColor</code>: diffuse color and alpha for the areas covered by water.</li>
- *      <li><code>landColor</code>: diffuse color and alpha for the areas covered by land.</li>
+ *      <li><code>waterColor</code>:  覆盖水域的漫反射颜色和 alpha。</li>
+ *      <li><code>landColor</code>:  覆盖陆地的漫反射颜色和 alpha。</li>
  * </ul>
  * </ul>
  * </ul>
@@ -232,24 +230,23 @@ import WaterMaterial from "../Shaders/Materials/Water.js";
  * @alias Material
  * @constructor
  *
- * @param {object} [options] Object with the following properties:
- * @param {boolean} [options.strict=false] Throws errors for issues that would normally be ignored, including unused uniforms or materials.
- * @param {boolean|Function} [options.translucent=true] When <code>true</code> or a function that returns <code>true</code>, the geometry
- *                           with this material is expected to appear translucent.
- * @param {TextureMinificationFilter} [options.minificationFilter=TextureMinificationFilter.LINEAR] The {@link TextureMinificationFilter} to apply to this material's textures.
- * @param {TextureMagnificationFilter} [options.magnificationFilter=TextureMagnificationFilter.LINEAR] The {@link TextureMagnificationFilter} to apply to this material's textures.
- * @param {object} options.fabric The fabric JSON used to generate the material.
+ * @param {object} [options] 包含以下属性的对象：
+ * @param {boolean} [options.strict=false] 对通常被忽略的问题（包括未使用的 uniforms 或材料）抛出错误。
+ * @param {boolean|Function} [options.translucent=true] 当 <code>true</code> 或返回 <code>true</code> 的函数时，期望使用此材料的几何图形呈现出半透明效果。
+ * @param {TextureMinificationFilter} [options.minificationFilter=TextureMinificationFilter.LINEAR] 要应用于此材料纹理的 {@link TextureMinificationFilter} 。
+ * @param {TextureMagnificationFilter} [options.magnificationFilter=TextureMagnificationFilter.LINEAR] 要应用于此材料纹理的 {@link TextureMagnificationFilter} 。
+ * @param {object} options.fabric 生成材料所使用的 Fabric JSON。
  *
- * @exception {DeveloperError} fabric: uniform has invalid type.
- * @exception {DeveloperError} fabric: uniforms and materials cannot share the same property.
- * @exception {DeveloperError} fabric: cannot have source and components in the same section.
- * @exception {DeveloperError} fabric: property name is not valid. It should be 'type', 'materials', 'uniforms', 'components', or 'source'.
- * @exception {DeveloperError} fabric: property name is not valid. It should be 'diffuse', 'specular', 'shininess', 'normal', 'emission', or 'alpha'.
- * @exception {DeveloperError} strict: shader source does not use string.
- * @exception {DeveloperError} strict: shader source does not use uniform.
- * @exception {DeveloperError} strict: shader source does not use material.
+ * @exception {DeveloperError} fabric: uniform 的类型无效。
+ * @exception {DeveloperError} fabric: uniforms 和材料不能共享相同的属性。
+ * @exception {DeveloperError} fabric: 不能在同一部分中同时包含源和组件。
+ * @exception {DeveloperError} fabric: 属性名无效。 应为 'type'、'materials'、'uniforms'、'components' 或 'source'。
+ * @exception {DeveloperError} fabric: 属性名无效。 应为 'diffuse'、'specular'、'shininess'、'normal'、'emission' 或 'alpha'。
+ * @exception {DeveloperError} strict: 着色器源未使用字符串。
+ * @exception {DeveloperError} strict: 着色器源未使用 uniform。
+ * @exception {DeveloperError} strict: 着色器源未使用材料。
  *
- * @see {@link https://github.com/CesiumGS/cesium/wiki/Fabric|Fabric wiki page} for a more detailed options of Fabric.
+ * @see {@link https://github.com/CesiumGS/cesium/wiki/Fabric|Fabric wiki page} 以获取更详细的 Fabric 选项。
  * @demo {@link https://sandcastle.cesium.com/index.html?src=Materials.html|Cesium Sandcastle Materials Demo}
  *
  * @example
@@ -272,28 +269,28 @@ import WaterMaterial from "../Shaders/Materials/Water.js";
  */
 function Material(options) {
   /**
-   * The material type. Can be an existing type or a new type. If no type is specified in fabric, type is a GUID.
+   * 材料类型。可以是现有类型或新类型。如果在 fabric 中未指定类型，则类型为 GUID。
    * @type {string}
    * @default undefined
    */
   this.type = undefined;
 
   /**
-   * The glsl shader source for this material.
+   * 此材料的 glsl 着色器源代码。
    * @type {string}
    * @default undefined
    */
   this.shaderSource = undefined;
 
   /**
-   * Maps sub-material names to Material objects.
+   * 将子材料名称映射到材料对象。
    * @type {object}
    * @default undefined
    */
   this.materials = undefined;
 
   /**
-   * Maps uniform names to their values.
+   * 将 uniform 名称映射到它们的值。
    * @type {object}
    * @default undefined
    */
@@ -301,11 +298,12 @@ function Material(options) {
   this._uniforms = undefined;
 
   /**
-   * When <code>true</code> or a function that returns <code>true</code>,
-   * the geometry is expected to appear translucent.
+   * 当 <code>true</code> 或返回 <code>true</code> 的函数时，
+   * 期望几何体呈现出半透明效果。
    * @type {boolean|Function}
    * @default undefined
    */
+
   this.translucent = undefined;
 
   this._minificationFilter = defaultValue(
@@ -349,15 +347,15 @@ function Material(options) {
 Material._uniformList = {};
 
 /**
- * Creates a new material using an existing material type.
+ * 使用现有材料类型创建新材料。
  * <br /><br />
- * Shorthand for: new Material({fabric : {type : type}});
+ * 简写为：new Material({fabric : {type : type}});
  *
- * @param {string} type The base material type.
- * @param {object} [uniforms] Overrides for the default uniforms.
- * @returns {Material} New material object.
+ * @param {string} type 基础材料类型。
+ * @param {object} [uniforms] 对默认 uniforms 的覆盖。
+ * @returns {Material} 新的材料对象。
  *
- * @exception {DeveloperError} material with that type does not exist.
+ * @exception {DeveloperError} 指定类型的材料不存在。
  *
  * @example
  * const material = Cesium.Material.fromType('Color', {
@@ -389,9 +387,10 @@ Material.fromType = function (type, uniforms) {
 };
 
 /**
- * Gets whether or not this material is translucent.
- * @returns {boolean} <code>true</code> if this material is translucent, <code>false</code> otherwise.
+ * 获取该材料是否为半透明。
+ * @returns {boolean} <code>true</code> 如果该材料是半透明的，<code>false</code> 否则。
  */
+
 Material.prototype.isTranslucent = function () {
   if (defined(this.translucent)) {
     if (typeof this.translucent === "function") {
@@ -536,29 +535,28 @@ Material.prototype.update = function (context) {
 };
 
 /**
- * Returns true if this object was destroyed; otherwise, false.
+ * 如果该对象已被销毁，则返回 true；否则返回 false。
  * <br /><br />
- * If this object was destroyed, it should not be used; calling any function other than
- * <code>isDestroyed</code> will result in a {@link DeveloperError} exception.
+ * 如果该对象已被销毁，则不应使用；调用除
+ * <code>isDestroyed</code> 以外的任何函数将导致 {@link DeveloperError} 异常。
  *
- * @returns {boolean} True if this object was destroyed; otherwise, false.
+ * @returns {boolean} 如果该对象已被销毁，则返回 true；否则返回 false。
  *
  * @see Material#destroy
  */
+
 Material.prototype.isDestroyed = function () {
   return false;
 };
 
 /**
- * Destroys the WebGL resources held by this object.  Destroying an object allows for deterministic
- * release of WebGL resources, instead of relying on the garbage collector to destroy this object.
+ * 销毁此对象持有的 WebGL 资源。销毁对象可以实现确定性释放 WebGL 资源，
+ * 而不是依赖垃圾回收器来销毁此对象。
  * <br /><br />
- * Once an object is destroyed, it should not be used; calling any function other than
- * <code>isDestroyed</code> will result in a {@link DeveloperError} exception.  Therefore,
- * assign the return value (<code>undefined</code>) to the object as done in the example.
+ * 一旦对象被销毁，就不应再使用；调用除 <code>isDestroyed</code> 以外的任何函数将导致 {@link DeveloperError} 异常。
+ * 因此，请将返回值（<code>undefined</code>）赋值给对象，如示例中所示。
  *
- * @exception {DeveloperError} This object was destroyed, i.e., destroy() was called.
- *
+ * @exception {DeveloperError} 此对象已被销毁，即已调用 destroy()。
  *
  * @example
  * material = material && material.destroy();
@@ -1218,22 +1216,23 @@ Material._materialCache = {
 };
 
 /**
- * Gets or sets the default texture uniform value.
+ * 获取或设置默认纹理 uniform 值。
  * @type {string}
  */
 Material.DefaultImageId = "czm_defaultImage";
 
 /**
- * Gets or sets the default cube map texture uniform value.
+ * 获取或设置默认立方体贴图纹理 uniform 值。
  * @type {string}
  */
 Material.DefaultCubeMapId = "czm_defaultCubeMap";
 
 /**
- * Gets the name of the color material.
+ * 获取颜色材料的名称。
  * @type {string}
  * @readonly
  */
+
 Material.ColorType = "Color";
 Material._materialCache.addMaterial(Material.ColorType, {
   fabric: {
@@ -1252,10 +1251,11 @@ Material._materialCache.addMaterial(Material.ColorType, {
 });
 
 /**
- * Gets the name of the image material.
+ * 获取图像材料的名称。
  * @type {string}
  * @readonly
  */
+
 Material.ImageType = "Image";
 Material._materialCache.addMaterial(Material.ImageType, {
   fabric: {
@@ -1277,10 +1277,11 @@ Material._materialCache.addMaterial(Material.ImageType, {
 });
 
 /**
- * Gets the name of the diffuce map material.
+ * 获取漫反射贴图材料的名称。
  * @type {string}
  * @readonly
  */
+
 Material.DiffuseMapType = "DiffuseMap";
 Material._materialCache.addMaterial(Material.DiffuseMapType, {
   fabric: {
@@ -1298,10 +1299,11 @@ Material._materialCache.addMaterial(Material.DiffuseMapType, {
 });
 
 /**
- * Gets the name of the alpha map material.
+ * 获取 alpha 贴图材料的名称。
  * @type {string}
  * @readonly
  */
+
 Material.AlphaMapType = "AlphaMap";
 Material._materialCache.addMaterial(Material.AlphaMapType, {
   fabric: {
@@ -1319,10 +1321,11 @@ Material._materialCache.addMaterial(Material.AlphaMapType, {
 });
 
 /**
- * Gets the name of the specular map material.
+ * 获取镜面反射贴图材料的名称。
  * @type {string}
  * @readonly
  */
+
 Material.SpecularMapType = "SpecularMap";
 Material._materialCache.addMaterial(Material.SpecularMapType, {
   fabric: {
@@ -1340,10 +1343,11 @@ Material._materialCache.addMaterial(Material.SpecularMapType, {
 });
 
 /**
- * Gets the name of the emmision map material.
+ * 获取发光贴图材料的名称。
  * @type {string}
  * @readonly
  */
+
 Material.EmissionMapType = "EmissionMap";
 Material._materialCache.addMaterial(Material.EmissionMapType, {
   fabric: {
@@ -1361,10 +1365,11 @@ Material._materialCache.addMaterial(Material.EmissionMapType, {
 });
 
 /**
- * Gets the name of the bump map material.
+ * 获取凹凸贴图材料的名称。
  * @type {string}
  * @readonly
  */
+
 Material.BumpMapType = "BumpMap";
 Material._materialCache.addMaterial(Material.BumpMapType, {
   fabric: {
@@ -1381,10 +1386,11 @@ Material._materialCache.addMaterial(Material.BumpMapType, {
 });
 
 /**
- * Gets the name of the normal map material.
+ * 获取法线贴图材料的名称。
  * @type {string}
  * @readonly
  */
+
 Material.NormalMapType = "NormalMap";
 Material._materialCache.addMaterial(Material.NormalMapType, {
   fabric: {
@@ -1401,10 +1407,11 @@ Material._materialCache.addMaterial(Material.NormalMapType, {
 });
 
 /**
- * Gets the name of the grid material.
+ * 获取网格材料的名称。
  * @type {string}
  * @readonly
  */
+
 Material.GridType = "Grid";
 Material._materialCache.addMaterial(Material.GridType, {
   fabric: {
@@ -1425,10 +1432,11 @@ Material._materialCache.addMaterial(Material.GridType, {
 });
 
 /**
- * Gets the name of the stripe material.
+ * 获取条纹材料的名称。
  * @type {string}
  * @readonly
  */
+
 Material.StripeType = "Stripe";
 Material._materialCache.addMaterial(Material.StripeType, {
   fabric: {
@@ -1449,10 +1457,11 @@ Material._materialCache.addMaterial(Material.StripeType, {
 });
 
 /**
- * Gets the name of the checkerboard material.
+ * 获取棋盘材料的名称。
  * @type {string}
  * @readonly
  */
+
 Material.CheckerboardType = "Checkerboard";
 Material._materialCache.addMaterial(Material.CheckerboardType, {
   fabric: {
@@ -1471,10 +1480,11 @@ Material._materialCache.addMaterial(Material.CheckerboardType, {
 });
 
 /**
- * Gets the name of the dot material.
+ * 获取点材料的名称。
  * @type {string}
  * @readonly
  */
+
 Material.DotType = "Dot";
 Material._materialCache.addMaterial(Material.DotType, {
   fabric: {
@@ -1493,10 +1503,11 @@ Material._materialCache.addMaterial(Material.DotType, {
 });
 
 /**
- * Gets the name of the water material.
+ * 获取水材料的名称。
  * @type {string}
  * @readonly
  */
+
 Material.WaterType = "Water";
 Material._materialCache.addMaterial(Material.WaterType, {
   fabric: {
@@ -1523,10 +1534,11 @@ Material._materialCache.addMaterial(Material.WaterType, {
 });
 
 /**
- * Gets the name of the rim lighting material.
+ * 获取边缘光照材料的名称。
  * @type {string}
  * @readonly
  */
+
 Material.RimLightingType = "RimLighting";
 Material._materialCache.addMaterial(Material.RimLightingType, {
   fabric: {
@@ -1543,12 +1555,12 @@ Material._materialCache.addMaterial(Material.RimLightingType, {
     return uniforms.color.alpha < 1.0 || uniforms.rimColor.alpha < 1.0;
   },
 });
-
 /**
- * Gets the name of the fade material.
+ * 获取淡化材料的名称。
  * @type {string}
  * @readonly
  */
+
 Material.FadeType = "Fade";
 Material._materialCache.addMaterial(Material.FadeType, {
   fabric: {
@@ -1575,10 +1587,11 @@ Material._materialCache.addMaterial(Material.FadeType, {
 });
 
 /**
- * Gets the name of the polyline arrow material.
+ * 获取折线箭头材料的名称。
  * @type {string}
  * @readonly
  */
+
 Material.PolylineArrowType = "PolylineArrow";
 Material._materialCache.addMaterial(Material.PolylineArrowType, {
   fabric: {
@@ -1592,10 +1605,11 @@ Material._materialCache.addMaterial(Material.PolylineArrowType, {
 });
 
 /**
- * Gets the name of the polyline glow material.
+ * 获取折线发光材料的名称。
  * @type {string}
  * @readonly
  */
+
 Material.PolylineDashType = "PolylineDash";
 Material._materialCache.addMaterial(Material.PolylineDashType, {
   fabric: {
@@ -1612,10 +1626,11 @@ Material._materialCache.addMaterial(Material.PolylineDashType, {
 });
 
 /**
- * Gets the name of the polyline glow material.
+ * 获取折线发光材料的名称。
  * @type {string}
  * @readonly
  */
+
 Material.PolylineGlowType = "PolylineGlow";
 Material._materialCache.addMaterial(Material.PolylineGlowType, {
   fabric: {
@@ -1631,10 +1646,11 @@ Material._materialCache.addMaterial(Material.PolylineGlowType, {
 });
 
 /**
- * Gets the name of the polyline outline material.
+ * 获取折线轮廓材料的名称。
  * @type {string}
  * @readonly
  */
+
 Material.PolylineOutlineType = "PolylineOutline";
 Material._materialCache.addMaterial(Material.PolylineOutlineType, {
   fabric: {
@@ -1653,10 +1669,11 @@ Material._materialCache.addMaterial(Material.PolylineOutlineType, {
 });
 
 /**
- * Gets the name of the elevation contour material.
+ * 获取高程等高线材料的名称。
  * @type {string}
  * @readonly
  */
+
 Material.ElevationContourType = "ElevationContour";
 Material._materialCache.addMaterial(Material.ElevationContourType, {
   fabric: {
@@ -1672,10 +1689,11 @@ Material._materialCache.addMaterial(Material.ElevationContourType, {
 });
 
 /**
- * Gets the name of the elevation contour material.
+ * 获取高程等高线材料的名称。
  * @type {string}
  * @readonly
  */
+
 Material.ElevationRampType = "ElevationRamp";
 Material._materialCache.addMaterial(Material.ElevationRampType, {
   fabric: {
@@ -1691,10 +1709,11 @@ Material._materialCache.addMaterial(Material.ElevationRampType, {
 });
 
 /**
- * Gets the name of the slope ramp material.
+ * 获取坡度渐变材料的名称。
  * @type {string}
  * @readonly
  */
+
 Material.SlopeRampMaterialType = "SlopeRamp";
 Material._materialCache.addMaterial(Material.SlopeRampMaterialType, {
   fabric: {
@@ -1708,10 +1727,11 @@ Material._materialCache.addMaterial(Material.SlopeRampMaterialType, {
 });
 
 /**
- * Gets the name of the aspect ramp material.
+ * 获取方向渐变材料的名称。
  * @type {string}
  * @readonly
  */
+
 Material.AspectRampMaterialType = "AspectRamp";
 Material._materialCache.addMaterial(Material.AspectRampMaterialType, {
   fabric: {
@@ -1725,10 +1745,11 @@ Material._materialCache.addMaterial(Material.AspectRampMaterialType, {
 });
 
 /**
- * Gets the name of the elevation band material.
+ * 获取高程带材料的名称。
  * @type {string}
  * @readonly
  */
+
 Material.ElevationBandType = "ElevationBand";
 Material._materialCache.addMaterial(Material.ElevationBandType, {
   fabric: {
@@ -1741,12 +1762,12 @@ Material._materialCache.addMaterial(Material.ElevationBandType, {
   },
   translucent: true,
 });
-
 /**
- * Gets the name of the water mask material.
+ * 获取水面遮罩材料的名称。
  * @type {string}
  * @readonly
  */
+
 Material.WaterMaskType = "WaterMask";
 Material._materialCache.addMaterial(Material.WaterMaskType, {
   fabric: {

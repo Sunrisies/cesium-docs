@@ -2,13 +2,13 @@ import defined from "../Core/defined.js";
 import RuntimeError from "../Core/RuntimeError.js";
 
 /**
- * This class implements an I3S Field which is custom data attached
- * to nodes
+ * 该类实现了 I3S 字段，这是附加到节点的自定义数据
  * @alias I3SField
  * @internalConstructor
- * @privateParam {I3SNode} parent The parent of that geometry
- * @privateParam {object} storageInfo The structure containing the storage info of the field
+ * @privateParam {I3SNode} parent 几何体的父节点
+ * @privateParam {object} storageInfo 包含字段存储信息的结构
  */
+
 function I3SField(parent, storageInfo) {
   this._storageInfo = storageInfo;
   this._parent = parent;
@@ -27,7 +27,7 @@ function I3SField(parent, storageInfo) {
 
 Object.defineProperties(I3SField.prototype, {
   /**
-   * Gets the resource for the fields
+   * 获取字段的资源
    * @memberof I3SField.prototype
    * @type {Resource}
    * @readonly
@@ -38,7 +38,7 @@ Object.defineProperties(I3SField.prototype, {
     },
   },
   /**
-   * Gets the header for this field.
+   * 获取此字段的头部信息。
    * @memberof I3SField.prototype
    * @type {object}
    * @readonly
@@ -49,7 +49,7 @@ Object.defineProperties(I3SField.prototype, {
     },
   },
   /**
-   * Gets the values for this field.
+   * 获取此字段的值。
    * @memberof I3SField.prototype
    * @type {object}
    * @readonly
@@ -57,7 +57,7 @@ Object.defineProperties(I3SField.prototype, {
   values: {
     get: function () {
       if (defined(this._values)) {
-        // attribute data can be stored either as values or as object identifiers
+        // 属性数据可以存储为值或对象标识符
         if (defined(this._values.attributeValues)) {
           return this._values.attributeValues;
         }
@@ -69,7 +69,7 @@ Object.defineProperties(I3SField.prototype, {
     },
   },
   /**
-   * Gets the name for the field.
+   * 获取字段的名称。
    * @memberof I3SField.prototype
    * @type {string}
    * @readonly
@@ -80,6 +80,7 @@ Object.defineProperties(I3SField.prototype, {
     },
   },
 });
+
 
 function getNumericTypeSize(type) {
   if (type === "UInt8" || type === "Int8") {
@@ -120,9 +121,10 @@ async function load(field) {
 }
 
 /**
- * Loads the content.
- * @returns {Promise<void>} A promise that is resolved when the field data is loaded
+ * 加载内容。
+ * @returns {Promise<void>} 当字段数据加载完成时解析的 Promise
  */
+
 I3SField.prototype.load = function () {
   if (defined(this._loadPromise)) {
     return this._loadPromise;

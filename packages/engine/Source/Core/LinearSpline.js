@@ -5,18 +5,18 @@ import DeveloperError from "./DeveloperError.js";
 import Spline from "./Spline.js";
 
 /**
- * A spline that uses piecewise linear interpolation to create a curve.
+ * 一个使用分段线性插值创建曲线的样条。
  *
  * @alias LinearSpline
  * @constructor
  *
- * @param {object} options Object with the following properties:
- * @param {number[]} options.times An array of strictly increasing, unit-less, floating-point times at each point.
- *                The values are in no way connected to the clock time. They are the parameterization for the curve.
- * @param {number[]|Cartesian3[]} options.points The array of control points.
+ * @param {object} options 具有以下属性的对象：
+ * @param {number[]} options.times 一个严格递增的无单位浮点数数组，表示每个点的时间。
+ *                这些值与时钟时间无关。它们是曲线的参数化。
+ * @param {number[]|Cartesian3[]} options.points 控制点的数组。
  *
- * @exception {DeveloperError} points.length must be greater than or equal to 2.
- * @exception {DeveloperError} times.length must be equal to points.length.
+ * @exception {DeveloperError} points.length 必须大于或等于 2。
+ * @exception {DeveloperError} times.length 必须等于 points.length。
  *
  *
  * @example
@@ -70,7 +70,7 @@ function LinearSpline(options) {
 
 Object.defineProperties(LinearSpline.prototype, {
   /**
-   * An array of times for the control points.
+   * 控制点的时间数组。
    *
    * @memberof LinearSpline.prototype
    *
@@ -84,7 +84,7 @@ Object.defineProperties(LinearSpline.prototype, {
   },
 
   /**
-   * An array of {@link Cartesian3} control points.
+   * {@link Cartesian3} 控制点的数组。
    *
    * @memberof LinearSpline.prototype
    *
@@ -98,49 +98,53 @@ Object.defineProperties(LinearSpline.prototype, {
   },
 });
 
+
 /**
- * Finds an index <code>i</code> in <code>times</code> such that the parameter
- * <code>time</code> is in the interval <code>[times[i], times[i + 1]]</code>.
+ * 查找 <code>times</code> 中的索引 <code>i</code>，使得参数 <code>time</code> 在区间 <code>[times[i], times[i + 1]]</code> 内。
  * @function
  *
- * @param {number} time The time.
- * @returns {number} The index for the element at the start of the interval.
+ * @param {number} time 时间。
+ * @returns {number} 区间起始位置元素的索引。
  *
- * @exception {DeveloperError} time must be in the range <code>[t<sub>0</sub>, t<sub>n</sub>]</code>, where <code>t<sub>0</sub></code>
- *                             is the first element in the array <code>times</code> and <code>t<sub>n</sub></code> is the last element
- *                             in the array <code>times</code>.
+ * @exception {DeveloperError} time 必须在范围 <code>[t<sub>0</sub>, t<sub>n</sub>]</code> 内，其中 <code>t<sub>0</sub></code>
+ *                             是数组 <code>times</code> 中的第一个元素，而 <code>t<sub>n</sub></code> 是数组
+ *                             <code>times</code> 中的最后一个元素。
  */
+
 LinearSpline.prototype.findTimeInterval = Spline.prototype.findTimeInterval;
 
 /**
- * Wraps the given time to the period covered by the spline.
+ * 将给定时间包装到样条覆盖的周期内。
  * @function
  *
- * @param {number} time The time.
- * @return {number} The time, wrapped around to the updated animation.
+ * @param {number} time 时间。
+ * @return {number} 时间，包装到更新的动画中。
  */
+
 LinearSpline.prototype.wrapTime = Spline.prototype.wrapTime;
 
 /**
- * Clamps the given time to the period covered by the spline.
+ * 将给定时间限制在样条覆盖的周期内。
  * @function
  *
- * @param {number} time The time.
- * @return {number} The time, clamped to the animation period.
+ * @param {number} time 时间。
+ * @return {number} 时间，限制在动画周期内。
  */
+
 LinearSpline.prototype.clampTime = Spline.prototype.clampTime;
 
 /**
- * Evaluates the curve at a given time.
+ * 在给定时间评估曲线。
  *
- * @param {number} time The time at which to evaluate the curve.
- * @param {Cartesian3} [result] 存储结果的对象.
- * @returns {number|Cartesian3} The modified result parameter or a new instance of the point on the curve at the given time.
+ * @param {number} time 评估曲线的时间。
+ * @param {Cartesian3} [result] 存储结果的对象。
+ * @returns {number|Cartesian3} 修改后的结果参数，或在给定时间曲线上点的新实例。
  *
- * @exception {DeveloperError} time must be in the range <code>[t<sub>0</sub>, t<sub>n</sub>]</code>, where <code>t<sub>0</sub></code>
- *                             is the first element in the array <code>times</code> and <code>t<sub>n</sub></code> is the last element
- *                             in the array <code>times</code>.
+ * @exception {DeveloperError} time 必须在范围 <code>[t<sub>0</sub>, t<sub>n</sub>]</code> 内，其中 <code>t<sub>0</sub></code>
+ *                             是数组 <code>times</code> 中的第一个元素，而 <code>t<sub>n</sub></code> 是数组
+ *                             <code>times</code> 中的最后一个元素。
  */
+
 LinearSpline.prototype.evaluate = function (time, result) {
   const points = this.points;
   const times = this.times;

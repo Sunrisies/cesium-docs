@@ -6,19 +6,18 @@ import CesiumMath from "./Math.js";
 import OrthographicOffCenterFrustum from "./OrthographicOffCenterFrustum.js";
 
 /**
- * The viewing frustum is defined by 6 planes.
- * Each plane is represented by a {@link Cartesian4} object, where the x, y, and z components
- * define the unit vector normal to the plane, and the w component is the distance of the
- * plane from the origin/camera position.
+ * 视锥体由6个平面定义。
+ * 每个平面由一个 {@link Cartesian4} 对象表示，其中 x、y 和 z 组件
+ * 定义平面的单位法向量，w 组件是平面离原点/摄像机位置的距离。
  *
  * @alias OrthographicFrustum
  * @constructor
  *
- * @param {object} [options] An object with the following properties:
- * @param {number} [options.width] The width of the frustum in meters.
- * @param {number} [options.aspectRatio] The aspect ratio of the frustum's width to it's height.
- * @param {number} [options.near=1.0] The distance of the near plane.
- * @param {number} [options.far=500000000.0] The distance of the far plane.
+ * @param {object} [options] 一个具有以下属性的对象：
+ * @param {number} [options.width] 视锥体的宽度（以米为单位）。
+ * @param {number} [options.aspectRatio] 视锥体宽度与高度的纵横比。
+ * @param {number} [options.near=1.0] 近平面的距离。
+ * @param {number} [options.far=500000000.0] 远平面的距离。
  *
  * @example
  * const maxRadii = ellipsoid.maximumRadius;
@@ -33,7 +32,7 @@ function OrthographicFrustum(options) {
   this._offCenterFrustum = new OrthographicOffCenterFrustum();
 
   /**
-   * The horizontal width of the frustum in meters.
+   * 视锥体的水平宽度（以米为单位）。
    * @type {number|undefined}
    * @default undefined
    */
@@ -41,7 +40,7 @@ function OrthographicFrustum(options) {
   this._width = undefined;
 
   /**
-   * The aspect ratio of the frustum's width to it's height.
+   * 视锥体宽度与高度的纵横比。
    * @type {number|undefined}
    * @default undefined
    */
@@ -49,7 +48,7 @@ function OrthographicFrustum(options) {
   this._aspectRatio = undefined;
 
   /**
-   * The distance of the near plane.
+   * 近平面的距离。
    * @type {number}
    * @default 1.0
    */
@@ -57,13 +56,14 @@ function OrthographicFrustum(options) {
   this._near = this.near;
 
   /**
-   * The distance of the far plane.
+   * 远平面的距离。
    * @type {number}
-   * @default 500000000.0;
+   * @default 500000000.0
    */
   this.far = defaultValue(options.far, 500000000.0);
   this._far = this.far;
 }
+
 
 /**
  * 用于将对象打包到数组中的元素数量。
@@ -97,13 +97,14 @@ OrthographicFrustum.pack = function (value, array, startingIndex) {
 };
 
 /**
- * 从打包数组中检索实例.
+ * 从打包数组中检索实例。
  *
- * @param {number[]} array 压缩数组.
- * @param {number} [startingIndex=0] 需要解包的元素的起始索引.
- * @param {OrthographicFrustum} [result] 存储结果的对象.
- * @returns {OrthographicFrustum} The modified result parameter or a new OrthographicFrustum instance if one was not provided.
+ * @param {number[]} array 压缩数组。
+ * @param {number} [startingIndex=0] 需要解包的元素的起始索引。
+ * @param {OrthographicFrustum} [result] 存储结果的对象。
+ * @returns {OrthographicFrustum} 修改后的结果参数，如果未提供则返回一个新的 OrthographicFrustum 实例。
  */
+
 OrthographicFrustum.unpack = function (array, startingIndex, result) {
   //>>includeStart('debug', pragmas.debug);
   Check.defined("array", array);
@@ -173,7 +174,7 @@ function update(frustum) {
 
 Object.defineProperties(OrthographicFrustum.prototype, {
   /**
-   * Gets the orthographic projection matrix computed from the view frustum.
+   * 获取从视锥体计算的正交投影矩阵。
    * @memberof OrthographicFrustum.prototype
    * @type {Matrix4}
    * @readonly
@@ -185,12 +186,13 @@ Object.defineProperties(OrthographicFrustum.prototype, {
     },
   },
   /**
-   * Gets the orthographic projection matrix computed from the view frustum.
+   * 获取从视锥体计算的正交投影矩阵。
    * @memberof OrthographicFrustum.prototype
    * @type {OrthographicOffCenterFrustum}
    * @readonly
    * @private
    */
+
   offCenterFrustum: {
     get: function () {
       update(this);
@@ -200,12 +202,12 @@ Object.defineProperties(OrthographicFrustum.prototype, {
 });
 
 /**
- * Creates a culling volume for this frustum.
+ * 为此视锥体创建一个剔除体积。
  *
- * @param {Cartesian3} position The eye position.
- * @param {Cartesian3} direction The view direction.
- * @param {Cartesian3} up The up direction.
- * @returns {CullingVolume} A culling volume at the given position and orientation.
+ * @param {Cartesian3} position 眼睛位置。
+ * @param {Cartesian3} direction 视线方向。
+ * @param {Cartesian3} up 上方向。
+ * @returns {CullingVolume} 在给定位置和方向的剔除体积。
  *
  * @example
  * // Check if a bounding volume intersects the frustum.
@@ -222,18 +224,18 @@ OrthographicFrustum.prototype.computeCullingVolume = function (
 };
 
 /**
- * Returns the pixel's width and height in meters.
+ * 返回像素的宽度和高度（以米为单位）。
  *
- * @param {number} drawingBufferWidth The width of the drawing buffer.
- * @param {number} drawingBufferHeight The height of the drawing buffer.
- * @param {number} distance The distance to the near plane in meters.
- * @param {number} pixelRatio The scaling factor from pixel space to coordinate space.
- * @param {Cartesian2} result 存储结果的对象.
- * @returns {Cartesian2} The modified result parameter or a new instance of {@link Cartesian2} with the pixel's width and height in the x and y properties, respectively.
+ * @param {number} drawingBufferWidth 绘图缓冲区的宽度。
+ * @param {number} drawingBufferHeight 绘图缓冲区的高度。
+ * @param {number} distance 到近平面的距离（以米为单位）。
+ * @param {number} pixelRatio 从像素空间到坐标空间的缩放因子。
+ * @param {Cartesian2} result 存储结果的对象。
+ * @returns {Cartesian2} 修改后的结果参数，或一个新的 {@link Cartesian2} 实例，其 x 和 y 属性分别为像素的宽度和高度。
  *
- * @exception {DeveloperError} drawingBufferWidth must be greater than zero.
- * @exception {DeveloperError} drawingBufferHeight must be greater than zero.
- * @exception {DeveloperError} pixelRatio must be greater than zero.
+ * @exception {DeveloperError} drawingBufferWidth 必须大于零。
+ * @exception {DeveloperError} drawingBufferHeight 必须大于零。
+ * @exception {DeveloperError} pixelRatio 必须大于零。
  *
  * @example
  * // Example 1
@@ -258,11 +260,12 @@ OrthographicFrustum.prototype.getPixelDimensions = function (
 };
 
 /**
- * Returns a duplicate of a OrthographicFrustum instance.
+ * 返回一个定向包围盒实例的副本。
  *
- * @param {OrthographicFrustum} [result] 存储结果的对象.
- * @returns {OrthographicFrustum} The modified result parameter or a new OrthographicFrustum instance if one was not provided.
+ * @param {OrthographicFrustum} [result] 存储结果的对象。
+ * @returns {OrthographicFrustum} 修改后的结果参数，如果未提供则返回一个新的 OrthographicFrustum 实例。
  */
+
 OrthographicFrustum.prototype.clone = function (result) {
   if (!defined(result)) {
     result = new OrthographicFrustum();
@@ -285,12 +288,13 @@ OrthographicFrustum.prototype.clone = function (result) {
 };
 
 /**
- * Compares the provided OrthographicFrustum componentwise and returns
- * 如果相等则为 <code>true</code>，否则为 <code>false</code>
+ * 分别比较提供的定向包围盒，并返回
+ * 如果相等则为 <code>true</code>，否则为 <code>false</code>。
  *
- * @param {OrthographicFrustum} [other] The right hand side OrthographicFrustum.
- * @returns {boolean} 如果相等则为 <code>true</code>，否则为 <code>false</code>
+ * @param {OrthographicFrustum} [other] 右侧的定向包围盒。
+ * @returns {boolean} 如果相等则为 <code>true</code>，否则为 <code>false</code>。
  */
+
 OrthographicFrustum.prototype.equals = function (other) {
   if (!defined(other) || !(other instanceof OrthographicFrustum)) {
     return false;
@@ -307,14 +311,15 @@ OrthographicFrustum.prototype.equals = function (other) {
 };
 
 /**
- * Compares the provided OrthographicFrustum componentwise and returns
+ * 分别比较提供的定向包围盒，并返回
  * 如果通过绝对或相对公差测试，则为 <code>true</code>，否则为 <code>false</code>。
  *
- * @param {OrthographicFrustum} other The right hand side OrthographicFrustum.
- * @param {number} relativeEpsilon 用于相等性测试的相对 epsilon 容差.
- * @param {number} [absoluteEpsilon=relativeEpsilon] 用于平等测试的绝对 epsilon 容差.
- * @returns {boolean} <code>true</code> if this and other are within the provided epsilon, <code>false</code> otherwise.
+ * @param {OrthographicFrustum} other 右侧的定向包围盒。
+ * @param {number} relativeEpsilon 用于相等性测试的相对 epsilon 容差。
+ * @param {number} [absoluteEpsilon=relativeEpsilon] 用于平等测试的绝对 epsilon 容差。
+ * @returns {boolean} 如果 this 和 other 在提供的 epsilon 范围内，则为 <code>true</code>，否则为 <code>false</code>。
  */
+
 OrthographicFrustum.prototype.equalsEpsilon = function (
   other,
   relativeEpsilon,

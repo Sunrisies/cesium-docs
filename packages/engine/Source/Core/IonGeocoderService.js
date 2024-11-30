@@ -7,17 +7,18 @@ import PeliasGeocoderService from "./PeliasGeocoderService.js";
 import Resource from "./Resource.js";
 
 /**
- * Provides geocoding through Cesium ion.
+ * 通过 Cesium ion 提供地理编码服务。
  * @alias IonGeocoderService
  * @constructor
  *
- * @param {object} options Object with the following properties:
- * @param {Scene} options.scene The scene
- * @param {string} [options.accessToken=Ion.defaultAccessToken] The access token to use.
- * @param {string|Resource} [options.server=Ion.defaultServer] The resource to the Cesium ion API server.
+ * @param {object} options 包含以下属性的对象：
+ * @param {Scene} options.scene 场景
+ * @param {string} [options.accessToken=Ion.defaultAccessToken] 要使用的访问令牌。
+ * @param {string|Resource} [options.server=Ion.defaultServer] 指向 Cesium ion API 服务器的资源。
  *
  * @see Ion
  */
+
 function IonGeocoderService(options) {
   options = defaultValue(options, defaultValue.EMPTY_OBJECT);
 
@@ -53,12 +54,13 @@ function IonGeocoderService(options) {
 
 Object.defineProperties(IonGeocoderService.prototype, {
   /**
-   * Gets the credit to display after a geocode is performed. Typically this is used to credit
-   * the geocoder service.
+   * 获取在执行地理编码后要显示的信用信息。通常用于给
+   * 地理编码服务进行信用声明。
    * @memberof IonGeocoderService.prototype
    * @type {Credit|undefined}
    * @readonly
    */
+
   credit: {
     get: function () {
       return undefined;
@@ -69,10 +71,11 @@ Object.defineProperties(IonGeocoderService.prototype, {
 /**
  * @function
  *
- * @param {string} query The query to be sent to the geocoder service
- * @param {GeocodeType} [type=GeocodeType.SEARCH] The type of geocode to perform.
+ * @param {string} query 要发送到地理编码服务的查询
+ * @param {GeocodeType} [type=GeocodeType.SEARCH] 要执行的地理编码类型。
  * @returns {Promise<GeocoderService.Result[]>}
  */
+
 IonGeocoderService.prototype.geocode = async function (query, geocodeType) {
   return this._pelias.geocode(query, geocodeType);
 };

@@ -63,16 +63,17 @@ const {
 } = ModelComponents;
 
 /**
- * States of the glTF loading process. These states also apply to
- * asynchronous texture loading unless otherwise noted
+ * glTF 加载过程中的状态。这些状态也适用于
+ * 异步纹理加载，除非另有说明。
  *
  * @enum {number}
  *
  * @private
  */
+
 const GltfLoaderState = {
   /**
-   * The initial state of the glTF loader before load() is called.
+   * glTF 加载器在调用 load() 之前的初始状态。
    *
    * @type {number}
    * @constant
@@ -80,9 +81,9 @@ const GltfLoaderState = {
    * @private
    */
   NOT_LOADED: 0,
+
   /**
-   * The state of the loader while waiting for the glTF JSON loader promise
-   * to resolve.
+   * 加载器在等待 glTF JSON 加载器 Promise 解析时的状态。
    *
    * @type {number}
    * @constant
@@ -90,9 +91,9 @@ const GltfLoaderState = {
    * @private
    */
   LOADING: 1,
+
   /**
-   * The state of the loader once the glTF JSON is loaded but before
-   * process() is called.
+   * 加载器在 glTF JSON 被加载但在调用 process() 之前的状态。
    *
    * @type {number}
    * @constant
@@ -100,9 +101,9 @@ const GltfLoaderState = {
    * @private
    */
   LOADED: 2,
+
   /**
-   * The state of the loader while parsing the glTF and creating GPU resources
-   * as needed.
+   * 加载器在解析 glTF 并根据需要创建 GPU 资源时的状态。
    *
    * @type {number}
    * @constant
@@ -110,12 +111,13 @@ const GltfLoaderState = {
    * @private
    */
   PROCESSING: 3,
+
   /**
-   * For some features like handling CESIUM_primitive_outlines, the geometry
-   * must be modified after it is loaded. The post-processing state handles
-   * any geometry modification (if needed).
+   * 对于某些功能，如处理 CESIUM_primitive_outlines，几何体
+   * 必须在加载后进行修改。后处理状态处理
+   * 任何几何体修改（如果需要）。
    * <p>
-   * This state is not used for asynchronous texture loading.
+   * 此状态不用于异步纹理加载。
    * </p>
    *
    * @type {number}
@@ -124,10 +126,11 @@ const GltfLoaderState = {
    * @private
    */
   POST_PROCESSING: 4,
+
   /**
-   * Once the processing/post-processing states are finished, the loader
-   * enters the processed state (sometimes from a promise chain). The next
-   * call to process() will advance to the ready state.
+   * 一旦处理/后处理状态完成，加载器
+   * 进入处理状态（有时来自 Promise 链）。下一次
+   * 调用 process() 将推进到准备状态。
    *
    * @type {number}
    * @constant
@@ -135,9 +138,10 @@ const GltfLoaderState = {
    * @private
    */
   PROCESSED: 5,
+
   /**
-   * When the loader reaches the ready state, the loaders' promise will be
-   * resolved.
+   * 当加载器达到准备状态时，加载器的 Promise 将会
+   * 被解析。
    *
    * @type {number}
    * @constant
@@ -145,8 +149,9 @@ const GltfLoaderState = {
    * @private
    */
   READY: 6,
+
   /**
-   * If an error occurs at any point, the loader switches to the failed state.
+   * 如果在任何时刻发生错误，加载器将切换到失败状态。
    *
    * @type {number}
    * @constant
@@ -154,8 +159,9 @@ const GltfLoaderState = {
    * @private
    */
   FAILED: 7,
+
   /**
-   * If unload() is called, the loader switches to the unloaded state.
+   * 如果调用 unload()，加载器将切换到卸载状态。
    *
    * @type {number}
    * @constant
@@ -165,35 +171,37 @@ const GltfLoaderState = {
   UNLOADED: 8,
 };
 
+
 /**
- * Loads a glTF model.
+ * 加载一个 glTF 模型。
  * <p>
- * Implements the {@link ResourceLoader} interface.
+ * 实现 {@link ResourceLoader} 接口。
  * </p>
  *
  * @alias GltfLoader
  * @constructor
  * @augments ResourceLoader
  *
- * @param {object} options Object with the following properties:
- * @param {Resource} options.gltfResource The {@link Resource} containing the glTF. This is often the path of the .gltf or .glb file, but may also be the path of the .b3dm, .i3dm, or .cmpt file containing the embedded glb. .cmpt resources should have a URI fragment indicating the index of the inner content to which the glb belongs in order to individually identify the glb in the cache, e.g. http://example.com/tile.cmpt#index=2.
- * @param {Resource} [options.baseResource] The {@link Resource} that paths in the glTF JSON are relative to.
- * @param {Uint8Array} [options.typedArray] The typed array containing the glTF contents, e.g. from a .b3dm, .i3dm, or .cmpt file.
- * @param {object} [options.gltfJson] A parsed glTF JSON file instead of passing it in as a typed array.
- * @param {boolean} [options.releaseGltfJson=false] When true, the glTF JSON is released once the glTF is loaded. This is especially useful for cases like 3D Tiles, where each .gltf model is unique and caching the glTF JSON is not effective.
- * @param {boolean} [options.asynchronous=true] Determines if WebGL resource creation will be spread out over several frames or block until all WebGL resources are created.
- * @param {boolean} [options.incrementallyLoadTextures=true] Determine if textures may continue to stream in after the glTF is loaded.
- * @param {Axis} [options.upAxis=Axis.Y] The up-axis of the glTF model.
- * @param {Axis} [options.forwardAxis=Axis.Z] The forward-axis of the glTF model.
- * @param {boolean} [options.loadAttributesAsTypedArray=false] Load all attributes and indices as typed arrays instead of GPU buffers. If the attributes are interleaved in the glTF they will be de-interleaved in the typed array.
- * @param {boolean} [options.loadAttributesFor2D=false] If <code>true</code>, load the positions buffer and any instanced attribute buffers as typed arrays for accurately projecting models to 2D.
- * @param {boolean} [options.enablePick=false]  If <code>true</code>, load the positions buffer, any instanced attribute buffers, and index buffer as typed arrays for CPU-enabled picking in WebGL1.
- * @param {boolean} [options.loadIndicesForWireframe=false] If <code>true</code>, load the index buffer as both a buffer and typed array. The latter is useful for creating wireframe indices in WebGL1.
- * @param {boolean} [options.loadPrimitiveOutline=true] If <code>true</code>, load outlines from the {@link https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Vendor/CESIUM_primitive_outline|CESIUM_primitive_outline} extension. This can be set false to avoid post-processing geometry at load time.
- * @param {boolean} [options.loadForClassification=false] If <code>true</code> and if the model has feature IDs, load the feature IDs and indices as typed arrays. This is useful for batching features for classification.
- * @param {boolean} [options.renameBatchIdSemantic=false] If <code>true</code>, rename _BATCHID or BATCHID to _FEATURE_ID_0. This is used for .b3dm models
+ * @param {object} options 具有以下属性的对象：
+ * @param {Resource} options.gltfResource 包含 glTF 的 {@link Resource}。这通常是 .gltf 或 .glb 文件的路径，但也可以是包含嵌入的 glb 的 .b3dm、.i3dm 或 .cmpt 文件的路径。 .cmpt 资源应具有表示内部内容索引的 URI 片段，以便单独识别缓存中的 glb，例如 http://example.com/tile.cmpt#index=2。
+ * @param {Resource} [options.baseResource] glTF JSON 中路径相对于的 {@link Resource}。
+ * @param {Uint8Array} [options.typedArray] 包含 glTF 内容的类型化数组，例如来自 .b3dm、.i3dm 或 .cmpt 文件。
+ * @param {object} [options.gltfJson] 解析的 glTF JSON 文件，而不是将其作为类型化数组传入。
+ * @param {boolean} [options.releaseGltfJson=false] 当为 true 时，一旦 glTF 被加载，glTF JSON 将被释放。这对于 3D Tiles 等情况特别有用，此时每个 .gltf 模型都是唯一的，缓存 glTF JSON 没有效果。
+ * @param {boolean} [options.asynchronous=true] 决定 WebGL 资源创建是否将在多个帧中分散进行，或者在创建所有 WebGL 资源之前阻塞。
+ * @param {boolean} [options.incrementallyLoadTextures=true] 决定纹理是否在 glTF 加载后继续流入。
+ * @param {Axis} [options.upAxis=Axis.Y] glTF 模型的上轴。
+ * @param {Axis} [options.forwardAxis=Axis.Z] glTF 模型的前轴。
+ * @param {boolean} [options.loadAttributesAsTypedArray=false] 将所有属性和索引加载为类型化数组，而不是 GPU 缓冲区。如果在 glTF 中属性是交错的，它们将在类型化数组中被去交错。
+ * @param {boolean} [options.loadAttributesFor2D=false] 如果 <code>true</code>，将位置缓冲区和任何实例化属性缓冲区加载为类型化数组，以准确地将模型投影到 2D。
+ * @param {boolean} [options.enablePick=false] 如果 <code>true</code>，加载位置缓冲区、任何实例化属性缓冲区和索引缓冲区作为类型化数组，以支持在 WebGL1 中进行 CPU 启用的拾取。
+ * @param {boolean} [options.loadIndicesForWireframe=false] 如果 <code>true</code>，将索引缓冲区同时加载为缓冲区和类型化数组。后者对于在 WebGL1 中创建线框索引很有用。
+ * @param {boolean} [options.loadPrimitiveOutline=true] 如果 <code>true</code>，从 {@link https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Vendor/CESIUM_primitive_outline|CESIUM_primitive_outline} 扩展加载轮廓。可以将其设置为 false，以避免在加载时对几何体进行后处理。
+ * @param {boolean} [options.loadForClassification=false] 如果 <code>true</code> 且模型具有特征 ID，将特征 ID 和索引加载为类型化数组。这对于对特征进行分类批处理很有用。
+ * @param {boolean} [options.renameBatchIdSemantic=false] 如果 <code>true</code>，将 _BATCHID 或 BATCHID 重命名为 _FEATURE_ID_0。这用于 .b3dm 模型。
  * @private
  */
+
 function GltfLoader(options) {
   options = defaultValue(options, defaultValue.EMPTY_OBJECT);
   const {
@@ -286,7 +294,7 @@ if (defined(Object.create)) {
 
 Object.defineProperties(GltfLoader.prototype, {
   /**
-   * The cache key of the resource.
+   * 资源的缓存键。
    *
    * @memberof GltfLoader.prototype
    *
@@ -295,12 +303,13 @@ Object.defineProperties(GltfLoader.prototype, {
    * @private
    */
   cacheKey: {
-    get: function () {
+    get: function() {
       return undefined;
     },
   },
+
   /**
-   * The loaded components.
+   * 已加载的组件。
    *
    * @memberof GltfLoader.prototype
    *
@@ -309,12 +318,13 @@ Object.defineProperties(GltfLoader.prototype, {
    * @private
    */
   components: {
-    get: function () {
+    get: function() {
       return this._components;
     },
   },
+
   /**
-   * The loaded glTF json.
+   * 已加载的 glTF JSON。
    *
    * @memberof GltfLoader.prototype
    *
@@ -323,15 +333,16 @@ Object.defineProperties(GltfLoader.prototype, {
    * @private
    */
   gltfJson: {
-    get: function () {
+    get: function() {
       if (defined(this._gltfJsonLoader)) {
         return this._gltfJsonLoader.gltf;
       }
       return this._gltfJson;
     },
   },
+
   /**
-   * Returns true if textures are loaded separately from the other glTF resources.
+   * 如果纹理与其他 glTF 资源分开加载，则返回 true。
    *
    * @memberof GltfLoader.prototype
    *
@@ -340,12 +351,13 @@ Object.defineProperties(GltfLoader.prototype, {
    * @private
    */
   incrementallyLoadTextures: {
-    get: function () {
+    get: function() {
       return this._incrementallyLoadTextures;
     },
   },
+
   /**
-   * true if textures are loaded, useful when incrementallyLoadTextures is true
+   * 如果纹理已加载，则返回 true，当 incrementallyLoadTextures 为 true 时非常有用。
    *
    * @memberof GltfLoader.prototype
    *
@@ -354,15 +366,17 @@ Object.defineProperties(GltfLoader.prototype, {
    * @private
    */
   texturesLoaded: {
-    get: function () {
+    get: function() {
       return this._texturesLoaded;
     },
   },
 });
 
+
 /**
- * Loads the gltf object
+ * 加载 gltf 对象
  */
+
 async function loadGltfJson(loader) {
   loader._state = GltfLoaderState.LOADING;
   loader._textureState = GltfLoaderState.LOADING;
@@ -432,13 +446,14 @@ async function loadResources(loader, frameState) {
 }
 
 /**
- * Loads the resource.
- * @returns {Promise.<GltfLoader>} A promise which resolves to the loader when the resource loading is completed.
- * @exception {RuntimeError} Unsupported glTF version
- * @exception {RuntimeError} Unsupported glTF Extension
+ * 加载资源。
+ * @returns {Promise.<GltfLoader>} 一个承诺，当资源加载完成时解析为加载器。
+ * @exception {RuntimeError} 不支持的 glTF 版本
+ * @exception {RuntimeError} 不支持的 glTF 扩展
  * @private
  */
-GltfLoader.prototype.load = async function () {
+
+GltfLoader.prototype.load = async function() {
   if (defined(this._promise)) {
     return this._promise;
   }
@@ -483,9 +498,9 @@ function processLoaders(loader, frameState) {
         oneTimeWarning(
           "structural-metadata-gpm",
           "The model defines both the 'EXT_structural_metadata' extension and the " +
-            "'NGA_gpm_local' extension. The data from the 'EXT_structural_metadata' " +
-            "extension will be replaced with the data from the 'NGA_gpm_local' extension, " +
-            "and will no longer be available for styling and picking.",
+          "'NGA_gpm_local' extension. The data from the 'EXT_structural_metadata' " +
+          "extension will be replaced with the data from the 'NGA_gpm_local' extension, " +
+          "and will no longer be available for styling and picking.",
         );
       }
       loader._components.structuralMetadata =
@@ -545,10 +560,11 @@ function gatherPostProcessBuffers(loader, primitiveLoadPlan) {
 }
 
 /**
- * Process loaders other than textures
+ * 处理除纹理之外的加载器
  * @private
  */
-GltfLoader.prototype._process = function (frameState) {
+
+GltfLoader.prototype._process = function(frameState) {
   if (this._state === GltfLoaderState.READY) {
     return true;
   }
@@ -580,10 +596,11 @@ GltfLoader.prototype._process = function (frameState) {
 };
 
 /**
- * Process textures other than textures
+ * 处理纹理以外的纹理
  * @private
  */
-GltfLoader.prototype._processTextures = function (frameState) {
+
+GltfLoader.prototype._processTextures = function(frameState) {
   if (this._textureState === GltfLoaderState.READY) {
     return true;
   }
@@ -614,12 +631,13 @@ GltfLoader.prototype._processTextures = function (frameState) {
 };
 
 /**
- * Processes the resource until it becomes ready.
+ * 处理资源直到它变为就绪状态。
  *
- * @param {FrameState} frameState The frame state.
+ * @param {FrameState} frameState 帧状态。
  * @private
  */
-GltfLoader.prototype.process = function (frameState) {
+
+GltfLoader.prototype.process = function(frameState) {
   //>>includeStart('debug', pragmas.debug);
   Check.typeOf.object("frameState", frameState);
   //>>includeEnd('debug');
@@ -1487,13 +1505,14 @@ function loadTexture(loader, textureInfo, frameState, samplerOverride) {
 }
 
 /**
- * Load textures and parse factors for the KHR_materials_pbrSpecularGlossiness extension
- * @param {GltfLoader} loader
- * @param {object} specularGlossinessInfo The contents of the KHR_materials_pbrSpecularGlossiness extension in the parsed glTF JSON
+ * 加载纹理并解析 KHR_materials_pbrSpecularGlossiness 扩展的因子。
+ * @param {GltfLoader} loader 加载器
+ * @param {object} specularGlossinessInfo 解析的 glTF JSON 中 KHR_materials_pbrSpecularGlossiness 扩展的内容
  * @param {FrameState} frameState
  * @returns {ModelComponents.SpecularGlossiness}
  * @private
  */
+
 function loadSpecularGlossiness(loader, specularGlossinessInfo, frameState) {
   const {
     diffuseTexture,
@@ -1526,13 +1545,14 @@ function loadSpecularGlossiness(loader, specularGlossinessInfo, frameState) {
 }
 
 /**
- * Load textures and parse factors for a metallic-roughness PBR model in a glTF material
- * @param {GltfLoader} loader
- * @param {object} metallicRoughnessInfo The contents of a pbrMetallicRoughness property in the parsed glTF JSON
+ * 加载纹理并解析 glTF 材料中金属-粗糙度 PBR 模型的因子。
+ * @param {GltfLoader} loader 加载器
+ * @param {object} metallicRoughnessInfo 解析的 glTF JSON 中 pbrMetallicRoughness 属性的内容
  * @param {FrameState} frameState
  * @returns {ModelComponents.MetallicRoughness}
  * @private
  */
+
 function loadMetallicRoughness(loader, metallicRoughnessInfo, frameState) {
   const {
     baseColorTexture,
@@ -1648,14 +1668,15 @@ function loadClearcoat(loader, clearcoatInfo, frameState) {
 }
 
 /**
- * Load textures and parse factors and flags for a glTF material
+ * 加载纹理并解析 glTF 材料的因子和标志
  *
- * @param {GltfLoader} loader
- * @param {object} gltfMaterial An entry from the <code>.materials</code> array in the glTF JSON
+ * @param {GltfLoader} loader 加载器
+ * @param {object} gltfMaterial glTF JSON 中 <code>.materials</code> 数组中的一项
  * @param {FrameState} frameState
  * @returns {ModelComponents.Material}
  * @private
  */
+
 function loadMaterial(loader, gltfMaterial, frameState) {
   const material = new Material();
 
@@ -1820,7 +1841,7 @@ function loadFeatureIdTexture(
   // is more useful for generating shader code.
   const channels = defined(textureInfo.channels) ? textureInfo.channels : [0];
   const channelString = channels
-    .map(function (channelIndex) {
+    .map(function(channelIndex) {
       return "rgba".charAt(channelIndex);
     })
     .join("");
@@ -1901,14 +1922,15 @@ function loadMorphTarget(
 }
 
 /**
- * Load resources associated with a mesh primitive for a glTF node
- * @param {GltfLoader} loader
- * @param {object} gltfPrimitive One of the primitives in a mesh
- * @param {boolean} hasInstances True if the node using this mesh has instances
+ * 加载与 glTF 节点关联的网格原语的资源
+ * @param {GltfLoader} loader 加载器
+ * @param {object} gltfPrimitive 网格中的一个原语
+ * @param {boolean} hasInstances 如果使用此网格的节点有实例则为真
  * @param {FrameState} frameState
  * @returns {ModelComponents.Primitive}
  * @private
  */
+
 function loadPrimitive(loader, gltfPrimitive, hasInstances, frameState) {
   const primitive = new Primitive();
   const primitivePlan = new PrimitiveLoadPlan(primitive);
@@ -2197,7 +2219,7 @@ function loadPrimitiveMetadataLegacy(loader, primitive, metadataExtension) {
     // string IDs to integers, find their place in the sorted list of feature
     // table names
     primitive.propertyTextureIds = metadataExtension.featureTextures.map(
-      function (id) {
+      function(id) {
         return loader._sortedFeatureTextureIds.indexOf(id);
       },
     );
@@ -2311,13 +2333,14 @@ function loadInstanceFeaturesLegacy(
 }
 
 /**
- * Load resources associated with one node from a glTF JSON
- * @param {GltfLoader} loader
- * @param {object} gltfNode An entry from the <code>.nodes</code> array in the glTF JSON
+ * 从 glTF JSON 中加载与一个节点关联的资源
+ * @param {GltfLoader} loader 加载器
+ * @param {object} gltfNode glTF JSON 中 <code>.nodes</code> 数组中的一项
  * @param {FrameState} frameState
  * @returns {ModelComponents.Node}
  * @private
  */
+
 function loadNode(loader, gltfNode, frameState) {
   const node = new Node();
 
@@ -2379,19 +2402,20 @@ function loadNode(loader, gltfNode, frameState) {
 }
 
 /**
- * Load resources associated with the nodes in a glTF JSON
- * @param {GltfLoader} loader
+ * 加载与 glTF JSON 中的节点相关联的资源
+ * @param {GltfLoader} loader 加载器
  * @param {FrameState} frameState
  * @returns {ModelComponents.Node[]}
  * @private
  */
+
 function loadNodes(loader, frameState) {
   const nodeJsons = loader.gltfJson.nodes;
   if (!defined(nodeJsons)) {
     return [];
   }
 
-  const loadedNodes = nodeJsons.map(function (nodeJson, i) {
+  const loadedNodes = nodeJsons.map(function(nodeJson, i) {
     const node = loadNode(loader, nodeJson, frameState);
     node.index = i;
     return node;
@@ -2436,7 +2460,7 @@ function loadSkins(loader, nodes) {
     return [];
   }
 
-  const loadedSkins = skinJsons.map(function (skinJson, i) {
+  const loadedSkins = skinJsons.map(function(skinJson, i) {
     const skin = loadSkin(loader, skinJson, nodes);
     skin.index = i;
     return skin;
@@ -2538,13 +2562,13 @@ function loadAnimation(loader, animationJson, nodes) {
   const animation = new Animation();
   animation.name = animationJson.name;
 
-  const samplers = animationJson.samplers.map(function (samplerJson, i) {
+  const samplers = animationJson.samplers.map(function(samplerJson, i) {
     const sampler = loadAnimationSampler(loader, samplerJson);
     sampler.index = i;
     return sampler;
   });
 
-  const channels = animationJson.channels.map(function (channelJson) {
+  const channels = animationJson.channels.map(function(channelJson) {
     return loadAnimationChannel(channelJson, samplers, nodes);
   });
 
@@ -2562,7 +2586,7 @@ function loadAnimations(loader, nodes) {
     return [];
   }
 
-  const animations = animationJsons.map(function (animationJson, i) {
+  const animations = animationJsons.map(function(animationJson, i) {
     const animation = loadAnimation(loader, animationJson, nodes);
     animation.index = i;
     return animation;
@@ -2614,7 +2638,7 @@ function getSceneNodeIds(gltf) {
 function loadScene(gltf, nodes) {
   const scene = new Scene();
   const sceneNodeIds = getSceneNodeIds(gltf);
-  scene.nodes = sceneNodeIds.map(function (sceneNodeId) {
+  scene.nodes = sceneNodeIds.map(function(sceneNodeId) {
     return nodes[sceneNodeId];
   });
   return scene;
@@ -2623,20 +2647,18 @@ function loadScene(gltf, nodes) {
 const scratchCenter = new Cartesian3();
 
 /**
- * Parse the glTF which populates the loaders arrays. Loading promises will be created, and will
- * resolve once the loaders are ready (i.e. all external resources
- * have been fetched and all GPU resources have been created). Loaders that
- * create GPU resources need to be processed every frame until they become
- * ready since the JobScheduler is not able to execute all jobs in a single
- * frame. Any promise failures are collected, and will be handled synchronously in process().
- * Also note that it's fine to call process before a loader is ready to process or
- * after it has failed; nothing will happen.
+ * 解析 glTF，这会填充加载器的数组。将创建加载承诺，并将在加载器准备好时解析（即所有外部资源
+ * 都已获取，所有 GPU 资源已创建）。创建 GPU 资源的加载器需要在每一帧中处理，直到它们变为
+ * 准备状态，因为 JobScheduler 无法在单个帧中执行所有作业。任何承诺失败都会被收集，并将在
+ * process() 中同步处理。此外，请注意，在加载器准备好处理之前或在加载器失败后调用 process
+ * 也是可以的；什么都不会发生。
  *
- * @param {GltfLoader} loader
- * @param {FrameState} frameState
- * @returns {Promise} A Promise that resolves when all loaders are ready
+ * @param {GltfLoader} loader 加载器
+ * @param {FrameState} frameState 帧状态
+ * @returns {Promise} 当所有加载器准备就绪时解析的 Promise
  * @private
  */
+
 function parse(loader, frameState) {
   const gltf = loader.gltfJson;
   const extensions = defaultValue(gltf.extensions, defaultValue.EMPTY_OBJECT);
@@ -2671,7 +2693,7 @@ function parse(loader, frameState) {
   const asset = new Asset();
   const copyright = gltf.asset.copyright;
   if (defined(copyright)) {
-    const credits = copyright.split(";").map(function (string) {
+    const credits = copyright.split(";").map(function(string) {
       return new Credit(string.trim());
     });
     asset.credits = credits;
@@ -2822,18 +2844,19 @@ function unloadMeshPrimitiveGpm(loader) {
 }
 
 /**
- * Returns whether the resource has been unloaded.
+ * 返回资源是否已被卸载。
  * @private
  */
-GltfLoader.prototype.isUnloaded = function () {
+GltfLoader.prototype.isUnloaded = function() {
   return this._state === GltfLoaderState.UNLOADED;
 };
 
 /**
- * Unloads the resource.
+ * 卸载资源。
  * @private
  */
-GltfLoader.prototype.unload = function () {
+
+GltfLoader.prototype.unload = function() {
   if (defined(this._gltfJsonLoader) && !this._gltfJsonLoader.isDestroyed()) {
     ResourceCache.unload(this._gltfJsonLoader);
   }

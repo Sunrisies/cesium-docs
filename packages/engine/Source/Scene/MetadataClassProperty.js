@@ -13,36 +13,36 @@ import MetadataType from "./MetadataType.js";
 import MetadataComponentType from "./MetadataComponentType.js";
 
 /**
- * A metadata property, as part of a {@link MetadataClass}.
+ * 元数据属性，作为 {@link MetadataClass} 的一部分。
  * <p>
- * See the {@link https://github.com/CesiumGS/3d-tiles/tree/main/specification/Metadata|3D Metadata Specification} for 3D Tiles
+ * 有关 3D Tiles 中元数据规范，请参阅 {@link https://github.com/CesiumGS/3d-tiles/tree/main/specification/Metadata|3D Metadata Specification}
  * </p>
  *
- * @param {object} options Object with the following properties:
- * @param {string} options.id The ID of the property.
- * @param {MetadataType} options.type The type of the property such as SCALAR, VEC2, VEC3.
- * @param {MetadataComponentType} [options.componentType] The component type of the property. This includes integer (e.g. INT8 or UINT16), and floating point (FLOAT32 and FLOAT64) values.
- * @param {MetadataEnum} [options.enumType] The enum type of the property. Only defined when type is ENUM.
- * @param {boolean} [options.isArray=false] True if a property is an array (either fixed length or variable length), false otherwise.
- * @param {boolean} [options.isVariableLengthArray=false] True if a property is a variable length array, false otherwise.
- * @param {number} [options.arrayLength] The number of array elements. Only defined for fixed length arrays.
- * @param {boolean} [options.normalized=false] Whether the property is normalized.
- * @param {number|number[]|number[][]} [options.min] A number or an array of numbers storing the minimum allowable value of this property. Only defined when type is a numeric type.
- * @param {number|number[]|number[][]} [options.max] A number or an array of numbers storing the maximum allowable value of this property. Only defined when type is a numeric type.
- * @param {number|number[]|number[][]} [options.offset] The offset to be added to property values as part of the value transform.
- * @param {number|number[]|number[][]} [options.scale] The scale to be multiplied to property values as part of the value transform.
- * @param {boolean|number|string|Array} [options.noData] The no-data sentinel value that represents null values.
- * @param {boolean|number|string|Array} [options.default] A default value to use when an entity's property value is not defined.
- * @param {boolean} [options.required=false] Whether the property is required.
- * @param {string} [options.name] The name of the property.
- * @param {string} [options.description] The description of the property.
- * @param {string} [options.semantic] An identifier that describes how this property should be interpreted.
- * @param {*} [options.extras] Extra user-defined properties.
- * @param {object} [options.extensions] An object containing extensions.
+ * @param {object} options 对象，包含以下属性：
+ * @param {string} options.id 属性的 ID。
+ * @param {MetadataType} options.type 属性类型，如 SCALAR、VEC2、VEC3 等。
+ * @param {MetadataComponentType} [options.componentType] 属性的组件类型。包括整数（例如 INT8 或 UINT16）和浮点数（FLOAT32 和 FLOAT64）值。
+ * @param {MetadataEnum} [options.enumType] 属性的枚举类型。仅在类型为 ENUM 时定义。
+ * @param {boolean} [options.isArray=false] 如果属性是一个数组（固定长度或变长），则为 true，否则为 false。
+ * @param {boolean} [options.isVariableLengthArray=false] 如果属性是一个变长数组，则为 true，否则为 false。
+ * @param {number} [options.arrayLength] 数组元素的数量。仅对固定长度数组定义。
+ * @param {boolean} [options.normalized=false] 属性是否归一化。
+ * @param {number|number[]|number[][]} [options.min] 存储此属性的最小允许值的数字或数字数组。仅在类型为数值类型时定义。
+ * @param {number|number[]|number[][]} [options.max] 存储此属性的最大允许值的数字或数字数组。仅在类型为数值类型时定义。
+ * @param {number|number[]|number[][]} [options.offset] 作为值转换的一部分添加到属性值的偏移量。
+ * @param {number|number[]|number[][]} [options.scale] 作为值转换的一部分乘以属性值的比例。
+ * @param {boolean|number|string|Array} [options.noData] 表示空值的无数据哨兵值。
+ * @param {boolean|number|string|Array} [options.default] 当实体的属性值未定义时使用的默认值。
+ * @param {boolean} [options.required=false] 属性是否必需。
+ * @param {string} [options.name] 属性的名称。
+ * @param {string} [options.description] 属性的描述。
+ * @param {string} [options.semantic] 描述此属性应如何解释的标识符。
+ * @param {*} [options.extras] 用户定义的额外属性。
+ * @param {object} [options.extensions] 包含扩展的对象。
  *
  * @alias MetadataClassProperty
  * @constructor
- * @experimental This feature is using part of the 3D Tiles spec that is not final and is subject to change without Cesium's standard deprecation policy.
+ * @experimental 此功能使用了 3D Tiles 规范的一部分，该规范尚未最终确定，在未经过 Cesium 的标准弃用政策的情况下可能随时更改。
  */
 function MetadataClassProperty(options) {
   options = defaultValue(options, defaultValue.EMPTY_OBJECT);
@@ -123,18 +123,19 @@ function MetadataClassProperty(options) {
 }
 
 /**
- * Creates a {@link MetadataClassProperty} from either 3D Tiles 1.1, 3DTILES_metadata, EXT_structural_metadata, or EXT_feature_metadata.
+ * 从 3D Tiles 1.1、3DTILES_metadata、EXT_structural_metadata 或 EXT_feature_metadata 创建一个 {@link MetadataClassProperty}。
  *
- * @param {object} options Object with the following properties:
- * @param {string} options.id The ID of the property.
- * @param {object} options.property The property JSON object.
- * @param {Object<string, MetadataEnum>} [options.enums] A dictionary of enums.
+ * @param {object} options 包含以下属性的对象：
+ * @param {string} options.id 属性的 ID。
+ * @param {object} options.property 属性的 JSON 对象。
+ * @param {Object<string, MetadataEnum>} [options.enums] 枚举的字典。
  *
- * @returns {MetadataClassProperty} The newly created metadata class property.
+ * @returns {MetadataClassProperty} 新创建的元数据类属性。
  *
  * @private
- * @experimental This feature is using part of the 3D Tiles spec that is not final and is subject to change without Cesium's standard deprecation policy.
+ * @experimental 此功能使用的 3D Tiles 规范的一部分尚未定稿，可能会在没有 Cesium 标准弃用政策的情况下发生更改。
  */
+
 MetadataClassProperty.fromJson = function (options) {
   options = defaultValue(options, defaultValue.EMPTY_OBJECT);
   const id = options.id;
@@ -194,7 +195,7 @@ MetadataClassProperty.fromJson = function (options) {
 
 Object.defineProperties(MetadataClassProperty.prototype, {
   /**
-   * The ID of the property.
+   * 属性的ID。
    *
    * @memberof MetadataClassProperty.prototype
    * @type {string}
@@ -207,7 +208,7 @@ Object.defineProperties(MetadataClassProperty.prototype, {
   },
 
   /**
-   * The name of the property.
+   * 属性的名称。
    *
    * @memberof MetadataClassProperty.prototype
    * @type {string}
@@ -220,7 +221,7 @@ Object.defineProperties(MetadataClassProperty.prototype, {
   },
 
   /**
-   * The description of the property.
+   * 属性的描述。
    *
    * @memberof MetadataClassProperty.prototype
    * @type {string}
@@ -233,7 +234,7 @@ Object.defineProperties(MetadataClassProperty.prototype, {
   },
 
   /**
-   * The type of the property such as SCALAR, VEC2, VEC3
+   * 属性的类型，如 SCALAR、VEC2、VEC3。
    *
    * @memberof MetadataClassProperty.prototype
    * @type {MetadataType}
@@ -246,7 +247,7 @@ Object.defineProperties(MetadataClassProperty.prototype, {
   },
 
   /**
-   * The enum type of the property. Only defined when type is ENUM.
+   * 属性的枚举类型。仅在类型为 ENUM 时定义。
    *
    * @memberof MetadataClassProperty.prototype
    * @type {MetadataEnum}
@@ -259,8 +260,8 @@ Object.defineProperties(MetadataClassProperty.prototype, {
   },
 
   /**
-   * The component type of the property. This includes integer
-   * (e.g. INT8 or UINT16), and floating point (FLOAT32 and FLOAT64) values
+   * 属性的组件类型。包括整数
+   * （例如 INT8 或 UINT16），以及浮点数（FLOAT32 和 FLOAT64）值。
    *
    * @memberof MetadataClassProperty.prototype
    * @type {MetadataComponentType}
@@ -273,9 +274,8 @@ Object.defineProperties(MetadataClassProperty.prototype, {
   },
 
   /**
-   * The datatype used for storing each component of the property. This
-   * is usually the same as componentType except for ENUM, where this
-   * returns an integer type
+   * 用于存储属性的每个组件的数据类型。这
+   * 通常与组件类型相同，但对于 ENUM，返回整数类型。
    *
    * @memberof MetadataClassProperty.prototype
    * @type {MetadataComponentType}
@@ -289,8 +289,7 @@ Object.defineProperties(MetadataClassProperty.prototype, {
   },
 
   /**
-   * True if a property is an array (either fixed length or variable length),
-   * false otherwise.
+   * 如果属性是数组（固定长度或可变长度），则为真，否则为假。
    *
    * @memberof MetadataClassProperty.prototype
    * @type {boolean}
@@ -303,7 +302,7 @@ Object.defineProperties(MetadataClassProperty.prototype, {
   },
 
   /**
-   * True if a property is a variable length array, false otherwise.
+   * 如果属性是可变长度数组，则为真，否则为假。
    *
    * @memberof MetadataClassProperty.prototype
    * @type {boolean}
@@ -316,8 +315,7 @@ Object.defineProperties(MetadataClassProperty.prototype, {
   },
 
   /**
-   * The number of array elements. Only defined for fixed-size
-   * arrays.
+   * 数组元素的数量。仅对固定大小数组定义。
    *
    * @memberof MetadataClassProperty.prototype
    * @type {number}
@@ -330,7 +328,7 @@ Object.defineProperties(MetadataClassProperty.prototype, {
   },
 
   /**
-   * Whether the property is normalized.
+   * 属性是否规范化。
    *
    * @memberof MetadataClassProperty.prototype
    * @type {boolean}
@@ -343,7 +341,7 @@ Object.defineProperties(MetadataClassProperty.prototype, {
   },
 
   /**
-   * A number or an array of numbers storing the maximum allowable value of this property. Only defined when type is a numeric type.
+   * 存储此属性的最大允许值的数字或数字数组。仅在类型为数字类型时定义。
    *
    * @memberof MetadataClassProperty.prototype
    * @type {number|number[]|number[][]}
@@ -356,7 +354,7 @@ Object.defineProperties(MetadataClassProperty.prototype, {
   },
 
   /**
-   * A number or an array of numbers storing the minimum allowable value of this property. Only defined when type is a numeric type.
+   * 存储此属性的最小允许值的数字或数字数组。仅在类型为数字类型时定义。
    *
    * @memberof MetadataClassProperty.prototype
    * @type {number|number[]|number[][]}
@@ -369,7 +367,7 @@ Object.defineProperties(MetadataClassProperty.prototype, {
   },
 
   /**
-   * The no-data sentinel value that represents null values
+   * 表示空值的无数据哨兵值。
    *
    * @memberof MetadataClassProperty.prototype
    * @type {boolean|number|string|Array}
@@ -382,7 +380,7 @@ Object.defineProperties(MetadataClassProperty.prototype, {
   },
 
   /**
-   * A default value to use when an entity's property value is not defined.
+   * 在实体的属性值未定义时使用的默认值。
    *
    * @memberof MetadataClassProperty.prototype
    * @type {boolean|number|string|Array}
@@ -395,7 +393,7 @@ Object.defineProperties(MetadataClassProperty.prototype, {
   },
 
   /**
-   * Whether the property is required.
+   * 属性是否为必填项。
    *
    * @memberof MetadataClassProperty.prototype
    * @type {boolean}
@@ -408,7 +406,7 @@ Object.defineProperties(MetadataClassProperty.prototype, {
   },
 
   /**
-   * An identifier that describes how this property should be interpreted.
+   * 描述此属性应如何解释的标识符。
    *
    * @memberof MetadataClassProperty.prototype
    * @type {string}
@@ -421,8 +419,7 @@ Object.defineProperties(MetadataClassProperty.prototype, {
   },
 
   /**
-   * True if offset/scale should be applied. If both offset/scale were
-   * undefined, they default to identity so this property is set false
+   * 如果应应用偏移量/缩放。 如果偏移量/缩放均未定义，则默认为恒等，因此此属性设置为假。
    *
    * @memberof MetadataClassProperty.prototype
    * @type {boolean}
@@ -436,7 +433,7 @@ Object.defineProperties(MetadataClassProperty.prototype, {
   },
 
   /**
-   * The offset to be added to property values as part of the value transform.
+   * 在值转换过程中要添加到属性值的偏移量。
    *
    * @memberof MetadataClassProperty.prototype
    * @type {number|number[]|number[][]}
@@ -449,7 +446,7 @@ Object.defineProperties(MetadataClassProperty.prototype, {
   },
 
   /**
-   * The scale to be multiplied to property values as part of the value transform.
+   * 在值转换过程中要乘以属性值的缩放。
    *
    * @memberof MetadataClassProperty.prototype
    * @type {number|number[]|number[][]}
@@ -462,7 +459,7 @@ Object.defineProperties(MetadataClassProperty.prototype, {
   },
 
   /**
-   * Extra user-defined properties.
+   * 额外的用户定义属性。
    *
    * @memberof MetadataClassProperty.prototype
    * @type {*}
@@ -475,7 +472,7 @@ Object.defineProperties(MetadataClassProperty.prototype, {
   },
 
   /**
-   * An object containing extensions.
+   * 包含扩展的对象。
    *
    * @memberof MetadataClassProperty.prototype
    * @type {object}
@@ -487,6 +484,7 @@ Object.defineProperties(MetadataClassProperty.prototype, {
     },
   },
 });
+
 
 function isLegacy(property) {
   if (property.type === "ARRAY") {
@@ -674,26 +672,23 @@ function parseType(property, enums) {
 }
 
 /**
- * Normalizes integer property values. If the property is not normalized
- * the value is returned unmodified.
+ * 规范化整数属性值。如果属性未规范化，
+ * 则返回未修改的值。
  * <p>
- * Given the way normalization is defined in {@link https://github.com/CesiumGS/3d-tiles/tree/main/specification/Metadata#normalized-values|the 3D Metadata Specification},
- * normalize and unnormalize are almost, but not quite inverses. In particular,
- * the smallest signed integer value will be off by one after normalizing and
- * unnormalizing. See
- * {@link https://www.desmos.com/calculator/nledg1evut|this Desmos graph} for
- * an example using INT8.
+ * 根据{@link https://github.com/CesiumGS/3d-tiles/tree/main/specification/Metadata#normalized-values|the 3D Metadata Specification}中定义的规范化方式，
+ * 规范化和反规范化几乎是反向的，但并不完全是。特别是，最小的有符号整数值在规范化和反规范化后会偏移一个单位。请参见
+ * {@link https://www.desmos.com/calculator/nledg1evut|this Desmos graph}，其中使用了INT8。
  * </p>
  * <p>
- * Furthermore, for 64-bit integer types, there may be a loss of precision
- * due to conversion to Number
+ * 此外，对于64位整数类型，可能会由于转换为数字而导致精度丧失。
  * </p>
  *
- * @param {*} value The integer value or array of integer values.
- * @returns {*} The normalized value or array of normalized values.
+ * @param {*} value 整数值或整数值数组。
+ * @returns {*} 规范化的值或规范化值数组。
  *
  * @private
  */
+
 MetadataClassProperty.prototype.normalize = function (value) {
   if (!this._normalized) {
     return value;
@@ -707,26 +702,23 @@ MetadataClassProperty.prototype.normalize = function (value) {
 };
 
 /**
- * Unnormalizes integer property values. If the property is not normalized
- * the value is returned unmodified.
+ * 反规范化整数属性值。如果属性未规范化，
+ * 则返回未修改的值。
  * <p>
- * Given the way normalization is defined in {@link https://github.com/CesiumGS/3d-tiles/tree/main/specification/Metadata#normalized-values|the 3D Metadata Specification},
- * normalize and unnormalize are almost, but not quite inverses. In particular,
- * the smallest signed integer value will be off by one after normalizing and
- * unnormalizing. See
- * {@link https://www.desmos.com/calculator/nledg1evut|this Desmos graph} for
- * an example using INT8.
+ * 根据{@link https://github.com/CesiumGS/3d-tiles/tree/main/specification/Metadata#normalized-values|the 3D Metadata Specification}中定义的规范化方式，
+ * 规范化和反规范化几乎是反向的，但并不完全是。特别是，最小的有符号整数值在规范化和反规范化后会偏移一个单位。请参见
+ * {@link https://www.desmos.com/calculator/nledg1evut|this Desmos graph}，其中使用了INT8。
  * </p>
  * <p>
- * Furthermore, for 64-bit integer types, there may be a loss of precision
- * due to conversion to Number
+ * 此外，对于64位整数类型，可能会由于转换为数字而导致精度丧失。
  * </p>
  *
- * @param {*} value The normalized value or array of normalized values.
- * @returns {*} The integer value or array of integer values.
+ * @param {*} value 规范化的值或规范化值数组。
+ * @returns {*} 整数值或整数值数组。
  *
  * @private
  */
+
 MetadataClassProperty.prototype.unnormalize = function (value) {
   if (!this._normalized) {
     return value;
@@ -816,13 +808,14 @@ MetadataClassProperty.prototype.expandConstant = function (
 };
 
 /**
- * If the value is the noData sentinel, return undefined. Otherwise, return
- * the value.
- * @param {*} value The raw value
- * @returns {*} Either the value or undefined if the value was a no data value.
+ * 如果值是无数据哨兵，则返回 undefined。否则，返回
+ * 该值。
+ * @param {*} value 原始值
+ * @returns {*} 如果值是无数据值，则返回 undefined，否则返回该值。
  *
  * @private
  */
+
 MetadataClassProperty.prototype.handleNoData = function (value) {
   const sentinel = this._noData;
   if (!defined(sentinel)) {
@@ -859,16 +852,16 @@ function arrayEquals(left, right) {
 }
 
 /**
- * Unpack VECN values into {@link Cartesian2}, {@link Cartesian3}, or
- * {@link Cartesian4} and MATN values into {@link Matrix2}, {@link Matrix3}, or
- * {@link Matrix4} depending on N. All other values (including arrays of
- * other sizes) are passed through unaltered.
+ * 将 VECN 值解包为 {@link Cartesian2}、{@link Cartesian3} 或
+ * {@link Cartesian4}，以及将 MATN 值解包为 {@link Matrix2}、{@link Matrix3} 或
+ * {@link Matrix4}，具体取决于 N。所有其他值（包括其他大小的数组）都保持不变。
  *
- * @param {*} value the original, normalized values.
- * @param {boolean} [enableNestedArrays=false] If true, arrays of vectors are represented as nested arrays. This is used for JSON encoding but not binary encoding
- * @returns {*} The appropriate vector or matrix type if the value is a vector or matrix type, respectively. If the property is an array of vectors or matrices, an array of the appropriate vector or matrix type is returned. Otherwise, the value is returned unaltered.
+ * @param {*} value 原始的规范化值。
+ * @param {boolean} [enableNestedArrays=false] 如果为 true，向量数组表示为嵌套数组。这用于 JSON 编码，但不适用于二进制编码。
+ * @returns {*} 如果值是向量或矩阵类型，则返回相应的向量或矩阵类型。如果属性是向量或矩阵数组，则返回相应向量或矩阵类型的数组。否则，返回未更改的值。
  * @private
  */
+
 MetadataClassProperty.prototype.unpackVectorAndMatrixTypes = function (
   value,
   enableNestedArrays,
@@ -897,17 +890,16 @@ MetadataClassProperty.prototype.unpackVectorAndMatrixTypes = function (
 };
 
 /**
- * Pack a {@link Cartesian2}, {@link Cartesian3}, or {@link Cartesian4} into an
- * array if this property is an <code>VECN</code>.
- * Pack a {@link Matrix2}, {@link Matrix3}, or {@link Matrix4} into an
- * array if this property is an <code>MATN</code>.
- * All other values (including arrays of other sizes) are passed through unaltered.
+ * 如果该属性是 <code>VECN</code>，则将 {@link Cartesian2}、{@link Cartesian3} 或 {@link Cartesian4} 打包到数组中。
+ * 如果该属性是 <code>MATN</code>，则将 {@link Matrix2}、{@link Matrix3} 或 {@link Matrix4} 打包到数组中。
+ * 所有其他值（包括其他大小的数组）都保持不变。
  *
- * @param {*} value The value of this property
- * @param {boolean} [enableNestedArrays=false] If true, arrays of vectors are represented as nested arrays. This is used for JSON encoding but not binary encoding
- * @returns {*} An array of the appropriate length if the property is a vector or matrix type. Otherwise, the value is returned unaltered.
+ * @param {*} value 该属性的值
+ * @param {boolean} [enableNestedArrays=false] 如果为 true，向量数组表示为嵌套数组。这用于 JSON 编码，但不适用于二进制编码。
+ * @returns {*} 如果属性是向量或矩阵类型，则返回适当长度的数组。否则，返回未更改的值。
  * @private
  */
+
 MetadataClassProperty.prototype.packVectorAndMatrixTypes = function (
   value,
   enableNestedArrays,
@@ -934,14 +926,14 @@ MetadataClassProperty.prototype.packVectorAndMatrixTypes = function (
 
   return MathType.pack(value, []);
 };
-
 /**
- * Validates whether the given value conforms to the property.
+ * 验证给定值是否符合属性要求。
  *
- * @param {*} value The value.
- * @returns {string|undefined} An error message if the value does not conform to the property, otherwise undefined.
+ * @param {*} value 值。
+ * @returns {string|undefined} 如果值不符合属性，则返回错误消息，否则返回 undefined。
  * @private
  */
+
 MetadataClassProperty.prototype.validate = function (value) {
   if (!defined(value) && defined(this._default)) {
     // no value, but we have a default to use.

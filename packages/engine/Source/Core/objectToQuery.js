@@ -2,14 +2,13 @@ import defined from "./defined.js";
 import DeveloperError from "./DeveloperError.js";
 
 /**
- * Converts an object representing a set of name/value pairs into a query string,
- * with names and values encoded properly for use in a URL.  Values that are arrays
- * will produce multiple values with the same name.
+ * 将表示一组名称/值对的对象转换为查询字符串，
+ * 并对名称和值进行适当编码以便用于 URL。值是数组的
+ * 将产生多个相同名称的值。
  * @function objectToQuery
  *
- * @param {object} obj The object containing data to encode.
- * @returns {string} An encoded query string.
- *
+ * @param {object} obj 包含要编码的数据的对象。
+ * @returns {string} 编码后的查询字符串。
  *
  * @example
  * const str = Cesium.objectToQuery({

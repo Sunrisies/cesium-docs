@@ -1,51 +1,53 @@
 /*
- * Esri Contribution: This code implements support for I3S (Indexed 3D Scene Layers), an OGC Community Standard.
- * Co-authored-by: Alexandre Jean-Claude ajeanclaude@spiria.com
- * Co-authored-by: Anthony Mirabeau anthony.mirabeau@presagis.com
- * Co-authored-by: Elizabeth Rudkin elizabeth.rudkin@presagis.com
- * Co-authored-by: Tamrat Belayneh tbelayneh@esri.com
+ * Esri 贡献：此代码实现了对 I3S（索引 3D 场景图层）的支持，这是 OGC 社区标准。
+ * 联合作者：Alexandre Jean-Claude ajeanclaude@spiria.com
+ * 联合作者：Anthony Mirabeau anthony.mirabeau@presagis.com
+ * 联合作者：Elizabeth Rudkin elizabeth.rudkin@presagis.com
+ * 联合作者：Tamrat Belayneh tbelayneh@esri.com
  *
- * The I3S format has been developed by Esri and is shared under an Apache 2.0 license and is maintained @ https://github.com/Esri/i3s-spec.
- * This implementation supports loading, displaying, and querying an I3S layer (supported versions include Esri github I3S versions 1.6, 1.7/1.8 -
- * whose OGC equivalent are I3S Community Standard Version 1.1 & 1.2) in the CesiumJS viewer.
- * It enables the user to access an I3S layer via its URL and load it inside of the CesiumJS viewer.
+ * I3S 格式由 Esri 开发，基于 Apache 2.0 许可共享，并维护在 https://github.com/Esri/i3s-spec。
+ * 此实现支持在 CesiumJS 查看器中加载、显示和查询 I3S 图层（支持的版本包括
+ * Esri GitHub I3S 版本 1.6、1.7/1.8 - 其 OGC 等效版本为 I3S 社区标准版本 1.1 和 1.2）。
+ * 它使用户能够通过其 URL 访问 I3S 图层并将其加载到 CesiumJS 查看器中。
  *
- * When a scene layer is initialized it accomplishes the following:
+ * 当场景图层初始化时，它完成如下操作：
  *
- * It processes the 3D Scene Layer resource (https://github.com/Esri/i3s-spec/blob/master/docs/1.8/3DSceneLayer.cmn.md) of an I3S dataset
- * and loads the layers data. It does so by creating a Cesium 3D Tileset for the given i3s layer and loads the root node.
- * When the root node is imported, it creates a Cesium 3D Tile that is parented to the Cesium 3D Tileset
- * and loads all children of the root node:
- *  for each children
- *   Create a place holder 3D tile so that the LOD display can use the nodes' selection criteria (maximumScreenSpaceError) to select the appropriate node
- *   based on the current LOD display & evaluation. If the Cesium 3D tile is visible, it invokes requestContent on it.
- *   At that moment, we intercept the call to requestContent, and we load the geometry in I3S format
- *   That geometry is transcoded on the fly to glTF format and ingested by CesiumJS
- *   When the geometry is loaded, we then load all children of this node as placeholders so that the LOD
- *   can know about them too.
+ * 处理 I3S 数据集的 3D 场景层资源 (https://github.com/Esri/i3s-spec/blob/master/docs/1.8/3DSceneLayer.cmn.md)
+ * 并加载层数据。它通过为给定的 i3s 图层创建一个 Cesium 3D Tileset 来完成此操作，并加载根节点。
+ * 当根节点被导入时，它创建一个附加到 Cesium 3D Tileset 的 Cesium 3D Tile
+ * 并加载所有子节点：
+ *  对于每个子节点
+ *   创建一个占位符 3D tile，以便 LOD 显示可以使用节点的选择标准 (maximumScreenSpaceError)
+ *   根据当前 LOD 显示和评估选择适当的节点。如果 Cesium 3D tile 可见，则在其上调用 requestContent。
+ *   此时，我们拦截对 requestContent 的调用，并加载 I3S 格式的几何体
+ *   该几何体实时转码为 glTF 格式，并由 CesiumJS 吞吐
+ *   当几何体加载后，我们然后加载此节点的所有子节点作为占位符，以使 LOD
+ *   也能了解它们。
  *
- * About transcoding:
+ * 关于转码：
  *
- * We use web workers to transcode I3S geometries into glTF
- * The steps are:
+ * 我们使用网络工作者将 I3S 几何体转码为 glTF
+ * 步骤如下：
  *
- * Decode geometry attributes (positions, normals, etc..) either from DRACO or Binary format.
- * If requested, when creating an I3SDataProvider the user has the option to specify a tiled elevation terrain provider
- * (geoidTiledTerrainProvider) such as the one shown in the sandcastle example based on ArcGISTiledElevationTerrainProvider, that allows
- * conversion of heights for all vertices & bounding boxes of an I3S layer from (typically) gravity related (Orthometric) heights to Ellipsoidal.
- * This step is essential when fusing data with varying height sources (as is the case when fusing the I3S dataset (gravity related) in the sandcastle examples with the cesium world terrain (ellipsoidal)).
- * We then transform vertex coordinates from LONG/LAT/HEIGHT to Cartesian in local space and
- * scale appropriately if specified in the attribute metadata
- * Crop UVs if UV regions are defined in the attribute metadata
- * Create a glTF document in memory that will be ingested as part of a glb payload
+ * 解码几何体属性（位置、法线等..）以 DRACO 或二进制格式进行。
+ * 如果请求，在创建 I3SDataProvider 时，用户可以选择指定一个平铺的高程地形提供者
+ * (geoidTiledTerrainProvider)，例如基于 ArcGISTiledElevationTerrainProvider 的沙盒示例，
+ * 允许将 I3S 图层的所有顶点和边界框的高度从（通常）与重力相关的（正交）高度转换为椭球高度。
+ * 此步骤在融合具有不同高度来源的数据时至关重要（如在沙盒示例中融合 I3S 数据集（与重力相关）
+ * 与 cesium 世界地形（椭球）时）。
+ * 然后我们将顶点坐标从 LONG/LAT/HEIGHT 转换为局部空间中的笛卡尔坐标，并
+ * 如果在属性元数据中指定，则进行适当缩放
+ * 如果在属性元数据中定义了 UV 区域，则裁剪 UV
+ * 在内存中创建一个 glTF 文档，将作为 glb 负载的一部分进行处理。
  *
- * About GEOID data:
+ * 关于 GEOID 数据：
  *
- * We provide the ability to use GEOID data to convert heights from gravity related (orthometric) height systems to ellipsoidal.
- * We employ a service architecture to get the conversion factor for a given long lat values, leveraging existing implementation based on ArcGISTiledElevationTerrainProvider
- * to avoid requiring bloated look up files. The source Data used in this transcoding service was compiled from https://earth-info.nga.mil/#tab_wgs84-data and is based on
- * EGM2008 Gravity Model. The sandcastle examples show how to set the terrain provider service if required.
+ * 我们提供使用 GEOID 数据的能力，将高度从与重力相关的（正交）高度系统转换为椭球高度。
+ * 我们采用服务架构来获取给定经纬度值的转换因子，利用基于 ArcGISTiledElevationTerrainProvider 的现有实现
+ * 以避免需要庞大的查找文件。用于此转码服务的源数据编译自 https://earth-info.nga.mil/#tab_wgs84-data，并基于
+ * EGM2008 重力模型。沙盒示例展示了如何在需要时设置地形提供服务。
  */
+
 import Cartesian2 from "../Core/Cartesian2.js";
 import Cartographic from "../Core/Cartographic.js";
 import Check from "../Core/Check.js";
@@ -65,16 +67,16 @@ import Rectangle from "../Core/Rectangle.js";
 /**
  * @typedef {Object} I3SDataProvider.ConstructorOptions
  *
- * Initialization options for the I3SDataProvider constructor
+ * I3SDataProvider 构造函数的初始化选项
  *
- * @property {string} [name] The name of the I3S dataset.
- * @property {boolean} [show=true] Determines if the dataset will be shown.
- * @property {ArcGISTiledElevationTerrainProvider|Promise<ArcGISTiledElevationTerrainProvider>} [geoidTiledTerrainProvider] Tiled elevation provider describing an Earth Gravitational Model. If defined, geometry will be shifted based on the offsets given by this provider. Required to position I3S data sets with gravity-related height at the correct location.
- * @property {Cesium3DTileset.ConstructorOptions} [cesium3dTilesetOptions] Object containing options to pass to an internally created {@link Cesium3DTileset}. See {@link Cesium3DTileset} for list of valid properties. All options can be used with the exception of <code>url</code> and <code>show</code> which are overridden by values from I3SDataProvider.
- * @property {boolean} [showFeatures=false] Determines if the features will be shown.
- * @property {boolean} [adjustMaterialAlphaMode=false] The option to adjust the alpha mode of the material based on the transparency of the vertex color. When <code>true</code>, the alpha mode of the material (if not defined) will be set to BLEND for geometry with any transparency in the color vertex attribute.
- * @property {boolean} [applySymbology=false] Determines if the I3S symbology will be parsed and applied for the layers.
- * @property {boolean} [calculateNormals=false] Determines if the flat normals will be generated for I3S geometry without normals.
+ * @property {string} [name] I3S 数据集的名称。
+ * @property {boolean} [show=true] 确定数据集是否显示。
+ * @property {ArcGISTiledElevationTerrainProvider|Promise<ArcGISTiledElevationTerrainProvider>} [geoidTiledTerrainProvider] 描述地球重力模型的平铺高程提供者。如果定义，几何体将根据此提供者给出的偏移量进行移动。用于将与重力相关的高度的 I3S 数据集定位在正确的位置。
+ * @property {Cesium3DTileset.ConstructorOptions} [cesium3dTilesetOptions] 包含传递给内部创建的 {@link Cesium3DTileset} 的选项的对象。有关有效属性列表，请参见 {@link Cesium3DTileset}。除 <code>url</code> 和 <code>show</code> 被 I3SDataProvider 的值覆盖外，所有选项均可使用。
+ * @property {boolean} [showFeatures=false] 确定是否显示特征。
+ * @property {boolean} [adjustMaterialAlphaMode=false] 根据顶点颜色的透明度调整材质的 alpha 模式的选项。当 <code>true</code> 时，材质的 alpha 模式（如果未定义）将设置为 BLEND，以适应颜色顶点属性中任何透明度的几何体。
+ * @property {boolean} [applySymbology=false] 确定是否解析并应用 I3S 符号学以用于图层。
+ * @property {boolean} [calculateNormals=false] 确定是否生成没有法线的 I3S 几何体的平面法线。
  *
  * @example
  * // Increase LOD by reducing SSE
@@ -97,19 +99,19 @@ import Rectangle from "../Core/Rectangle.js";
  */
 
 /**
- * An I3SDataProvider is the main public class for I3S support. The url option
- * should return a scene object. Currently supported I3S versions are 1.6 and
- * 1.7/1.8 (OGC I3S 1.2). I3SFeature and I3SNode classes implement the
- * Object Model for I3S entities, with public interfaces.
+ * I3SDataProvider 是支持 I3S 的主要公共类。url 选项
+ * 应返回场景对象。目前支持的 I3S 版本是 1.6 和
+ * 1.7/1.8（OGC I3S 1.2）。I3SFeature 和 I3SNode 类实现了
+ * I3S 实体的对象模型，并提供公共接口。
  *
  * <div class="notice">
- * This object is normally not instantiated directly, use {@link I3SDataProvider.fromUrl}.
+ * 此对象通常不直接实例化，使用 {@link I3SDataProvider.fromUrl}。
  * </div>
  *
  * @alias I3SDataProvider
  * @constructor
  *
- * @param {I3SDataProvider.ConstructorOptions} options An object describing initialization options
+ * @param {I3SDataProvider.ConstructorOptions} options 描述初始化选项的对象
  *
  * @see I3SDataProvider.fromUrl
  * @see ArcGISTiledElevationTerrainProvider
@@ -173,7 +175,7 @@ function I3SDataProvider(options) {
 
 Object.defineProperties(I3SDataProvider.prototype, {
   /**
-   * Gets a human-readable name for this dataset.
+   * 获取此数据集的人类可读名称。
    * @memberof I3SDataProvider.prototype
    * @type {string}
    * @readonly
@@ -185,7 +187,7 @@ Object.defineProperties(I3SDataProvider.prototype, {
   },
 
   /**
-   * Determines if the dataset will be shown.
+   * 确定数据集是否会被显示。
    * @memberof I3SDataProvider.prototype
    * @type {boolean}
    */
@@ -208,7 +210,7 @@ Object.defineProperties(I3SDataProvider.prototype, {
   },
 
   /**
-   * The terrain provider referencing the GEOID service to be used for orthometric to ellipsoidal conversion.
+   * 引用 GEOID 服务用于正交高度到椭球高度转换的地形提供者。
    * @memberof I3SDataProvider.prototype
    * @type {ArcGISTiledElevationTerrainProvider}
    * @readonly
@@ -220,7 +222,7 @@ Object.defineProperties(I3SDataProvider.prototype, {
   },
 
   /**
-   * Gets the collection of layers.
+   * 获取图层集合。
    * @memberof I3SDataProvider.prototype
    * @type {I3SLayer[]}
    * @readonly
@@ -232,7 +234,7 @@ Object.defineProperties(I3SDataProvider.prototype, {
   },
 
   /**
-   * Gets the collection of building sublayers.
+   * 获取建筑子图层集合。
    * @memberof I3SDataProvider.prototype
    * @type {I3SSublayer[]}
    * @readonly
@@ -244,7 +246,7 @@ Object.defineProperties(I3SDataProvider.prototype, {
   },
 
   /**
-   * Gets the I3S data for this object.
+   * 获取此对象的 I3S 数据。
    * @memberof I3SDataProvider.prototype
    * @type {object}
    * @readonly
@@ -256,7 +258,7 @@ Object.defineProperties(I3SDataProvider.prototype, {
   },
 
   /**
-   * Gets the extent covered by this I3S.
+   * 获取此 I3S 覆盖的范围。
    * @memberof I3SDataProvider.prototype
    * @type {Rectangle}
    * @readonly
@@ -268,7 +270,7 @@ Object.defineProperties(I3SDataProvider.prototype, {
   },
 
   /**
-   * The resource used to fetch the I3S dataset.
+   * 用于获取 I3S 数据集的资源。
    * @memberof I3SDataProvider.prototype
    * @type {Resource}
    * @readonly
@@ -280,7 +282,7 @@ Object.defineProperties(I3SDataProvider.prototype, {
   },
 
   /**
-   * Determines if the features will be shown.
+   * 确定特征是否会被显示。
    * @memberof I3SDataProvider.prototype
    * @type {boolean}
    * @readonly
@@ -292,7 +294,7 @@ Object.defineProperties(I3SDataProvider.prototype, {
   },
 
   /**
-   * Determines if the alpha mode of the material will be adjusted depending on the color vertex attribute.
+   * 确定材质的 alpha 模式是否会根据颜色顶点属性进行调整。
    * @memberof I3SDataProvider.prototype
    * @type {boolean}
    * @readonly
@@ -304,7 +306,7 @@ Object.defineProperties(I3SDataProvider.prototype, {
   },
 
   /**
-   * Determines if the I3S symbology will be parsed and applied for the layers.
+   * 确定 I3S 符号学是否会被解析并应用于图层。
    * @memberof I3SDataProvider.prototype
    * @type {boolean}
    * @readonly
@@ -316,7 +318,7 @@ Object.defineProperties(I3SDataProvider.prototype, {
   },
 
   /**
-   * Determines if the flat normals will be generated for I3S geometry without normals.
+   * 确定是否为没有法线的 I3S 几何体生成平面法线。
    * @memberof I3SDataProvider.prototype
    * @type {boolean}
    * @readonly
@@ -328,19 +330,20 @@ Object.defineProperties(I3SDataProvider.prototype, {
   },
 });
 
+
 /**
- * Destroys the WebGL resources held by this object. Destroying an object allows for deterministic
- * release of WebGL resources, instead of relying on the garbage collector to destroy this object.
+ * 销毁此对象持有的 WebGL 资源。销毁一个对象允许确定性地释放
+ * WebGL 资源，而不是依赖垃圾收集器来销毁此对象。
  * <p>
- * Once an object is destroyed, it should not be used; calling any function other than
- * <code>isDestroyed</code> will result in a {@link DeveloperError} exception. Therefore,
- * assign the return value (<code>undefined</code>) to the object as done in the example.
+ * 一旦对象被销毁，就不应再使用它；调用除 <code>isDestroyed</code> 之外的任何函数
+ * 将导致 {@link DeveloperError} 异常。因此，将返回值（<code>undefined</code>）分配给对象，如示例中所示。
  * </p>
  *
- * @exception {DeveloperError} This object was destroyed, i.e., destroy() was called.
+ * @exception {DeveloperError} 此对象已被销毁，即已调用 destroy()。
  *
  * @see I3SDataProvider#isDestroyed
  */
+
 I3SDataProvider.prototype.destroy = function () {
   for (let i = 0; i < this._layers.length; i++) {
     if (defined(this._layers[i]._tileset)) {
@@ -352,16 +355,17 @@ I3SDataProvider.prototype.destroy = function () {
 };
 
 /**
- * Returns true if this object was destroyed; otherwise, false.
+ * 如果此对象已被销毁，则返回 true；否则返回 false。
  * <p>
- * If this object was destroyed, it should not be used; calling any function other than
- * <code>isDestroyed</code> will result in a {@link DeveloperError} exception.
+ * 如果此对象已被销毁，则不应再使用；调用除 <code>isDestroyed</code> 之外的任何函数
+ * 将导致 {@link DeveloperError} 异常。
  * </p>
  *
- * @returns {boolean} <code>true</code> if this object was destroyed; otherwise, <code>false</code>.
+ * @returns {boolean} <code>true</code> 如果此对象已被销毁；否则返回 <code>false</code>。
  *
  * @see I3SDataProvider#destroy
  */
+
 I3SDataProvider.prototype.isDestroyed = function () {
   return false;
 };
@@ -506,11 +510,11 @@ async function addLayers(provider, data, options) {
 }
 
 /**
- * Creates an I3SDataProvider. Currently supported I3S versions are 1.6 and
- * 1.7/1.8 (OGC I3S 1.2).
+ * 创建一个 I3SDataProvider。目前支持的 I3S 版本是 1.6 和
+ * 1.7/1.8（OGC I3S 1.2）。
  *
- * @param {string|Resource} url The url of the I3S dataset, which should return an I3S scene object
- * @param {I3SDataProvider.ConstructorOptions} options An object describing initialization options
+ * @param {string|Resource} url I3S 数据集的 URL，应该返回一个 I3S 场景对象
+ * @param {I3SDataProvider.ConstructorOptions} options 描述初始化选项的对象
  * @returns {Promise<I3SDataProvider>}
  *
  * @example
@@ -589,9 +593,10 @@ I3SDataProvider._fetchJson = function (resource) {
 /**
  * @private
  *
- * @param {Resource} resource The JSON resource to request
- * @returns {Promise<object>} The fetched data
+ * @param {Resource} resource 要请求的 JSON 资源
+ * @returns {Promise<object>} 获取到的数据
  */
+
 I3SDataProvider.loadJson = async function (resource) {
   const data = await I3SDataProvider._fetchJson(resource);
   if (defined(data.error)) {
@@ -818,9 +823,10 @@ I3SDataProvider.prototype._computeExtent = function () {
 };
 
 /**
- * Returns the collection of names for all available attributes
- * @returns {string[]} The collection of attribute names
+ * 返回所有可用属性的名称集合
+ * @returns {string[]} 属性名称的集合
  */
+
 I3SDataProvider.prototype.getAttributeNames = function () {
   const attributes = [];
   for (let i = 0; i < this._attributeStatistics.length; ++i) {
@@ -830,10 +836,11 @@ I3SDataProvider.prototype.getAttributeNames = function () {
 };
 
 /**
- * Returns the collection of values for the attribute with the given name
- * @param {string} name The attribute name
- * @returns {string[]} The collection of attribute values
+ * 返回具有给定名称的属性的值集合
+ * @param {string} name 属性名称
+ * @returns {string[]} 属性值的集合
  */
+
 I3SDataProvider.prototype.getAttributeValues = function (name) {
   //>>includeStart('debug', pragmas.debug);
   Check.defined("name", name);
@@ -849,10 +856,11 @@ I3SDataProvider.prototype.getAttributeValues = function (name) {
 };
 
 /**
- * Filters the drawn elements of a scene to specific attribute names and values
- * @param {I3SNode.AttributeFilter[]} [filters=[]] The collection of attribute filters
- * @returns {Promise<void>} A promise that is resolved when the filter is applied
+ * 对场景绘制的元素进行过滤，筛选特定的属性名称和值
+ * @param {I3SNode.AttributeFilter[]} [filters=[]] 属性过滤器集合
+ * @returns {Promise<void>} 应用过滤器时解析的 Promise
  */
+
 I3SDataProvider.prototype.filterByAttributes = function (filters) {
   const promises = [];
   for (let i = 0; i < this._layers.length; i++) {

@@ -8,21 +8,22 @@ import Resource from "./Resource.js";
 import RuntimeError from "./RuntimeError.js";
 
 /**
- * A {@link Resource} instance that encapsulates Cesium ion asset access.
- * This object is normally not instantiated directly, use {@link IonResource.fromAssetId}.
+ * 一个 {@link Resource} 实例，封装了对 Cesium ion 资产的访问。
+ * 此对象通常不直接实例化，使用 {@link IonResource.fromAssetId}。
  *
  * @alias IonResource
  * @constructor
  * @augments Resource
  *
- * @param {object} endpoint The result of the Cesium ion asset endpoint service.
- * @param {Resource} endpointResource The resource used to retrieve the endpoint.
+ * @param {object} endpoint Cesium ion 资产端点服务的结果。
+ * @param {Resource} endpointResource 用于检索端点的资源。
  *
  * @see Ion
  * @see IonImageryProvider
  * @see createWorldTerrain
  * @see https://cesium.com
  */
+
 function IonResource(endpoint, endpointResource) {
   //>>includeStart('debug', pragmas.debug);
   Check.defined("endpoint", endpoint);
@@ -78,13 +79,13 @@ if (defined(Object.create)) {
 }
 
 /**
- * Asynchronously creates an instance.
+ * 异步创建一个实例。
  *
- * @param {number} assetId The Cesium ion asset id.
- * @param {object} [options] An object with the following properties:
- * @param {string} [options.accessToken=Ion.defaultAccessToken] The access token to use.
- * @param {string|Resource} [options.server=Ion.defaultServer] The resource to the Cesium ion API server.
- * @returns {Promise<IonResource>} A Promise to am instance representing the Cesium ion Asset.
+ * @param {number} assetId Cesium ion 资产 ID。
+ * @param {object} [options] 具有以下属性的对象：
+ * @param {string} [options.accessToken=Ion.defaultAccessToken] 要使用的访问令牌。
+ * @param {string|Resource} [options.server=Ion.defaultServer] 指向 Cesium ion API 服务器的资源。
+ * @returns {Promise<IonResource>} 一个 Promise，表示代表 Cesium ion 资产的实例。
  *
  * @example
  * // Load a Cesium3DTileset with asset ID of 124624234
@@ -115,13 +116,14 @@ IonResource.fromAssetId = function (assetId, options) {
 };
 
 Object.defineProperties(IonResource.prototype, {
-  /**
-   * Gets the credits required for attribution of the asset.
+ /**
+   * 获取资产归属所需的信用信息。
    *
    * @memberof IonResource.prototype
    * @type {Credit[]}
    * @readonly
    */
+
   credits: {
     get: function () {
       // Only we're not the root, return its credits;

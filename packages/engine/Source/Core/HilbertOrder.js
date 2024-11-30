@@ -2,21 +2,23 @@ import Check from "./Check.js";
 import DeveloperError from "./DeveloperError.js";
 
 /**
- * Hilbert Order helper functions.
+ * Hilbert Order 辅助函数。
  *
  * @namespace HilbertOrder
  */
+
 const HilbertOrder = {};
 
 /**
- * Computes the Hilbert index at the given level from 2D coordinates.
+ * 从 2D 坐标计算给定级别的 Hilbert 索引。
  *
- * @param {number} level The level of the curve
- * @param {number} x The X coordinate
- * @param {number} y The Y coordinate
- * @returns {number} The Hilbert index.
+ * @param {number} level 曲线的级别
+ * @param {number} x X 坐标
+ * @param {number} y Y 坐标
+ * @returns {number} Hilbert 索引。
  * @private
  */
+
 HilbertOrder.encode2D = function (level, x, y) {
   const n = Math.pow(2, level);
   //>>includeStart('debug', pragmas.debug);
@@ -53,13 +55,14 @@ HilbertOrder.encode2D = function (level, x, y) {
 };
 
 /**
- * Computes the 2D coordinates from the Hilbert index at the given level.
+ * 从给定级别的 Hilbert 索引计算 2D 坐标。
  *
- * @param {number} level The level of the curve
- * @param {bigint} index The Hilbert index
- * @returns {number[]} An array containing the 2D coordinates ([x, y]) corresponding to the Morton index.
+ * @param {number} level 曲线的级别
+ * @param {bigint} index Hilbert 索引
+ * @returns {number[]} 一个包含与 Morton 索引对应的 2D 坐标的数组 ([x, y])。
  * @private
  */
+
 HilbertOrder.decode2D = function (level, index) {
   //>>includeStart('debug', pragmas.debug);
   Check.typeOf.number("level", level);

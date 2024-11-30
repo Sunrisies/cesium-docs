@@ -42,98 +42,79 @@ import TileImagery from "./TileImagery.js";
 /**
  * @typedef {Object} ImageryLayer.ConstructorOptions
  *
- * Initialization options for the ImageryLayer constructor.
+ * ImageryLayer 构造函数的初始化选项。
  *
- * @property {Rectangle} [rectangle=imageryProvider.rectangle] The rectangle of the layer.  This rectangle
- *        can limit the visible portion of the imagery provider.
- * @property {number|Function} [alpha=1.0] The alpha blending value of this layer, from 0.0 to 1.0.
- *                          This can either be a simple number or a function with the signature
- *                          <code>function(frameState, layer, x, y, level)</code>.  The function is passed the
- *                          current frame state, this layer, and the x, y, and level coordinates of the
- *                          imagery tile for which the alpha is required, and it is expected to return
- *                          the alpha value to use for the tile.
- * @property {number|Function} [nightAlpha=1.0] The alpha blending value of this layer on the night side of the globe, from 0.0 to 1.0.
- *                          This can either be a simple number or a function with the signature
- *                          <code>function(frameState, layer, x, y, level)</code>.  The function is passed the
- *                          current frame state, this layer, and the x, y, and level coordinates of the
- *                          imagery tile for which the alpha is required, and it is expected to return
- *                          the alpha value to use for the tile. This only takes effect when <code>enableLighting</code> is <code>true</code>.
- * @property {number|Function} [dayAlpha=1.0] The alpha blending value of this layer on the day side of the globe, from 0.0 to 1.0.
- *                          This can either be a simple number or a function with the signature
- *                          <code>function(frameState, layer, x, y, level)</code>.  The function is passed the
- *                          current frame state, this layer, and the x, y, and level coordinates of the
- *                          imagery tile for which the alpha is required, and it is expected to return
- *                          the alpha value to use for the tile. This only takes effect when <code>enableLighting</code> is <code>true</code>.
- * @property {number|Function} [brightness=1.0] The brightness of this layer.  1.0 uses the unmodified imagery
- *                          color.  Less than 1.0 makes the imagery darker while greater than 1.0 makes it brighter.
- *                          This can either be a simple number or a function with the signature
- *                          <code>function(frameState, layer, x, y, level)</code>.  The function is passed the
- *                          current frame state, this layer, and the x, y, and level coordinates of the
- *                          imagery tile for which the brightness is required, and it is expected to return
- *                          the brightness value to use for the tile.  The function is executed for every
- *                          frame and for every tile, so it must be fast.
- * @property {number|Function} [contrast=1.0] The contrast of this layer.  1.0 uses the unmodified imagery color.
- *                          Less than 1.0 reduces the contrast while greater than 1.0 increases it.
- *                          This can either be a simple number or a function with the signature
- *                          <code>function(frameState, layer, x, y, level)</code>.  The function is passed the
- *                          current frame state, this layer, and the x, y, and level coordinates of the
- *                          imagery tile for which the contrast is required, and it is expected to return
- *                          the contrast value to use for the tile.  The function is executed for every
- *                          frame and for every tile, so it must be fast.
- * @property {number|Function} [hue=0.0] The hue of this layer.  0.0 uses the unmodified imagery color.
- *                          This can either be a simple number or a function with the signature
- *                          <code>function(frameState, layer, x, y, level)</code>.  The function is passed the
- *                          current frame state, this layer, and the x, y, and level coordinates
- *                          of the imagery tile for which the hue is required, and it is expected to return
- *                          the contrast value to use for the tile.  The function is executed for every
- *                          frame and for every tile, so it must be fast.
- * @property {number|Function} [saturation=1.0] The saturation of this layer.  1.0 uses the unmodified imagery color.
- *                          Less than 1.0 reduces the saturation while greater than 1.0 increases it.
- *                          This can either be a simple number or a function with the signature
- *                          <code>function(frameState, layer, x, y, level)</code>.  The function is passed the
- *                          current frame state, this layer, and the x, y, and level coordinates
- *                          of the imagery tile for which the saturation is required, and it is expected to return
- *                          the contrast value to use for the tile.  The function is executed for every
- *                          frame and for every tile, so it must be fast.
- * @property {number|Function} [gamma=1.0] The gamma correction to apply to this layer.  1.0 uses the unmodified imagery color.
- *                          This can either be a simple number or a function with the signature
- *                          <code>function(frameState, layer, x, y, level)</code>.  The function is passed the
- *                          current frame state, this layer, and the x, y, and level coordinates of the
- *                          imagery tile for which the gamma is required, and it is expected to return
- *                          the gamma value to use for the tile.  The function is executed for every
- *                          frame and for every tile, so it must be fast.
- * @property {SplitDirection|Function} [splitDirection=SplitDirection.NONE] The {@link SplitDirection} split to apply to this layer.
- * @property {TextureMinificationFilter} [minificationFilter=TextureMinificationFilter.LINEAR] The
- *                                    texture minification filter to apply to this layer. Possible values
- *                                    are <code>TextureMinificationFilter.LINEAR</code> and
- *                                    <code>TextureMinificationFilter.NEAREST</code>.
- * @property {TextureMagnificationFilter} [magnificationFilter=TextureMagnificationFilter.LINEAR] The
- *                                     texture minification filter to apply to this layer. Possible values
- *                                     are <code>TextureMagnificationFilter.LINEAR</code> and
- *                                     <code>TextureMagnificationFilter.NEAREST</code>.
- * @property {boolean} [show=true] True if the layer is shown; otherwise, false.
- * @property {number} [maximumAnisotropy=maximum supported] The maximum anisotropy level to use
- *        for texture filtering.  If this parameter is not specified, the maximum anisotropy supported
- *        by the WebGL stack will be used.  Larger values make the imagery look better in horizon
- *        views.
- * @property {number} [minimumTerrainLevel] The minimum terrain level-of-detail at which to show this imagery layer,
- *                 or undefined to show it at all levels.  Level zero is the least-detailed level.
- * @property {number} [maximumTerrainLevel] The maximum terrain level-of-detail at which to show this imagery layer,
- *                 or undefined to show it at all levels.  Level zero is the least-detailed level.
- * @property {Rectangle} [cutoutRectangle] Cartographic rectangle for cutting out a portion of this ImageryLayer.
- * @property {Color} [colorToAlpha] Color to be used as alpha.
- * @property {number} [colorToAlphaThreshold=0.004] Threshold for color-to-alpha.
+ * @property {Rectangle} [rectangle=imageryProvider.rectangle] 图层的矩形。此矩形
+ *        可以限制图像提供器的可见部分。
+ * @property {number|Function} [alpha=1.0] 此图层的 alpha 混合值，从 0.0 到 1.0。
+ *                          这可以是一个简单的数字，也可以是具有以下签名的函数
+ *                          <code>function(frameState, layer, x, y, level)</code>。该函数接收当前帧状态、该图层以及
+ *                          要求 alpha 的图像瓦片的 x、y 和 level 坐标，并返回
+ *                          用于该瓦片的 alpha 值。
+ * @property {number|Function} [nightAlpha=1.0] 此图层在地球夜侧的 alpha 混合值，从 0.0 到 1.0。
+ *                          这可以是一个简单的数字，也可以是具有以下签名的函数
+ *                          <code>function(frameState, layer, x, y, level)</code>。该函数接收当前帧状态、该图层以及
+ *                          要求 alpha 的图像瓦片的 x、y 和 level 坐标，并返回
+ *                          用于该瓦片的 alpha 值。此选项仅在 <code>enableLighting</code> 为 <code>true</code> 时生效。
+ * @property {number|Function} [dayAlpha=1.0] 此图层在地球白天侧的 alpha 混合值，从 0.0 到 1.0。
+ *                          这可以是一个简单的数字，也可以是具有以下签名的函数
+ *                          <code>function(frameState, layer, x, y, level)</code>。该函数接收当前帧状态、该图层以及
+ *                          要求 alpha 的图像瓦片的 x、y 和 level 坐标，并返回
+ *                          用于该瓦片的 alpha 值。此选项仅在 <code>enableLighting</code> 为 <code>true</code> 时生效。
+ * @property {number|Function} [brightness=1.0] 此图层的亮度。1.0 使用未修改的图像
+ *                          颜色。小于 1.0 会使图像变暗，而大于 1.0 会使其变亮。
+ *                          这可以是一个简单的数字，也可以是具有以下签名的函数
+ *                          <code>function(frameState, layer, x, y, level)</code>。该函数接收当前帧状态、该图层以及
+ *                          要求亮度的图像瓦片的 x、y 和 level 坐标，并返回
+ *                          用于该瓦片的亮度值。该函数对每一帧和每一个瓦片进行执行，因此必须快速。
+ * @property {number|Function} [contrast=1.0] 此图层的对比度。1.0 使用未修改的图像颜色。
+ *                          小于 1.0 会降低对比度，而大于 1.0 会增加对比度。
+ *                          这可以是一个简单的数字，也可以是具有以下签名的函数
+ *                          <code>function(frameState, layer, x, y, level)</code>。该函数接收当前帧状态、该图层以及
+ *                          要求对比度的图像瓦片的 x、y 和 level 坐标，并返回
+ *                          用于该瓦片的对比度值。该函数对每一帧和每一个瓦片进行执行，因此必须快速。
+ * @property {number|Function} [hue=0.0] 此图层的色调。0.0 使用未修改的图像颜色。
+ *                          这可以是一个简单的数字，也可以是具有以下签名的函数
+ *                          <code>function(frameState, layer, x, y, level)</code>。该函数接收当前帧状态、该图层以及
+ *                          要求色调的图像瓦片的 x、y 和 level 坐标，并返回
+ *                          用于该瓦片的色调值。该函数对每一帧和每一个瓦片进行执行，因此必须快速。
+ * @property {number|Function} [saturation=1.0] 此图层的饱和度。1.0 使用未修改的图像颜色。
+ *                          小于 1.0 会降低饱和度，而大于 1.0 会增加饱和度。
+ *                          这可以是一个简单的数字，也可以是具有以下签名的函数
+ *                          <code>function(frameState, layer, x, y, level)</code>。该函数接收当前帧状态、该图层以及
+ *                          要求饱和度的图像瓦片的 x、y 和 level 坐标，并返回
+ *                          用于该瓦片的饱和度值。该函数对每一帧和每一个瓦片进行执行，因此必须快速。
+ * @property {number|Function} [gamma=1.0] 此图层应用的伽玛校正。1.0 使用未修改的图像颜色。
+ *                          这可以是一个简单的数字，也可以是具有以下签名的函数
+ *                          <code>function(frameState, layer, x, y, level)</code>。该函数接收当前帧状态、该图层以及
+ *                          要求伽玛的图像瓦片的 x、y 和 level 坐标，并返回
+ *                          用于该瓦片的伽玛值。该函数对每一帧和每一个瓦片进行执行，因此必须快速。
+ * @property {SplitDirection|Function} [splitDirection=SplitDirection.NONE] 应用于此图层的 {@link SplitDirection} 分割。
+ * @property {TextureMinificationFilter} [minificationFilter=TextureMinificationFilter.LINEAR] 要应用于此图层的
+ *                                    纹理最小化过滤器。可用的值为 <code>TextureMinificationFilter.LINEAR</code> 和
+ *                                    <code>TextureMinificationFilter.NEAREST</code>。
+ * @property {TextureMagnificationFilter} [magnificationFilter=TextureMagnificationFilter.LINEAR] 要应用于此图层的
+ *                                     纹理放大过滤器。可用的值为 <code>TextureMagnificationFilter.LINEAR</code> 和
+ *                                     <code>TextureMagnificationFilter.NEAREST</code>。
+ * @property {boolean} [show=true] 如果图层可见，则为 true；否则为 false。
+ * @property {number} [maximumAnisotropy=maximum supported] 用于纹理过滤的最大各向异性级别。
+ *        如果未指定此参数，将使用 WebGL 堆栈支持的最大各向异性。更大的值会使图像在地平线视图中看起来更好。
+ * @property {number} [minimumTerrainLevel] 显示此图像层的最小地形细节级别，或未定义以在所有级别显示。 级别零是最不详细的级别。
+ * @property {number} [maximumTerrainLevel] 显示此图像层的最大地形细节级别，或未定义以在所有级别显示。 级别零是最不详细的级别。
+ * @property {Rectangle} [cutoutRectangle] 用于剪切此 ImageryLayer 部分的地理矩形。
+ * @property {Color} [colorToAlpha] 用作 alpha 的颜色。
+ * @property {number} [colorToAlphaThreshold=0.004] 用于颜色转透明的阈值。
  */
 
+
 /**
- * An imagery layer that displays tiled image data from a single imagery provider
- * on a {@link Globe}.
+ * 一个图像层，它在 {@link Globe} 上显示来自单个图像提供者的平铺图像数据。
  *
  * @alias ImageryLayer
  * @constructor
  *
- * @param {ImageryProvider} [imageryProvider] The imagery provider to use.
- * @param {ImageryLayer.ConstructorOptions} [options] An object describing initialization options
+ * @param {ImageryProvider} [imageryProvider] 要使用的图像提供者。
+ * @param {ImageryLayer.ConstructorOptions} [options] 描述初始化选项的对象
  *
  * @see ImageryLayer.fromProviderAsync
  * @see ImageryLayer.fromWorldImagery
@@ -166,8 +147,8 @@ function ImageryLayer(imageryProvider, options) {
   imageryProvider = defaultValue(imageryProvider, defaultValue.EMPTY_OBJECT);
 
   /**
-   * The alpha blending value of this layer, with 0.0 representing fully transparent and
-   * 1.0 representing fully opaque.
+   * 此图层的 alpha 混合值，0.0 表示完全透明，
+   * 1.0 表示完全不透明。
    *
    * @type {number}
    * @default 1.0
@@ -178,20 +159,21 @@ function ImageryLayer(imageryProvider, options) {
   );
 
   /**
-   * The alpha blending value of this layer on the night side of the globe, with 0.0 representing fully transparent and
-   * 1.0 representing fully opaque. This only takes effect when {@link Globe#enableLighting} is <code>true</code>.
+   * 此图层在地球夜侧的 alpha 混合值，0.0 表示完全透明，
+   * 1.0 表示完全不透明。只有在 {@link Globe#enableLighting} 为 <code>true</code> 时此选项才生效。
    *
    * @type {number}
    * @default 1.0
    */
+
   this.nightAlpha = defaultValue(
     options.nightAlpha,
     defaultValue(imageryProvider._defaultNightAlpha, 1.0),
   );
 
   /**
-   * The alpha blending value of this layer on the day side of the globe, with 0.0 representing fully transparent and
-   * 1.0 representing fully opaque. This only takes effect when {@link Globe#enableLighting} is <code>true</code>.
+   * 此图层在地球白天侧的 alpha 混合值，0.0 表示完全透明，
+   * 1.0 表示完全不透明。只有在 {@link Globe#enableLighting} 为 <code>true</code> 时此选项才生效。
    *
    * @type {number}
    * @default 1.0
@@ -202,12 +184,13 @@ function ImageryLayer(imageryProvider, options) {
   );
 
   /**
-   * The brightness of this layer.  1.0 uses the unmodified imagery color.  Less than 1.0
-   * makes the imagery darker while greater than 1.0 makes it brighter.
+   * 此图层的亮度。 1.0 使用未修改的图像颜色。 小于 1.0
+   * 会使图像变暗，而大于 1.0 会使其变亮。
    *
    * @type {number}
    * @default {@link ImageryLayer.DEFAULT_BRIGHTNESS}
    */
+
   this.brightness = defaultValue(
     options.brightness,
     defaultValue(
@@ -217,8 +200,8 @@ function ImageryLayer(imageryProvider, options) {
   );
 
   /**
-   * The contrast of this layer.  1.0 uses the unmodified imagery color.  Less than 1.0 reduces
-   * the contrast while greater than 1.0 increases it.
+   * 此图层的对比度。 1.0 使用未修改的图像颜色。 小于 1.0 会降低
+   * 对比度，而大于 1.0 会增加对比度。
    *
    * @type {number}
    * @default {@link ImageryLayer.DEFAULT_CONTRAST}
@@ -232,7 +215,7 @@ function ImageryLayer(imageryProvider, options) {
   );
 
   /**
-   * The hue of this layer in radians. 0.0 uses the unmodified imagery color.
+   * 此图层的色调（以弧度为单位）。0.0 使用未修改的图像颜色。
    *
    * @type {number}
    * @default {@link ImageryLayer.DEFAULT_HUE}
@@ -243,8 +226,8 @@ function ImageryLayer(imageryProvider, options) {
   );
 
   /**
-   * The saturation of this layer. 1.0 uses the unmodified imagery color. Less than 1.0 reduces the
-   * saturation while greater than 1.0 increases it.
+   * 此图层的饱和度。1.0 使用未修改的图像颜色。 小于 1.0 会降低
+   * 饱和度，而大于 1.0 会增加饱和度。
    *
    * @type {number}
    * @default {@link ImageryLayer.DEFAULT_SATURATION}
@@ -258,7 +241,7 @@ function ImageryLayer(imageryProvider, options) {
   );
 
   /**
-   * The gamma correction to apply to this layer.  1.0 uses the unmodified imagery color.
+   * 应用到此图层的伽玛校正。1.0 使用未修改的图像颜色。
    *
    * @type {number}
    * @default {@link ImageryLayer.DEFAULT_GAMMA}
@@ -269,7 +252,7 @@ function ImageryLayer(imageryProvider, options) {
   );
 
   /**
-   * The {@link SplitDirection} to apply to this layer.
+   * 应用于此图层的 {@link SplitDirection}。
    *
    * @type {SplitDirection}
    * @default {@link ImageryLayer.DEFAULT_SPLIT}
@@ -280,16 +263,17 @@ function ImageryLayer(imageryProvider, options) {
   );
 
   /**
-   * The {@link TextureMinificationFilter} to apply to this layer.
-   * Possible values are {@link TextureMinificationFilter.LINEAR} (the default)
-   * and {@link TextureMinificationFilter.NEAREST}.
+   * 应用于此图层的 {@link TextureMinificationFilter}。
+   * 可用的值为 {@link TextureMinificationFilter.LINEAR}（默认）
+   * 和 {@link TextureMinificationFilter.NEAREST}。
    *
-   * To take effect, this property must be set immediately after adding the imagery layer.
-   * Once a texture is loaded it won't be possible to change the texture filter used.
+   * 要生效，必须在添加图像层后立即设置此属性。
+   * 一旦纹理加载，就无法更改使用的纹理过滤器。
    *
    * @type {TextureMinificationFilter}
    * @default {@link ImageryLayer.DEFAULT_MINIFICATION_FILTER}
    */
+
   this.minificationFilter = defaultValue(
     options.minificationFilter,
     defaultValue(
@@ -298,17 +282,18 @@ function ImageryLayer(imageryProvider, options) {
     ),
   );
 
-  /**
-   * The {@link TextureMagnificationFilter} to apply to this layer.
-   * Possible values are {@link TextureMagnificationFilter.LINEAR} (the default)
-   * and {@link TextureMagnificationFilter.NEAREST}.
+ /**
+   * 应用于此图层的 {@link TextureMagnificationFilter}。
+   * 可用的值为 {@link TextureMagnificationFilter.LINEAR}（默认）
+   * 和 {@link TextureMagnificationFilter.NEAREST}。
    *
-   * To take effect, this property must be set immediately after adding the imagery layer.
-   * Once a texture is loaded it won't be possible to change the texture filter used.
+   * 要生效，必须在添加图像层后立即设置此属性。
+   * 一旦纹理加载，就无法更改使用的纹理过滤器。
    *
    * @type {TextureMagnificationFilter}
    * @default {@link ImageryLayer.DEFAULT_MAGNIFICATION_FILTER}
    */
+
   this.magnificationFilter = defaultValue(
     options.magnificationFilter,
     defaultValue(
@@ -317,12 +302,13 @@ function ImageryLayer(imageryProvider, options) {
     ),
   );
 
-  /**
-   * Determines if this layer is shown.
+ /**
+   * 确定此图层是否显示。
    *
    * @type {boolean}
    * @default true
    */
+
   this.show = defaultValue(options.show, true);
 
   this._minimumTerrainLevel = options.minimumTerrainLevel;
@@ -349,24 +335,25 @@ function ImageryLayer(imageryProvider, options) {
   this._reprojectComputeCommands = [];
 
   /**
-   * Rectangle cutout in this layer of imagery.
+   * 此图像层的矩形裁剪区域。
    *
    * @type {Rectangle}
    */
   this.cutoutRectangle = options.cutoutRectangle;
 
   /**
-   * Color value that should be set to transparent.
+   * 应设置为透明的颜色值。
    *
    * @type {Color}
    */
   this.colorToAlpha = options.colorToAlpha;
 
   /**
-   * Normalized (0-1) threshold for color-to-alpha.
+   * 颜色转透明的归一化（0-1）阈值。
    *
    * @type {number}
    */
+
   this.colorToAlphaThreshold = defaultValue(
     options.colorToAlphaThreshold,
     ImageryLayer.DEFAULT_APPLY_COLOR_TO_ALPHA_THRESHOLD,
@@ -375,7 +362,7 @@ function ImageryLayer(imageryProvider, options) {
 
 Object.defineProperties(ImageryLayer.prototype, {
   /**
-   * Gets the imagery provider for this layer. This should not be called before {@link ImageryLayer#ready} returns true.
+   * 获取此图层的图像提供者。在 {@link ImageryLayer#ready} 返回 true 之前不应调用此方法。
    * @memberof ImageryLayer.prototype
    * @type {ImageryProvider}
    * @readonly
@@ -387,7 +374,7 @@ Object.defineProperties(ImageryLayer.prototype, {
   },
 
   /**
-   * Returns true when the terrain provider has been successfully created. Otherwise, returns false.
+   * 当地形提供者成功创建时返回 true。否则返回 false。
    * @memberof ImageryLayer.prototype
    * @type {boolean}
    * @readonly
@@ -399,9 +386,9 @@ Object.defineProperties(ImageryLayer.prototype, {
   },
 
   /**
-   * Gets an event that is raised when the imagery provider encounters an asynchronous error.  By subscribing
-   * to the event, you will be notified of the error and can potentially recover from it.  Event listeners
-   * are passed an instance of the thrown error.
+   * 获取当图像提供者遇到异步错误时引发的事件。通过订阅
+   * 此事件，您将收到错误通知并可以进行潜在的恢复。事件监听器
+   * 会接收到抛出的错误实例。
    * @memberof Imagery.prototype
    * @type {Event<Imagery.ErrorEventCallback>}
    * @readonly
@@ -413,8 +400,8 @@ Object.defineProperties(ImageryLayer.prototype, {
   },
 
   /**
-   * Gets an event that is raised when the imagery provider has been successfully created. Event listeners
-   * are passed the created instance of {@link ImageryProvider}.
+   * 获取当图像提供者成功创建时引发的事件。事件监听器
+   * 会接收到创建的 {@link ImageryProvider} 实例。
    * @memberof ImageryLayer.prototype
    * @type {Event<ImageryLayer.ReadyEventCallback>}
    * @readonly
@@ -426,8 +413,8 @@ Object.defineProperties(ImageryLayer.prototype, {
   },
 
   /**
-   * Gets the rectangle of this layer.  If this rectangle is smaller than the rectangle of the
-   * {@link ImageryProvider}, only a portion of the imagery provider is shown.
+   * 获取此图层的矩形。如果此矩形小于
+   * {@link ImageryProvider} 的矩形，则仅显示图像提供者的一部分。
    * @memberof ImageryLayer.prototype
    * @type {Rectangle}
    * @readonly
@@ -439,80 +426,82 @@ Object.defineProperties(ImageryLayer.prototype, {
   },
 });
 
+
 /**
- * This value is used as the default brightness for the imagery layer if one is not provided during construction
- * or by the imagery provider. This value does not modify the brightness of the imagery.
+ * 如果在构造时或通过图像提供者未提供，则此值用作图像层的默认亮度。
+ * 此值不会修改图像的亮度。
  * @type {number}
  * @default 1.0
  */
 ImageryLayer.DEFAULT_BRIGHTNESS = 1.0;
+
 /**
- * This value is used as the default contrast for the imagery layer if one is not provided during construction
- * or by the imagery provider. This value does not modify the contrast of the imagery.
+ * 如果在构造时或通过图像提供者未提供，则此值用作图像层的默认对比度。
+ * 此值不会修改图像的对比度。
  * @type {number}
  * @default 1.0
  */
 ImageryLayer.DEFAULT_CONTRAST = 1.0;
+
 /**
- * This value is used as the default hue for the imagery layer if one is not provided during construction
- * or by the imagery provider. This value does not modify the hue of the imagery.
+ * 如果在构造时或通过图像提供者未提供，则此值用作图像层的默认色调。
+ * 此值不会修改图像的色调。
  * @type {number}
  * @default 0.0
  */
 ImageryLayer.DEFAULT_HUE = 0.0;
+
 /**
- * This value is used as the default saturation for the imagery layer if one is not provided during construction
- * or by the imagery provider. This value does not modify the saturation of the imagery.
+ * 如果在构造时或通过图像提供者未提供，则此值用作图像层的默认饱和度。
+ * 此值不会修改图像的饱和度。
  * @type {number}
  * @default 1.0
  */
 ImageryLayer.DEFAULT_SATURATION = 1.0;
+
 /**
- * This value is used as the default gamma for the imagery layer if one is not provided during construction
- * or by the imagery provider. This value does not modify the gamma of the imagery.
+ * 如果在构造时或通过图像提供者未提供，则此值用作图像层的默认伽玛校正。
+ * 此值不会修改图像的伽玛。
  * @type {number}
  * @default 1.0
  */
 ImageryLayer.DEFAULT_GAMMA = 1.0;
 
 /**
- * This value is used as the default split for the imagery layer if one is not provided during construction
- * or by the imagery provider.
+ * 如果在构造时或通过图像提供者未提供，则此值用作图像层的默认分割。
  * @type {SplitDirection}
  * @default SplitDirection.NONE
  */
 ImageryLayer.DEFAULT_SPLIT = SplitDirection.NONE;
 
 /**
- * This value is used as the default texture minification filter for the imagery layer if one is not provided
- * during construction or by the imagery provider.
+ * 如果在构造时或通过图像提供者未提供，则此值用作图像层的默认纹理最小化过滤器。
  * @type {TextureMinificationFilter}
  * @default TextureMinificationFilter.LINEAR
  */
 ImageryLayer.DEFAULT_MINIFICATION_FILTER = TextureMinificationFilter.LINEAR;
 
 /**
- * This value is used as the default texture magnification filter for the imagery layer if one is not provided
- * during construction or by the imagery provider.
+ * 如果在构造时或通过图像提供者未提供，则此值用作图像层的默认纹理放大过滤器。
  * @type {TextureMagnificationFilter}
  * @default TextureMagnificationFilter.LINEAR
  */
 ImageryLayer.DEFAULT_MAGNIFICATION_FILTER = TextureMagnificationFilter.LINEAR;
 
 /**
- * This value is used as the default threshold for color-to-alpha if one is not provided
- * during construction or by the imagery provider.
+ * 如果在构造时或通过图像提供者未提供，则此值用作颜色转透明的默认阈值。
  * @type {number}
  * @default 0.004
  */
+
 ImageryLayer.DEFAULT_APPLY_COLOR_TO_ALPHA_THRESHOLD = 0.004;
 
 /**
- * Create a new imagery layer from an asynchronous imagery provider. The layer will handle any asynchronous loads or errors, and begin rendering the imagery layer once ready.
+ * 从异步图像提供者创建一个新的图像层。该图层将处理任何异步加载或错误，并在准备好后开始渲染图像层。
  *
- * @param {Promise<ImageryProvider>} imageryProviderPromise A promise which resolves to a imagery provider
- * @param {ImageryLayer.ConstructorOptions} options An object describing initialization options
- * @returns {ImageryLayer} The created imagery layer.
+ * @param {Promise<ImageryProvider>} imageryProviderPromise 一个解析为图像提供者的 Promise
+ * @param {ImageryLayer.ConstructorOptions} options 描述初始化选项的对象
+ * @returns {ImageryLayer} 创建的图像层。
  *
  * @example
  * // Create a new base layer
@@ -561,16 +550,16 @@ ImageryLayer.fromProviderAsync = function (imageryProviderPromise, options) {
 /**
  * @typedef {ImageryLayer.ConstructorOptions} ImageryLayer.WorldImageryConstructorOptions
  *
- * Initialization options for ImageryLayer.fromWorldImagery
+ * 用于 ImageryLayer.fromWorldImagery 的初始化选项
  *
- * @property {IonWorldImageryStyle} [options.style=IonWorldImageryStyle] The style of base imagery, only AERIAL, AERIAL_WITH_LABELS, and ROAD are currently supported.
+ * @property {IonWorldImageryStyle} [options.style=IonWorldImageryStyle] 基础图像的样式，目前仅支持 AERIAL、AERIAL_WITH_LABELS 和 ROAD。
  */
 
 /**
- * Create a new imagery layer for ion's default global base imagery layer, currently Bing Maps. The layer will handle any asynchronous loads or errors, and begin rendering the imagery layer once ready.
+ * 为 ion 的默认全球基础图像层创建一个新的图像层，目前为 Bing 地图。该图层将处理任何异步加载或错误，并在准备好后开始渲染图像层。
  *
- * @param {ImageryLayer.WorldImageryConstructorOptions} options An object describing initialization options
- * @returns {ImageryLayer} The created imagery layer.
+ * @param {ImageryLayer.WorldImageryConstructorOptions} options 描述初始化选项的对象
+ * @returns {ImageryLayer} 创建的图像层。
  *
  * * @example
  * // Create a new base layer
@@ -615,41 +604,40 @@ ImageryLayer.fromWorldImagery = function (options) {
 };
 
 /**
- * Gets a value indicating whether this layer is the base layer in the
- * {@link ImageryLayerCollection}.  The base layer is the one that underlies all
- * others.  It is special in that it is treated as if it has global rectangle, even if
- * it actually does not, by stretching the texels at the edges over the entire
- * globe.
+ * 获取一个值，指示此图层是否为 {@link ImageryLayerCollection} 中的基础层。
+ * 基础层是指在所有其他图层下方的图层。它是特殊的，因为它被视为具有全球矩形，即使它实际上并不具有，
+ * 通过将边缘的纹素拉伸到整个地球来实现。
  *
- * @returns {boolean} true if this is the base layer; otherwise, false.
+ * @returns {boolean} 如果这是基础层，则返回 true；否则返回 false。
  */
+
 ImageryLayer.prototype.isBaseLayer = function () {
   return this._isBaseLayer;
 };
 
 /**
- * Returns true if this object was destroyed; otherwise, false.
+ * 如果此对象已被销毁，则返回 true；否则返回 false。
  * <br /><br />
- * If this object was destroyed, it should not be used; calling any function other than
- * <code>isDestroyed</code> will result in a {@link DeveloperError} exception.
+ * 如果此对象已被销毁，则不应再使用它；调用除 <code>isDestroyed</code> 之外的任何函数
+ * 将导致 {@link DeveloperError} 异常。
  *
- * @returns {boolean} True if this object was destroyed; otherwise, false.
+ * @returns {boolean} 如果此对象已被销毁，则返回 true；否则返回 false。
  *
  * @see ImageryLayer#destroy
  */
+
 ImageryLayer.prototype.isDestroyed = function () {
   return false;
 };
 
 /**
- * Destroys the WebGL resources held by this object.  Destroying an object allows for deterministic
- * release of WebGL resources, instead of relying on the garbage collector to destroy this object.
+ * 销毁此对象持有的 WebGL 资源。销毁一个对象允许确定性地释放
+ * WebGL 资源，而不是依赖垃圾收集器来销毁此对象。
  * <br /><br />
- * Once an object is destroyed, it should not be used; calling any function other than
- * <code>isDestroyed</code> will result in a {@link DeveloperError} exception.  Therefore,
- * assign the return value (<code>undefined</code>) to the object as done in the example.
+ * 一旦对象被销毁，就不应再使用；调用除 <code>isDestroyed</code> 之外的任何函数
+ * 将导致 {@link DeveloperError} 异常。因此，将返回值（<code>undefined</code>）分配给对象，如示例中所示。
  *
- * @exception {DeveloperError} This object was destroyed, i.e., destroy() was called.
+ * @exception {DeveloperError} 此对象已被销毁，即已调用 destroy()。
  *
  *
  * @example
@@ -667,10 +655,10 @@ const clippedRectangleScratch = new Rectangle();
 const terrainRectangleScratch = new Rectangle();
 
 /**
- * Computes the intersection of this layer's rectangle with the imagery provider's availability rectangle,
- * producing the overall bounds of imagery that can be produced by this layer.
+ * 计算此图层的矩形与图像提供者的可用性矩形的交集，
+ * 生成由此图层可以生成的图像的总体边界。
  *
- * @returns {Rectangle} A rectangle which defines the overall bounds of imagery that can be produced by this layer.
+ * @returns {Rectangle} 定义此图层可以生成的图像总体边界的矩形。
  *
  * @example
  * // Zoom to an imagery layer.
@@ -687,16 +675,16 @@ ImageryLayer.prototype.getImageryRectangle = function () {
 };
 
 /**
- * Create skeletons for the imagery tiles that partially or completely overlap a given terrain
- * tile.
+ * 为部分或完全重叠给定地形瓦片的图像瓦片创建骨架。
  *
  * @private
  *
- * @param {Tile} tile The terrain tile.
- * @param {TerrainProvider|undefined} terrainProvider The terrain provider associated with the terrain tile.
- * @param {number} insertionPoint The position to insert new skeletons before in the tile's imagery list.
- * @returns {boolean} true if this layer overlaps any portion of the terrain tile; otherwise, false.
+ * @param {Tile} tile 地形瓦片。
+ * @param {TerrainProvider|undefined} terrainProvider 与地形瓦片相关联的地形提供者。
+ * @param {number} insertionPoint 在瓦片的图像列表中插入新骨架的位置。
+ * @returns {boolean} 如果该图层与地形瓦片的任何部分重叠，则返回 true；否则返回 false。
  */
+
 ImageryLayer.prototype._createTileImagerySkeletons = function (
   tile,
   terrainProvider,
@@ -1062,16 +1050,15 @@ ImageryLayer.prototype._createTileImagerySkeletons = function (
 };
 
 /**
- * Calculate the translation and scale for a particular {@link TileImagery} attached to a
- * particular terrain tile.
+ * 计算特定地形瓦片上附加的 {@link TileImagery} 的平移和缩放。
  *
  * @private
  *
- * @param {Tile} tile The terrain tile.
- * @param {TileImagery} tileImagery The imagery tile mapping.
- * @returns {Cartesian4} The translation and scale where X and Y are the translation and Z and W
- *          are the scale.
+ * @param {Tile} tile 地形瓦片。
+ * @param {TileImagery} tileImagery 图像瓦片映射。
+ * @returns {Cartesian4} 平移和缩放，其中 X 和 Y 是平移，Z 和 W 是缩放。
  */
+
 ImageryLayer.prototype._calculateTextureTranslationAndScale = function (
   tile,
   tileImagery,
@@ -1107,13 +1094,13 @@ ImageryLayer.prototype._calculateTextureTranslationAndScale = function (
 };
 
 /**
- * Request a particular piece of imagery from the imagery provider.  This method handles raising an
- * error event if the request fails, and retrying the request if necessary.
+ * 从图像提供者请求特定的图像片段。此方法处理在请求失败时引发错误事件，并在必要时重试请求。
  *
  * @private
  *
- * @param {Imagery} imagery The imagery to request.
+ * @param {Imagery} imagery 要请求的图像。
  */
+
 ImageryLayer.prototype._requestImagery = function (imagery) {
   const imageryProvider = this._imageryProvider;
 
@@ -1233,13 +1220,14 @@ ImageryLayer.prototype._createTextureWebGL = function (context, imagery) {
 };
 
 /**
- * Create a WebGL texture for a given {@link Imagery} instance.
+ * 为给定的 {@link Imagery} 实例创建一个 WebGL 纹理。
  *
  * @private
  *
- * @param {Context} context The rendered context to use to create textures.
- * @param {Imagery} imagery The imagery for which to create a texture.
+ * @param {Context} context 用于创建纹理的渲染上下文。
+ * @param {Imagery} imagery 要为其创建纹理的图像。
  */
+
 ImageryLayer.prototype._createTexture = function (context, imagery) {
   const imageryProvider = this._imageryProvider;
   const image = imagery.image;
@@ -1365,15 +1353,16 @@ ImageryLayer.prototype._finalizeReprojectTexture = function (context, texture) {
 };
 
 /**
- * Enqueues a command re-projecting a texture to a {@link GeographicProjection} on the next update, if necessary, and generate
- * mipmaps for the geographic texture.
+ * 如果需要，排队一个命令将在下一次更新时将纹理重新投影到 {@link GeographicProjection}，并为地理纹理生成
+ * mipmap。
  *
  * @private
  *
- * @param {FrameState} frameState The frameState.
- * @param {Imagery} imagery The imagery instance to reproject.
- * @param {boolean} [needGeographicProjection=true] True to reproject to geographic, or false if Web Mercator is fine.
+ * @param {FrameState} frameState 帧状态。
+ * @param {Imagery} imagery 要重新投影的图像实例。
+ * @param {boolean} [needGeographicProjection=true] 为 true 以重新投影为地理坐标，或为 false 如果 Web Mercator 已足够。
  */
+
 ImageryLayer.prototype._reprojectTexture = function (
   frameState,
   imagery,
@@ -1429,12 +1418,13 @@ ImageryLayer.prototype._reprojectTexture = function (
 };
 
 /**
- * Updates frame state to execute any queued texture re-projections.
+ * 更新帧状态以执行任何排队的纹理重新投影。
  *
  * @private
  *
- * @param {FrameState} frameState The frameState.
+ * @param {FrameState} frameState 帧状态。
  */
+
 ImageryLayer.prototype.queueReprojectionCommands = function (frameState) {
   const computeCommands = this._reprojectComputeCommands;
   const length = computeCommands.length;
@@ -1445,10 +1435,11 @@ ImageryLayer.prototype.queueReprojectionCommands = function (frameState) {
 };
 
 /**
- * Cancels re-projection commands queued for the next frame.
+ * 取消排队在下一帧的重新投影命令。
  *
  * @private
  */
+
 ImageryLayer.prototype.cancelReprojections = function () {
   this._reprojectComputeCommands.forEach(function (command) {
     if (defined(command.canceled)) {
@@ -1685,14 +1676,15 @@ function reprojectToGeographic(command, context, texture, rectangle) {
 }
 
 /**
- * Gets the level with the specified world coordinate spacing between texels, or less.
+ * 获取具有指定纹素之间世界坐标间距的级别，或者更小。
  *
- * @param {ImageryLayer} layer The imagery layer to use.
- * @param {number} texelSpacing The texel spacing for which to find a corresponding level.
- * @param {number} latitudeClosestToEquator The latitude closest to the equator that we're concerned with.
- * @returns {number} The level with the specified texel spacing or less.
+ * @param {ImageryLayer} layer 要使用的图像层。
+ * @param {number} texelSpacing 要查找对应级别的纹素间距。
+ * @param {number} latitudeClosestToEquator 我们关注的最接近赤道的纬度。
+ * @returns {number} 具有指定纹素间距或更小的级别。
  * @private
  */
+
 function getLevelWithMaximumTexelSpacing(
   layer,
   texelSpacing,
@@ -1745,17 +1737,17 @@ async function handlePromise(instance, promise) {
 export default ImageryLayer;
 
 /**
- * A function that is called when an error occurs.
+ * 发生错误时调用的函数。
  * @callback ImageryLayer.ErrorEventCallback
  *
  * @this ImageryLayer
- * @param {Error} err An object holding details about the error that occurred.
+ * @param {Error} err 一个包含有关发生的错误的详细信息的对象。
  */
 
 /**
- * A function that is called when the provider has been created
+ * 当提供者被创建时调用的函数。
  * @callback ImageryLayer.ReadyEventCallback
  *
  * @this ImageryLayer
- * @param {ImageryProvider} provider The created imagery provider.
+ * @param {ImageryProvider} provider 创建的图像提供者。
  */

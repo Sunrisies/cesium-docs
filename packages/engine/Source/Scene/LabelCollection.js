@@ -545,33 +545,31 @@ function destroyLabel(labelCollection, label) {
 }
 
 /**
- * A renderable collection of labels.  Labels are viewport-aligned text positioned in the 3D scene.
- * Each label can have a different font, color, scale, etc.
+ * 可渲染标签的集合。标签是与视口对齐的文本，位于 3D 场景中。
+ * 每个标签可以具有不同的字体、颜色、缩放等。
  * <br /><br />
  * <div align='center'>
  * <img src='Images/Label.png' width='400' height='300' /><br />
- * Example labels
+ * 示例标签
  * </div>
  * <br /><br />
- * Labels are added and removed from the collection using {@link LabelCollection#add}
- * and {@link LabelCollection#remove}.
+ * 标签可以使用 {@link LabelCollection#add} 和 {@link LabelCollection#remove} 方法从集合中添加和移除。
  *
  * @alias LabelCollection
  * @constructor
  *
- * @param {object} [options] Object with the following properties:
- * @param {Matrix4} [options.modelMatrix=Matrix4.IDENTITY] The 4x4 transformation matrix that transforms each label from model to world coordinates.
- * @param {boolean} [options.debugShowBoundingVolume=false] For debugging only. Determines if this primitive's commands' bounding spheres are shown.
- * @param {Scene} [options.scene] Must be passed in for labels that use the height reference property or will be depth tested against the globe.
- * @param {BlendOption} [options.blendOption=BlendOption.OPAQUE_AND_TRANSLUCENT] The label blending option. The default
- * is used for rendering both opaque and translucent labels. However, if either all of the labels are completely opaque or all are completely translucent,
- * setting the technique to BlendOption.OPAQUE or BlendOption.TRANSLUCENT can improve performance by up to 2x.
- * @param {boolean} [options.show=true] Determines if the labels in the collection will be shown.
+ * @param {object} [options] 具有以下属性的对象：
+ * @param {Matrix4} [options.modelMatrix=Matrix4.IDENTITY] 将每个标签从模型坐标转换为世界坐标的 4x4 变换矩阵。
+ * @param {boolean} [options.debugShowBoundingVolume=false] 仅用于调试。确定是否显示该基元的命令的边界球体。
+ * @param {Scene} [options.scene] 必须传入，对于使用高度参考属性或将与地球进行深度测试的标签。
+ * @param {BlendOption} [options.blendOption=BlendOption.OPAQUE_AND_TRANSLUCENT] 标签的混合选项。默认
+ * 用于渲染不透明和半透明标签。但是，如果所有标签均完全不透明或全部完全透明，
+ * 将技术设置为 BlendOption.OPAQUE 或 BlendOption.TRANSLUCENT 可以提高性能达 2 倍。
+ * @param {boolean} [options.show=true] 决定集合中的标签是否显示。
  *
- * @performance For best performance, prefer a few collections, each with many labels, to
- * many collections with only a few labels each.  Avoid having collections where some
- * labels change every frame and others do not; instead, create one or more collections
- * for static labels, and one or more collections for dynamic labels.
+ * @performance 为获得最佳性能，优先考虑少量集合，每个集合中有许多标签，而不是许多集合，每个集合中只有少量标签。
+ * 避免有些标签每帧更改而其他不变的集合；相反，创建一个或多个用于静态标签的集合，
+ * 以及一个或多个用于动态标签的集合。
  *
  * @see LabelCollection#add
  * @see LabelCollection#remove
@@ -622,18 +620,18 @@ function LabelCollection(options) {
   this._highlightColor = Color.clone(Color.WHITE); // Only used by Vector3DTilePoints
 
   /**
-   * Determines if labels in this collection will be shown.
+   * 决定此集合中的标签是否显示。
    *
    * @type {boolean}
    * @default true
    */
+
   this.show = defaultValue(options.show, true);
 
   /**
-   * The 4x4 transformation matrix that transforms each label in this collection from model to world coordinates.
-   * When this is the identity matrix, the labels are drawn in world coordinates, i.e., Earth's WGS84 coordinates.
-   * Local reference frames can be used by providing a different transformation matrix, like that returned
-   * by {@link Transforms.eastNorthUpToFixedFrame}.
+   * 将此集合中的每个标签从模型坐标转换为世界坐标的 4x4 变换矩阵。
+   * 当这是单位矩阵时，标签在世界坐标中绘制，即地球的 WGS84 坐标。
+   * 通过提供不同的变换矩阵（如 {@link Transforms.eastNorthUpToFixedFrame} 返回的矩阵）可以使用局部参考框架。
    *
    * @type Matrix4
    * @default {@link Matrix4.IDENTITY}
@@ -663,28 +661,30 @@ function LabelCollection(options) {
   );
 
   /**
-   * This property is for debugging only; it is not for production use nor is it optimized.
+   * 此属性仅用于调试；不用于生产环境，也没有经过优化。
    * <p>
-   * Draws the bounding sphere for each draw command in the primitive.
+   * 绘制基元中每个绘制命令的边界球体。
    * </p>
    *
    * @type {boolean}
    *
    * @default false
    */
+
   this.debugShowBoundingVolume = defaultValue(
     options.debugShowBoundingVolume,
     false,
   );
 
   /**
-   * The label blending option. The default is used for rendering both opaque and translucent labels.
-   * However, if either all of the labels are completely opaque or all are completely translucent,
-   * setting the technique to BlendOption.OPAQUE or BlendOption.TRANSLUCENT can improve
-   * performance by up to 2x.
+   * 标签的混合选项。默认用于渲染不透明和半透明标签。
+   * 然而，如果所有标签都是完全不透明或全部完全透明，
+   * 将技术设置为 BlendOption.OPAQUE 或 BlendOption.TRANSLUCENT 可以提高
+   * 性能达 2 倍。
    * @type {BlendOption}
    * @default BlendOption.OPAQUE_AND_TRANSLUCENT
    */
+
   this.blendOption = defaultValue(
     options.blendOption,
     BlendOption.OPAQUE_AND_TRANSLUCENT,
@@ -693,12 +693,12 @@ function LabelCollection(options) {
 
 Object.defineProperties(LabelCollection.prototype, {
   /**
-   * Returns the number of labels in this collection.  This is commonly used with
-   * {@link LabelCollection#get} to iterate over all the labels
-   * in the collection.
+   * 返回此集合中的标签数量。通常与
+   * {@link LabelCollection#get} 一起使用，以遍历集合中的所有标签。
    * @memberof LabelCollection.prototype
    * @type {number}
    */
+
   length: {
     get: function () {
       return this._labels.length;
@@ -707,18 +707,15 @@ Object.defineProperties(LabelCollection.prototype, {
 });
 
 /**
- * Creates and adds a label with the specified initial properties to the collection.
- * The added label is returned so it can be modified or removed from the collection later.
+ * 创建并将具有指定初始属性的标签添加到集合中。
+ * 添加的标签将被返回，以便可以在以后修改或从集合中移除。
  *
- * @param {Label.ConstructorOptions} [options] A template describing the label's properties as shown in Example 1.
- * @returns {Label} The label that was added to the collection.
+ * @param {Label.ConstructorOptions} [options] 描述标签属性的模板，如示例 1 所示。
+ * @returns {Label} 添加到集合中的标签。
  *
- * @performance Calling <code>add</code> is expected constant time.  However, the collection's vertex buffer
- * is rewritten; this operations is <code>O(n)</code> and also incurs
- * CPU to GPU overhead.  For best performance, add as many billboards as possible before
- * calling <code>update</code>.
+ * @performance 调用 <code>add</code> 的预期时间复杂度为常量时间。然而，集合的顶点缓冲区会被重写；这个操作是 <code>O(n)</code>，并且还会产生 CPU 到 GPU 的开销。为了获得最佳性能，尽可能在调用 <code>update</code> 之前添加尽可能多的公告牌。
  *
- * @exception {DeveloperError} This object was destroyed, i.e., destroy() was called.
+ * @exception {DeveloperError} 此对象已被销毁，即调用了 destroy()。
  *
  *
  * @example
@@ -769,18 +766,15 @@ LabelCollection.prototype.add = function (options) {
 };
 
 /**
- * Removes a label from the collection.  Once removed, a label is no longer usable.
+ * 从集合中移除一个标签。一旦被移除，标签将不再可用。
  *
- * @param {Label} label The label to remove.
- * @returns {boolean} <code>true</code> if the label was removed; <code>false</code> if the label was not found in the collection.
+ * @param {Label} label 要移除的标签。
+ * @returns {boolean} 如果标签被移除则返回 <code>true</code>；如果标签在集合中未找到，则返回 <code>false</code>。
  *
- * @performance Calling <code>remove</code> is expected constant time.  However, the collection's vertex buffer
- * is rewritten - an <code>O(n)</code> operation that also incurs CPU to GPU overhead.  For
- * best performance, remove as many labels as possible before calling <code>update</code>.
- * If you intend to temporarily hide a label, it is usually more efficient to call
- * {@link Label#show} instead of removing and re-adding the label.
+ * @performance 调用 <code>remove</code> 的预期时间复杂度为常量时间。然而，集合的顶点缓冲区会被重写 - 这是一个 <code>O(n)</code> 的操作，并且会产生 CPU 到 GPU 的开销。为了获得最佳性能，尽可能在调用 <code>update</code> 之前移除尽可能多的标签。
+ * 如果您打算临时隐藏标签，通常调用 {@link Label#show} 会比移除和重新添加标签更有效。
  *
- * @exception {DeveloperError} This object was destroyed, i.e., destroy() was called.
+ * @exception {DeveloperError} 此对象已被销毁，即调用了 destroy()。
  *
  *
  * @example
@@ -804,12 +798,11 @@ LabelCollection.prototype.remove = function (label) {
 };
 
 /**
- * Removes all labels from the collection.
+ * 从集合中移除所有标签。
  *
- * @performance <code>O(n)</code>.  It is more efficient to remove all the labels
- * from a collection and then add new ones than to create a new collection entirely.
+ * @performance <code>O(n)</code>。从集合中移除所有标签然后添加新的标签比完全创建一个新集合更有效。
  *
- * @exception {DeveloperError} This object was destroyed, i.e., destroy() was called.
+ * @exception {DeveloperError} 此对象已被销毁，即调用了 destroy()。
  *
  *
  * @example
@@ -831,34 +824,29 @@ LabelCollection.prototype.removeAll = function () {
 };
 
 /**
- * Check whether this collection contains a given label.
+ * 检查该集合是否包含给定的标签。
  *
- * @param {Label} label The label to check for.
- * @returns {boolean} true if this collection contains the label, false otherwise.
+ * @param {Label} label 要检查的标签。
+ * @returns {boolean} 如果该集合包含标签则返回 true，否则返回 false。
  *
  * @see LabelCollection#get
  *
  */
+
 LabelCollection.prototype.contains = function (label) {
   return defined(label) && label._labelCollection === this;
 };
 
 /**
- * Returns the label in the collection at the specified index.  Indices are zero-based
- * and increase as labels are added.  Removing a label shifts all labels after
- * it to the left, changing their indices.  This function is commonly used with
- * {@link LabelCollection#length} to iterate over all the labels
- * in the collection.
+ * 返回集合中指定索引处的标签。索引是从零开始的，并随着标签的添加而增加。移除一个标签会将其后的所有标签向左移动，改变它们的索引。此函数通常与 {@link LabelCollection#length} 一起使用，以遍历集合中的所有标签。
  *
- * @param {number} index The zero-based index of the billboard.
+ * @param {number} index 公告牌的零基索引。
  *
- * @returns {Label} The label at the specified index.
+ * @returns {Label} 指定索引处的标签。
  *
- * @performance Expected constant time.  If labels were removed from the collection and
- * {@link Scene#render} was not called, an implicit <code>O(n)</code>
- * operation is performed.
+ * @performance 预计时间复杂度为常量时间。如果从集合中移除标签并且 {@link Scene#render} 没有被调用，则会执行隐式的 <code>O(n)</code> 操作。
  *
- * @exception {DeveloperError} This object was destroyed, i.e., destroy() was called.
+ * @exception {DeveloperError} 此对象已被销毁，即调用了 destroy()。
  *
  *
  * @example
@@ -958,28 +946,26 @@ LabelCollection.prototype.update = function (frameState) {
 };
 
 /**
- * Returns true if this object was destroyed; otherwise, false.
+ * 如果该对象已被销毁，则返回 true；否则返回 false。
  * <br /><br />
- * If this object was destroyed, it should not be used; calling any function other than
- * <code>isDestroyed</code> will result in a {@link DeveloperError} exception.
+ * 如果该对象已被销毁，则不应使用；调用除 <code>isDestroyed</code> 之外的任何函数将导致 {@link DeveloperError} 异常。
  *
- * @returns {boolean} True if this object was destroyed; otherwise, false.
+ * @returns {boolean} 如果该对象已被销毁，则返回 true；否则返回 false。
  *
  * @see LabelCollection#destroy
  */
+
 LabelCollection.prototype.isDestroyed = function () {
   return false;
 };
 
 /**
- * Destroys the WebGL resources held by this object.  Destroying an object allows for deterministic
- * release of WebGL resources, instead of relying on the garbage collector to destroy this object.
+ * 销毁此对象持有的 WebGL 资源。销毁对象允许确定性地释放 WebGL 资源，而不是依赖垃圾收集器来销毁该对象。
  * <br /><br />
- * Once an object is destroyed, it should not be used; calling any function other than
- * <code>isDestroyed</code> will result in a {@link DeveloperError} exception.  Therefore,
- * assign the return value (<code>undefined</code>) to the object as done in the example.
+ * 一旦对象被销毁，不应再使用；调用除 <code>isDestroyed</code> 之外的任何函数将导致 {@link DeveloperError} 异常。因此，
+ * 像示例中那样将返回值（<code>undefined</code>）赋值给对象。
  *
- * @exception {DeveloperError} This object was destroyed, i.e., destroy() was called.
+ * @exception {DeveloperError} 此对象已被销毁，即调用了 destroy()。
  *
  *
  * @example
@@ -987,6 +973,7 @@ LabelCollection.prototype.isDestroyed = function () {
  *
  * @see LabelCollection#isDestroyed
  */
+
 LabelCollection.prototype.destroy = function () {
   this.removeAll();
   this._billboardCollection = this._billboardCollection.destroy();

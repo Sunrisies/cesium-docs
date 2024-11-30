@@ -1,5 +1,5 @@
 /**
- * Describes how to draw a label.
+ * 描述如何绘制标签。
  *
  * @enum {number}
  *
@@ -7,7 +7,7 @@
  */
 const LabelStyle = {
   /**
-   * Fill the text of the label, but do not outline.
+   * 填充标签文本，但不勾勒轮廓。
    *
    * @type {number}
    * @constant
@@ -15,7 +15,7 @@ const LabelStyle = {
   FILL: 0,
 
   /**
-   * Outline the text of the label, but do not fill.
+   * 勾勒标签文本的轮廓，但不填充。
    *
    * @type {number}
    * @constant
@@ -23,7 +23,7 @@ const LabelStyle = {
   OUTLINE: 1,
 
   /**
-   * Fill and outline the text of the label.
+   * 填充并勾勒标签文本。
    *
    * @type {number}
    * @constant

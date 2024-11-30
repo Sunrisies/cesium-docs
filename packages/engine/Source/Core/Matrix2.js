@@ -5,16 +5,16 @@ import defined from "./defined.js";
 import DeveloperError from "./DeveloperError.js";
 
 /**
- * A 2x2 matrix, indexable as a column-major order array.
- * Constructor parameters are in row-major order for code readability.
+ * 2x2 矩阵，按列主序数组进行索引。
+ * 构造函数参数采用行主序以提高代码可读性。
  * @alias Matrix2
  * @constructor
  * @implements {ArrayLike<number>}
  *
- * @param {number} [column0Row0=0.0] The value for column 0, row 0.
- * @param {number} [column1Row0=0.0] The value for column 1, row 0.
- * @param {number} [column0Row1=0.0] The value for column 0, row 1.
- * @param {number} [column1Row1=0.0] The value for column 1, row 1.
+ * @param {number} [column0Row0=0.0] 列 0，行 0 的值。
+ * @param {number} [column1Row0=0.0] 列 1，行 0 的值。
+ * @param {number} [column0Row1=0.0] 列 0，行 1 的值。
+ * @param {number} [column1Row1=0.0] 列 1，行 1 的值。
  *
  * @see Matrix2.fromArray
  * @see Matrix2.fromColumnMajorArray
@@ -25,6 +25,7 @@ import DeveloperError from "./DeveloperError.js";
  * @see Matrix3
  * @see Matrix4
  */
+
 function Matrix2(column0Row0, column1Row0, column0Row1, column1Row1) {
   this[0] = defaultValue(column0Row0, 0.0);
   this[1] = defaultValue(column0Row1, 0.0);
@@ -64,13 +65,14 @@ Matrix2.pack = function (value, array, startingIndex) {
 };
 
 /**
- * 从打包数组中检索实例.
+ * 从打包数组中检索实例。
  *
- * @param {number[]} array 压缩数组.
- * @param {number} [startingIndex=0] 需要解包的元素的起始索引.
- * @param {Matrix2} [result] 存储结果的对象.
- * @returns {Matrix2} The modified result parameter or a new Matrix2 instance if one was not provided.
+ * @param {number[]} array 压缩数组。
+ * @param {number} [startingIndex=0] 需要解包的元素的起始索引。
+ * @param {Matrix2} [result] 存储结果的对象。
+ * @returns {Matrix2} 修改后的结果参数，如果未提供，则返回一个新的 Matrix2 实例。
  */
+
 Matrix2.unpack = function (array, startingIndex, result) {
   //>>includeStart('debug', pragmas.debug);
   Check.defined("array", array);
@@ -90,13 +92,14 @@ Matrix2.unpack = function (array, startingIndex, result) {
 };
 
 /**
- * Flattens an array of Matrix2s into an array of components. The components
- * are stored in column-major order.
+ * 将一个 Matrix2 数组扁平化为一个组件数组。组件
+ * 以列主序存储。
  *
- * @param {Matrix2[]} array The array of matrices to pack.
- * @param {number[]} [result] 存储结果的数组. If this is a typed array, it must have array.length * 4 components, else a {@link DeveloperError} will be thrown. If it is a regular array, it will be resized to have (array.length * 4) elements.
- * @returns {number[]} 压缩数组.
+ * @param {Matrix2[]} array 要打包的矩阵数组。
+ * @param {number[]} [result] 存储结果的数组。如果这是一个类型化数组，它必须具有 array.length * 4 个组件，否则将抛出 {@link DeveloperError}。如果这是一个常规数组，则将调整大小以包含 (array.length * 4) 个元素。
+ * @returns {number[]} 压缩数组。
  */
+
 Matrix2.packArray = function (array, result) {
   //>>includeStart('debug', pragmas.debug);
   Check.defined("array", array);
@@ -123,12 +126,13 @@ Matrix2.packArray = function (array, result) {
 };
 
 /**
- * Unpacks an array of column-major matrix components into an array of Matrix2s.
+ * 将列主序矩阵组件数组解包为 Matrix2 数组。
  *
  * @param {number[]} array 要解包的组件数组。
- * @param {Matrix2[]} [result] 存储结果的数组.
- * @returns {Matrix2[]} 解包后的数组.
+ * @param {Matrix2[]} [result] 存储结果的数组。
+ * @returns {Matrix2[]} 解包后的数组。
  */
+
 Matrix2.unpackArray = function (array, result) {
   //>>includeStart('debug', pragmas.debug);
   Check.defined("array", array);
@@ -153,12 +157,13 @@ Matrix2.unpackArray = function (array, result) {
 };
 
 /**
- * Duplicates a Matrix2 instance.
+ * 复制一个 Matrix2 实例。
  *
- * @param {Matrix2} matrix The matrix to duplicate.
- * @param {Matrix2} [result] 存储结果的对象.
- * @returns {Matrix2} The modified result parameter or a new Matrix2 instance if one was not provided. (Returns undefined if matrix is undefined)
+ * @param {Matrix2} matrix 要复制的矩阵。
+ * @param {Matrix2} [result] 存储结果的对象。
+ * @returns {Matrix2} 修改后的结果参数，如果未提供，则返回一个新的 Matrix2 实例。（如果矩阵未定义则返回 undefined）
  */
+
 Matrix2.clone = function (matrix, result) {
   if (!defined(matrix)) {
     return undefined;
@@ -174,13 +179,13 @@ Matrix2.clone = function (matrix, result) {
 };
 
 /**
- * Creates a Matrix2 from 4 consecutive elements in an array.
+ * 从数组中的 4 个连续元素创建一个 Matrix2。
  *
  * @function
- * @param {number[]} array The array whose 4 consecutive elements correspond to the positions of the matrix.  Assumes column-major order.
- * @param {number} [startingIndex=0] The offset into the array of the first element, which corresponds to first column first row position in the matrix.
- * @param {Matrix2} [result] 存储结果的对象.
- * @returns {Matrix2} The modified result parameter or a new Matrix2 instance if one was not provided.
+ * @param {number[]} array 该数组的 4 个连续元素对应于矩阵的位置。假定为列主序。
+ * @param {number} [startingIndex=0] 数组中第一个元素的偏移量，对应于矩阵的第一列第一行的位置。
+ * @param {Matrix2} [result] 存储结果的对象。
+ * @returns {Matrix2} 修改后的结果参数，如果未提供，则返回一个新的 Matrix2 实例。
  *
  * @example
  * // Create the Matrix2:
@@ -196,12 +201,13 @@ Matrix2.clone = function (matrix, result) {
  */
 Matrix2.fromArray = Matrix2.unpack;
 /**
- * Creates a Matrix2 instance from a column-major order array.
+ * 从列主序数组创建一个 Matrix2 实例。
  *
- * @param {number[]} values The column-major order array.
- * @param {Matrix2} [result] The object in which the result will be stored, if undefined a new instance will be created.
- * @returns {Matrix2} The modified result parameter, or a new Matrix2 instance if one was not provided.
+ * @param {number[]} values 列主序数组。
+ * @param {Matrix2} [result] 存储结果的对象，如果未定义，则会创建一个新实例。
+ * @returns {Matrix2} 修改后的结果参数，或者如果未提供，则返回一个新的 Matrix2 实例。
  */
+
 Matrix2.fromColumnMajorArray = function (values, result) {
   //>>includeStart('debug', pragmas.debug);
   Check.defined("values", values);
@@ -211,13 +217,14 @@ Matrix2.fromColumnMajorArray = function (values, result) {
 };
 
 /**
- * Creates a Matrix2 instance from a row-major order array.
- * The resulting matrix will be in column-major order.
+ * 从行主序数组创建一个 Matrix2 实例。
+ * 生成的矩阵将是列主序。
  *
- * @param {number[]} values The row-major order array.
- * @param {Matrix2} [result] The object in which the result will be stored, if undefined a new instance will be created.
- * @returns {Matrix2} The modified result parameter, or a new Matrix2 instance if one was not provided.
+ * @param {number[]} values 行主序数组。
+ * @param {Matrix2} [result] 存储结果的对象，如果未定义，则会创建一个新实例。
+ * @returns {Matrix2} 修改后的结果参数，或者如果未提供，则返回一个新的 Matrix2 实例。
  */
+
 Matrix2.fromRowMajorArray = function (values, result) {
   //>>includeStart('debug', pragmas.debug);
   Check.defined("values", values);
@@ -234,11 +241,11 @@ Matrix2.fromRowMajorArray = function (values, result) {
 };
 
 /**
- * Computes a Matrix2 instance representing a non-uniform scale.
+ * 计算表示非均匀缩放的 Matrix2 实例。
  *
- * @param {Cartesian2} scale The x and y scale factors.
- * @param {Matrix2} [result] The object in which the result will be stored, if undefined a new instance will be created.
- * @returns {Matrix2} The modified result parameter, or a new Matrix2 instance if one was not provided.
+ * @param {Cartesian2} scale x 和 y 的缩放因子。
+ * @param {Matrix2} [result] 存储结果的对象，如果未定义，则会创建一个新实例。
+ * @returns {Matrix2} 修改后的结果参数，或者如果未提供，则返回一个新的 Matrix2 实例。
  *
  * @example
  * // Creates
@@ -263,11 +270,11 @@ Matrix2.fromScale = function (scale, result) {
 };
 
 /**
- * Computes a Matrix2 instance representing a uniform scale.
+ * 计算表示均匀缩放的 Matrix2 实例。
  *
- * @param {number} scale The uniform scale factor.
- * @param {Matrix2} [result] The object in which the result will be stored, if undefined a new instance will be created.
- * @returns {Matrix2} The modified result parameter, or a new Matrix2 instance if one was not provided.
+ * @param {number} scale 均匀缩放因子。
+ * @param {Matrix2} [result] 存储结果的对象，如果未定义，则会创建一个新实例。
+ * @returns {Matrix2} 修改后的结果参数，或者如果未提供，则返回一个新的 Matrix2 实例。
  *
  * @example
  * // Creates
@@ -292,11 +299,11 @@ Matrix2.fromUniformScale = function (scale, result) {
 };
 
 /**
- * Creates a rotation matrix.
+ * 创建一个旋转矩阵。
  *
- * @param {number} angle The angle, in radians, of the rotation.  Positive angles are counterclockwise.
- * @param {Matrix2} [result] The object in which the result will be stored, if undefined a new instance will be created.
- * @returns {Matrix2} The modified result parameter, or a new Matrix2 instance if one was not provided.
+ * @param {number} angle 旋转的角度（以弧度为单位）。正角度为逆时针方向。
+ * @param {Matrix2} [result] 存储结果的对象，如果未定义，则会创建一个新实例。
+ * @returns {Matrix2} 修改后的结果参数，或者如果未提供，则返回一个新的 Matrix2 实例。
  *
  * @example
  * // Rotate a point 45 degrees counterclockwise.
@@ -323,13 +330,14 @@ Matrix2.fromRotation = function (angle, result) {
 };
 
 /**
- * Creates an Array from the provided Matrix2 instance.
- * The array will be in column-major order.
+ * 从提供的 Matrix2 实例创建一个数组。
+ * 数组将采用列主序。
  *
- * @param {Matrix2} matrix The matrix to use..
- * @param {number[]} [result] The Array onto which to store the result.
- * @returns {number[]} The modified Array parameter or a new Array instance if one was not provided.
+ * @param {Matrix2} matrix 要使用的矩阵。
+ * @param {number[]} [result] 存储结果的数组。
+ * @returns {number[]} 修改后的数组参数，如果未提供，则返回一个新的数组实例。
  */
+
 Matrix2.toArray = function (matrix, result) {
   //>>includeStart('debug', pragmas.debug);
   Check.typeOf.object("matrix", matrix);
@@ -346,14 +354,14 @@ Matrix2.toArray = function (matrix, result) {
 };
 
 /**
- * Computes the array index of the element at the provided row and column.
+ * 计算给定行和列元素的数组索引。
  *
- * @param {number} row The zero-based index of the row.
- * @param {number} column The zero-based index of the column.
- * @returns {number} The index of the element at the provided row and column.
+ * @param {number} row 行的零基索引。
+ * @param {number} column 列的零基索引。
+ * @returns {number} 给定行和列的元素的索引。
  *
- * @exception {DeveloperError} row must be 0 or 1.
- * @exception {DeveloperError} column must be 0 or 1.
+ * @exception {DeveloperError} 行必须为 0 或 1。
+ * @exception {DeveloperError} 列必须为 0 或 1。
  *
  * @example
  * const myMatrix = new Cesium.Matrix2();
@@ -374,15 +382,16 @@ Matrix2.getElementIndex = function (column, row) {
 };
 
 /**
- * Retrieves a copy of the matrix column at the provided index as a Cartesian2 instance.
+ * 以 Cartesian2 实例的形式检索给定索引的矩阵列的副本。
  *
- * @param {Matrix2} matrix The matrix to use.
- * @param {number} index The zero-based index of the column to retrieve.
- * @param {Cartesian2} result 存储结果的对象.
- * @returns {Cartesian2} 修改的结果参数
+ * @param {Matrix2} matrix 要使用的矩阵。
+ * @param {number} index 要检索的列的零基索引。
+ * @param {Cartesian2} result 存储结果的对象。
+ * @returns {Cartesian2} 修改后的结果参数。
  *
- * @exception {DeveloperError} index must be 0 or 1.
+ * @exception {DeveloperError} 索引必须为 0 或 1。
  */
+
 Matrix2.getColumn = function (matrix, index, result) {
   //>>includeStart('debug', pragmas.debug);
   Check.typeOf.object("matrix", matrix);
@@ -403,16 +412,17 @@ Matrix2.getColumn = function (matrix, index, result) {
 };
 
 /**
- * Computes a new matrix that replaces the specified column in the provided matrix with the provided Cartesian2 instance.
+ * 计算一个新矩阵，用提供的 Cartesian2 实例替换指定矩阵中的指定列。
  *
- * @param {Matrix2} matrix The matrix to use.
- * @param {number} index The zero-based index of the column to set.
- * @param {Cartesian2} cartesian The Cartesian whose values will be assigned to the specified column.
- * @param {Cartesian2} result 存储结果的对象.
- * @returns {Matrix2} 修改的结果参数
+ * @param {Matrix2} matrix 要使用的矩阵。
+ * @param {number} index 要设置的列的零基索引。
+ * @param {Cartesian2} cartesian 将被分配给指定列的 Cartesian 值。
+ * @param {Cartesian2} result 存储结果的对象。
+ * @returns {Matrix2} 修改后的结果参数。
  *
- * @exception {DeveloperError} index must be 0 or 1.
+ * @exception {DeveloperError} 索引必须为 0 或 1。
  */
+
 Matrix2.setColumn = function (matrix, index, cartesian, result) {
   //>>includeStart('debug', pragmas.debug);
   Check.typeOf.object("matrix", matrix);
@@ -432,15 +442,16 @@ Matrix2.setColumn = function (matrix, index, cartesian, result) {
 };
 
 /**
- * Retrieves a copy of the matrix row at the provided index as a Cartesian2 instance.
+ * 以 Cartesian2 实例的形式检索给定索引的矩阵行的副本。
  *
- * @param {Matrix2} matrix The matrix to use.
- * @param {number} index The zero-based index of the row to retrieve.
- * @param {Cartesian2} result 存储结果的对象.
- * @returns {Cartesian2} 修改的结果参数
+ * @param {Matrix2} matrix 要使用的矩阵。
+ * @param {number} index 要检索的行的零基索引。
+ * @param {Cartesian2} result 存储结果的对象。
+ * @returns {Cartesian2} 修改后的结果参数。
  *
- * @exception {DeveloperError} index must be 0 or 1.
+ * @exception {DeveloperError} 索引必须为 0 或 1。
  */
+
 Matrix2.getRow = function (matrix, index, result) {
   //>>includeStart('debug', pragmas.debug);
   Check.typeOf.object("matrix", matrix);
@@ -460,16 +471,17 @@ Matrix2.getRow = function (matrix, index, result) {
 };
 
 /**
- * Computes a new matrix that replaces the specified row in the provided matrix with the provided Cartesian2 instance.
+ * 计算一个新矩阵，用提供的 Cartesian2 实例替换指定矩阵中的指定行。
  *
- * @param {Matrix2} matrix The matrix to use.
- * @param {number} index The zero-based index of the row to set.
- * @param {Cartesian2} cartesian The Cartesian whose values will be assigned to the specified row.
- * @param {Matrix2} result 存储结果的对象.
- * @returns {Matrix2} 修改的结果参数
+ * @param {Matrix2} matrix 要使用的矩阵。
+ * @param {number} index 要设置的行的零基索引。
+ * @param {Cartesian2} cartesian 将被分配给指定行的 Cartesian 值。
+ * @param {Matrix2} result 存储结果的对象。
+ * @returns {Matrix2} 修改后的结果参数。
  *
- * @exception {DeveloperError} index must be 0 or 1.
+ * @exception {DeveloperError} 索引必须为 0 或 1。
  */
+
 Matrix2.setRow = function (matrix, index, cartesian, result) {
   //>>includeStart('debug', pragmas.debug);
   Check.typeOf.object("matrix", matrix);
@@ -490,13 +502,13 @@ Matrix2.setRow = function (matrix, index, cartesian, result) {
 const scaleScratch1 = new Cartesian2();
 
 /**
- * Computes a new matrix that replaces the scale with the provided scale.
- * This assumes the matrix is an affine transformation.
+ * 计算一个新矩阵，用提供的缩放值替换矩阵中的缩放。
+ * 这假定矩阵是一个仿射变换。
  *
- * @param {Matrix2} matrix The matrix to use.
- * @param {Cartesian2} scale The scale that replaces the scale of the provided matrix.
- * @param {Matrix2} result 存储结果的对象.
- * @returns {Matrix2} 修改的结果参数
+ * @param {Matrix2} matrix 要使用的矩阵。
+ * @param {Cartesian2} scale 用于替换提供矩阵缩放的缩放值。
+ * @param {Matrix2} result 存储结果的对象。
+ * @returns {Matrix2} 修改后的结果参数。
  *
  * @see Matrix2.setUniformScale
  * @see Matrix2.fromScale
@@ -505,6 +517,7 @@ const scaleScratch1 = new Cartesian2();
  * @see Matrix2.multiplyByUniformScale
  * @see Matrix2.getScale
  */
+
 Matrix2.setScale = function (matrix, scale, result) {
   //>>includeStart('debug', pragmas.debug);
   Check.typeOf.object("matrix", matrix);
@@ -527,13 +540,13 @@ Matrix2.setScale = function (matrix, scale, result) {
 const scaleScratch2 = new Cartesian2();
 
 /**
- * Computes a new matrix that replaces the scale with the provided uniform scale.
- * This assumes the matrix is an affine transformation.
+ * 计算一个新矩阵，用提供的均匀缩放值替换矩阵中的缩放。
+ * 这假定矩阵是一个仿射变换。
  *
- * @param {Matrix2} matrix The matrix to use.
- * @param {number} scale The uniform scale that replaces the scale of the provided matrix.
- * @param {Matrix2} result 存储结果的对象.
- * @returns {Matrix2} 修改的结果参数
+ * @param {Matrix2} matrix 要使用的矩阵。
+ * @param {number} scale 用于替换提供矩阵缩放的均匀缩放值。
+ * @param {Matrix2} result 存储结果的对象。
+ * @returns {Matrix2} 修改后的结果参数。
  *
  * @see Matrix2.setScale
  * @see Matrix2.fromScale
@@ -542,6 +555,7 @@ const scaleScratch2 = new Cartesian2();
  * @see Matrix2.multiplyByUniformScale
  * @see Matrix2.getScale
  */
+
 Matrix2.setUniformScale = function (matrix, scale, result) {
   //>>includeStart('debug', pragmas.debug);
   Check.typeOf.object("matrix", matrix);
@@ -564,11 +578,11 @@ Matrix2.setUniformScale = function (matrix, scale, result) {
 const scratchColumn = new Cartesian2();
 
 /**
- * Extracts the non-uniform scale assuming the matrix is an affine transformation.
+ * 提取非均匀缩放，假定该矩阵是一个仿射变换。
  *
- * @param {Matrix2} matrix The matrix.
- * @param {Cartesian2} result 存储结果的对象.
- * @returns {Cartesian2} 修改的结果参数
+ * @param {Matrix2} matrix 矩阵。
+ * @param {Cartesian2} result 存储结果的对象。
+ * @returns {Cartesian2} 修改后的结果参数。
  *
  * @see Matrix2.multiplyByScale
  * @see Matrix2.multiplyByUniformScale
@@ -577,6 +591,7 @@ const scratchColumn = new Cartesian2();
  * @see Matrix2.setScale
  * @see Matrix2.setUniformScale
  */
+
 Matrix2.getScale = function (matrix, result) {
   //>>includeStart('debug', pragmas.debug);
   Check.typeOf.object("matrix", matrix);
@@ -595,12 +610,13 @@ Matrix2.getScale = function (matrix, result) {
 const scaleScratch3 = new Cartesian2();
 
 /**
- * Computes the maximum scale assuming the matrix is an affine transformation.
- * The maximum scale is the maximum length of the column vectors.
+ * 计算最大缩放，假定该矩阵是一个仿射变换。
+ * 最大缩放是列向量的最大长度。
  *
- * @param {Matrix2} matrix The matrix.
- * @returns {number} The maximum scale.
+ * @param {Matrix2} matrix 矩阵。
+ * @returns {number} 最大缩放。
  */
+
 Matrix2.getMaximumScale = function (matrix) {
   Matrix2.getScale(matrix, scaleScratch3);
   return Cartesian2.maximumComponent(scaleScratch3);
@@ -609,16 +625,17 @@ Matrix2.getMaximumScale = function (matrix) {
 const scaleScratch4 = new Cartesian2();
 
 /**
- * Sets the rotation assuming the matrix is an affine transformation.
+ * 设置旋转，假定该矩阵是一个仿射变换。
  *
- * @param {Matrix2} matrix The matrix.
- * @param {Matrix2} rotation The rotation matrix.
- * @param {Matrix2} result 存储结果的对象.
- * @returns {Matrix2} 修改的结果参数
+ * @param {Matrix2} matrix 矩阵。
+ * @param {Matrix2} rotation 旋转矩阵。
+ * @param {Matrix2} result 存储结果的对象。
+ * @returns {Matrix2} 修改后的结果参数。
  *
  * @see Matrix2.fromRotation
  * @see Matrix2.getRotation
  */
+
 Matrix2.setRotation = function (matrix, rotation, result) {
   //>>includeStart('debug', pragmas.debug);
   Check.typeOf.object("matrix", matrix);
@@ -638,15 +655,16 @@ Matrix2.setRotation = function (matrix, rotation, result) {
 const scaleScratch5 = new Cartesian2();
 
 /**
- * Extracts the rotation matrix assuming the matrix is an affine transformation.
+ * 提取旋转矩阵，假定该矩阵是一个仿射变换。
  *
- * @param {Matrix2} matrix The matrix.
- * @param {Matrix2} result 存储结果的对象.
- * @returns {Matrix2} 修改的结果参数
+ * @param {Matrix2} matrix 矩阵。
+ * @param {Matrix2} result 存储结果的对象。
+ * @returns {Matrix2} 修改后的结果参数。
  *
  * @see Matrix2.setRotation
  * @see Matrix2.fromRotation
  */
+
 Matrix2.getRotation = function (matrix, result) {
   //>>includeStart('debug', pragmas.debug);
   Check.typeOf.object("matrix", matrix);
@@ -664,13 +682,14 @@ Matrix2.getRotation = function (matrix, result) {
 };
 
 /**
- * Computes the product of two matrices.
+ * 计算两个矩阵的乘积。
  *
- * @param {Matrix2} left The first matrix.
- * @param {Matrix2} right The second matrix.
- * @param {Matrix2} result 存储结果的对象.
- * @returns {Matrix2} 修改的结果参数
+ * @param {Matrix2} left 第一个矩阵。
+ * @param {Matrix2} right 第二个矩阵。
+ * @param {Matrix2} result 存储结果的对象。
+ * @returns {Matrix2} 修改后的结果参数。
  */
+
 Matrix2.multiply = function (left, right, result) {
   //>>includeStart('debug', pragmas.debug);
   Check.typeOf.object("left", left);
@@ -691,13 +710,14 @@ Matrix2.multiply = function (left, right, result) {
 };
 
 /**
- * Computes the sum of two matrices.
+ * 计算两个矩阵的和。
  *
- * @param {Matrix2} left The first matrix.
- * @param {Matrix2} right The second matrix.
- * @param {Matrix2} result 存储结果的对象.
- * @returns {Matrix2} 修改的结果参数
+ * @param {Matrix2} left 第一个矩阵。
+ * @param {Matrix2} right 第二个矩阵。
+ * @param {Matrix2} result 存储结果的对象。
+ * @returns {Matrix2} 修改后的结果参数。
  */
+
 Matrix2.add = function (left, right, result) {
   //>>includeStart('debug', pragmas.debug);
   Check.typeOf.object("left", left);
@@ -713,13 +733,14 @@ Matrix2.add = function (left, right, result) {
 };
 
 /**
- * Computes the difference of two matrices.
+ * 计算两个矩阵的差。
  *
- * @param {Matrix2} left The first matrix.
- * @param {Matrix2} right The second matrix.
- * @param {Matrix2} result 存储结果的对象.
- * @returns {Matrix2} 修改的结果参数
+ * @param {Matrix2} left 第一个矩阵。
+ * @param {Matrix2} right 第二个矩阵。
+ * @param {Matrix2} result 存储结果的对象。
+ * @returns {Matrix2} 修改后的结果参数。
  */
+
 Matrix2.subtract = function (left, right, result) {
   //>>includeStart('debug', pragmas.debug);
   Check.typeOf.object("left", left);
@@ -735,13 +756,14 @@ Matrix2.subtract = function (left, right, result) {
 };
 
 /**
- * Computes the product of a matrix and a column vector.
+ * 计算矩阵与列向量的乘积。
  *
- * @param {Matrix2} matrix The matrix.
- * @param {Cartesian2} cartesian The column.
- * @param {Cartesian2} result 存储结果的对象.
- * @returns {Cartesian2} 修改的结果参数
+ * @param {Matrix2} matrix 矩阵。
+ * @param {Cartesian2} cartesian 列向量。
+ * @param {Cartesian2} result 存储结果的对象。
+ * @returns {Cartesian2} 修改后的结果参数。
  */
+
 Matrix2.multiplyByVector = function (matrix, cartesian, result) {
   //>>includeStart('debug', pragmas.debug);
   Check.typeOf.object("matrix", matrix);
@@ -758,13 +780,14 @@ Matrix2.multiplyByVector = function (matrix, cartesian, result) {
 };
 
 /**
- * Computes the product of a matrix and a scalar.
+ * 计算矩阵与标量的乘积。
  *
- * @param {Matrix2} matrix The matrix.
- * @param {number} scalar The number to multiply by.
- * @param {Matrix2} result 存储结果的对象.
- * @returns {Matrix2} 修改的结果参数
+ * @param {Matrix2} matrix 矩阵。
+ * @param {number} scalar 要乘以的数字。
+ * @param {Matrix2} result 存储结果的对象。
+ * @returns {Matrix2} 修改后的结果参数。
  */
+
 Matrix2.multiplyByScalar = function (matrix, scalar, result) {
   //>>includeStart('debug', pragmas.debug);
   Check.typeOf.object("matrix", matrix);
@@ -780,12 +803,12 @@ Matrix2.multiplyByScalar = function (matrix, scalar, result) {
 };
 
 /**
- * Computes the product of a matrix times a (non-uniform) scale, as if the scale were a scale matrix.
+ * 计算矩阵与（非均匀）缩放的乘积，仿佛缩放是一个缩放矩阵。
  *
- * @param {Matrix2} matrix The matrix on the left-hand side.
- * @param {Cartesian2} scale The non-uniform scale on the right-hand side.
- * @param {Matrix2} result 存储结果的对象.
- * @returns {Matrix2} 修改的结果参数
+ * @param {Matrix2} matrix 左侧的矩阵。
+ * @param {Cartesian2} scale 右侧的非均匀缩放。
+ * @param {Matrix2} result 存储结果的对象。
+ * @returns {Matrix2} 修改后的结果参数。
  *
  *
  * @example
@@ -815,12 +838,12 @@ Matrix2.multiplyByScale = function (matrix, scale, result) {
 };
 
 /**
- * Computes the product of a matrix times a uniform scale, as if the scale were a scale matrix.
+ * 计算矩阵与均匀缩放的乘积，仿佛缩放是一个缩放矩阵。
  *
- * @param {Matrix2} matrix The matrix on the left-hand side.
- * @param {number} scale The uniform scale on the right-hand side.
- * @param {Matrix2} result 存储结果的对象.
- * @returns {Matrix2} 修改的结果参数
+ * @param {Matrix2} matrix 左侧的矩阵。
+ * @param {number} scale 右侧的均匀缩放。
+ * @param {Matrix2} result 存储结果的对象。
+ * @returns {Matrix2} 修改后的结果参数。
  *
  * @example
  * // Instead of Cesium.Matrix2.multiply(m, Cesium.Matrix2.fromUniformScale(scale), m);
@@ -849,11 +872,11 @@ Matrix2.multiplyByUniformScale = function (matrix, scale, result) {
 };
 
 /**
- * Creates a negated copy of the provided matrix.
+ * 创建提供矩阵的否定副本。
  *
- * @param {Matrix2} matrix The matrix to negate.
- * @param {Matrix2} result 存储结果的对象.
- * @returns {Matrix2} 修改的结果参数
+ * @param {Matrix2} matrix 要否定的矩阵。
+ * @param {Matrix2} result 存储结果的对象。
+ * @returns {Matrix2} 修改后的结果参数。
  */
 Matrix2.negate = function (matrix, result) {
   //>>includeStart('debug', pragmas.debug);
@@ -894,12 +917,13 @@ Matrix2.transpose = function (matrix, result) {
 };
 
 /**
- * Computes a matrix, which contains the absolute (unsigned) values of the provided matrix's elements.
+ * 计算一个矩阵，该矩阵包含提供矩阵元素的绝对（无符号）值。
  *
- * @param {Matrix2} matrix The matrix with signed elements.
- * @param {Matrix2} result 存储结果的对象.
- * @returns {Matrix2} 修改的结果参数
+ * @param {Matrix2} matrix 带符号元素的矩阵。
+ * @param {Matrix2} result 存储结果的对象。
+ * @returns {Matrix2} 修改后的结果参数。
  */
+
 Matrix2.abs = function (matrix, result) {
   //>>includeStart('debug', pragmas.debug);
   Check.typeOf.object("matrix", matrix);
@@ -915,13 +939,14 @@ Matrix2.abs = function (matrix, result) {
 };
 
 /**
- * Compares the provided matrices componentwise and returns
- * 如果相等则为 <code>true</code>，否则为 <code>false</code>
+ * 逐个比较提供的矩阵，并返回
+ * 如果相等则为 <code>true</code>，否则为 <code>false</code>。
  *
- * @param {Matrix2} [left] The first matrix.
- * @param {Matrix2} [right] The second matrix.
- * @returns {boolean} 如果左右相等，则 <code>true</code>，否则 <code>false</code>
+ * @param {Matrix2} [left] 第一个矩阵。
+ * @param {Matrix2} [right] 第二个矩阵。
+ * @returns {boolean} 如果两个矩阵相等，则返回 <code>true</code>，否则返回 <code>false</code>。
  */
+
 Matrix2.equals = function (left, right) {
   return (
     left === right ||
@@ -947,15 +972,16 @@ Matrix2.equalsArray = function (matrix, array, offset) {
 };
 
 /**
- * Compares the provided matrices componentwise and returns
- * <code>true</code> if they are within the provided epsilon,
- * <code>false</code> otherwise.
+ * 逐个比较提供的矩阵，并返回 
+ * 如果它们在提供的 epsilon 范围内，则为 <code>true</code>，
+ * 否则为 <code>false</code>。
  *
- * @param {Matrix2} [left] The first matrix.
- * @param {Matrix2} [right] The second matrix.
- * @param {number} [epsilon=0] The epsilon to use for equality testing.
- * @returns {boolean} 如果左侧和右侧在提供的 epsilon 范围内，则为 <code>true</code>，否则为 <code>false</code>。
+ * @param {Matrix2} [left] 第一个矩阵。
+ * @param {Matrix2} [right] 第二个矩阵。
+ * @param {number} [epsilon=0] 用于相等测试的 epsilon。
+ * @returns {boolean} 如果左侧和右侧在提供的 epsilon 范围内，则返回 <code>true</code>，否则返回 <code>false</code>。
  */
+
 Matrix2.equalsEpsilon = function (left, right, epsilon) {
   epsilon = defaultValue(epsilon, 0);
   return (
@@ -970,7 +996,7 @@ Matrix2.equalsEpsilon = function (left, right, epsilon) {
 };
 
 /**
- * An immutable Matrix2 instance initialized to the identity matrix.
+ * 一个初始化为单位矩阵的不可变 Matrix2 实例。
  *
  * @type {Matrix2}
  * @constant
@@ -978,7 +1004,7 @@ Matrix2.equalsEpsilon = function (left, right, epsilon) {
 Matrix2.IDENTITY = Object.freeze(new Matrix2(1.0, 0.0, 0.0, 1.0));
 
 /**
- * An immutable Matrix2 instance initialized to the zero matrix.
+ * 一个初始化为零矩阵的不可变 Matrix2 实例。
  *
  * @type {Matrix2}
  * @constant
@@ -986,19 +1012,20 @@ Matrix2.IDENTITY = Object.freeze(new Matrix2(1.0, 0.0, 0.0, 1.0));
 Matrix2.ZERO = Object.freeze(new Matrix2(0.0, 0.0, 0.0, 0.0));
 
 /**
- * The index into Matrix2 for column 0, row 0.
+ * Matrix2 中列 0，行 0 的索引。
  *
  * @type {number}
  * @constant
  *
  * @example
  * const matrix = new Cesium.Matrix2();
- * matrix[Cesium.Matrix2.COLUMN0ROW0] = 5.0; // set column 0, row 0 to 5.0
+ * matrix[Cesium.Matrix2.COLUMN0ROW0] = 5.0; // 将列 0，行 0 设置为 5.0
  */
+
 Matrix2.COLUMN0ROW0 = 0;
 
 /**
- * The index into Matrix2 for column 0, row 1.
+ * Matrix2 中列 0，行 1 的索引。
  *
  * @type {number}
  * @constant
@@ -1010,7 +1037,7 @@ Matrix2.COLUMN0ROW0 = 0;
 Matrix2.COLUMN0ROW1 = 1;
 
 /**
- * The index into Matrix2 for column 1, row 0.
+ * Matrix2 中列 1，行 0 的索引。
  *
  * @type {number}
  * @constant
@@ -1022,7 +1049,7 @@ Matrix2.COLUMN0ROW1 = 1;
 Matrix2.COLUMN1ROW0 = 2;
 
 /**
- * The index into Matrix2 for column 1, row 1.
+ * Matrix2 中列 1，行 1 的索引。
  *
  * @type {number}
  * @constant
@@ -1035,7 +1062,7 @@ Matrix2.COLUMN1ROW1 = 3;
 
 Object.defineProperties(Matrix2.prototype, {
   /**
-   * Gets the number of items in the collection.
+   * 获取集合中项的数量
    * @memberof Matrix2.prototype
    *
    * @type {number}
@@ -1048,45 +1075,50 @@ Object.defineProperties(Matrix2.prototype, {
 });
 
 /**
- * Duplicates the provided Matrix2 instance.
+ * 复制提供的 Matrix2 实例。
  *
- * @param {Matrix2} [result] 存储结果的对象.
- * @returns {Matrix2} The modified result parameter or a new Matrix2 instance if one was not provided.
+ * @param {Matrix2} [result] 存储结果的对象。
+ * @returns {Matrix2} 修改后的结果参数，如果未提供，则返回一个新的 Matrix2 实例。
  */
+
 Matrix2.prototype.clone = function (result) {
   return Matrix2.clone(this, result);
 };
 
 /**
- * Compares this matrix to the provided matrix componentwise and returns
- * 如果相等则为 <code>true</code>，否则为 <code>false</code>
+ * 将此矩阵与提供的矩阵逐个比较并返回
+ * 如果相等则为 <code>true</code>，否则为 <code>false</code>。
  *
- * @param {Matrix2} [right] The right hand side matrix.
- * @returns {boolean} 如果相等则为 <code>true</code>，否则为 <code>false</code>
+ * @param {Matrix2} [right] 右侧矩阵。
+ * @returns {boolean} 如果相等则返回 <code>true</code>，否则返回 <code>false</code>。
  */
+
 Matrix2.prototype.equals = function (right) {
   return Matrix2.equals(this, right);
 };
 
 /**
- * Compares this matrix to the provided matrix componentwise and returns
- * <code>true</code> if they are within the provided epsilon,
- * <code>false</code> otherwise.
+ * 将此矩阵与提供的矩阵逐个比较并返回
+ * 如果它们在提供的 epsilon 范围内，则为 <code>true</code>，
+ * 否则返回 <code>false</code>。
  *
- * @param {Matrix2} [right] The right hand side matrix.
- * @param {number} [epsilon=0] The epsilon to use for equality testing.
- * @returns {boolean} 如果它们在提供的 epsilon 范围内，则为 <code>true</code>，否则为 <code>false</code>
+ * @param {Matrix2} [right] 右侧矩阵。
+ * @param {number} [epsilon=0] 用于相等测试的 epsilon。
+ * @returns {boolean} 如果它们在提供的 epsilon 范围内，则返回 <code>true</code>，否则返回 <code>false</code>。
  */
+
 Matrix2.prototype.equalsEpsilon = function (right, epsilon) {
   return Matrix2.equalsEpsilon(this, right, epsilon);
 };
 
 /**
- * Creates a string representing this Matrix with each row being
- * on a separate line and in the format '(column0, column1)'.
+ * 创建一个字符串表示该矩阵，每行表示
+ * 单独一行，格式为 '(column0, column1)'。
  *
- * @returns {string} A string representing the provided Matrix with each row being on a separate line and in the format '(column0, column1)'.
+ * @returns {string} 一个字符串，表示提供的矩阵，每行表示
+ * 在单独一行中，格式为 '(column0, column1)'。
  */
+
 Matrix2.prototype.toString = function () {
   return `(${this[0]}, ${this[2]})\n` + `(${this[1]}, ${this[3]})`;
 };

@@ -3,51 +3,57 @@ import defined from "./defined.js";
 import DeveloperError from "./DeveloperError.js";
 
 /**
- * Represents a scalar value's lower and upper bound at a near distance and far distance in eye space.
+ * 表示标量值在视点空间中近距离和远距离的下限和上限。
  * @alias NearFarScalar
  * @constructor
  *
- * @param {number} [near=0.0] The lower bound of the camera range.
- * @param {number} [nearValue=0.0] The value at the lower bound of the camera range.
- * @param {number} [far=1.0] The upper bound of the camera range.
- * @param {number} [farValue=0.0] The value at the upper bound of the camera range.
+ * @param {number} [near=0.0] 相机范围的下限。
+ * @param {number} [nearValue=0.0] 相机范围下限处的值。
+ * @param {number} [far=1.0] 相机范围的上限。
+ * @param {number} [farValue=0.0] 相机范围上限处的值。
  *
  * @see Packable
  */
+
 function NearFarScalar(near, nearValue, far, farValue) {
   /**
-   * The lower bound of the camera range.
+   * 相机范围的下限。
    * @type {number}
    * @default 0.0
    */
   this.near = defaultValue(near, 0.0);
+  
   /**
-   * The value at the lower bound of the camera range.
+   * 相机范围下限处的值。
    * @type {number}
    * @default 0.0
    */
   this.nearValue = defaultValue(nearValue, 0.0);
+  
   /**
-   * The upper bound of the camera range.
+   * 相机范围的上限。
    * @type {number}
    * @default 1.0
    */
   this.far = defaultValue(far, 1.0);
+  
   /**
-   * The value at the upper bound of the camera range.
+   * 相机范围上限处的值。
    * @type {number}
    * @default 0.0
    */
   this.farValue = defaultValue(farValue, 0.0);
 }
 
+
 /**
- * Duplicates a NearFarScalar instance.
+ * 复制一个 NearFarScalar 实例。
  *
- * @param {NearFarScalar} nearFarScalar The NearFarScalar to duplicate.
- * @param {NearFarScalar} [result] 存储结果的对象.
- * @returns {NearFarScalar} The modified result parameter or a new NearFarScalar instance if one was not provided. (Returns undefined if nearFarScalar is undefined)
+ * @param {NearFarScalar} nearFarScalar 要复制的 NearFarScalar。
+ * @param {NearFarScalar} [result] 存储结果的对象。
+ * @returns {NearFarScalar} 修改后的结果参数，或者如果未提供，则返回一个新的 NearFarScalar 实例。（如果 nearFarScalar 为未定义，则返回 undefined）
  */
+
 NearFarScalar.clone = function (nearFarScalar, result) {
   if (!defined(nearFarScalar)) {
     return undefined;
@@ -105,13 +111,14 @@ NearFarScalar.pack = function (value, array, startingIndex) {
 };
 
 /**
- * 从打包数组中检索实例.
+ * 从打包数组中检索实例。
  *
- * @param {number[]} array 压缩数组.
- * @param {number} [startingIndex=0] 需要解包的元素的起始索引.
- * @param {NearFarScalar} [result] 存储结果的对象.
- * @returns {NearFarScalar} The modified result parameter or a new NearFarScalar instance if one was not provided.
+ * @param {number[]} array 压缩数组。
+ * @param {number} [startingIndex=0] 需要解包的元素的起始索引。
+ * @param {NearFarScalar} [result] 存储结果的对象。
+ * @returns {NearFarScalar} 修改后的结果参数，或者如果未提供，则返回一个新的 NearFarScalar 实例。
  */
+
 NearFarScalar.unpack = function (array, startingIndex, result) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(array)) {
@@ -132,13 +139,13 @@ NearFarScalar.unpack = function (array, startingIndex, result) {
 };
 
 /**
- * Compares the provided NearFarScalar and returns <code>true</code> if they are equal,
- * <code>false</code> otherwise.
+ * 比较提供的 NearFarScalar，如果它们相等则返回 <code>true</code>，否则返回 <code>false</code>。
  *
- * @param {NearFarScalar} [left] The first NearFarScalar.
- * @param {NearFarScalar} [right] The second NearFarScalar.
- * @returns {boolean} <code>true</code> if left and right are equal; otherwise <code>false</code>.
+ * @param {NearFarScalar} [left] 第一个 NearFarScalar。
+ * @param {NearFarScalar} [right] 第二个 NearFarScalar。
+ * @returns {boolean} 如果 left 和 right 相等，则返回 <code>true</code>；否则返回 <code>false</code>。
  */
+
 NearFarScalar.equals = function (left, right) {
   return (
     left === right ||
@@ -152,22 +159,23 @@ NearFarScalar.equals = function (left, right) {
 };
 
 /**
- * Duplicates this instance.
+ * 复制此实例。
  *
- * @param {NearFarScalar} [result] 存储结果的对象.
- * @returns {NearFarScalar} The modified result parameter or a new NearFarScalar instance if one was not provided.
+ * @param {NearFarScalar} [result] 存储结果的对象。
+ * @returns {NearFarScalar} 修改后的结果参数，或者如果未提供，则返回一个新的 NearFarScalar 实例。
  */
 NearFarScalar.prototype.clone = function (result) {
   return NearFarScalar.clone(this, result);
 };
 
 /**
- * Compares this instance to the provided NearFarScalar and returns <code>true</code> if they are equal,
- * <code>false</code> otherwise.
+ * 将此实例与提供的 NearFarScalar 进行比较，如果它们相等则返回 <code>true</code>，
+ * 否则返回 <code>false</code>。
  *
- * @param {NearFarScalar} [right] The right hand side NearFarScalar.
- * @returns {boolean} <code>true</code> if left and right are equal; otherwise <code>false</code>.
+ * @param {NearFarScalar} [right] 右侧的 NearFarScalar。
+ * @returns {boolean} 如果 left 和 right 相等，则返回 <code>true</code>；否则返回 <code>false</code>。
  */
+
 NearFarScalar.prototype.equals = function (right) {
   return NearFarScalar.equals(this, right);
 };

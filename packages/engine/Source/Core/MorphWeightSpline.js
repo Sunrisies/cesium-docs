@@ -5,21 +5,20 @@ import DeveloperError from "./DeveloperError.js";
 import Spline from "./Spline.js";
 
 /**
- * A spline that linearly interpolates over an array of weight values used by morph targets.
+ * 一个样条曲线，在线性插值的基础上处理用于形态目标的权重值数组。
  *
  * @alias MorphWeightSpline
  * @constructor
  *
- * @param {object} options Object with the following properties:
- * @param {number[]} options.times An array of strictly increasing, unit-less, floating-point times at each point.
- *                The values are in no way connected to the clock time. They are the parameterization for the curve.
- * @param {number[]} options.weights The array of floating-point control weights given. The weights are ordered such
- *                that all weights for the targets are given in chronological order and order in which they appear in
- *                the glTF from which the morph targets come. This means for 2 targets, weights = [w(0,0), w(0,1), w(1,0), w(1,1) ...]
- *                where i and j in w(i,j) are the time indices and target indices, respectively.
+ * @param {object} options 具有以下属性的对象：
+ * @param {number[]} options.times 一个严格递增的、无单位的浮点数数组，表示每个点的时间。
+ *                这些值与时钟时间没有任何关联。它们是曲线的参数化。
+ * @param {number[]} options.weights 提供的浮点控制权重数组。权重按顺序排列，确保目标的所有权重
+ *                按时间顺序给出，并且按它们在源于的 glTF 中出现的顺序排列。这意味着对于 2 个目标，weights = [w(0,0), w(0,1), w(1,0), w(1,1) ...]，
+ *                其中 i 和 j 在 w(i,j) 中分别是时间索引和目标索引。
  *
- * @exception {DeveloperError} weights.length must be greater than or equal to 2.
- * @exception {DeveloperError} times.length must be a factor of weights.length.
+ * @exception {DeveloperError} weights.length 必须大于或等于 2。
+ * @exception {DeveloperError} times.length 必须是 weights.length 的因子。
  *
  *
  * @example
@@ -65,7 +64,7 @@ function MorphWeightSpline(options) {
 
 Object.defineProperties(MorphWeightSpline.prototype, {
   /**
-   * An array of times for the control weights.
+   * 控制权重的时间数组。
    *
    * @memberof WeightSpline.prototype
    *
@@ -79,13 +78,14 @@ Object.defineProperties(MorphWeightSpline.prototype, {
   },
 
   /**
-   * An array of floating-point array control weights.
+   * 浮点数数组控制权重的数组。
    *
    * @memberof WeightSpline.prototype
    *
    * @type {number[]}
    * @readonly
    */
+
   weights: {
     get: function () {
       return this._weights;
@@ -94,49 +94,50 @@ Object.defineProperties(MorphWeightSpline.prototype, {
 });
 
 /**
- * Finds an index <code>i</code> in <code>times</code> such that the parameter
- * <code>time</code> is in the interval <code>[times[i], times[i + 1]]</code>.
+ * 在 <code>times</code> 中找到一个索引 <code>i</code>，使得参数 <code>time</code> 在区间 <code>[times[i], times[i + 1]]</code> 内。
  * @function
  *
- * @param {number} time The time.
- * @returns {number} The index for the element at the start of the interval.
+ * @param {number} time 时间。
+ * @returns {number} 区间起始位置的元素索引。
  *
- * @exception {DeveloperError} time must be in the range <code>[t<sub>0</sub>, t<sub>n</sub>]</code>, where <code>t<sub>0</sub></code>
- *                             is the first element in the array <code>times</code> and <code>t<sub>n</sub></code> is the last element
- *                             in the array <code>times</code>.
+ * @exception {DeveloperError} time 必须在范围 <code>[t<sub>0</sub>, t<sub>n</sub>]</code> 内，其中 <code>t<sub>0</sub></code>
+ *                             是数组 <code>times</code> 中的第一个元素，而 <code>t<sub>n</sub></code> 是数组
+ *                             <code>times</code> 中的最后一个元素。
  */
+
 MorphWeightSpline.prototype.findTimeInterval =
   Spline.prototype.findTimeInterval;
 
 /**
- * Wraps the given time to the period covered by the spline.
+ * 将给定时间包装到样条曲线覆盖的周期内。
  * @function
  *
- * @param {number} time The time.
- * @return {number} The time, wrapped around to the updated animation.
+ * @param {number} time 时间。
+ * @return {number} 包装后的时间，更新到动画。
  */
 MorphWeightSpline.prototype.wrapTime = Spline.prototype.wrapTime;
 
 /**
- * Clamps the given time to the period covered by the spline.
+ * 将给定时间限制在样条曲线覆盖的周期内。
  * @function
  *
- * @param {number} time The time.
- * @return {number} The time, clamped to the animation period.
+ * @param {number} time 时间。
+ * @return {number} 时间，限制在动画周期内。
  */
 MorphWeightSpline.prototype.clampTime = Spline.prototype.clampTime;
 
 /**
- * Evaluates the curve at a given time.
+ * 在给定时间评估曲线。
  *
- * @param {number} time The time at which to evaluate the curve.
- * @param {number[]} [result] 存储结果的对象.
- * @returns {number[]} The modified result parameter or a new instance of the point on the curve at the given time.
+ * @param {number} time 要评估曲线的时间。
+ * @param {number[]} [result] 存储结果的对象。
+ * @returns {number[]} 修改后的结果参数或该时间点上曲线的新实例。
  *
- * @exception {DeveloperError} time must be in the range <code>[t<sub>0</sub>, t<sub>n</sub>]</code>, where <code>t<sub>0</sub></code>
- *                             is the first element in the array <code>times</code> and <code>t<sub>n</sub></code> is the last element
- *                             in the array <code>times</code>.
+ * @exception {DeveloperError} time 必须在范围 <code>[t<sub>0</sub>, t<sub>n</sub>]</code> 内，其中 <code>t<sub>0</sub></code>
+ *                             是数组 <code>times</code> 中的第一个元素，而 <code>t<sub>n</sub></code> 是数组
+ *                             <code>times</code> 中的最后一个元素。
  */
+
 MorphWeightSpline.prototype.evaluate = function (time, result) {
   const weights = this.weights;
   const times = this.times;

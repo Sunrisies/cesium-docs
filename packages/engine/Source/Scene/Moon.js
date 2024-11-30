@@ -13,15 +13,15 @@ import EllipsoidPrimitive from "./EllipsoidPrimitive.js";
 import Material from "./Material.js";
 
 /**
- * Draws the Moon in 3D.
+ * 在 3D 中绘制月球。
  * @alias Moon
  * @constructor
  *
- * @param {object} [options] Object with the following properties:
- * @param {boolean} [options.show=true] Determines whether the moon will be rendered.
- * @param {string} [options.textureUrl=buildModuleUrl('Assets/Textures/moonSmall.jpg')] The moon texture.
- * @param {Ellipsoid} [options.ellipsoid=Ellipsoid.MOON] The moon ellipsoid.
- * @param {boolean} [options.onlySunLighting=true] Use the sun as the only light source.
+ * @param {object} [options] 具有以下属性的对象：
+ * @param {boolean} [options.show=true] 确定是否渲染月球。
+ * @param {string} [options.textureUrl=buildModuleUrl('Assets/Textures/moonSmall.jpg')] 月球的纹理。
+ * @param {Ellipsoid} [options.ellipsoid=Ellipsoid.MOON] 月球的椭球体。
+ * @param {boolean} [options.onlySunLighting=true] 使用太阳作为唯一的光源。
  *
  *
  * @example
@@ -38,7 +38,7 @@ function Moon(options) {
   }
 
   /**
-   * Determines if the moon will be shown.
+   * 确定是否渲染月球。
    *
    * @type {boolean}
    * @default true
@@ -46,7 +46,7 @@ function Moon(options) {
   this.show = defaultValue(options.show, true);
 
   /**
-   * The moon texture.
+   * 月球的纹理。
    * @type {string}
    * @default buildModuleUrl('Assets/Textures/moonSmall.jpg')
    */
@@ -55,7 +55,7 @@ function Moon(options) {
   this._ellipsoid = defaultValue(options.ellipsoid, Ellipsoid.MOON);
 
   /**
-   * Use the sun as the only light source.
+   * 使用太阳作为唯一的光源。
    * @type {boolean}
    * @default true
    */
@@ -72,9 +72,10 @@ function Moon(options) {
   this._axes = new IauOrientationAxes();
 }
 
+
 Object.defineProperties(Moon.prototype, {
   /**
-   * Get the ellipsoid that defines the shape of the moon.
+   * 获取定义月球形状的椭球体。
    *
    * @memberof Moon.prototype
    *
@@ -89,6 +90,7 @@ Object.defineProperties(Moon.prototype, {
     },
   },
 });
+
 
 const icrfToFixed = new Matrix3();
 const rotationScratch = new Matrix3();
@@ -138,29 +140,26 @@ Moon.prototype.update = function (frameState) {
 };
 
 /**
- * Returns true if this object was destroyed; otherwise, false.
+ * 如果该对象已被销毁，则返回 true；否则返回 false。
  * <br /><br />
- * If this object was destroyed, it should not be used; calling any function other than
- * <code>isDestroyed</code> will result in a {@link DeveloperError} exception.
+ * 如果该对象已被销毁，则不应再使用；调用除 <code>isDestroyed</code> 以外的任何函数将导致 {@link DeveloperError} 异常。
  *
- * @returns {boolean} <code>true</code> if this object was destroyed; otherwise, <code>false</code>.
+ * @returns {boolean} 如果该对象已被销毁，则返回 <code>true</code>；否则返回 <code>false</code>。
  *
  * @see Moon#destroy
  */
+
 Moon.prototype.isDestroyed = function () {
   return false;
 };
 
 /**
- * Destroys the WebGL resources held by this object.  Destroying an object allows for deterministic
- * release of WebGL resources, instead of relying on the garbage collector to destroy this object.
+ * 销毁此对象所持有的 WebGL 资源。销毁对象允许以确定的方式释放 WebGL 资源，而不是依赖垃圾收集器来销毁此对象。
  * <br /><br />
- * Once an object is destroyed, it should not be used; calling any function other than
- * <code>isDestroyed</code> will result in a {@link DeveloperError} exception.  Therefore,
- * assign the return value (<code>undefined</code>) to the object as done in the example.
+ * 一旦对象被销毁，就不应再使用；调用除 <code>isDestroyed</code> 以外的任何函数将导致 {@link DeveloperError} 异常。因此，
+ * 将返回值（<code>undefined</code>）赋值给对象，如示例所示。
  *
- * @exception {DeveloperError} This object was destroyed, i.e., destroy() was called.
- *
+ * @exception {DeveloperError} 此对象已被销毁，即已调用 destroy()。
  *
  * @example
  * moon = moon && moon.destroy();

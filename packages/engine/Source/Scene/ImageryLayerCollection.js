@@ -8,7 +8,7 @@ import Rectangle from "../Core/Rectangle.js";
 import ImageryLayer from "./ImageryLayer.js";
 
 /**
- * An ordered collection of imagery layers.
+ * 一个有序的图像层集合。
  *
  * @alias ImageryLayerCollection
  * @constructor
@@ -20,34 +20,29 @@ function ImageryLayerCollection() {
   this._layers = [];
 
   /**
-   * An event that is raised when a layer is added to the collection.  Event handlers are passed the layer that
-   * was added and the index at which it was added.
+   * 当层被添加到集合时引发的事件。事件处理程序接收被添加的层和添加位置的索引。
    * @type {Event}
    * @default Event()
    */
   this.layerAdded = new Event();
 
   /**
-   * An event that is raised when a layer is removed from the collection.  Event handlers are passed the layer that
-   * was removed and the index from which it was removed.
+   * 当层从集合中移除时引发的事件。事件处理程序接收被移除的层和移除位置的索引。
    * @type {Event}
    * @default Event()
    */
   this.layerRemoved = new Event();
 
   /**
-   * An event that is raised when a layer changes position in the collection.  Event handlers are passed the layer that
-   * was moved, its new index after the move, and its old index prior to the move.
+   * 当层在集合中位置发生变化时引发的事件。事件处理程序接收被移动的层、移动后的新索引和移动前的旧索引。
    * @type {Event}
    * @default Event()
    */
   this.layerMoved = new Event();
 
   /**
-   * An event that is raised when a layer is shown or hidden by setting the
-   * {@link ImageryLayer#show} property.  Event handlers are passed a reference to this layer,
-   * the index of the layer in the collection, and a flag that is true if the layer is now
-   * shown or false if it is now hidden.
+   * 当层通过设置 {@link ImageryLayer#show} 属性被显示或隐藏时引发的事件。事件处理程序接收对该层的引用、
+   * 在集合中的索引，以及一个标志，该标志为 true 表示层现在显示，为 false 表示层现在隐藏。
    *
    * @type {Event}
    * @default Event()
@@ -55,12 +50,14 @@ function ImageryLayerCollection() {
   this.layerShownOrHidden = new Event();
 }
 
+
 Object.defineProperties(ImageryLayerCollection.prototype, {
   /**
-   * Gets the number of layers in this collection.
+   * 获取此集合中的层数量。
    * @memberof ImageryLayerCollection.prototype
    * @type {number}
    */
+
   length: {
     get: function () {
       return this._layers.length;
@@ -69,13 +66,13 @@ Object.defineProperties(ImageryLayerCollection.prototype, {
 });
 
 /**
- * Adds a layer to the collection.
+ * 将一个图层添加到集合中。
  *
- * @param {ImageryLayer} layer the layer to add.
- * @param {number} [index] the index to add the layer at.  If omitted, the layer will
- *                         be added on top of all existing layers.
+ * @param {ImageryLayer} layer 要添加的图层。
+ * @param {number} [index] 添加图层的索引。如果省略，则图层将
+ *                         被添加到所有现有图层之上。
  *
- * @exception {DeveloperError} index, if supplied, must be greater than or equal to zero and less than or equal to the number of the layers.
+ * @exception {DeveloperError} 如果提供 index，则必须大于等于零且小于等于层的数量。
  *
  * @example
  * const imageryLayer = Cesium.ImageryLayer.fromWorldImagery();
@@ -119,12 +116,12 @@ ImageryLayerCollection.prototype.add = function (layer, index) {
 };
 
 /**
- * Creates a new layer using the given ImageryProvider and adds it to the collection.
+ * 使用给定的 ImageryProvider 创建一个新图层并将其添加到集合中。
  *
- * @param {ImageryProvider} imageryProvider the imagery provider to create a new layer for.
- * @param {number} [index] the index to add the layer at.  If omitted, the layer will
- *                         added on top of all existing layers.
- * @returns {ImageryLayer} The newly created layer.
+ * @param {ImageryProvider} imageryProvider 要为其创建新图层的图像提供者。
+ * @param {number} [index] 添加图层的索引。如果省略，则图层将
+ *                         添加到所有现有图层之上。
+ * @returns {ImageryLayer} 新创建的图层。
  *
  * @example
  * try {
@@ -150,13 +147,14 @@ ImageryLayerCollection.prototype.addImageryProvider = function (
 };
 
 /**
- * Removes a layer from this collection, if present.
+ * 从此集合中移除一个图层（如果存在）。
  *
- * @param {ImageryLayer} layer The layer to remove.
- * @param {boolean} [destroy=true] whether to destroy the layers in addition to removing them.
- * @returns {boolean} true if the layer was in the collection and was removed,
- *                    false if the layer was not in the collection.
+ * @param {ImageryLayer} layer 要移除的图层。
+ * @param {boolean} [destroy=true] 移除图层的同时是否销毁它们。
+ * @returns {boolean} 如果图层在集合中并被移除，则返回 true；
+ *                    如果图层不在集合中，则返回 false。
  */
+
 ImageryLayerCollection.prototype.remove = function (layer, destroy) {
   destroy = defaultValue(destroy, true);
 
@@ -179,10 +177,11 @@ ImageryLayerCollection.prototype.remove = function (layer, destroy) {
 };
 
 /**
- * Removes all layers from this collection.
+ * 从此集合中移除所有图层。
  *
- * @param {boolean} [destroy=true] whether to destroy the layers in addition to removing them.
+ * @param {boolean} [destroy=true] 移除图层的同时是否销毁它们。
  */
+
 ImageryLayerCollection.prototype.removeAll = function (destroy) {
   destroy = defaultValue(destroy, true);
 
@@ -200,34 +199,37 @@ ImageryLayerCollection.prototype.removeAll = function (destroy) {
 };
 
 /**
- * Checks to see if the collection contains a given layer.
+ * 检查集合中是否包含给定的图层。
  *
- * @param {ImageryLayer} layer the layer to check for.
+ * @param {ImageryLayer} layer 要检查的图层。
  *
- * @returns {boolean} true if the collection contains the layer, false otherwise.
+ * @returns {boolean} 如果集合包含该图层则返回 true，否則返回 false。
  */
+
 ImageryLayerCollection.prototype.contains = function (layer) {
   return this.indexOf(layer) !== -1;
 };
 
 /**
- * Determines the index of a given layer in the collection.
+ * 确定集合中给定图层的索引。
  *
- * @param {ImageryLayer} layer The layer to find the index of.
+ * @param {ImageryLayer} layer 要查找索引的图层。
  *
- * @returns {number} The index of the layer in the collection, or -1 if the layer does not exist in the collection.
+ * @returns {number} 图层在集合中的索引，如果图层不存在于集合中则返回 -1。
  */
+
 ImageryLayerCollection.prototype.indexOf = function (layer) {
   return this._layers.indexOf(layer);
 };
 
 /**
- * Gets a layer by index from the collection.
+ * 从集合中根据索引获取一个图层。
  *
- * @param {number} index the index to retrieve.
+ * @param {number} index 要检索的索引。
  *
- * @returns {ImageryLayer} The imagery layer at the given index.
+ * @returns {ImageryLayer} 在给定索引处的图像层。
  */
+
 ImageryLayerCollection.prototype.get = function (index) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(index)) {
@@ -275,39 +277,40 @@ function swapLayers(collection, i, j) {
 }
 
 /**
- * Raises a layer up one position in the collection.
+ * 从集合中根据索引获取一个图层。
  *
- * @param {ImageryLayer} layer the layer to move.
+ * @param {number} index 要检索的索引。
  *
- * @exception {DeveloperError} layer is not in this collection.
- * @exception {DeveloperError} This object was destroyed, i.e., destroy() was called.
+ * @returns {ImageryLayer} 在给定索引处的图像层。
  */
+
 ImageryLayerCollection.prototype.raise = function (layer) {
   const index = getLayerIndex(this._layers, layer);
   swapLayers(this, index, index + 1);
 };
 
 /**
- * Lowers a layer down one position in the collection.
+ * 将图层在集合中下移一个位置。
  *
- * @param {ImageryLayer} layer the layer to move.
+ * @param {ImageryLayer} layer 要移动的图层。
  *
- * @exception {DeveloperError} layer is not in this collection.
- * @exception {DeveloperError} This object was destroyed, i.e., destroy() was called.
+ * @exception {DeveloperError} 图层不在此集合中。
+ * @exception {DeveloperError} 此对象已被销毁，即已调用 destroy()。
  */
+
 ImageryLayerCollection.prototype.lower = function (layer) {
   const index = getLayerIndex(this._layers, layer);
   swapLayers(this, index, index - 1);
 };
-
 /**
- * Raises a layer to the top of the collection.
+ * 将图层提升到集合的顶部。
  *
- * @param {ImageryLayer} layer the layer to move.
+ * @param {ImageryLayer} layer 要移动的图层。
  *
- * @exception {DeveloperError} layer is not in this collection.
- * @exception {DeveloperError} This object was destroyed, i.e., destroy() was called.
+ * @exception {DeveloperError} 图层不在此集合中。
+ * @exception {DeveloperError} 此对象已被销毁，即已调用 destroy()。
  */
+
 ImageryLayerCollection.prototype.raiseToTop = function (layer) {
   const index = getLayerIndex(this._layers, layer);
   if (index === this._layers.length - 1) {
@@ -322,13 +325,14 @@ ImageryLayerCollection.prototype.raiseToTop = function (layer) {
 };
 
 /**
- * Lowers a layer to the bottom of the collection.
+ * 将图层降低到集合的底部。
  *
- * @param {ImageryLayer} layer the layer to move.
+ * @param {ImageryLayer} layer 要移动的图层。
  *
- * @exception {DeveloperError} layer is not in this collection.
- * @exception {DeveloperError} This object was destroyed, i.e., destroy() was called.
+ * @exception {DeveloperError} 图层不在此集合中。
+ * @exception {DeveloperError} 此对象已被销毁，即已调用 destroy()。
  */
+
 ImageryLayerCollection.prototype.lowerToBottom = function (layer) {
   const index = getLayerIndex(this._layers, layer);
   if (index === 0) {
@@ -419,16 +423,14 @@ function pickImageryHelper(scene, pickedLocation, pickFeatures, callback) {
 }
 
 /**
- * Determines the imagery layers that are intersected by a pick ray. To compute a pick ray from a
- * location on the screen, use {@link Camera.getPickRay}.
+ * 确定与拾取光线相交的图像层。要从屏幕上的位置计算拾取光线，请使用 {@link Camera.getPickRay}。
  *
- * @param {Ray} ray The ray to test for intersection.
- * @param {Scene} scene The scene.
- * @return {ImageryLayer[]|undefined} An array that includes all of
- *                                 the layers that are intersected by a given pick ray. Undefined if
- *                                 no layers are selected.
+ * @param {Ray} ray 要测试相交的光线。
+ * @param {Scene} scene 场景。
+ * @return {ImageryLayer[]|undefined} 包含所有与给定拾取光线相交的层的数组。如果没有选定任何层，则返回 undefined。
  *
  */
+
 ImageryLayerCollection.prototype.pickImageryLayers = function (ray, scene) {
   // Find the picked location on the globe.
   const pickedPosition = scene.globe.pick(ray, scene);
@@ -453,17 +455,15 @@ ImageryLayerCollection.prototype.pickImageryLayers = function (ray, scene) {
 };
 
 /**
- * Asynchronously determines the imagery layer features that are intersected by a pick ray.  The intersected imagery
- * layer features are found by invoking {@link ImageryProvider#pickFeatures} for each imagery layer tile intersected
- * by the pick ray.  To compute a pick ray from a location on the screen, use {@link Camera.getPickRay}.
+ * 异步确定与拾取光线相交的图像图层特征。通过对每个与拾取光线相交的图像层瓦片调用 {@link ImageryProvider#pickFeatures} 
+ * 来找到相交的图像层特征。要从屏幕上的位置计算拾取光线，请使用 {@link Camera.getPickRay}。
  *
- * @param {Ray} ray The ray to test for intersection.
- * @param {Scene} scene The scene.
- * @return {Promise<ImageryLayerFeatureInfo[]>|undefined} A promise that resolves to an array of features intersected by the pick ray.
- *                                             If it can be quickly determined that no features are intersected (for example,
- *                                             because no active imagery providers support {@link ImageryProvider#pickFeatures}
- *                                             or because the pick ray does not intersect the surface), this function will
- *                                             return undefined.
+ * @param {Ray} ray 要测试相交的光线。
+ * @param {Scene} scene 场景。
+ * @return {Promise<ImageryLayerFeatureInfo[]>|undefined} 一个 Promise，解析为与拾取光线相交的特征数组。
+ *                                             如果可以快速确定没有特征相交（例如，因为没有活动的图像提供者支持 
+ *                                             {@link ImageryProvider#pickFeatures} 或因为拾取光线未与表面相交），
+ *                                             此函数将返回 undefined。
  *
  * @example
  * const pickRay = viewer.camera.getPickRay(windowPosition);
@@ -543,12 +543,13 @@ ImageryLayerCollection.prototype.pickImageryLayerFeatures = function (
 };
 
 /**
- * Updates frame state to execute any queued texture re-projections.
+ * 更新帧状态以执行任何排队的纹理重新投影。
  *
  * @private
  *
- * @param {FrameState} frameState The frameState.
+ * @param {FrameState} frameState 帧状态。
  */
+
 ImageryLayerCollection.prototype.queueReprojectionCommands = function (
   frameState,
 ) {
@@ -559,10 +560,11 @@ ImageryLayerCollection.prototype.queueReprojectionCommands = function (
 };
 
 /**
- * Cancels re-projection commands queued for the next frame.
+ * 取消排队在下一帧的重新投影命令。
  *
  * @private
  */
+
 ImageryLayerCollection.prototype.cancelReprojections = function () {
   const layers = this._layers;
   for (let i = 0, len = layers.length; i < len; ++i) {
@@ -571,29 +573,28 @@ ImageryLayerCollection.prototype.cancelReprojections = function () {
 };
 
 /**
- * Returns true if this object was destroyed; otherwise, false.
+ * 如果此对象已被销毁，则返回 true；否则返回 false。
  * <br /><br />
- * If this object was destroyed, it should not be used; calling any function other than
- * <code>isDestroyed</code> will result in a {@link DeveloperError} exception.
+ * 如果此对象已被销毁，则不应再使用它；调用除 <code>isDestroyed</code> 之外的任何函数
+ * 将导致 {@link DeveloperError} 异常。
  *
- * @returns {boolean} true if this object was destroyed; otherwise, false.
+ * @returns {boolean} 如果此对象已被销毁，则返回 true；否则返回 false。
  *
  * @see ImageryLayerCollection#destroy
  */
+
 ImageryLayerCollection.prototype.isDestroyed = function () {
   return false;
 };
 
 /**
- * Destroys the WebGL resources held by all layers in this collection.  Explicitly destroying this
- * object allows for deterministic release of WebGL resources, instead of relying on the garbage
- * collector.
+ * 销毁此集合中所有层持有的 WebGL 资源。显式销毁此对象允许确定性地释放
+ * WebGL 资源，而不是依赖垃圾收集器。
  * <br /><br />
- * Once this object is destroyed, it should not be used; calling any function other than
- * <code>isDestroyed</code> will result in a {@link DeveloperError} exception.  Therefore,
- * assign the return value (<code>undefined</code>) to the object as done in the example.
+ * 一旦此对象被销毁，就不应再使用它；调用除 <code>isDestroyed</code> 之外的任何函数
+ * 将导致 {@link DeveloperError} 异常。因此，将返回值（<code>undefined</code>）分配给对象，如示例中所示。
  *
- * @exception {DeveloperError} This object was destroyed, i.e., destroy() was called.
+ * @exception {DeveloperError} 此对象已被销毁，即已调用 destroy()。
  *
  *
  * @example
@@ -601,6 +602,7 @@ ImageryLayerCollection.prototype.isDestroyed = function () {
  *
  * @see ImageryLayerCollection#isDestroyed
  */
+
 ImageryLayerCollection.prototype.destroy = function () {
   this.removeAll(true);
   return destroyObject(this);

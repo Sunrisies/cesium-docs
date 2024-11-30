@@ -5,7 +5,7 @@ import defined from "./defined.js";
 import DeveloperError from "./DeveloperError.js";
 
 /**
- * Math functions.
+ * 数学函数
  *
  * @exports CesiumMath
  * @alias Math
@@ -160,24 +160,22 @@ CesiumMath.EPSILON20 = 0.00000000000000000001;
 CesiumMath.EPSILON21 = 0.000000000000000000001;
 
 /**
- * The gravitational parameter of the Earth in meters cubed
- * per second squared as defined by the WGS84 model: 3.986004418e14
+ * 地球的引力参数，单位为米立方每秒平方，按照 WGS84 模型定义：3.986004418e14
  * @type {number}
  * @constant
  */
 CesiumMath.GRAVITATIONALPARAMETER = 3.986004418e14;
 
 /**
- * Radius of the sun in meters: 6.955e8
+ * 太阳的半径，单位为米：6.955e8
  * @type {number}
  * @constant
  */
 CesiumMath.SOLAR_RADIUS = 6.955e8;
 
 /**
- * The mean radius of the moon, according to the "Report of the IAU/IAG Working Group on
- * Cartographic Coordinates and Rotational Elements of the Planets and satellites: 2000",
- * Celestial Mechanics 82: 83-110, 2002.
+ * 月球的平均半径，根据 "IAU/IAG 工作组关于行星及卫星的地图坐标和自转元素的报告：2000" 中的定义，
+ * 天体力学 82: 83-110, 2002。
  * @type {number}
  * @constant
  */
@@ -198,12 +196,11 @@ CesiumMath.SIXTY_FOUR_KILOBYTES = 64 * 1024;
 CesiumMath.FOUR_GIGABYTES = 4 * 1024 * 1024 * 1024;
 
 /**
- * Returns the sign of the value; 1 if the value is positive, -1 if the value is
- * negative, or 0 if the value is 0.
+ * 返回值的符号；如果值为正，则返回 1；如果值为负，则返回 -1；如果值为 0，则返回 0。
  *
  * @function
- * @param {number} value The value to return the sign of.
- * @returns {number} The sign of value.
+ * @param {number} value 要返回符号的值。
+ * @returns {number} 值的符号。
  */
 CesiumMath.sign = defaultValue(Math.sign, function sign(value) {
   value = +value; // coerce to number
@@ -215,24 +212,24 @@ CesiumMath.sign = defaultValue(Math.sign, function sign(value) {
 });
 
 /**
- * Returns 1.0 if the given value is positive or zero, and -1.0 if it is negative.
- * This is similar to {@link CesiumMath#sign} except that returns 1.0 instead of
- * 0.0 when the input value is 0.0.
- * @param {number} value The value to return the sign of.
- * @returns {number} The sign of value.
+ * 如果给定值为正或零，则返回 1.0；如果为负，则返回 -1.0。
+ * 这与 {@link CesiumMath#sign} 相似，但在输入值为 0.0 时返回 1.0 而不是 0.0。
+ * @param {number} value 要返回符号的值。
+ * @returns {number} 值的符号。
  */
 CesiumMath.signNotZero = function (value) {
   return value < 0.0 ? -1.0 : 1.0;
 };
 
 /**
- * Converts a scalar value in the range [-1.0, 1.0] to a SNORM in the range [0, rangeMaximum]
- * @param {number} value The scalar value in the range [-1.0, 1.0]
- * @param {number} [rangeMaximum=255] The maximum value in the mapped range, 255 by default.
- * @returns {number} A SNORM value, where 0 maps to -1.0 and rangeMaximum maps to 1.0.
+ * 将范围 [-1.0, 1.0] 内的标量值转换为范围 [0, rangeMaximum] 内的 SNORM。
+ * @param {number} value 范围 [-1.0, 1.0] 内的标量值。
+ * @param {number} [rangeMaximum=255] 映射范围中的最大值，默认为 255。
+ * @returns {number} SNORM 值，其中 0 映射到 -1.0，rangeMaximum 映射到 1.0。
  *
  * @see CesiumMath.fromSNorm
  */
+
 CesiumMath.toSNorm = function (value, rangeMaximum) {
   rangeMaximum = defaultValue(rangeMaximum, 255);
   return Math.round(
@@ -241,13 +238,14 @@ CesiumMath.toSNorm = function (value, rangeMaximum) {
 };
 
 /**
- * Converts a SNORM value in the range [0, rangeMaximum] to a scalar in the range [-1.0, 1.0].
- * @param {number} value SNORM value in the range [0, rangeMaximum]
- * @param {number} [rangeMaximum=255] The maximum value in the SNORM range, 255 by default.
- * @returns {number} Scalar in the range [-1.0, 1.0].
+ * 将范围 [0, rangeMaximum] 内的 SNORM 值转换为范围 [-1.0, 1.0] 内的标量值。
+ * @param {number} value 范围 [0, rangeMaximum] 内的 SNORM 值。
+ * @param {number} [rangeMaximum=255] SNORM 范围内的最大值，默认为 255。
+ * @returns {number} 范围 [-1.0, 1.0] 内的标量值。
  *
  * @see CesiumMath.toSNorm
  */
+
 CesiumMath.fromSNorm = function (value, rangeMaximum) {
   rangeMaximum = defaultValue(rangeMaximum, 255);
   return (
@@ -256,12 +254,13 @@ CesiumMath.fromSNorm = function (value, rangeMaximum) {
 };
 
 /**
- * Converts a scalar value in the range [rangeMinimum, rangeMaximum] to a scalar in the range [0.0, 1.0]
- * @param {number} value The scalar value in the range [rangeMinimum, rangeMaximum]
- * @param {number} rangeMinimum The minimum value in the mapped range.
- * @param {number} rangeMaximum The maximum value in the mapped range.
- * @returns {number} A scalar value, where rangeMinimum maps to 0.0 and rangeMaximum maps to 1.0.
+ * 将范围 [rangeMinimum, rangeMaximum] 内的标量值转换为范围 [0.0, 1.0] 内的标量值。
+ * @param {number} value 范围 [rangeMinimum, rangeMaximum] 内的标量值。
+ * @param {number} rangeMinimum 映射范围内的最小值。
+ * @param {number} rangeMaximum 映射范围内的最大值。
+ * @returns {number} 一个标量值，其中 rangeMinimum 映射到 0.0，rangeMaximum 映射到 1.0。
  */
+
 CesiumMath.normalize = function (value, rangeMinimum, rangeMaximum) {
   rangeMaximum = Math.max(rangeMaximum - rangeMinimum, 0.0);
   return rangeMaximum === 0.0
@@ -270,66 +269,67 @@ CesiumMath.normalize = function (value, rangeMinimum, rangeMaximum) {
 };
 
 /**
- * Returns the hyperbolic sine of a number.
- * The hyperbolic sine of <em>value</em> is defined to be
- * (<em>e<sup>x</sup>&nbsp;-&nbsp;e<sup>-x</sup></em>)/2.0
- * where <i>e</i> is Euler's number, approximately 2.71828183.
+ * 返回一个数的双曲正弦。
+ * <em>value</em> 的双曲正弦定义为
+ * (<em>e<sup>x</sup>&nbsp;-&nbsp;e<sup>-x</sup></em>)/2.0，
+ * 其中 <i>e</i> 是欧拉数，约为 2.71828183。
  *
- * <p>Special cases:
+ * <p>特殊情况：
  *   <ul>
- *     <li>If the argument is NaN, then the result is NaN.</li>
+ *     <li>如果参数为 NaN，结果将是 NaN。</li>
  *
- *     <li>If the argument is infinite, then the result is an infinity
- *     with the same sign as the argument.</li>
+ *     <li>如果参数为无限大，结果将是一个具有与参数相同符号的无穷大。</li>
  *
- *     <li>If the argument is zero, then the result is a zero with the
- *     same sign as the argument.</li>
+ *     <li>如果参数为零，结果将是一个具有与参数相同符号的零。</li>
  *   </ul>
  *</p>
  *
  * @function
- * @param {number} value The number whose hyperbolic sine is to be returned.
- * @returns {number} The hyperbolic sine of <code>value</code>.
+ * @param {number} value 要返回其双曲正弦的数。
+ * @returns {number} <code>value</code> 的双曲正弦。
  */
+
 CesiumMath.sinh = defaultValue(Math.sinh, function sinh(value) {
   return (Math.exp(value) - Math.exp(-value)) / 2.0;
 });
 
 /**
- * Returns the hyperbolic cosine of a number.
- * The hyperbolic cosine of <strong>value</strong> is defined to be
- * (<em>e<sup>x</sup>&nbsp;+&nbsp;e<sup>-x</sup></em>)/2.0
- * where <i>e</i> is Euler's number, approximately 2.71828183.
+ * 返回一个数的双曲余弦。
+ * <strong>value</strong> 的双曲余弦定义为
+ * (<em>e<sup>x</sup>&nbsp;+&nbsp;e<sup>-x</sup></em>)/2.0，
+ * 其中 <i>e</i> 是欧拉数，约为 2.71828183。
  *
- * <p>Special cases:
+ * <p>特殊情况：
  *   <ul>
- *     <li>If the argument is NaN, then the result is NaN.</li>
+ *     <li>如果参数为 NaN，结果将是 NaN。</li>
  *
- *     <li>If the argument is infinite, then the result is positive infinity.</li>
+ *     <li>如果参数为无限大，结果将是正无穷。</li>
  *
- *     <li>If the argument is zero, then the result is 1.0.</li>
+ *     <li>如果参数为零，结果将是 1.0。</li>
  *   </ul>
  *</p>
  *
  * @function
- * @param {number} value The number whose hyperbolic cosine is to be returned.
- * @returns {number} The hyperbolic cosine of <code>value</code>.
+ * @param {number} value 要返回其双曲余弦的数。
+ * @returns {number} <code>value</code> 的双曲余弦。
  */
+
 CesiumMath.cosh = defaultValue(Math.cosh, function cosh(value) {
   return (Math.exp(value) + Math.exp(-value)) / 2.0;
 });
 
 /**
- * Computes the linear interpolation of two values.
+ * 计算两个值的线性插值。
  *
- * @param {number} p The start value to interpolate.
- * @param {number} q The end value to interpolate.
- * @param {number} time The time of interpolation generally in the range <code>[0.0, 1.0]</code>.
- * @returns {number} The linearly interpolated value.
+ * @param {number} p 要插值的起始值。
+ * @param {number} q 要插值的结束值。
+ * @param {number} time 插值的时间，一般在 <code>[0.0, 1.0]</code> 范围内。
+ * @returns {number} 线性插值后的值。
  *
  * @example
- * const n = Cesium.Math.lerp(0.0, 2.0, 0.5); // returns 1.0
+ * const n = Cesium.Math.lerp(0.0, 2.0, 0.5); // 返回 1.0
  */
+
 CesiumMath.lerp = function (p, q, time) {
   return (1.0 - time) * p + time * q;
 };
@@ -407,15 +407,16 @@ CesiumMath.TWO_PI = 2.0 * Math.PI;
 CesiumMath.ONE_OVER_TWO_PI = 1.0 / (2.0 * Math.PI);
 
 /**
- * The number of radians in a degree.
+ * 每度的弧度数。
  *
  * @type {number}
  * @constant
  */
+
 CesiumMath.RADIANS_PER_DEGREE = Math.PI / 180.0;
 
 /**
- * The number of degrees in a radian.
+ * 每弧度的度数。
  *
  * @type {number}
  * @constant
@@ -423,7 +424,7 @@ CesiumMath.RADIANS_PER_DEGREE = Math.PI / 180.0;
 CesiumMath.DEGREES_PER_RADIAN = 180.0 / Math.PI;
 
 /**
- * The number of radians in an arc second.
+ * 每弧秒的弧度数。
  *
  * @type {number}
  * @constant
@@ -431,10 +432,11 @@ CesiumMath.DEGREES_PER_RADIAN = 180.0 / Math.PI;
 CesiumMath.RADIANS_PER_ARCSECOND = CesiumMath.RADIANS_PER_DEGREE / 3600.0;
 
 /**
- * Converts degrees to radians.
- * @param {number} degrees The angle to convert in degrees.
- * @returns {number} The corresponding angle in radians.
+ * 将度转换为弧度。
+ * @param {number} degrees 要转换的角度（以度为单位）。
+ * @returns {number} 对应的弧度角度。
  */
+
 CesiumMath.toRadians = function (degrees) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(degrees)) {
@@ -445,10 +447,11 @@ CesiumMath.toRadians = function (degrees) {
 };
 
 /**
- * Converts radians to degrees.
- * @param {number} radians The angle to convert in radians.
- * @returns {number} The corresponding angle in degrees.
+ * 将弧度转换为度。
+ * @param {number} radians 要转换的角度（以弧度为单位）。
+ * @returns {number} 对应的角度（以度为单位）。
  */
+
 CesiumMath.toDegrees = function (radians) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(radians)) {
@@ -459,10 +462,10 @@ CesiumMath.toDegrees = function (radians) {
 };
 
 /**
- * Converts a longitude value, in radians, to the range [<code>-Math.PI</code>, <code>Math.PI</code>).
+ * 将弧度的经度值转换到范围 [<code>-Math.PI</code>, <code>Math.PI</code>)。
  *
- * @param {number} angle The longitude value, in radians, to convert to the range [<code>-Math.PI</code>, <code>Math.PI</code>).
- * @returns {number} The equivalent longitude value in the range [<code>-Math.PI</code>, <code>Math.PI</code>).
+ * @param {number} angle 要转换到范围 [<code>-Math.PI</code>, <code>Math.PI</code>) 的经度值（以弧度为单位）。
+ * @returns {number} 范围 [<code>-Math.PI</code>, <code>Math.PI</code>) 内的等效经度值。
  *
  * @example
  * // Convert 270 degrees to -90 degrees longitude
@@ -489,11 +492,11 @@ CesiumMath.convertLongitudeRange = function (angle) {
 };
 
 /**
- * Convenience function that clamps a latitude value, in radians, to the range [<code>-Math.PI/2</code>, <code>Math.PI/2</code>).
- * Useful for sanitizing data before use in objects requiring correct range.
+ * 便利函数，将弧度的纬度值限制在范围 [<code>-Math.PI/2</code>, <code>Math.PI/2</code>) 内。
+ * 在需要正确范围的对象中使用前，用于清理数据非常有用。
  *
- * @param {number} angle The latitude value, in radians, to clamp to the range [<code>-Math.PI/2</code>, <code>Math.PI/2</code>).
- * @returns {number} The latitude value clamped to the range [<code>-Math.PI/2</code>, <code>Math.PI/2</code>).
+ * @param {number} angle 要限制在范围 [<code>-Math.PI/2</code>, <code>Math.PI/2</code>) 的纬度值（以弧度为单位）。
+ * @returns {number} 限制在范围 [<code>-Math.PI/2</code>, <code>Math.PI/2</code>) 内的纬度值。
  *
  * @example
  * // Clamp 108 degrees latitude to 90 degrees latitude
@@ -514,11 +517,12 @@ CesiumMath.clampToLatitudeRange = function (angle) {
 };
 
 /**
- * Produces an angle in the range -Pi <= angle <= Pi which is equivalent to the provided angle.
+ * 生成一个范围在 -Pi <= angle <= Pi 内的角度，该角度等效于提供的角度。
  *
- * @param {number} angle in radians
- * @returns {number} The angle in the range [<code>-CesiumMath.PI</code>, <code>CesiumMath.PI</code>].
+ * @param {number} angle 以弧度表示的角度。
+ * @returns {number} 范围为 [<code>-CesiumMath.PI</code>, <code>CesiumMath.PI</code>] 的角度。
  */
+
 CesiumMath.negativePiToPi = function (angle) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(angle)) {
@@ -534,11 +538,12 @@ CesiumMath.negativePiToPi = function (angle) {
 };
 
 /**
- * Produces an angle in the range 0 <= angle <= 2Pi which is equivalent to the provided angle.
+ * 生成一个范围在 0 <= angle <= 2Pi 内的角度，该角度等效于提供的角度。
  *
- * @param {number} angle in radians
- * @returns {number} The angle in the range [0, <code>CesiumMath.TWO_PI</code>].
+ * @param {number} angle 以弧度表示的角度。
+ * @returns {number} 范围为 [0, <code>CesiumMath.TWO_PI</code>] 的角度。
  */
+
 CesiumMath.zeroToTwoPi = function (angle) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(angle)) {
@@ -561,12 +566,13 @@ CesiumMath.zeroToTwoPi = function (angle) {
 };
 
 /**
- * The modulo operation that also works for negative dividends.
+ * 也适用于负被除数的模运算。
  *
- * @param {number} m The dividend.
- * @param {number} n The divisor.
- * @returns {number} The remainder.
+ * @param {number} m 被除数。
+ * @param {number} n 除数。
+ * @returns {number} 余数。
  */
+
 CesiumMath.mod = function (m, n) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(m)) {
@@ -589,16 +595,15 @@ CesiumMath.mod = function (m, n) {
 };
 
 /**
- * Determines if two values are equal using an absolute or relative tolerance test. This is useful
- * to avoid problems due to roundoff error when comparing floating-point values directly. The values are
- * first compared using an absolute tolerance test. If that fails, a relative tolerance test is performed.
- * Use this test if you are unsure of the magnitudes of left and right.
+ * 使用绝对或相对公差测试确定两个值是否相等。这对于避免由于四舍五入误差直接比较浮点值时出现的问题非常有用。
+ * 首先使用绝对公差测试进行比较。如果该测试失败，则进行相对公差测试。
+ * 如果不确定左右值的大小，请使用此测试。
  *
- * @param {number} left The first value to compare.
- * @param {number} right The other value to compare.
- * @param {number} [relativeEpsilon=0] The maximum inclusive delta between <code>left</code> and <code>right</code> for the relative tolerance test.
- * @param {number} [absoluteEpsilon=relativeEpsilon] The maximum inclusive delta between <code>left</code> and <code>right</code> for the absolute tolerance test.
- * @returns {boolean} <code>true</code> if the values are equal within the epsilon; otherwise, <code>false</code>.
+ * @param {number} left 第一个要比较的值。
+ * @param {number} right 另一个要比较的值。
+ * @param {number} [relativeEpsilon=0] 对于相对公差测试，<code>left</code> 和 <code>right</code> 之间的最大包含差值。
+ * @param {number} [absoluteEpsilon=relativeEpsilon] 对于绝对公差测试，<code>left</code> 和 <code>right</code> 之间的最大包含差值。
+ * @returns {boolean} 如果在公差范围内值相等，则返回 <code>true</code>；否则返回 <code>false</code>。
  *
  * @example
  * const a = Cesium.Math.equalsEpsilon(0.0, 0.01, Cesium.Math.EPSILON2); // true
@@ -631,16 +636,17 @@ CesiumMath.equalsEpsilon = function (
 };
 
 /**
- * Determines if the left value is less than the right value. If the two values are within
- * <code>absoluteEpsilon</code> of each other, they are considered equal and this function returns false.
+ * 确定左值是否小于右值。如果两个值之间的差距在 
+ * <code>absoluteEpsilon</code> 之内，则认为它们相等，函数返回 false。
  *
- * @param {number} left The first number to compare.
- * @param {number} right The second number to compare.
- * @param {number} absoluteEpsilon The absolute epsilon to use in comparison.
- * @returns {boolean} <code>true</code> if <code>left</code> is less than <code>right</code> by more than
- *          <code>absoluteEpsilon<code>. <code>false</code> if <code>left</code> is greater or if the two
- *          values are nearly equal.
+ * @param {number} left 要比较的第一个数字。
+ * @param {number} right 要比较的第二个数字。
+ * @param {number} absoluteEpsilon 在比较中使用的绝对公差。
+ * @returns {boolean} 如果 <code>left</code> 小于 <code>right</code> 且差值超过 
+ *          <code>absoluteEpsilon</code>，则返回 <code>true</code>；如果 <code>left</code> 大于
+ *          或两个值几乎相等，则返回 <code>false</code>。
  */
+
 CesiumMath.lessThan = function (left, right, absoluteEpsilon) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(left)) {
@@ -657,15 +663,16 @@ CesiumMath.lessThan = function (left, right, absoluteEpsilon) {
 };
 
 /**
- * Determines if the left value is less than or equal to the right value. If the two values are within
- * <code>absoluteEpsilon</code> of each other, they are considered equal and this function returns true.
+ * 确定左值是否小于或等于右值。如果两个值之间的差距在 
+ * <code>absoluteEpsilon</code> 之内，则认为它们相等，函数返回 true。
  *
- * @param {number} left The first number to compare.
- * @param {number} right The second number to compare.
- * @param {number} absoluteEpsilon The absolute epsilon to use in comparison.
- * @returns {boolean} <code>true</code> if <code>left</code> is less than <code>right</code> or if the
- *          the values are nearly equal.
+ * @param {number} left 要比较的第一个数字。
+ * @param {number} right 要比较的第二个数字。
+ * @param {number} absoluteEpsilon 在比较中使用的绝对公差。
+ * @returns {boolean} 如果 <code>left</code> 小于 <code>right</code> 或如果
+ *          两个值几乎相等，则返回 <code>true</code>。
  */
+
 CesiumMath.lessThanOrEquals = function (left, right, absoluteEpsilon) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(left)) {
@@ -682,16 +689,17 @@ CesiumMath.lessThanOrEquals = function (left, right, absoluteEpsilon) {
 };
 
 /**
- * Determines if the left value is greater the right value. If the two values are within
- * <code>absoluteEpsilon</code> of each other, they are considered equal and this function returns false.
+ * 确定左值是否大于右值。如果两个值之间的差距在 
+ * <code>absoluteEpsilon</code> 之内，则认为它们相等，函数返回 false。
  *
- * @param {number} left The first number to compare.
- * @param {number} right The second number to compare.
- * @param {number} absoluteEpsilon The absolute epsilon to use in comparison.
- * @returns {boolean} <code>true</code> if <code>left</code> is greater than <code>right</code> by more than
- *          <code>absoluteEpsilon<code>. <code>false</code> if <code>left</code> is less or if the two
- *          values are nearly equal.
+ * @param {number} left 要比较的第一个数字。
+ * @param {number} right 要比较的第二个数字。
+ * @param {number} absoluteEpsilon 在比较中使用的绝对公差。
+ * @returns {boolean} 如果 <code>left</code> 大于 <code>right</code> 且差值超过 
+ *          <code>absoluteEpsilon</code>，则返回 <code>true</code>；如果 <code>left</code> 小于
+ *          或两个值几乎相等，则返回 <code>false</code>。
  */
+
 CesiumMath.greaterThan = function (left, right, absoluteEpsilon) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(left)) {
@@ -708,15 +716,16 @@ CesiumMath.greaterThan = function (left, right, absoluteEpsilon) {
 };
 
 /**
- * Determines if the left value is greater than or equal to the right value. If the two values are within
- * <code>absoluteEpsilon</code> of each other, they are considered equal and this function returns true.
+ * 确定左值是否大于或等于右值。如果两个值之间的差距在 
+ * <code>absoluteEpsilon</code> 之内，则认为它们相等，函数返回 true。
  *
- * @param {number} left The first number to compare.
- * @param {number} right The second number to compare.
- * @param {number} absoluteEpsilon The absolute epsilon to use in comparison.
- * @returns {boolean} <code>true</code> if <code>left</code> is greater than <code>right</code> or if the
- *          the values are nearly equal.
+ * @param {number} left 要比较的第一个数字。
+ * @param {number} right 要比较的第二个数字。
+ * @param {number} absoluteEpsilon 在比较中使用的绝对公差。
+ * @returns {boolean} 如果 <code>left</code> 大于 <code>right</code> 或如果
+ *          两个值几乎相等，则返回 <code>true</code>。
  */
+
 CesiumMath.greaterThanOrEquals = function (left, right, absoluteEpsilon) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(left)) {
@@ -735,13 +744,14 @@ CesiumMath.greaterThanOrEquals = function (left, right, absoluteEpsilon) {
 const factorials = [1];
 
 /**
- * Computes the factorial of the provided number.
+ * 计算提供数字的阶乘。
  *
- * @param {number} n The number whose factorial is to be computed.
- * @returns {number} The factorial of the provided number or undefined if the number is less than 0.
+ * @param {number} n 要计算阶乘的数字。
+ * @returns {number} 提供数字的阶乘，如果数字小于 0 则返回 undefined。
  *
- * @exception {DeveloperError} A number greater than or equal to 0 is required.
+ * @exception {DeveloperError} 需要一个大于或等于 0 的数字。
  *
+
  *
  * @example
  * //Compute 7!, which is equal to 5040
@@ -771,14 +781,14 @@ CesiumMath.factorial = function (n) {
 };
 
 /**
- * Increments a number with a wrapping to a minimum value if the number exceeds the maximum value.
+ * 增加一个数字，如果超出最大值则循环回重置到最小值。
  *
- * @param {number} [n] The number to be incremented.
- * @param {number} [maximumValue] The maximum incremented value before rolling over to the minimum value.
- * @param {number} [minimumValue=0.0] The number reset to after the maximum value has been exceeded.
- * @returns {number} The incremented number.
+ * @param {number} [n] 要增加的数字。
+ * @param {number} [maximumValue] 增加到的最大值，超过该值后将重置到最小值。
+ * @param {number} [minimumValue=0.0] 超过最大值后重置到的数字。
+ * @returns {number} 增加后的数字。
  *
- * @exception {DeveloperError} Maximum value must be greater than minimum value.
+ * @exception {DeveloperError} 最大值必须大于最小值。
  *
  * @example
  * const n = Cesium.Math.incrementWrap(5, 10, 0); // returns 6
@@ -804,13 +814,13 @@ CesiumMath.incrementWrap = function (n, maximumValue, minimumValue) {
 };
 
 /**
- * Determines if a non-negative integer is a power of two.
- * The maximum allowed input is (2^32)-1 due to 32-bit bitwise operator limitation in Javascript.
+ * 确定一个非负整数是否是二的幂。
+ * 由于 JavaScript 中 32 位位运算符的限制，最大允许输入为 (2^32)-1。
  *
- * @param {number} n The integer to test in the range [0, (2^32)-1].
- * @returns {boolean} <code>true</code> if the number if a power of two; otherwise, <code>false</code>.
+ * @param {number} n 要测试的整数，范围在 [0, (2^32)-1] 内。
+ * @returns {boolean} 如果数字是二的幂，则返回 <code>true</code>；否则返回 <code>false</code>。
  *
- * @exception {DeveloperError} A number between 0 and (2^32)-1 is required.
+ * @exception {DeveloperError} 需要一个介于 0 和 (2^32)-1 之间的数字。
  *
  * @example
  * const t = Cesium.Math.isPowerOfTwo(16); // true
@@ -827,13 +837,13 @@ CesiumMath.isPowerOfTwo = function (n) {
 };
 
 /**
- * Computes the next power-of-two integer greater than or equal to the provided non-negative integer.
- * The maximum allowed input is 2^31 due to 32-bit bitwise operator limitation in Javascript.
+ * 计算大于或等于提供的非负整数的下一个二的幂整数。
+ * 由于 JavaScript 中 32 位位运算符的限制，最大允许输入为 2^31。
  *
- * @param {number} n The integer to test in the range [0, 2^31].
- * @returns {number} The next power-of-two integer.
+ * @param {number} n 要测试的整数，范围在 [0, 2^31] 内。
+ * @returns {number} 下一个二的幂整数。
  *
- * @exception {DeveloperError} A number between 0 and 2^31 is required.
+ * @exception {DeveloperError} 需要一个介于 0 和 2^31 之间的数字。
  *
  * @example
  * const n = Cesium.Math.nextPowerOfTwo(29); // 32
@@ -859,13 +869,13 @@ CesiumMath.nextPowerOfTwo = function (n) {
 };
 
 /**
- * Computes the previous power-of-two integer less than or equal to the provided non-negative integer.
- * The maximum allowed input is (2^32)-1 due to 32-bit bitwise operator limitation in Javascript.
+ * 计算小于或等于提供的非负整数的前一个二的幂整数。
+ * 由于 JavaScript 中 32 位位运算符的限制，最大允许输入为 (2^32)-1。
  *
- * @param {number} n The integer to test in the range [0, (2^32)-1].
- * @returns {number} The previous power-of-two integer.
+ * @param {number} n 要测试的整数，范围在 [0, (2^32)-1] 内。
+ * @returns {number} 前一个二的幂整数。
  *
- * @exception {DeveloperError} A number between 0 and (2^32)-1 is required.
+ * @exception {DeveloperError} 需要一个介于 0 和 (2^32)-1 之间的数字。
  *
  * @example
  * const n = Cesium.Math.previousPowerOfTwo(29); // 16
@@ -892,13 +902,14 @@ CesiumMath.previousPowerOfTwo = function (n) {
 };
 
 /**
- * Constraint a value to lie between two values.
+ * 将值限制在两个值之间。
  *
- * @param {number} value 要 clamp 的值.
- * @param {number} min The minimum value.
- * @param {number} max The maximum value.
- * @returns {number} The clamped value such that min <= result <= max.
+ * @param {number} value 要限制的值。
+ * @param {number} min 最小值。
+ * @param {number} max 最大值。
+ * @returns {number} 限制后的值，使得 min <= result <= max。
  */
+
 CesiumMath.clamp = function (value, min, max) {
   //>>includeStart('debug', pragmas.debug);
   Check.typeOf.number("value", value);
@@ -912,11 +923,12 @@ CesiumMath.clamp = function (value, min, max) {
 let randomNumberGenerator = new MersenneTwister();
 
 /**
- * Sets the seed used by the random number generator
- * in {@link CesiumMath#nextRandomNumber}.
+ * 设置随机数生成器使用的种子
+ * 在 {@link CesiumMath#nextRandomNumber} 中。
  *
- * @param {number} seed An integer used as the seed.
+ * @param {number} seed 用作种子的整数。
  */
+
 CesiumMath.setRandomNumberSeed = function (seed) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(seed)) {
@@ -928,10 +940,10 @@ CesiumMath.setRandomNumberSeed = function (seed) {
 };
 
 /**
- * Generates a random floating point number in the range of [0.0, 1.0)
- * using a Mersenne twister.
+ * 生成一个范围在 [0.0, 1.0) 内的随机浮点数
+ * 使用梅森旋转算法生成。
  *
- * @returns {number} A random number in the range of [0.0, 1.0).
+ * @returns {number} 范围在 [0.0, 1.0) 内的随机数。
  *
  * @see CesiumMath.setRandomNumberSeed
  * @see {@link http://en.wikipedia.org/wiki/Mersenne_twister|Mersenne twister on Wikipedia}
@@ -941,24 +953,26 @@ CesiumMath.nextRandomNumber = function () {
 };
 
 /**
- * Generates a random number between two numbers.
+ * 生成一个介于两个数字之间的随机数。
  *
- * @param {number} min The minimum value.
- * @param {number} max The maximum value.
- * @returns {number} A random number between the min and max.
+ * @param {number} min 最小值。
+ * @param {number} max 最大值。
+ * @returns {number} 介于 min 和 max 之间的随机数。
  */
+
 CesiumMath.randomBetween = function (min, max) {
   return CesiumMath.nextRandomNumber() * (max - min) + min;
 };
 
 /**
- * Computes <code>Math.acos(value)</code>, but first clamps <code>value</code> to the range [-1.0, 1.0]
- * so that the function will never return NaN.
+ * 计算 <code>Math.acos(value)</code>，但首先将 <code>value</code> 限制在范围 [-1.0, 1.0] 内，
+ * 以确保函数永远不会返回 NaN。
  *
- * @param {number} value The value for which to compute acos.
- * @returns {number} The acos of the value if the value is in the range [-1.0, 1.0], or the acos of -1.0 or 1.0,
- *          whichever is closer, if the value is outside the range.
+ * @param {number} value 要计算 acos 的值。
+ * @returns {number} 如果值在范围 [-1.0, 1.0] 内，则返回该值的 acos；如果值超出范围，则返回 -1.0 或 1.0 的 acos，
+ *          取更接近的那个。
  */
+
 CesiumMath.acosClamped = function (value) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(value)) {
@@ -969,13 +983,14 @@ CesiumMath.acosClamped = function (value) {
 };
 
 /**
- * Computes <code>Math.asin(value)</code>, but first clamps <code>value</code> to the range [-1.0, 1.0]
- * so that the function will never return NaN.
+ * 计算 <code>Math.asin(value)</code>，但首先将 <code>value</code> 限制在范围 [-1.0, 1.0] 内，
+ * 以确保函数永远不会返回 NaN。
  *
- * @param {number} value The value for which to compute asin.
- * @returns {number} The asin of the value if the value is in the range [-1.0, 1.0], or the asin of -1.0 or 1.0,
- *          whichever is closer, if the value is outside the range.
+ * @param {number} value 要计算 asin 的值。
+ * @returns {number} 如果值在范围 [-1.0, 1.0] 内，则返回该值的 asin；如果值超出范围，则返回 -1.0 或 1.0 的 asin，
+ *          取更接近的那个。
  */
+
 CesiumMath.asinClamped = function (value) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(value)) {
@@ -986,12 +1001,13 @@ CesiumMath.asinClamped = function (value) {
 };
 
 /**
- * Finds the chord length between two points given the circle's radius and the angle between the points.
+ * 根据圆的半径和两点之间的角度，计算两点之间的弦长。
  *
- * @param {number} angle The angle between the two points.
- * @param {number} radius The radius of the circle.
- * @returns {number} The chord length.
+ * @param {number} angle 两点之间的角度。
+ * @param {number} radius 圆的半径。
+ * @returns {number} 弦长。
  */
+
 CesiumMath.chordLength = function (angle, radius) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(angle)) {
@@ -1005,12 +1021,13 @@ CesiumMath.chordLength = function (angle, radius) {
 };
 
 /**
- * Finds the logarithm of a number to a base.
+ * 计算一个数的以指定底数的对数。
  *
- * @param {number} number The number.
- * @param {number} base The base.
- * @returns {number} The result.
+ * @param {number} number 要计算对数的数。
+ * @param {number} base 底数。
+ * @returns {number} 结果。
  */
+
 CesiumMath.logBase = function (number, base) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(number)) {
@@ -1024,50 +1041,54 @@ CesiumMath.logBase = function (number, base) {
 };
 
 /**
- * Finds the cube root of a number.
- * Returns NaN if <code>number</code> is not provided.
+ * 计算一个数的立方根。
+ * 如果未提供 <code>number</code>，则返回 NaN。
  *
  * @function
- * @param {number} [number] The number.
- * @returns {number} The result.
+ * @param {number} [number] 要计算的数。
+ * @returns {number} 结果。
  */
+
 CesiumMath.cbrt = defaultValue(Math.cbrt, function cbrt(number) {
   const result = Math.pow(Math.abs(number), 1.0 / 3.0);
   return number < 0.0 ? -result : result;
 });
 
 /**
- * Finds the base 2 logarithm of a number.
+ * 计算一个数的以 2 为底的对数。
  *
  * @function
- * @param {number} number The number.
- * @returns {number} The result.
+ * @param {number} number 要计算对数的数。
+ * @returns {number} 结果。
  */
+
 CesiumMath.log2 = defaultValue(Math.log2, function log2(number) {
   return Math.log(number) * Math.LOG2E;
 });
 
 /**
- * Calculate the fog impact at a given distance. Useful for culling.
- * Matches the equation in `fog.glsl`
+ * 计算给定距离的雾霾影响。对消隐非常有用。
+ * 与 `fog.glsl` 中的方程匹配。
  * @private
  */
+
 CesiumMath.fog = function (distanceToCamera, density) {
   const scalar = distanceToCamera * density;
   return 1.0 - Math.exp(-(scalar * scalar));
 };
 
 /**
- * Computes a fast approximation of Atan for input in the range [-1, 1].
+ * 计算输入范围在 [-1, 1] 内的 Atan 的快速近似值。
  *
- * Based on Michal Drobot's approximation from ShaderFastLibs,
- * which in turn is based on "Efficient approximations for the arctangent function,"
- * Rajan, S. Sichun Wang Inkol, R. Joyal, A., May 2006.
- * Adapted from ShaderFastLibs under MIT License.
+ * 基于 Michal Drobot 在 ShaderFastLibs 中的近似，
+ * 该近似又基于 "Efficiency approximations for the arctangent function,"
+ * Rajan, S. Sichun Wang Inkol, R. Joyal, A.，2006年5月。
+ * 从 ShaderFastLibs 根据 MIT 许可进行调整。
  *
- * @param {number} x An input number in the range [-1, 1]
- * @returns {number} An approximation of atan(x)
+ * @param {number} x 输入数字，范围在 [-1, 1] 内。
+ * @returns {number} atan(x) 的近似值。
  */
+
 CesiumMath.fastApproximateAtan = function (x) {
   //>>includeStart('debug', pragmas.debug);
   Check.typeOf.number("x", x);
@@ -1077,14 +1098,15 @@ CesiumMath.fastApproximateAtan = function (x) {
 };
 
 /**
- * Computes a fast approximation of Atan2(x, y) for arbitrary input scalars.
+ * 计算对任意输入标量的 Atan2(x, y) 的快速近似值。
  *
- * Range reduction math based on nvidia's cg reference implementation: http://developer.download.nvidia.com/cg/atan2.html
+ * 范围缩减数学基于 NVIDIA 的 cg 参考实现：http://developer.download.nvidia.com/cg/atan2.html
  *
- * @param {number} x An input number that isn't zero if y is zero.
- * @param {number} y An input number that isn't zero if x is zero.
- * @returns {number} An approximation of atan2(x, y)
+ * @param {number} x 如果 y 为零，则输入数字不能为零。
+ * @param {number} y 如果 x 为零，则输入数字不能为零。
+ * @returns {number} atan2(x, y) 的近似值。
  */
+
 CesiumMath.fastApproximateAtan2 = function (x, y) {
   //>>includeStart('debug', pragmas.debug);
   Check.typeOf.number("x", x);

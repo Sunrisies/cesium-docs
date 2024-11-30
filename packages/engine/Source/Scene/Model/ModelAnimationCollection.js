@@ -10,10 +10,10 @@ import ModelAnimationState from ".././ModelAnimationState.js";
 
 /**
  * <div class="notice">
- * Access a model's animations {@link Model#activeAnimations}. Do not call the constructor directly
+ * 访问模型的动画 {@link Model#activeAnimations}。请勿直接调用构造函数。
  * </div>
  *
- * A collection of active model animations.
+ * 活跃模型动画的集合。
  *
  * @alias ModelAnimationCollection
  * @internalConstructor
@@ -21,40 +21,36 @@ import ModelAnimationState from ".././ModelAnimationState.js";
  *
  * @see Model#activeAnimations
  */
+
 function ModelAnimationCollection(model) {
   /**
-   * The event fired when an animation is added to the collection.  This can be used, for
-   * example, to keep a UI in sync.
+   * 当动画被添加到集合时触发的事件。这可以用于，例如，保持用户界面同步。
    *
    * @type {Event}
    * @default new Event()
    *
    * @example
    * model.activeAnimations.animationAdded.addEventListener(function(model, animation) {
-   *   console.log(`Animation added: ${animation.name}`);
+   *   console.log(`动画添加：${animation.name}`);
    * });
    */
   this.animationAdded = new Event();
 
   /**
-   * The event fired when an animation is removed from the collection.  This can be used, for
-   * example, to keep a UI in sync.
+   * 当动画从集合中移除时触发的事件。这可以用于，例如，保持用户界面同步。
    *
    * @type {Event}
    * @default new Event()
    *
    * @example
    * model.activeAnimations.animationRemoved.addEventListener(function(model, animation) {
-   *   console.log(`Animation removed: ${animation.name}`);
+   *   console.log(`动画移除：${animation.name}`);
    * });
    */
   this.animationRemoved = new Event();
 
   /**
-   * When true, the animation will play even when the scene time is paused. However,
-   * whether animation takes place will depend on the animationTime functions assigned
-   * to the model's animations. By default, this is based on scene time, so models using
-   * the default will not animate regardless of this setting.
+   * 如果为真，即使在场景时间暂停时，动画也会播放。但是，动画是否发生将取决于分配给模型动画的 animationTime 函数。默认情况下，这基于场景时间，因此使用默认设置的模型将不会动画化，不管这个设置如何。
    *
    * @type {boolean}
    * @default false
@@ -66,15 +62,17 @@ function ModelAnimationCollection(model) {
   this._previousTime = undefined;
 }
 
+
 Object.defineProperties(ModelAnimationCollection.prototype, {
   /**
-   * The number of animations in the collection.
+   * 集合中的动画数量。
    *
    * @memberof ModelAnimationCollection.prototype
    *
    * @type {number}
    * @readonly
    */
+
   length: {
     get: function () {
       return this._runtimeAnimations.length;
@@ -82,13 +80,14 @@ Object.defineProperties(ModelAnimationCollection.prototype, {
   },
 
   /**
-   * The model that owns this animation collection.
+   * 拥有此动画集合的模型。
    *
    * @memberof ModelAnimationCollection.prototype
    *
    * @type {Model}
    * @readonly
    */
+
   model: {
     get: function () {
       return this._model;
@@ -105,29 +104,29 @@ function addAnimation(collection, animation, options) {
 }
 
 /**
- * Creates and adds an animation with the specified initial properties to the collection.
+ * 创建并将具有指定初始属性的动画添加到集合中。
  * <p>
- * This raises the {@link ModelAnimationCollection#animationAdded} event so, for example, a UI can stay in sync.
+ * 这会触发 {@link ModelAnimationCollection#animationAdded} 事件，因此，例如，用户界面可以保持同步。
  * </p>
  *
- * @param {object} options Object with the following properties:
- * @param {string} [options.name] The glTF animation name that identifies the animation. Must be defined if <code>options.index</code> is <code>undefined</code>.
- * @param {number} [options.index] The glTF animation index that identifies the animation. Must be defined if <code>options.name</code> is <code>undefined</code>.
- * @param {JulianDate} [options.startTime] The scene time to start playing the animation.  When this is <code>undefined</code>, the animation starts at the next frame.
- * @param {number} [options.delay=0.0] The delay, in seconds, from <code>startTime</code> to start playing. This will only affect the animation if <code>options.loop</code> is ModelAnimationLoop.NONE.
- * @param {JulianDate} [options.stopTime] The scene time to stop playing the animation.  When this is <code>undefined</code>, the animation is played for its full duration.
- * @param {boolean} [options.removeOnStop=false] When <code>true</code>, the animation is removed after it stops playing. This will only affect the animation if <code>options.loop</code> is ModelAnimationLoop.NONE.
- * @param {number} [options.multiplier=1.0] Values greater than <code>1.0</code> increase the speed that the animation is played relative to the scene clock speed; values less than <code>1.0</code> decrease the speed.
- * @param {boolean} [options.reverse=false] When <code>true</code>, the animation is played in reverse.
- * @param {ModelAnimationLoop} [options.loop=ModelAnimationLoop.NONE] Determines if and how the animation is looped.
- * @param {ModelAnimation.AnimationTimeCallback} [options.animationTime=undefined] If defined, computes the local animation time for this animation.
- * @returns {ModelAnimation} The animation that was added to the collection.
+ * @param {object} options 具有以下属性的对象：
+ * @param {string} [options.name] 标识动画的 glTF 动画名称。如果 <code>options.index</code> 为 <code>undefined</code>，必须定义此项。
+ * @param {number} [options.index] 标识动画的 glTF 动画索引。如果 <code>options.name</code> 为 <code>undefined</code>，必须定义此项。
+ * @param {JulianDate} [options.startTime] 开始播放动画的场景时间。当此项为 <code>undefined</code> 时，动画将在下一个帧开始播放。
+ * @param {number} [options.delay=0.0] 从 <code>startTime</code> 开始播放的延迟（以秒为单位）。仅当 <code>options.loop</code> 为 ModelAnimationLoop.NONE 时，此项会影响动画。
+ * @param {JulianDate} [options.stopTime] 停止播放动画的场景时间。当此项为 <code>undefined</code> 时，动画将播放其完整的持续时间。
+ * @param {boolean} [options.removeOnStop=false] 如果为 <code>true</code>，则动画在停止播放后将被移除。仅当 <code>options.loop</code> 为 ModelAnimationLoop.NONE 时，此项会影响动画。
+ * @param {number} [options.multiplier=1.0] 大于 <code>1.0</code> 的值会相对于场景时钟速度加快动画播放速度；小于 <code>1.0</code> 的值会减慢速度。
+ * @param {boolean} [options.reverse=false] 如果为 <code>true</code>，则动画以反向播放。
+ * @param {ModelAnimationLoop} [options.loop=ModelAnimationLoop.NONE] 决定动画是否以及如何循环播放。
+ * @param {ModelAnimation.AnimationTimeCallback} [options.animationTime=undefined] 如果定义了此项，则计算此动画的本地动画时间。
+ * @returns {ModelAnimation} 添加到集合中的动画。
  *
- * @exception {DeveloperError} Animations are not loaded.  Wait for the {@link Model#ready} to return trues.
- * @exception {DeveloperError} options.name must be a valid animation name.
- * @exception {DeveloperError} options.index must be a valid animation index.
- * @exception {DeveloperError} Either options.name or options.index must be defined.
- * @exception {DeveloperError} options.multiplier must be greater than zero.
+ * @exception {DeveloperError} 动画未加载。请等待 {@link Model#ready} 返回 true。
+ * @exception {DeveloperError} options.name 必须是有效的动画名称。
+ * @exception {DeveloperError} options.index 必须是有效的动画索引。
+ * @exception {DeveloperError} 必须定义 options.name 或 options.index。
+ * @exception {DeveloperError} options.multiplier 必须大于零。
  *
  * @example
  * // Example 1. Add an animation by name
@@ -224,25 +223,24 @@ ModelAnimationCollection.prototype.add = function (options) {
 };
 
 /**
- * Creates and adds animations with the specified initial properties to the collection
- * for all animations in the model.
+ * 创建并将具有指定初始属性的动画添加到模型中的所有动画的集合中。
  * <p>
- * This raises the {@link ModelAnimationCollection#animationAdded} event for each model so, for example, a UI can stay in sync.
+ * 这会触发每个模型的 {@link ModelAnimationCollection#animationAdded} 事件，因此，例如，用户界面可以保持同步。
  * </p>
  *
- * @param {object} [options] Object with the following properties:
- * @param {JulianDate} [options.startTime] The scene time to start playing the animations. When this is <code>undefined</code>, the animations starts at the next frame.
- * @param {number} [options.delay=0.0] The delay, in seconds, from <code>startTime</code> to start playing. This will only affect the animation if <code>options.loop</code> is ModelAnimationLoop.NONE.
- * @param {JulianDate} [options.stopTime] The scene time to stop playing the animations. When this is <code>undefined</code>, the animations are played for its full duration.
- * @param {boolean} [options.removeOnStop=false] When <code>true</code>, the animations are removed after they stop playing. This will only affect the animation if <code>options.loop</code> is ModelAnimationLoop.NONE.
- * @param {number} [options.multiplier=1.0] Values greater than <code>1.0</code> increase the speed that the animations play relative to the scene clock speed; values less than <code>1.0</code> decrease the speed.
- * @param {boolean} [options.reverse=false] When <code>true</code>, the animations are played in reverse.
- * @param {ModelAnimationLoop} [options.loop=ModelAnimationLoop.NONE] Determines if and how the animations are looped.
- * @param {ModelAnimation.AnimationTimeCallback} [options.animationTime=undefined] If defined, computes the local animation time for all of the animations.
- * @returns {ModelAnimation[]} An array of {@link ModelAnimation} objects, one for each animation added to the collection.  If there are no glTF animations, the array is empty.
+ * @param {object} [options] 具有以下属性的对象：
+ * @param {JulianDate} [options.startTime] 开始播放动画的场景时间。当此项为 <code>undefined</code> 时，动画将在下一个帧开始播放。
+ * @param {number} [options.delay=0.0] 从 <code>startTime</code> 开始播放的延迟（以秒为单位）。仅当 <code>options.loop</code> 为 ModelAnimationLoop.NONE 时，此项会影响动画。
+ * @param {JulianDate} [options.stopTime] 停止播放动画的场景时间。当此项为 <code>undefined</code> 时，动画将播放其完整的持续时间。
+ * @param {boolean} [options.removeOnStop=false] 如果为 <code>true</code>，则动画在停止播放后将被移除。仅当 <code>options.loop</code> 为 ModelAnimationLoop.NONE 时，此项会影响动画。
+ * @param {number} [options.multiplier=1.0] 大于 <code>1.0</code> 的值会相对于场景时钟速度加快动画播放速度；小于 <code>1.0</code> 的值会减慢速度。
+ * @param {boolean} [options.reverse=false] 如果为 <code>true</code>，则动画以反向播放。
+ * @param {ModelAnimationLoop} [options.loop=ModelAnimationLoop.NONE] 决定动画是否以及如何循环播放。
+ * @param {ModelAnimation.AnimationTimeCallback} [options.animationTime=undefined] 如果定义了此项，则计算所有动画的本地动画时间。
+ * @returns {ModelAnimation[]} 一个 {@link ModelAnimation} 对象的数组，针对每个添加到集合中的动画。如果没有 glTF 动画，数组为空。
  *
- * @exception {DeveloperError} Animations are not loaded. Wait for the {@link Model#ready} to return true.
- * @exception {DeveloperError} options.multiplier must be greater than zero.
+ * @exception {DeveloperError} 动画未加载。请等待 {@link Model#ready} 返回 true。
+ * @exception {DeveloperError} options.multiplier 必须大于零。
  *
  * @example
  * model.activeAnimations.addAll({
@@ -279,17 +277,16 @@ ModelAnimationCollection.prototype.addAll = function (options) {
 };
 
 /**
- * Removes an animation from the collection.
+ * 从集合中移除动画。
  * <p>
- * This raises the {@link ModelAnimationCollection#animationRemoved} event so, for example, a UI can stay in sync.
+ * 这会触发 {@link ModelAnimationCollection#animationRemoved} 事件，因此，例如，用户界面可以保持同步。
  * </p>
  * <p>
- * An animation can also be implicitly removed from the collection by setting {@link ModelAnimationCollection#removeOnStop} to
- * <code>true</code>.  The {@link ModelAnimationCollection#animationRemoved} event is still fired when the animation is removed.
+ * 通过将 {@link ModelAnimationCollection#removeOnStop} 设置为 <code>true</code>，动画也可以被隐式移除出集合。当动画被移除时，仍然会触发 {@link ModelAnimationCollection#animationRemoved} 事件。
  * </p>
  *
- * @param {ModelAnimation} runtimeAnimation The runtime animation to remove.
- * @returns {boolean} <code>true</code> if the animation was removed; <code>false</code> if the animation was not found in the collection.
+ * @param {ModelAnimation} runtimeAnimation 要移除的运行时动画。
+ * @returns {boolean} 如果动画被移除，则返回 <code>true</code>；如果动画未在集合中找到，则返回 <code>false</code>。
  *
  * @example
  * const a = model.activeAnimations.add({
@@ -314,12 +311,12 @@ ModelAnimationCollection.prototype.remove = function (runtimeAnimation) {
 };
 
 /**
- * Removes all animations from the collection.
+ * 从集合中移除所有动画。
  * <p>
- * This raises the {@link ModelAnimationCollection#animationRemoved} event for each
- * animation so, for example, a UI can stay in sync.
+ * 这会为每个动画触发 {@link ModelAnimationCollection#animationRemoved} 事件，因此，例如，用户界面可以保持同步。
  * </p>
  */
+
 ModelAnimationCollection.prototype.removeAll = function () {
   const model = this._model;
   const animations = this._runtimeAnimations;
@@ -333,11 +330,12 @@ ModelAnimationCollection.prototype.removeAll = function () {
 };
 
 /**
- * Determines whether this collection contains a given animation.
+ * 确定此集合是否包含给定的动画。
  *
- * @param {ModelAnimation} runtimeAnimation The runtime animation to check for.
- * @returns {boolean} <code>true</code> if this collection contains the animation, <code>false</code> otherwise.
+ * @param {ModelAnimation} runtimeAnimation 要检查的运行时动画。
+ * @returns {boolean} 如果此集合包含该动画则返回 <code>true</code>，否则返回 <code>false</code>。
  */
+
 ModelAnimationCollection.prototype.contains = function (runtimeAnimation) {
   if (defined(runtimeAnimation)) {
     return this._runtimeAnimations.indexOf(runtimeAnimation) !== -1;
@@ -347,13 +345,10 @@ ModelAnimationCollection.prototype.contains = function (runtimeAnimation) {
 };
 
 /**
- * Returns the animation in the collection at the specified index.  Indices are zero-based
- * and increase as animations are added.  Removing an animation shifts all animations after
- * it to the left, changing their indices.  This function is commonly used to iterate over
- * all the animations in the collection.
+ * 返回集合中指定索引的动画。索引是零基的，并且随着动画的添加而增加。移除一个动画会将其之后的所有动画向左移动，改变它们的索引。此函数通常用于遍历集合中的所有动画。
  *
- * @param {number} index The zero-based index of the animation.
- * @returns {ModelAnimation} The runtime animation at the specified index.
+ * @param {number} index 动画的零基索引。
+ * @returns {ModelAnimation} 指定索引处的运行时动画。
  *
  * @example
  * // Output the names of all the animations in the collection.
@@ -392,14 +387,14 @@ function createAnimationRemovedFunction(
 }
 
 /**
- * Updates the runtime animations in this collection, removing any animations
- * that have stopped.
+ * 更新此集合中的运行时动画，移除任何已经停止的动画。
  *
- * @param {FrameState} frameState The current frame state.
- * @returns {boolean} <code>true</code> if an animation played during this update, <code>false</code> otherwise.
+ * @param {FrameState} frameState 当前帧状态。
+ * @returns {boolean} 如果在此次更新中播放了动画，则返回 <code>true</code>，否则返回 <code>false</code>。
  *
  * @private
  */
+
 ModelAnimationCollection.prototype.update = function (frameState) {
   const runtimeAnimations = this._runtimeAnimations;
   let length = runtimeAnimations.length;

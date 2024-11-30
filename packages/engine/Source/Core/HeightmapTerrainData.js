@@ -15,65 +15,60 @@ import TerrainData from "./TerrainData.js";
 import TerrainEncoding from "./TerrainEncoding.js";
 import TerrainMesh from "./TerrainMesh.js";
 import TerrainProvider from "./TerrainProvider.js";
-
 /**
- * Terrain data for a single tile where the terrain data is represented as a heightmap.  A heightmap
- * is a rectangular array of heights in row-major order from north to south and west to east.
+ * 单个瓦片的地形数据，其中地形数据表示为高度图。高度图
+ * 是一个矩形的高度数组，按行主序从北到南和从西到东排列。
  *
  * @alias HeightmapTerrainData
  * @constructor
  *
- * @param {object} options Object with the following properties:
- * @param {Int8Array|Uint8Array|Int16Array|Uint16Array|Int32Array|Uint32Array|Float32Array|Float64Array} options.buffer The buffer containing height data.
- * @param {number} options.width The width (longitude direction) of the heightmap, in samples.
- * @param {number} options.height The height (latitude direction) of the heightmap, in samples.
- * @param {number} [options.childTileMask=15] A bit mask indicating which of this tile's four children exist.
- *                 If a child's bit is set, geometry will be requested for that tile as well when it
- *                 is needed.  If the bit is cleared, the child tile is not requested and geometry is
- *                 instead upsampled from the parent.  The bit values are as follows:
+ * @param {object} options 包含以下属性的对象：
+ * @param {Int8Array|Uint8Array|Int16Array|Uint16Array|Int32Array|Uint32Array|Float32Array|Float64Array} options.buffer 包含高度数据的缓冲区。
+ * @param {number} options.width 高度图的宽度（经度方向），以样本为单位。
+ * @param {number} options.height 高度图的高度（纬度方向），以样本为单位。
+ * @param {number} [options.childTileMask=15] 表示此瓦片的四个子瓦片是否存在的位掩码。
+ *                 如果子瓦片的位被设置，则在需要时也会请求该瓦片的几何图形。
+ *                 如果位被清除，则不请求子瓦片，而是从父瓦片上采样几何图形。位值如下：
  *                 <table>
- *                  <tr><th>Bit Position</th><th>Bit Value</th><th>Child Tile</th></tr>
- *                  <tr><td>0</td><td>1</td><td>Southwest</td></tr>
- *                  <tr><td>1</td><td>2</td><td>Southeast</td></tr>
- *                  <tr><td>2</td><td>4</td><td>Northwest</td></tr>
- *                  <tr><td>3</td><td>8</td><td>Northeast</td></tr>
+ *                  <tr><th>位位置</th><th>位值</th><th>子瓦片</th></tr>
+ *                  <tr><td>0</td><td>1</td><td>西南</td></tr>
+ *                  <tr><td>1</td><td>2</td><td>东南</td></tr>
+ *                  <tr><td>2</td><td>4</td><td>西北</td></tr>
+ *                  <tr><td>3</td><td>8</td><td>东北</td></tr>
  *                 </table>
- * @param {Uint8Array} [options.waterMask] The water mask included in this terrain data, if any.  A water mask is a square
- *                     Uint8Array or image where a value of 255 indicates water and a value of 0 indicates land.
- *                     Values in between 0 and 255 are allowed as well to smoothly blend between land and water.
- * @param {object} [options.structure] An object describing the structure of the height data.
- * @param {number} [options.structure.heightScale=1.0] The factor by which to multiply height samples in order to obtain
- *                 the height above the heightOffset, in meters.  The heightOffset is added to the resulting
- *                 height after multiplying by the scale.
- * @param {number} [options.structure.heightOffset=0.0] The offset to add to the scaled height to obtain the final
- *                 height in meters.  The offset is added after the height sample is multiplied by the
- *                 heightScale.
- * @param {number} [options.structure.elementsPerHeight=1] The number of elements in the buffer that make up a single height
- *                 sample.  This is usually 1, indicating that each element is a separate height sample.  If
- *                 it is greater than 1, that number of elements together form the height sample, which is
- *                 computed according to the structure.elementMultiplier and structure.isBigEndian properties.
- * @param {number} [options.structure.stride=1] The number of elements to skip to get from the first element of
- *                 one height to the first element of the next height.
- * @param {number} [options.structure.elementMultiplier=256.0] The multiplier used to compute the height value when the
- *                 stride property is greater than 1.  For example, if the stride is 4 and the strideMultiplier
- *                 is 256, the height is computed as follows:
+ * @param {Uint8Array} [options.waterMask] 此地形数据中包含的水域掩码（如果有的话）。水域掩码是一个方形
+ *                     的 Uint8Array 或图像，其中值为 255 表示水，值为 0 表示陆地。
+ *                     允许0到255之间的值，以平滑地过渡于陆地和水域之间。
+ * @param {object} [options.structure] 描述高度数据结构的对象。
+ * @param {number} [options.structure.heightScale=1.0] 用于获得
+ *                 高度（以米为单位）上方的高度样本的因子。高度偏移会在乘以缩放值后添加到结果
+ *                 高度中。
+ * @param {number} [options.structure.heightOffset=0.0] 要添加到缩放高度以获得最终
+ *                 高度（以米为单位）的偏移量。偏移量在高度样本乘以
+ *                 heightScale 之后添加。
+ * @param {number} [options.structure.elementsPerHeight=1] 组成单个高度样本的缓冲区中的元素数量。
+ *                 这通常为 1，表示每个元素都是一个单独的高度样本。如果
+ *                 大于 1，则该数字的元素共同组成高度样本，该样本根据
+ *                 structure.elementMultiplier 和 structure.isBigEndian 属性计算。
+ * @param {number} [options.structure.stride=1] 获取从一个高度的第一个元素
+ *                 到下一个高度的第一个元素需要跳过的元素数量。
+ * @param {number} [options.structure.elementMultiplier=256.0] 当
+ *                 stride 属性大于 1 时，用于计算高度值的乘数。
+ *                 例如，如果模数为 4，模数乘数为 256，则高度计算为：
  *                 `height = buffer[index] + buffer[index + 1] * 256 + buffer[index + 2] * 256 * 256 + buffer[index + 3] * 256 * 256 * 256`
- *                 This is assuming that the isBigEndian property is false.  If it is true, the order of the
- *                 elements is reversed.
- * @param {boolean} [options.structure.isBigEndian=false] Indicates endianness of the elements in the buffer when the
- *                  stride property is greater than 1.  If this property is false, the first element is the
- *                  low-order element.  If it is true, the first element is the high-order element.
- * @param {number} [options.structure.lowestEncodedHeight] The lowest value that can be stored in the height buffer.  Any heights that are lower
- *                 than this value after encoding with the `heightScale` and `heightOffset` are clamped to this value.  For example, if the height
- *                 buffer is a `Uint16Array`, this value should be 0 because a `Uint16Array` cannot store negative numbers.  If this parameter is
- *                 not specified, no minimum value is enforced.
- * @param {number} [options.structure.highestEncodedHeight] The highest value that can be stored in the height buffer.  Any heights that are higher
- *                 than this value after encoding with the `heightScale` and `heightOffset` are clamped to this value.  For example, if the height
- *                 buffer is a `Uint16Array`, this value should be `256 * 256 - 1` or 65535 because a `Uint16Array` cannot store numbers larger
- *                 than 65535.  If this parameter is not specified, no maximum value is enforced.
- * @param {HeightmapEncoding} [options.encoding=HeightmapEncoding.NONE] The encoding that is used on the buffer.
- * @param {boolean} [options.createdByUpsampling=false] True if this instance was created by upsampling another instance;
- *                  otherwise, false.
+ *                 假设 isBigEndian 属性为 false。如果为 true，则元素的顺序会被反转。
+ * @param {boolean} [options.structure.isBigEndian=false] 当
+ *                  stride 属性大于 1 时，指示缓冲区中元素的字节序。如果此属性为 false，
+ *                  则第一个元素为低位元素。如果为 true，则第一个元素为高位元素。
+ * @param {number} [options.structure.lowestEncodedHeight] 可以存储在高度缓冲区中的最低值。任何在使用
+ *                 `heightScale` 和 `heightOffset` 编码后低于此值的高度将被限制为此值。
+ *                 例如，如果高度缓冲区为 `Uint16Array`，则此值应为 0，因为 `Uint16Array` 无法存储负数。如果未指定此参数，则不强制最低值。
+ * @param {number} [options.structure.highestEncodedHeight] 可以存储在高度缓冲区中的最高值。任何在使用
+ *                 `heightScale` 和 `heightOffset` 编码后高于此值的高度将被限制为此值。
+ *                 例如，如果高度缓冲区为 `Uint16Array`，则此值应为 `256 * 256 - 1` 或 65535，因为 `Uint16Array` 无法存储大于 65535 的数字。如果未指定此参数，则不强制最高值。
+ * @param {HeightmapEncoding} [options.encoding=HeightmapEncoding.NONE] 用于缓冲区的编码。
+ * @param {boolean} [options.createdByUpsampling=false] 如果此实例是通过上采样另一个实例创建的，则为 true；
+ *                  否则为 false。
  *
  *
  * @example
@@ -154,7 +149,7 @@ function HeightmapTerrainData(options) {
 
 Object.defineProperties(HeightmapTerrainData.prototype, {
   /**
-   * An array of credits for this tile.
+   * 此瓦片的信用数组。
    * @memberof HeightmapTerrainData.prototype
    * @type {Credit[]}
    */
@@ -164,12 +159,13 @@ Object.defineProperties(HeightmapTerrainData.prototype, {
     },
   },
   /**
-   * The water mask included in this terrain data, if any.  A water mask is a square
-   * Uint8Array or image where a value of 255 indicates water and a value of 0 indicates land.
-   * Values in between 0 and 255 are allowed as well to smoothly blend between land and water.
+   * 此地形数据中包含的水域掩码（如果有的话）。水域掩码是一个方形
+   * Uint8Array 或图像，其中值为 255 表示水，值为 0 表示陆地。
+   * 允许 0 到 255 之间的值，以平滑地过渡于陆地和水域之间。
    * @memberof HeightmapTerrainData.prototype
    * @type {Uint8Array|HTMLImageElement|HTMLCanvasElement}
    */
+
   waterMask: {
     get: function () {
       return this._waterMask;
@@ -191,22 +187,21 @@ const createMeshTaskProcessorThrottle = new TaskProcessor(
 );
 
 /**
- * Creates a {@link TerrainMesh} from this terrain data.
+ * 从此地形数据创建一个 {@link TerrainMesh}。
  *
  * @private
  *
- * @param {object} options Object with the following properties:
- * @param {TilingScheme} options.tilingScheme The tiling scheme to which this tile belongs.
- * @param {number} options.x The X coordinate of the tile for which to create the terrain data.
- * @param {number} options.y The Y coordinate of the tile for which to create the terrain data.
- * @param {number} options.level The level of the tile for which to create the terrain data.
- * @param {number} [options.exaggeration=1.0] The scale used to exaggerate the terrain.
- * @param {number} [options.exaggerationRelativeHeight=0.0] The height relative to which terrain is exaggerated.
- * @param {boolean} [options.throttle=true] If true, indicates that this operation will need to be retried if too many asynchronous mesh creations are already in progress.
- * @returns {Promise<TerrainMesh>|undefined} A promise for the terrain mesh, or undefined if too many
- *          asynchronous mesh creations are already in progress and the operation should
- *          be retried later.
+ * @param {object} options 包含以下属性的对象：
+ * @param {TilingScheme} options.tilingScheme 此瓦片所属的瓦片方案。
+ * @param {number} options.x 要创建地形数据的瓦片的 X 坐标。
+ * @param {number} options.y 要创建地形数据的瓦片的 Y 坐标。
+ * @param {number} options.level 要创建地形数据的瓦片的级别。
+ * @param {number} [options.exaggeration=1.0] 用于夸大地形的比例。
+ * @param {number} [options.exaggerationRelativeHeight=0.0] 用于夸大地形的相对高度。
+ * @param {boolean} [options.throttle=true] 如果为 true，指示如果已有过多异步网格创建正在进行，此操作需要重试。
+ * @returns {Promise<TerrainMesh>|undefined} 地形网格的 Promise，如果已有过多异步网格创建正在进行，则返回 undefined，操作应稍后重试。
  */
+
 HeightmapTerrainData.prototype.createMesh = function (options) {
   options = defaultValue(options, defaultValue.EMPTY_OBJECT);
 
@@ -318,16 +313,17 @@ HeightmapTerrainData.prototype.createMesh = function (options) {
 };
 
 /**
- * @param {object} options Object with the following properties:
- * @param {TilingScheme} options.tilingScheme The tiling scheme to which this tile belongs.
- * @param {number} options.x The X coordinate of the tile for which to create the terrain data.
- * @param {number} options.y The Y coordinate of the tile for which to create the terrain data.
- * @param {number} options.level The level of the tile for which to create the terrain data.
- * @param {number} [options.exaggeration=1.0] The scale used to exaggerate the terrain.
- * @param {number} [options.exaggerationRelativeHeight=0.0] The height relative to which terrain is exaggerated.
+ * @param {object} options 包含以下属性的对象：
+ * @param {TilingScheme} options.tilingScheme 此瓦片所属的瓦片方案。
+ * @param {number} options.x 要创建地形数据的瓦片的 X 坐标。
+ * @param {number} options.y 要创建地形数据的瓦片的 Y 坐标。
+ * @param {number} options.level 要创建地形数据的瓦片的级别。
+ * @param {number} [options.exaggeration=1.0] 用于夸大地形的比例。
+ * @param {number} [options.exaggerationRelativeHeight=0.0] 用于夸大地形的相对高度。
  *
  * @private
  */
+
 HeightmapTerrainData.prototype._createMeshSync = function (options) {
   //>>includeStart('debug', pragmas.debug);
   Check.typeOf.object("options.tilingScheme", options.tilingScheme);
@@ -424,15 +420,15 @@ HeightmapTerrainData.prototype._createMeshSync = function (options) {
 };
 
 /**
- * Computes the terrain height at a specified longitude and latitude.
+ * 计算指定经度和纬度处的地形高度。
  *
- * @param {Rectangle} rectangle The rectangle covered by this terrain data.
- * @param {number} longitude The longitude in radians.
- * @param {number} latitude The latitude in radians.
- * @returns {number} The terrain height at the specified position.  If the position
- *          is outside the rectangle, this method will extrapolate the height, which is likely to be wildly
- *          incorrect for positions far outside the rectangle.
+ * @param {Rectangle} rectangle 此地形数据覆盖的矩形区域。
+ * @param {number} longitude 经度（以弧度为单位）。
+ * @param {number} latitude 纬度（以弧度为单位）。
+ * @returns {number} 指定位置的地形高度。如果该位置在矩形外部，则此方法将外推高度，
+ *          对于远离矩形的位置，高度可能会非常不准确。
  */
+
 HeightmapTerrainData.prototype.interpolateHeight = function (
   rectangle,
   longitude,
@@ -494,19 +490,20 @@ HeightmapTerrainData.prototype.interpolateHeight = function (
 };
 
 /**
- * Upsamples this terrain data for use by a descendant tile.  The resulting instance will contain a subset of the
- * height samples in this instance, interpolated if necessary.
+ * 为后代瓦片上采样此地形数据。结果实例将包含此实例中的高度样本的子集，
+ * 如有必要，则进行插值。
  *
- * @param {TilingScheme} tilingScheme The tiling scheme of this terrain data.
- * @param {number} thisX The X coordinate of this tile in the tiling scheme.
- * @param {number} thisY The Y coordinate of this tile in the tiling scheme.
- * @param {number} thisLevel The level of this tile in the tiling scheme.
- * @param {number} descendantX The X coordinate within the tiling scheme of the descendant tile for which we are upsampling.
- * @param {number} descendantY The Y coordinate within the tiling scheme of the descendant tile for which we are upsampling.
- * @param {number} descendantLevel The level within the tiling scheme of the descendant tile for which we are upsampling.
- * @returns {Promise<HeightmapTerrainData>|undefined} A promise for upsampled heightmap terrain data for the descendant tile,
- *          or undefined if the mesh is unavailable.
+ * @param {TilingScheme} tilingScheme 此地形数据的瓦片方案。
+ * @param {number} thisX 此瓦片在瓦片方案中的 X 坐标。
+ * @param {number} thisY 此瓦片在瓦片方案中的 Y 坐标。
+ * @param {number} thisLevel 此瓦片在瓦片方案中的级别。
+ * @param {number} descendantX 我们要为其上采样的后代瓦片在瓦片方案中的 X 坐标。
+ * @param {number} descendantY 我们要为其上采样的后代瓦片在瓦片方案中的 Y 坐标。
+ * @param {number} descendantLevel 我们要为其上采样的后代瓦片在瓦片方案中的级别。
+ * @returns {Promise<HeightmapTerrainData>|undefined} 后代瓦片上采样的高度图地形数据的 Promise，
+ *          如果网格不可用，则返回 undefined。
  */
+
 HeightmapTerrainData.prototype.upsample = function (
   tilingScheme,
   thisX,
@@ -643,17 +640,17 @@ HeightmapTerrainData.prototype.upsample = function (
 };
 
 /**
- * Determines if a given child tile is available, based on the
- * {@link HeightmapTerrainData.childTileMask}.  The given child tile coordinates are assumed
- * to be one of the four children of this tile.  If non-child tile coordinates are
- * given, the availability of the southeast child tile is returned.
+ * 根据 {@link HeightmapTerrainData.childTileMask} 确定给定子瓦片是否可用。
+ * 假设给定的子瓦片坐标是此瓦片的四个子瓦片之一。
+ * 如果给定的是非子瓦片坐标，则返回东南子瓦片的可用性。
  *
- * @param {number} thisX The tile X coordinate of this (the parent) tile.
- * @param {number} thisY The tile Y coordinate of this (the parent) tile.
- * @param {number} childX The tile X coordinate of the child tile to check for availability.
- * @param {number} childY The tile Y coordinate of the child tile to check for availability.
- * @returns {boolean} True if the child tile is available; otherwise, false.
+ * @param {number} thisX 此（父）瓦片的 X 坐标。
+ * @param {number} thisY 此（父）瓦片的 Y 坐标。
+ * @param {number} childX 要检查可用性的子瓦片的 X 坐标。
+ * @param {number} childY 要检查可用性的子瓦片的 Y 坐标。
+ * @returns {boolean} 如果子瓦片可用，则返回 true；否则，返回 false。
  */
+
 HeightmapTerrainData.prototype.isChildAvailable = function (
   thisX,
   thisY,
@@ -687,13 +684,14 @@ HeightmapTerrainData.prototype.isChildAvailable = function (
 };
 
 /**
- * Gets a value indicating whether or not this terrain data was created by upsampling lower resolution
- * terrain data.  If this value is false, the data was obtained from some other source, such
- * as by downloading it from a remote server.  This method should return true for instances
- * returned from a call to {@link HeightmapTerrainData#upsample}.
+ * 获取一个值，指示此地形数据是否是通过上采样较低分辨率的
+ * 地形数据创建的。如果该值为 false，则数据是从其他来源获取的，
+ * 例如通过从远程服务器下载。此方法应对从 {@link HeightmapTerrainData#upsample}
+ * 调用返回的实例返回 true。
  *
- * @returns {boolean} True if this instance was created by upsampling; otherwise, false.
+ * @returns {boolean} 如果此实例是通过上采样创建的，则返回 true；否则返回 false。
  */
+
 HeightmapTerrainData.prototype.wasCreatedByUpsampling = function () {
   return this._createdByUpsampling;
 };

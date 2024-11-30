@@ -1,22 +1,20 @@
 /**
- * Describes a single leap second, which is constructed from a {@link JulianDate} and a
- * numerical offset representing the number of seconds TAI is ahead of the UTC time standard.
+ * 描述一个单一的跳秒，其由一个 {@link JulianDate} 和一个数值偏移量构成，表示 TAI 比 UTC 时间标准提前的秒数。
  * @alias LeapSecond
  * @constructor
  *
- * @param {JulianDate} [date] A Julian date representing the time of the leap second.
- * @param {number} [offset] The cumulative number of seconds that TAI is ahead of UTC at the provided date.
+ * @param {JulianDate} [date] 一个表示跳秒发生时间的 Julian 日期。
+ * @param {number} [offset] 在提供日期时，TAI 相对于 UTC 的累积秒数。
  */
 function LeapSecond(date, offset) {
   /**
-   * Gets or sets the date at which this leap second occurs.
+   * 获取或设置发生跳秒的日期。
    * @type {JulianDate}
    */
   this.julianDate = date;
 
   /**
-   * Gets or sets the cumulative number of seconds between the UTC and TAI time standards at the time
-   * of this leap second.
+   * 获取或设置在此跳秒发生时 UTC 和 TAI 时间标准之间的累积秒数。
    * @type {number}
    */
   this.offset = offset;

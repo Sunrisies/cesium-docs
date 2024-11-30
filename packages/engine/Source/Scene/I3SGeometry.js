@@ -3,18 +3,18 @@ import clone from "../Core/clone.js";
 import defined from "../Core/defined.js";
 import Matrix3 from "../Core/Matrix3.js";
 import srgbToLinear from "../Core/srgbToLinear.js";
-
 /**
- * This class implements an I3S Geometry. Each I3SGeometry
- * generates an in memory glTF to be used as content for a Cesium3DTile
+ * 该类实现了 I3S 几何体。每个 I3SGeometry
+ * 生成一个内存中的 glTF，以用作 Cesium3DTile 的内容
  * <p>
- * Do not construct this directly, instead access tiles through {@link I3SNode}.
+ * 不要直接构造此类，而是通过 {@link I3SNode} 访问图块。
  * </p>
  * @alias I3SGeometry
  * @internalConstructor
- * @privateParam {I3SNode} parent The parent of that geometry
- * @privateParam {string} uri The uri to load the data from
+ * @privateParam {I3SNode} parent 该几何体的父节点
+ * @privateParam {string} uri 用于加载数据的 URI
  */
+
 function I3SGeometry(parent, uri) {
   const dataProvider = parent._dataProvider;
   const layer = parent._layer;
@@ -39,7 +39,7 @@ function I3SGeometry(parent, uri) {
 
 Object.defineProperties(I3SGeometry.prototype, {
   /**
-   * Gets the resource for the geometry
+   * 获取几何体的资源
    * @memberof I3SGeometry.prototype
    * @type {Resource}
    * @readonly
@@ -51,7 +51,7 @@ Object.defineProperties(I3SGeometry.prototype, {
   },
 
   /**
-   * Gets the I3S data for this object.
+   * 获取此对象的 I3S 数据。
    * @memberof I3SGeometry.prototype
    * @type {object}
    * @readonly
@@ -62,7 +62,7 @@ Object.defineProperties(I3SGeometry.prototype, {
     },
   },
   /**
-   * Gets the custom attributes of the geometry.
+   * 获取几何体的自定义属性。
    * @memberof I3SGeometry.prototype
    * @type {object}
    * @readonly
@@ -75,10 +75,11 @@ Object.defineProperties(I3SGeometry.prototype, {
 });
 
 /**
- * Loads the content.
- * @returns {Promise<object>} A promise that is resolved when the geometry data is loaded
+ * 加载内容。
+ * @returns {Promise<object>} 当几何体数据加载完成时解析的 Promise
  * @private
  */
+
 I3SGeometry.prototype.load = function () {
   const that = this;
   return this._dataProvider._loadBinary(this._resource).then(function (data) {
@@ -122,16 +123,17 @@ const scratchV1p = new Cartesian3();
 const scratchV2p = new Cartesian3();
 
 /**
- * Find a triangle touching the point [px, py, pz], then return the vertex closest to the search point
- * @param {number} px The x component of the point to query
- * @param {number} py The y component of the point to query
- * @param {number} pz The z component of the point to query
- * @returns {object} A structure containing the index of the closest point,
- * the squared distance from the queried point to the point that is found,
- * the distance from the queried point to the point that is found,
- * the queried position in local space,
- * the closest position in local space
+ * 找到与点 [px, py, pz] 相接触的三角形，然后返回离查询点最近的顶点
+ * @param {number} px 要查询的点的 x 组件
+ * @param {number} py 要查询的点的 y 组件
+ * @param {number} pz 要查询的点的 z 组件
+ * @returns {object} 一个结构，包含最近点的索引，
+ * 查询点与找到的点之间的平方距离，
+ * 查询点与找到的点之间的距离，
+ * 本地空间中的查询位置，
+ * 本地空间中的最近位置
  */
+
 I3SGeometry.prototype.getClosestPointIndexOnTriangle = function (px, py, pz) {
   if (
     defined(this._customAttributes) &&

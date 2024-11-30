@@ -2,23 +2,23 @@ import Color from "../../Core/Color.js";
 import defined from "../../Core/defined.js";
 
 /**
- * A feature of a {@link Model}.
+ * {@link Model} 的一个特性。
  * <p>
- * Provides access to a feature's properties stored in the model's feature table.
+ * 提供对存储在模型特性表中的特性的属性的访问。
  * </p>
  * <p>
- * Modifications to a <code>ModelFeature</code> object have the lifetime of the model.
+ * 对 <code>ModelFeature</code> 对象的修改在模型的生命周期内有效。
  * </p>
  * <p>
- * Do not construct this directly. Access it through picking using {@link Scene#pick}.
+ * 请勿直接构造此对象。通过使用 {@link Scene#pick} 进行选择来访问它。
  * </p>
  *
  * @alias ModelFeature
  * @constructor
  *
- * @param {object} options Object with the following properties:
- * @param {Model} options.model The model the feature belongs to.
- * @param {number} options.featureId The unique integral identifier for this feature.
+ * @param {object} options 具有以下属性的对象：
+ * @param {Model} options.model 特性所属的模型。
+ * @param {number} options.featureId 此特性的唯一整数标识符。
  *
  * @example
  * // On mouse over, display all the properties for a feature in the console log.
@@ -43,8 +43,7 @@ function ModelFeature(options) {
 
 Object.defineProperties(ModelFeature.prototype, {
   /**
-   * Gets or sets if the feature will be shown. This is set for all features
-   * when a style's show is evaluated.
+   * 获取或设置特性是否显示。当样式的显示进行评估时，将为所有特性设置此属性。
    *
    * @memberof ModelFeature.prototype
    *
@@ -62,9 +61,7 @@ Object.defineProperties(ModelFeature.prototype, {
   },
 
   /**
-   * Gets or sets the highlight color multiplied with the feature's color.  When
-   * this is white, the feature's color is not changed. This is set for all features
-   * when a style's color is evaluated.
+   * 获取或设置高亮颜色，它将与特性的颜色相乘。当这一点是白色时，特性的颜色不会改变。当样式的颜色被评估时，将为所有特性设置此属性。
    *
    * @memberof ModelFeature.prototype
    *
@@ -83,9 +80,10 @@ Object.defineProperties(ModelFeature.prototype, {
       this._featureTable.setColor(this._featureId, value);
     },
   },
+  
   /**
-   * All objects returned by {@link Scene#pick} have a <code>primitive</code> property. This returns
-   * the model containing the feature.
+   * 所有由 {@link Scene#pick} 返回的对象都有一个 <code>primitive</code> 属性。此属性返回
+   * 包含该特性的模型。
    *
    * @memberof ModelFeature.prototype
    *
@@ -101,7 +99,7 @@ Object.defineProperties(ModelFeature.prototype, {
   },
 
   /**
-   *  The {@link ModelFeatureTable} that this feature belongs to.
+   * 此特性所属的 {@link ModelFeatureTable}。
    *
    * @memberof ModelFeature.prototype
    *
@@ -117,16 +115,15 @@ Object.defineProperties(ModelFeature.prototype, {
   },
 
   /**
-   * Get the feature ID associated with this feature. For 3D Tiles 1.0, the
-   * batch ID is returned. For EXT_mesh_features, this is the feature ID from
-   * the selected feature ID set.
+   * 获取与此特性相关联的特征 ID。对于 3D Tiles 1.0，返回的是批次 ID。对于 EXT_mesh_features，
+   * 返回的是来自所选特征 ID 集的特征 ID。
    *
    * @memberof ModelFeature.prototype
    *
    * @type {number}
    *
    * @readonly
-   * @experimental This feature is using part of the 3D Tiles spec that is not final and is subject to change without Cesium's standard deprecation policy.
+   * @experimental 该功能使用的是 3D Tiles 规范中的一部分，该部分尚未确定，可能会在不遵循 Cesium 标准弃用政策的情况下发生更改。
    */
   featureId: {
     get: function () {
@@ -135,21 +132,23 @@ Object.defineProperties(ModelFeature.prototype, {
   },
 });
 
+
 /**
- * Returns whether the feature contains this property.
+ * 返回特性是否包含此属性。
  *
- * @param {string} name The case-sensitive name of the property.
- * @returns {boolean} Whether the feature contains this property.
+ * @param {string} name 属性的区分大小写名称。
+ * @returns {boolean} 特性是否包含此属性。
  */
+
 ModelFeature.prototype.hasProperty = function (name) {
   return this._featureTable.hasProperty(this._featureId, name);
 };
 
 /**
- * Returns a copy of the value of the feature's property with the given name.
+ * 返回具有给定名称的特性属性的值的副本。
  *
- * @param {string} name The case-sensitive name of the property.
- * @returns {*} The value of the property or <code>undefined</code> if the feature does not have this property.
+ * @param {string} name 属性的区分大小写名称。
+ * @returns {*} 属性的值，如果特性没有此属性，则返回 <code>undefined</code>。
  *
  * @example
  * // Display all the properties for a feature in the console log.
@@ -165,24 +164,23 @@ ModelFeature.prototype.getProperty = function (name) {
 };
 
 /**
- * Returns a copy of the feature's property with the given name, examining all
- * the metadata from the EXT_structural_metadata and legacy EXT_feature_metadata glTF
- * extensions. Metadata is checked against name from most specific to most
- * general and the first match is returned. Metadata is checked in this order:
+ * 返回具有给定名称的特性属性的副本，检查来自 EXT_structural_metadata 和旧版 EXT_feature_metadata glTF
+ * 扩展的所有元数据。元数据按从最具体到最一般的名称进行检查，返回第一个匹配项。元数据的检查顺序如下：
  * <ol>
- *   <li>structural metadata property by semantic</li>
- *   <li>structural metadata property by property ID</li>
+ *   <li>按语义检查结构化元数据属性</li>
+ *   <li>按属性 ID 检查结构化元数据属性</li>
  * </ol>
  * <p>
- * See the {@link https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata|EXT_structural_metadata Extension} as well as the
- * previous {@link https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_feature_metadata|EXT_feature_metadata Extension} for glTF.
+ * 请参阅 {@link https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_structural_metadata|EXT_structural_metadata Extension} 以及
+ * 之前的 {@link https://github.com/CesiumGS/glTF/tree/3d-tiles-next/extensions/2.0/Vendor/EXT_feature_metadata|EXT_feature_metadata Extension} 以了解 glTF 的相关信息。
  * </p>
  *
- * @param {string} name The semantic or property ID of the feature. Semantics are checked before property IDs in each granularity of metadata.
- * @return {*} The value of the property or <code>undefined</code> if the feature does not have this property.
+ * @param {string} name 特性的语义或属性 ID。语义在每个元数据粒度中优先于属性 ID 进行检查。
+ * @return {*} 属性的值，如果特性没有此属性，则返回 <code>undefined</code>。
  *
- * @experimental This feature is using part of the 3D Tiles spec that is not final and is subject to change without Cesium's standard deprecation policy.
+ * @experimental 该功能使用的是 3D Tiles 规范中的一部分，该部分尚未确定，可能会在不遵循 Cesium 标准弃用政策的情况下发生更改。
  */
+
 ModelFeature.prototype.getPropertyInherited = function (name) {
   if (this._featureTable.hasPropertyBySemantic(this._featureId, name)) {
     return this._featureTable.getPropertyBySemantic(this._featureId, name);
@@ -192,23 +190,24 @@ ModelFeature.prototype.getPropertyInherited = function (name) {
 };
 
 /**
- * Returns an array of property IDs for the feature.
+ * 返回特性的属性 ID 数组。
  *
- * @param {string[]} [results] An array into which to store the results.
- * @returns {string[]} The IDs of the feature's properties.
+ * @param {string[]} [results] 一个数组，用于存储结果。
+ * @returns {string[]} 特性属性的 ID。
  */
+
 ModelFeature.prototype.getPropertyIds = function (results) {
   return this._featureTable.getPropertyIds(results);
 };
 
 /**
- * Sets the value of the feature's property with the given name.
+ * 设置具有给定名称的特性属性的值。
  *
- * @param {string} name The case-sensitive name of the property.
- * @param {*} value The value of the property that will be copied.
- * @returns {boolean} <code>true</code> if the property was set, <code>false</code> otherwise.
+ * @param {string} name 属性的区分大小写名称。
+ * @param {*} value 要复制的属性值。
+ * @returns {boolean} 如果属性设置成功则返回 <code>true</code>，否则返回 <code>false</code>。
  *
- * @exception {DeveloperError} Inherited batch table hierarchy property is read only.
+ * @exception {DeveloperError} 继承的批次表层次属性是只读的。
  *
  * @example
  * const height = feature.getProperty('Height'); // e.g., the height of a building

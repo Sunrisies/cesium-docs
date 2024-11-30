@@ -1,7 +1,7 @@
 import DeveloperError from "../Core/DeveloperError.js";
 
 /**
- * A light source. This type describes an interface and is not intended to be instantiated directly. Together, <code>color</code> and <code>intensity</code> produce a high-dynamic-range light color. <code>intensity</code> can also be used individually to dim or brighten the light without changing the hue.
+ * 光源。此类型描述一个接口，且不打算直接实例化。<code>color</code> 和 <code>intensity</code> 共同产生高动态范围的光色。<code>intensity</code> 也可以单独用于调节光的亮度，而不改变色调。
  *
  * @alias Light
  * @constructor
@@ -13,7 +13,7 @@ function Light() {}
 
 Object.defineProperties(Light.prototype, {
   /**
-   * The color of the light.
+   * 光的颜色。
    * @memberof Light.prototype
    * @type {Color}
    */
@@ -22,7 +22,7 @@ Object.defineProperties(Light.prototype, {
   },
 
   /**
-   * The intensity controls the strength of the light. <code>intensity</code> has a minimum value of 0.0 and no maximum value.
+   * 强度控制光的强度。<code>intensity</code> 的最小值为 0.0，没有最大值。
    * @memberof Light.prototype
    * @type {number}
    */

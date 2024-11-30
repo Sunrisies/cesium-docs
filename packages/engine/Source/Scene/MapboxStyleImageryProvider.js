@@ -13,30 +13,29 @@ const defaultCredit = new Credit(
 /**
  * @typedef {object} MapboxStyleImageryProvider.ConstructorOptions
  *
- * Initialization options for the MapboxStyleImageryProvider constructor
+ * MapboxStyleImageryProvider 构造函数的初始化选项
  *
- * @property {Resource|string} [url='https://api.mapbox.com/styles/v1/'] The Mapbox server url.
- * @property {string} [username='mapbox'] The username of the map account.
- * @property {string} styleId The Mapbox Style ID.
- * @property {string} accessToken The public access token for the imagery.
- * @property {number} [tilesize=512] The size of the image tiles.
- * @property {boolean} [scaleFactor] Determines if tiles are rendered at a @2x scale factor.
- * @property {Ellipsoid} [ellipsoid=Ellipsoid.default] The ellipsoid.  If not specified, the default ellipsoid is used.
- * @property {number} [minimumLevel=0] The minimum level-of-detail supported by the imagery provider.  Take care when specifying
- *                 this that the number of tiles at the minimum level is small, such as four or less.  A larger number is likely
- *                 to result in rendering problems.
- * @property {number} [maximumLevel] The maximum level-of-detail supported by the imagery provider, or undefined if there is no limit.
- * @property {Rectangle} [rectangle=Rectangle.MAX_VALUE] The rectangle, in radians, covered by the image.
- * @property {Credit|string} [credit] A credit for the data source, which is displayed on the canvas.
+ * @property {Resource|string} [url='https://api.mapbox.com/styles/v1/'] Mapbox 服务器的 URL。
+ * @property {string} [username='mapbox'] 地图账户的用户名。
+ * @property {string} styleId Mapbox 样式 ID。
+ * @property {string} accessToken 图像的公共访问令牌。
+ * @property {number} [tilesize=512] 图像瓦片的大小。
+ * @property {boolean} [scaleFactor] 确定瓦片是否以 @2x 的比例因子进行渲染。
+ * @property {Ellipsoid} [ellipsoid=Ellipsoid.default] 椭球体。如果未指定，将使用默认椭球体。
+ * @property {number} [minimumLevel=0] 图像提供者支持的最小细节级别。指定此值时要小心，最小级别的瓦片数量应较小，例如四个或更少。较大的数字可能导致渲染问题。
+ * @property {number} [maximumLevel] 图像提供者支持的最大细节级别，或者如果没有限制则为未定义。
+ * @property {Rectangle} [rectangle=Rectangle.MAX_VALUE] 图像覆盖的矩形区域（以弧度表示）。
+ * @property {Credit|string} [credit] 数据源的授权信息，将显示在画布上。
  */
 
+
 /**
- * Provides tiled imagery hosted by Mapbox.
+ * 提供由 Mapbox 托管的图块图像。
  *
  * @alias MapboxStyleImageryProvider
  * @constructor
  *
- * @param {MapboxStyleImageryProvider.ConstructorOptions} options Object describing initialization options
+ * @param {MapboxStyleImageryProvider.ConstructorOptions} options 描述初始化选项的对象
  *
  * @example
  * // Mapbox style provider
@@ -124,7 +123,7 @@ function MapboxStyleImageryProvider(options) {
 
 Object.defineProperties(MapboxStyleImageryProvider.prototype, {
   /**
-   * Gets the URL of the Mapbox server.
+   * 获取 Mapbox 服务器的 URL。
    * @memberof MapboxStyleImageryProvider.prototype
    * @type {string}
    * @readonly
@@ -136,7 +135,7 @@ Object.defineProperties(MapboxStyleImageryProvider.prototype, {
   },
 
   /**
-   * Gets the rectangle, in radians, of the imagery provided by the instance.
+   * 获取实例提供的图像的矩形区域（以弧度表示）。
    * @memberof MapboxStyleImageryProvider.prototype
    * @type {Rectangle}
    * @readonly
@@ -148,7 +147,7 @@ Object.defineProperties(MapboxStyleImageryProvider.prototype, {
   },
 
   /**
-   * Gets the width of each tile, in pixels.
+   * 获取每个瓦片的宽度（以像素为单位）。
    * @memberof MapboxStyleImageryProvider.prototype
    * @type {number}
    * @readonly
@@ -160,7 +159,7 @@ Object.defineProperties(MapboxStyleImageryProvider.prototype, {
   },
 
   /**
-   * Gets the height of each tile, in pixels.
+   * 获取每个瓦片的高度（以像素为单位）。
    * @memberof MapboxStyleImageryProvider.prototype
    * @type {number}
    * @readonly
@@ -172,7 +171,7 @@ Object.defineProperties(MapboxStyleImageryProvider.prototype, {
   },
 
   /**
-   * Gets the maximum level-of-detail that can be requested.
+   * 获取可请求的最大细节级别。
    * @memberof MapboxStyleImageryProvider.prototype
    * @type {number|undefined}
    * @readonly
@@ -184,11 +183,9 @@ Object.defineProperties(MapboxStyleImageryProvider.prototype, {
   },
 
   /**
-   * Gets the minimum level-of-detail that can be requested. Generally,
-   * a minimum level should only be used when the rectangle of the imagery is small
-   * enough that the number of tiles at the minimum level is small.  An imagery
-   * provider with more than a few tiles at the minimum level will lead to
-   * rendering problems.
+   * 获取可请求的最小细节级别。一般来说，
+   * 仅在图像的矩形区域足够小以致于最小级别的瓦片数量较少时，
+   * 应该使用最小级别。拥有多个以上瓦片的图像提供者在最小级别时会导致渲染问题。
    * @memberof MapboxStyleImageryProvider.prototype
    * @type {number}
    * @readonly
@@ -200,7 +197,7 @@ Object.defineProperties(MapboxStyleImageryProvider.prototype, {
   },
 
   /**
-   * Gets the tiling scheme used by the provider.
+   * 获取提供者使用的瓦片方案。
    * @memberof MapboxStyleImageryProvider.prototype
    * @type {TilingScheme}
    * @readonly
@@ -212,9 +209,9 @@ Object.defineProperties(MapboxStyleImageryProvider.prototype, {
   },
 
   /**
-   * Gets the tile discard policy.  If not undefined, the discard policy is responsible
-   * for filtering out "missing" tiles via its shouldDiscardImage function.  If this function
-   * returns undefined, no tiles are filtered.
+   * 获取瓦片丢弃策略。如果未定义，丢弃策略负责
+   * 通过其 shouldDiscardImage 函数过滤掉“丢失”的瓦片。如果此函数
+   * 返回未定义，则不过滤任何瓦片。
    * @memberof MapboxStyleImageryProvider.prototype
    * @type {TileDiscardPolicy}
    * @readonly
@@ -226,9 +223,9 @@ Object.defineProperties(MapboxStyleImageryProvider.prototype, {
   },
 
   /**
-   * Gets an event that is raised when the imagery provider encounters an asynchronous error..  By subscribing
-   * to the event, you will be notified of the error and can potentially recover from it.  Event listeners
-   * are passed an instance of {@link TileProviderError}.
+   * 获取在图像提供者遇到异步错误时引发的事件。通过订阅
+   * 此事件，您将收到错误通知并可以潜在地恢复。事件监听器
+   * 将传递 {@link TileProviderError} 的实例。
    * @memberof MapboxStyleImageryProvider.prototype
    * @type {Event}
    * @readonly
@@ -240,8 +237,8 @@ Object.defineProperties(MapboxStyleImageryProvider.prototype, {
   },
 
   /**
-   * Gets the credit to display when this imagery provider is active.  Typically this is used to credit
-   * the source of the imagery.
+   * 获取在此图像提供者处于活动状态时显示的信用信息。通常用于给出
+   * 图像源的来源。
    * @memberof MapboxStyleImageryProvider.prototype
    * @type {Credit}
    * @readonly
@@ -253,7 +250,7 @@ Object.defineProperties(MapboxStyleImageryProvider.prototype, {
   },
 
   /**
-   * Gets the proxy used by this provider.
+   * 获取此提供者使用的代理。
    * @memberof MapboxStyleImageryProvider.prototype
    * @type {Proxy}
    * @readonly
@@ -265,11 +262,8 @@ Object.defineProperties(MapboxStyleImageryProvider.prototype, {
   },
 
   /**
-   * Gets a value indicating whether or not the images provided by this imagery provider
-   * include an alpha channel.  If this property is false, an alpha channel, if present, will
-   * be ignored.  If this property is true, any images without an alpha channel will be treated
-   * as if their alpha is 1.0 everywhere.  When this property is false, memory usage
-   * and texture upload time are reduced.
+   * 获取一个值，指示此图像提供者提供的图像是否包含 alpha 通道。 如果此属性为 false，且存在 alpha 通道，将被忽略。 如果此属性为 true，任何没有 alpha 通道的图像都将被视为其 alpha 值在所有地方都是 1.0。 当此属性为 false 时，内存使用
+   * 和纹理上传时间都会减少。
    * @memberof MapboxStyleImageryProvider.prototype
    * @type {boolean}
    * @readonly
@@ -281,28 +275,31 @@ Object.defineProperties(MapboxStyleImageryProvider.prototype, {
   },
 });
 
+
 /**
- * Gets the credits to be displayed when a given tile is displayed.
+ * 获取在显示给定瓦片时要显示的信用信息。
  *
- * @param {number} x The tile X coordinate.
- * @param {number} y The tile Y coordinate.
- * @param {number} level The tile level;
- * @returns {Credit[]} The credits to be displayed when the tile is displayed.
+ * @param {number} x 瓦片的 X 坐标。
+ * @param {number} y 瓦片的 Y 坐标。
+ * @param {number} level 瓦片级别；
+ * @returns {Credit[]} 在显示瓦片时要显示的信用信息。
  */
+
 MapboxStyleImageryProvider.prototype.getTileCredits = function (x, y, level) {
   return undefined;
 };
 
 /**
- * Requests the image for a given tile.
+ * 请求给定瓦片的图像。
  *
- * @param {number} x The tile X coordinate.
- * @param {number} y The tile Y coordinate.
- * @param {number} level The tile level.
- * @param {Request} [request] The request object. Intended for internal use only.
- * @returns {Promise<ImageryTypes>|undefined} A promise for the image that will resolve when the image is available, or
- *          undefined if there are too many active requests to the server, and the request should be retried later.
+ * @param {number} x 瓦片的 X 坐标。
+ * @param {number} y 瓦片的 Y 坐标。
+ * @param {number} level 瓦片级别。
+ * @param {Request} [request] 请求对象。仅供内部使用。
+ * @returns {Promise<ImageryTypes>|undefined} 图像的承诺，当图像可用时将解决，或者
+ *          如果对服务器的活动请求过多，则返回未定义，请求应稍后重试。
  */
+
 MapboxStyleImageryProvider.prototype.requestImage = function (
   x,
   y,
@@ -313,20 +310,19 @@ MapboxStyleImageryProvider.prototype.requestImage = function (
 };
 
 /**
- * Asynchronously determines what features, if any, are located at a given longitude and latitude within
- * a tile. This function is optional, so it may not exist on all ImageryProviders.
+ * 异步确定在给定经度和纬度内的瓦片上是否存在特征（如果有）。
+ * 该函数是可选的，因此可能并非所有 ImageryProviders 都存在此函数。
  *
- *
- * @param {number} x The tile X coordinate.
- * @param {number} y The tile Y coordinate.
- * @param {number} level The tile level.
- * @param {number} longitude The longitude at which to pick features.
- * @param {number} latitude  The latitude at which to pick features.
- * @return {Promise<ImageryLayerFeatureInfo[]>|undefined} A promise for the picked features that will resolve when the asynchronous
- *                   picking completes.  The resolved value is an array of {@link ImageryLayerFeatureInfo}
- *                   instances.  The array may be empty if no features are found at the given location.
- *                   It may also be undefined if picking is not supported.
+ * @param {number} x 瓦片的 X 坐标。
+ * @param {number} y 瓦片的 Y 坐标。
+ * @param {number} level 瓦片级别。
+ * @param {number} longitude 要选择特征的经度。
+ * @param {number} latitude 要选择特征的纬度。
+ * @return {Promise<ImageryLayerFeatureInfo[]>|undefined} 选择的特征的承诺，当异步选择完成时将解决。
+ *                   解析值是 {@link ImageryLayerFeatureInfo} 实例的数组。如果在给定位置未找到特征，
+ *                   数组可能为空。如果不支持选择，则可能未定义。
  */
+
 MapboxStyleImageryProvider.prototype.pickFeatures = function (
   x,
   y,

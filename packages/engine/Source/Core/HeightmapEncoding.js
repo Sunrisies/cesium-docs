@@ -1,11 +1,11 @@
 /**
- * The encoding that is used for a heightmap
+ * 用于高度图的编码
  *
  * @enum {number}
  */
 const HeightmapEncoding = {
   /**
-   * No encoding
+   * 无编码
    *
    * @type {number}
    * @constant
@@ -13,12 +13,12 @@ const HeightmapEncoding = {
   NONE: 0,
 
   /**
-   * LERC encoding
+   * LERC 编码
    *
    * @type {number}
    * @constant
    *
-   * @see {@link https://github.com/Esri/lerc|The LERC specification}
+   * @see {@link https://github.com/Esri/lerc|LERC 规范}
    */
   LERC: 1,
 };

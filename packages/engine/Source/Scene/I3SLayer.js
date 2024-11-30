@@ -10,16 +10,17 @@ import I3SNode from "./I3SNode.js";
 import I3SSymbology from "./I3SSymbology.js";
 
 /**
- * This class implements an I3S layer. In CesiumJS each I3SLayer creates a Cesium3DTileset.
+ * 该类实现了 I3S 图层。在 CesiumJS 中，每个 I3SLayer 创建一个 Cesium3DTileset。
  * <p>
- * Do not construct this directly, instead access layers through {@link I3SDataProvider}.
+ * 不要直接构造此类，而是通过 {@link I3SDataProvider} 访问图层。
  * </p>
  * @alias I3SLayer
  * @internalConstructor
- * @privateParam {I3SDataProvider} dataProvider The i3s data provider
- * @privateParam {object} layerData The layer data that is loaded from the scene layer
- * @privateParam {I3SDataProvider|I3SSublayer} parent The parent of that layer
+ * @privateParam {I3SDataProvider} dataProvider I3S 数据提供者
+ * @privateParam {object} layerData 从场景图层加载的图层数据
+ * @privateParam {I3SDataProvider|I3SSublayer} parent 该图层的父节点
  */
+
 function I3SLayer(dataProvider, layerData, parent) {
   this._dataProvider = dataProvider;
   this._parent = parent;
@@ -67,7 +68,7 @@ function I3SLayer(dataProvider, layerData, parent) {
 
 Object.defineProperties(I3SLayer.prototype, {
   /**
-   * Gets the resource for the layer.
+   * 获取图层的资源。
    * @memberof I3SLayer.prototype
    * @type {Resource}
    * @readonly
@@ -79,7 +80,7 @@ Object.defineProperties(I3SLayer.prototype, {
   },
 
   /**
-   * Gets the root node of this layer.
+   * 获取此图层的根节点。
    * @memberof I3SLayer.prototype
    * @type {I3SNode}
    * @readonly
@@ -90,7 +91,7 @@ Object.defineProperties(I3SLayer.prototype, {
     },
   },
   /**
-   * Gets the Cesium3DTileset for this layer.
+   * 获取此图层的 Cesium3DTileset。
    * @memberof I3SLayer.prototype
    * @type {Cesium3DTileset|undefined}
    * @readonly
@@ -101,7 +102,7 @@ Object.defineProperties(I3SLayer.prototype, {
     },
   },
   /**
-   * Gets the I3S data for this object.
+   * 获取此对象的 I3S 数据。
    * @memberof I3SLayer.prototype
    * @type {object}
    * @readonly
@@ -113,7 +114,7 @@ Object.defineProperties(I3SLayer.prototype, {
   },
 
   /**
-   * The version string of the loaded I3S dataset
+   * 加载的 I3S 数据集的版本字符串
    * @memberof I3SLayer.prototype
    * @type {string}
    * @readonly
@@ -125,7 +126,7 @@ Object.defineProperties(I3SLayer.prototype, {
   },
 
   /**
-   * The major version number of the loaded I3S dataset
+   * 加载的 I3S 数据集的主要版本号
    * @memberof I3SLayer.prototype
    * @type {number}
    * @readonly
@@ -137,7 +138,7 @@ Object.defineProperties(I3SLayer.prototype, {
   },
 
   /**
-   * The minor version number of the loaded I3S dataset
+   * 加载的 I3S 数据集的次要版本号
    * @memberof I3SLayer.prototype
    * @type {number}
    * @readonly
@@ -149,7 +150,7 @@ Object.defineProperties(I3SLayer.prototype, {
   },
 
   /**
-   * When <code>true</code>, when the loaded I3S version is 1.6 or older
+   * 如果为 <code>true</code>，则表示加载的 I3S 版本为 1.6 或更早版本
    * @memberof I3SLayer.prototype
    * @type {boolean}
    * @readonly
@@ -170,12 +171,14 @@ Object.defineProperties(I3SLayer.prototype, {
   },
 });
 
+
 /**
- * Loads the content, including the root node definition and its children
- * @param {Cesium3DTileset.ConstructorOptions} [cesium3dTilesetOptions] options for Cesium3dTileset constructor
- * @returns {Promise<void>} A promise that is resolved when the layer data is loaded
+ * 加载内容，包括根节点定义及其子节点
+ * @param {Cesium3DTileset.ConstructorOptions} [cesium3dTilesetOptions] Cesium3D Tileset 构造函数的选项
+ * @returns {Promise<void>} 当图层数据加载完成时解析的 Promise
  * @private
  */
+
 I3SLayer.prototype.load = async function (cesium3dTilesetOptions) {
   if (this._data.spatialReference.wkid !== 4326) {
     throw new RuntimeError(
@@ -441,10 +444,11 @@ I3SLayer.prototype._updateVisibility = function () {
 };
 
 /**
- * Filters the drawn elements of a layer to specific attribute names and values
- * @param {I3SNode.AttributeFilter[]} [filters=[]] The collection of attribute filters
- * @returns {Promise<void>} A promise that is resolved when the filter is applied
+ * 将图层的绘制元素过滤到特定的属性名称和值。
+ * @param {I3SNode.AttributeFilter[]} [filters=[]] 属性过滤器的集合。
+ * @returns {Promise<void>} 在应用过滤器时解析的承诺。
  */
+
 I3SLayer.prototype.filterByAttributes = function (filters) {
   // Filters are applied for each node in the layer when the node model is loaded
   this._filters = defined(filters) ? clone(filters, true) : [];

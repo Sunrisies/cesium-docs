@@ -3,14 +3,10 @@ import defined from "../../Core/defined.js";
 
 /**
  * <div class="notice">
- * Use {@link Model#getNode} to get a node from a loaded model. Do not call the constructor directly.
+ * 使用 {@link Model#getNode} 从已加载的模型中获取节点。请勿直接调用构造函数。
  * </div>
  *
- * A model node with a modifiable transform to allow users to define their
- * own animations. While a model's asset can contain animations that target
- * a node's transform, this class allows users to change a node's transform
- * externally. In this way, animation can be driven by another source, not
- * just by the model's asset.
+ * 带有可修改变换的模型节点，允许用户定义自己的动画。尽管模型的资产可以包含针对节点变换的动画，但此类允许用户在外部更改节点的变换。通过这种方式，动画可以由其他来源驱动，而不仅仅是模型的资产。
  *
  * @alias ModelNode
  * @internalConstructor
@@ -34,7 +30,7 @@ function ModelNode(model, runtimeNode) {
 
 Object.defineProperties(ModelNode.prototype, {
   /**
-   * The value of the <code>name</code> property of this node.
+   * 此节点的 <code>name</code> 属性的值。
    *
    * @memberof ModelNode.prototype
    *
@@ -48,7 +44,7 @@ Object.defineProperties(ModelNode.prototype, {
   },
 
   /**
-   * The index of the node in the glTF.
+   * 在 glTF 中节点的索引。
    *
    * @memberof ModelNode.prototype
    *
@@ -62,7 +58,7 @@ Object.defineProperties(ModelNode.prototype, {
   },
 
   /**
-   * Determines if this node and its children will be shown.
+   * 确定此节点及其子节点是否会被显示。
    *
    * @memberof ModelNode.prototype
    * @type {boolean}
@@ -79,13 +75,9 @@ Object.defineProperties(ModelNode.prototype, {
   },
 
   /**
-   * The node's 4x4 matrix transform from its local coordinates to
-   * its parent's. Setting the matrix to undefined will restore the
-   * node's original transform, and allow the node to be animated by
-   * any animations in the model again.
+   * 节点的 4x4 矩阵变换，从其局部坐标到父节点的坐标。将矩阵设置为 undefined 将恢复节点的原始变换，并允许节点再次通过模型中的任何动画进行动画化。
    * <p>
-   * For changes to take effect, this property must be assigned to;
-   * setting individual elements of the matrix will not work.
+   * 要使更改生效，必须为此属性赋值；设置矩阵的单个元素将无效。
    * </p>
    *
    * @memberof ModelNode.prototype
@@ -108,9 +100,7 @@ Object.defineProperties(ModelNode.prototype, {
   },
 
   /**
-   * Gets the node's original 4x4 matrix transform from its local
-   * coordinates to its parent's, without any node transformations
-   * or articulations applied.
+   * 获取节点的原始 4x4 矩阵变换，从其局部坐标到父节点的坐标，不应用任何节点变换或关节。
    *
    * @memberof ModelNode.prototype
    * @type {Matrix4}
@@ -121,5 +111,6 @@ Object.defineProperties(ModelNode.prototype, {
     },
   },
 });
+
 
 export default ModelNode;

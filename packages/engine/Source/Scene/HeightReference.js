@@ -1,53 +1,53 @@
 /**
- * Represents the position relative to the terrain.
+ * 表示相对于地形的位置。
  *
  * @enum {number}
  */
 const HeightReference = {
   /**
-   * The position is absolute.
+   * 位置是绝对的。
    * @type {number}
    * @constant
    */
   NONE: 0,
 
   /**
-   * The position is clamped to the terrain and 3D Tiles.
+   * 位置被固定在地形和 3D 图块上。
    * @type {number}
    * @constant
    */
   CLAMP_TO_GROUND: 1,
 
   /**
-   * The position height is the height above the terrain and 3D Tiles.
+   * 位置高度是相对于地形和 3D 图块的高度。
    * @type {number}
    * @constant
    */
   RELATIVE_TO_GROUND: 2,
 
   /**
-   * The position is clamped to terain.
+   * 位置被固定在地形上。
    * @type {number}
    * @constant
    */
   CLAMP_TO_TERRAIN: 3,
 
   /**
-   * The position height is the height above terrain.
+   * 位置高度是相对于地形的高度。
    * @type {number}
    * @constant
    */
   RELATIVE_TO_TERRAIN: 4,
 
   /**
-   * The position is clamped to 3D Tiles.
+   * 位置被固定在 3D 图块上。
    * @type {number}
    * @constant
    */
   CLAMP_TO_3D_TILE: 5,
 
   /**
-   * The position height is the height above 3D Tiles.
+   * 位置高度是相对于 3D 图块的高度。
    * @type {number}
    * @constant
    */
@@ -57,9 +57,9 @@ const HeightReference = {
 export default Object.freeze(HeightReference);
 
 /**
- * Returns true if the height should be clamped to the surface
+ * 如果高度应固定在表面上，则返回 true
  * @param {HeightReference} heightReference
- * @returns true if the height should be clamped to the surface
+ * @returns {boolean} 如果高度应固定在表面上，则返回 true
  * @private
  */
 export function isHeightReferenceClamp(heightReference) {
@@ -71,9 +71,9 @@ export function isHeightReferenceClamp(heightReference) {
 }
 
 /**
- * Returns true if the height should be offset relative to the surface
+ * 如果高度应相对于表面偏移，则返回 true
  * @param {HeightReference} heightReference
- * @returns true if the height should be offset relative to the surface
+ * @returns {boolean} 如果高度应相对于表面偏移，则返回 true
  * @private
  */
 export function isHeightReferenceRelative(heightReference) {

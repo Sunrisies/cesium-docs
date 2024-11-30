@@ -1,13 +1,13 @@
-// Note, these values map directly to ion asset ids.
+// 注意，这些值直接映射到 ion 资产 ID.
 
 /**
- * The types of imagery provided by {@link createWorldImagery}.
+ * {@link createWorldImagery} 提供的图像类型。
  *
  * @enum {number}
  */
 const IonWorldImageryStyle = {
   /**
-   * Aerial imagery.
+   * 航拍图像。
    *
    * @type {number}
    * @constant
@@ -15,7 +15,7 @@ const IonWorldImageryStyle = {
   AERIAL: 2,
 
   /**
-   * Aerial imagery with a road overlay.
+   * 带有道路叠加的航拍图像。
    *
    * @type {number}
    * @constant
@@ -23,7 +23,7 @@ const IonWorldImageryStyle = {
   AERIAL_WITH_LABELS: 3,
 
   /**
-   * Roads without additional imagery.
+   * 只有道路，没有额外图像。
    *
    * @type {number}
    * @constant

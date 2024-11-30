@@ -19,21 +19,22 @@ import I3SGeometry from "./I3SGeometry.js";
 /**
  * @typedef {object} I3SNode.AttributeFilter
  *
- * A filter given by an attribute name and values.
- * The 3D feature object should be hidden if its value for the attribute name is not specified in the collection of values.
+ * 通过属性名称和值给出的过滤器。
+ * 如果 3D 特征对象的属性值未在值集合中指定，则应隐藏该特征对象。
  *
- * @property {string} name The name of the attribute
- * @property {string[]|number[]} values The collection of values
+ * @property {string} name 属性名称
+ * @property {string[]|number[]} values 值的集合
  */
 
 /**
- * This class implements an I3S Node. In CesiumJS each I3SNode creates a Cesium3DTile.
+ * 该类实现了 I3S 节点。在 CesiumJS 中，每个 I3SNode 创建一个 Cesium3DTile。
  * <p>
- * Do not construct this directly, instead access tiles through {@link I3SLayer}.
+ * 不要直接构造此类，而是通过 {@link I3SLayer} 访问图块。
  * </p>
  * @alias I3SNode
  * @internalConstructor
  */
+
 function I3SNode(parent, ref, isRoot) {
   let level;
   let layer;
@@ -80,7 +81,7 @@ function I3SNode(parent, ref, isRoot) {
 
 Object.defineProperties(I3SNode.prototype, {
   /**
-   * Gets the resource for the node.
+   * 获取节点的资源。
    * @memberof I3SNode.prototype
    * @type {Resource}
    * @readonly
@@ -91,7 +92,7 @@ Object.defineProperties(I3SNode.prototype, {
     },
   },
   /**
-   * Gets the parent layer.
+   * 获取父层。
    * @memberof I3SNode.prototype
    * @type {I3SLayer}
    * @readonly
@@ -102,7 +103,7 @@ Object.defineProperties(I3SNode.prototype, {
     },
   },
   /**
-   * Gets the parent node.
+   * 获取父节点。
    * @memberof I3SNode.prototype
    * @type {I3SNode|undefined}
    * @readonly
@@ -113,7 +114,7 @@ Object.defineProperties(I3SNode.prototype, {
     },
   },
   /**
-   * Gets the children nodes.
+   * 获取子节点。
    * @memberof I3SNode.prototype
    * @type {I3SNode[]}
    * @readonly
@@ -124,7 +125,7 @@ Object.defineProperties(I3SNode.prototype, {
     },
   },
   /**
-   * Gets the collection of geometries.
+   * 获取几何体集合。
    * @memberof I3SNode.prototype
    * @type {I3SGeometry[]}
    * @readonly
@@ -135,7 +136,7 @@ Object.defineProperties(I3SNode.prototype, {
     },
   },
   /**
-   * Gets the collection of features.
+   * 获取特征集合。
    * @memberof I3SNode.prototype
    * @type {I3SFeature[]}
    * @readonly
@@ -146,7 +147,7 @@ Object.defineProperties(I3SNode.prototype, {
     },
   },
   /**
-   * Gets the collection of fields.
+   * 获取字段集合。
    * @memberof I3SNode.prototype
    * @type {I3SField[]}
    * @readonly
@@ -157,7 +158,7 @@ Object.defineProperties(I3SNode.prototype, {
     },
   },
   /**
-   * Gets the Cesium3DTile for this node.
+   * 获取此节点的 Cesium3DTile。
    * @memberof I3SNode.prototype
    * @type {Cesium3DTile}
    * @readonly
@@ -168,7 +169,7 @@ Object.defineProperties(I3SNode.prototype, {
     },
   },
   /**
-   * Gets the I3S data for this object.
+   * 获取此对象的 I3S 数据。
    * @memberof I3SNode.prototype
    * @type {object}
    * @readonly
@@ -179,6 +180,7 @@ Object.defineProperties(I3SNode.prototype, {
     },
   },
 });
+
 
 /**
  * @private
@@ -233,9 +235,10 @@ function createAndLoadField(node, storageInfo) {
 }
 
 /**
- * Loads the node fields.
- * @returns {Promise<void>} A promise that is resolved when the I3S Node fields are loaded
+ * 加载节点的字段。
+ * @returns {Promise<void>} 当 I3S 节点字段加载完成时解析的 Promise
  */
+
 I3SNode.prototype.loadFields = function () {
   // Check if we must load fields
   const fields = this._layer._data.attributeStorageInfo;
@@ -257,10 +260,11 @@ I3SNode.prototype.loadFields = function () {
 };
 
 /**
- * Loads the node field.
- * @param {string} name The field name
- * @returns {Promise<void>} A promise that is resolved when the I3S Node field is loaded
+ * 加载节点字段。
+ * @param {string} name 字段名称
+ * @returns {Promise<void>} 当 I3S 节点字段加载完成时解析的 Promise
  */
+
 I3SNode.prototype.loadField = function (name) {
   //>>includeStart('debug', pragmas.debug);
   Check.defined("name", name);
@@ -285,10 +289,11 @@ I3SNode.prototype.loadField = function (name) {
 };
 
 /**
- * Returns the fields for a given picked position
- * @param {Cartesian3} pickedPosition The picked position
- * @returns {object} Object containing field names and their values
+ * 返回给定选中位置的字段
+ * @param {Cartesian3} pickedPosition 被选中的位置
+ * @returns {object} 包含字段名称及其值的对象
  */
+
 I3SNode.prototype.getFieldsForPickedPosition = function (pickedPosition) {
   const geometry = this.geometryData[0];
   if (!defined(geometry.customAttributes.featureIndex)) {
@@ -311,12 +316,12 @@ I3SNode.prototype.getFieldsForPickedPosition = function (pickedPosition) {
   const featureIndex = geometry.customAttributes.featureIndex[location.index];
   return this.getFieldsForFeature(featureIndex);
 };
-
 /**
- * Returns the fields for a given feature
- * @param {number} featureIndex Index of the feature whose attributes we want to get
- * @returns {object} Object containing field names and their values
+ * 返回给定特征的字段
+ * @param {number} featureIndex 要获取其属性的特征索引
+ * @returns {object} 包含字段名称及其值的对象
  */
+
 I3SNode.prototype.getFieldsForFeature = function (featureIndex) {
   const featureFields = {};
   for (const fieldName in this.fields) {
@@ -828,14 +833,15 @@ Cesium3DTile.prototype._hookedRequestContent =
   Cesium3DTile.prototype.requestContent;
 
 /**
- * Requests the tile's content.
+ * 请求瓦片的内容。
  * <p>
- * The request may not be made if the Cesium Request Scheduler can't prioritize it.
+ * 如果 Cesium 请求调度器无法优先处理该请求，则可能无法发出请求。
  * </p>
  *
- * @return {Promise<Cesium3DTileContent>|undefined} A promise that resolves when the request completes, or undefined if there is no request needed, or the request cannot be scheduled.
+ * @return {Promise<Cesium3DTileContent>|undefined} 一个在请求完成时解析的 Promise，如果不需要请求或请求无法调度，则返回 undefined。
  * @private
  */
+
 Cesium3DTile.prototype.requestContent = function () {
   if (!this.tileset._isI3STileSet) {
     return this._hookedRequestContent();
@@ -918,10 +924,11 @@ function sampleGeoid(sampleX, sampleY, geoidData) {
 
 Object.defineProperties(Cesium3DTile.prototype, {
   /**
-   * Gets the I3S Node for the tile.
+   * 获取该瓦片的 I3S 节点。
    * @memberof Cesium3DTile.prototype
    * @type {string}
    */
+
   i3sNode: {
     get: function () {
       return this._i3sNode;

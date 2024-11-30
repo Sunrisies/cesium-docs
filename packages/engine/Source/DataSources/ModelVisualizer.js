@@ -44,13 +44,14 @@ const scratchArray = new Array(4);
 const scratchCartesian = new Cartesian3();
 
 /**
- * A {@link Visualizer} which maps {@link Entity#model} to a {@link Model}.
+ * 一个 {@link Visualizer}，将 {@link Entity#model} 映射到 {@link Model}。
  * @alias ModelVisualizer
  * @constructor
  *
- * @param {Scene} scene The scene the primitives will be rendered in.
- * @param {EntityCollection} entityCollection The entityCollection to visualize.
+ * @param {Scene} scene 将在该场景中渲染图元。
+ * @param {EntityCollection} entityCollection 要可视化的实体集合。
  */
+
 function ModelVisualizer(scene, entityCollection) {
   //>>includeStart('debug', pragmas.debug);
   Check.typeOf.object("scene", scene);
@@ -118,12 +119,12 @@ async function createModelPrimitive(
 }
 
 /**
- * Updates models created this visualizer to match their
- * Entity counterpart at the given time.
+ * 更新此可视化器创建的模型，以匹配其在给定时间的实体对应物。
  *
- * @param {JulianDate} time The time to update to.
- * @returns {boolean} This function always returns true.
+ * @param {JulianDate} time 要更新到的时间。
+ * @returns {boolean} 此函数始终返回 true。
  */
+
 ModelVisualizer.prototype.update = function (time) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(time)) {
@@ -383,17 +384,18 @@ ModelVisualizer.prototype.update = function (time) {
 };
 
 /**
- * Returns true if this object was destroyed; otherwise, false.
+ * 如果此对象已被销毁，则返回 true；否则返回 false。
  *
- * @returns {boolean} True if this object was destroyed; otherwise, false.
+ * @returns {boolean} 如果此对象已被销毁，则返回 true；否则返回 false。
  */
 ModelVisualizer.prototype.isDestroyed = function () {
   return false;
 };
 
 /**
- * Removes and destroys all primitives created by this instance.
+ * 移除并销毁此实例创建的所有图元。
  */
+
 ModelVisualizer.prototype.destroy = function () {
   this._entityCollection.collectionChanged.removeEventListener(
     ModelVisualizer.prototype._onCollectionChanged,
@@ -411,16 +413,17 @@ ModelVisualizer.prototype.destroy = function () {
 const scratchPosition = new Cartesian3();
 const scratchCartographic = new Cartographic();
 /**
- * Computes a bounding sphere which encloses the visualization produced for the specified entity.
- * The bounding sphere is in the fixed frame of the scene's globe.
+ * 计算包含指定实体生成的可视化的包围球。
+ * 包围球位于场景地球的固定坐标系中。
  *
- * @param {Entity} entity The entity whose bounding sphere to compute.
- * @param {BoundingSphere} result The bounding sphere onto which to store the result.
- * @returns {BoundingSphereState} BoundingSphereState.DONE if the result contains the bounding sphere,
- *                       BoundingSphereState.PENDING if the result is still being computed, or
- *                       BoundingSphereState.FAILED if the entity has no visualization in the current scene.
+ * @param {Entity} entity 要计算其包围球的实体。
+ * @param {BoundingSphere} result 用于存储结果的包围球。
+ * @returns {BoundingSphereState} 如果结果包含包围球，则返回 BoundingSphereState.DONE，
+ *                       如果结果仍在计算中，则返回 BoundingSphereState.PENDING，或
+ *                       如果实体在当前场景中没有可视化，则返回 BoundingSphereState.FAILED。
  * @private
  */
+
 ModelVisualizer.prototype.getBoundingSphere = function (entity, result) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(entity)) {

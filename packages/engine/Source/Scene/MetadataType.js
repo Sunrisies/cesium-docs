@@ -8,78 +8,78 @@ import Matrix3 from "../Core/Matrix3.js";
 import Matrix4 from "../Core/Matrix4.js";
 
 /**
- * An enum of metadata types. These metadata types are containers containing
- * one or more components of type {@link MetadataComponentType}
+ * 元数据类型的枚举。这些元数据类型是包含一个或多个 {@link MetadataComponentType} 类型组件的容器。
  *
  * @enum {string}
- * @experimental This feature is using part of the 3D Tiles spec that is not final and is subject to change without Cesium's standard deprecation policy.
+ * @experimental 该功能使用的是 3D Tiles 规范中的一部分，该部分尚未确定，可能会在不遵循 Cesium 标准弃用政策的情况下发生更改。
  */
+
 const MetadataType = {
   /**
-   * A single component
+   * 单个组件
    *
    * @type {string}
    * @constant
    */
   SCALAR: "SCALAR",
   /**
-   * A vector with two components
+   * 具有两个组件的向量
    *
    * @type {string}
    * @constant
    */
   VEC2: "VEC2",
   /**
-   * A vector with three components
+   * 具有三个组件的向量
    *
    * @type {string}
    * @constant
    */
   VEC3: "VEC3",
   /**
-   * A vector with four components
+   * 具有四个组件的向量
    *
    * @type {string}
    * @constant
    */
   VEC4: "VEC4",
   /**
-   * A 2x2 matrix, stored in column-major format.
+   * 2x2 矩阵，以列优先格式存储。
    *
    * @type {string}
    * @constant
    */
   MAT2: "MAT2",
   /**
-   * A 3x3 matrix, stored in column-major format.
+   * 3x3 矩阵，以列优先格式存储。
    *
    * @type {string}
    * @constant
    */
   MAT3: "MAT3",
   /**
-   * A 4x4 matrix, stored in column-major format.
+   * 4x4 矩阵，以列优先格式存储。
    *
    * @type {string}
    * @constant
    */
   MAT4: "MAT4",
   /**
-   * A boolean (true/false) value
+   * 布尔值（真/假）
    *
    * @type {string}
    * @constant
    */
   BOOLEAN: "BOOLEAN",
   /**
-   * A UTF-8 encoded string value
+   * UTF-8 编码的字符串值
    *
    * @type {string}
    * @constant
    */
   STRING: "STRING",
   /**
-   * An enumerated value. This type is used in conjunction with a {@link MetadataEnum} to describe the valid values.
+   * 枚举值。此类型与 {@link MetadataEnum} 一起使用，以描述有效值。
    *
    * @see MetadataEnum
    *
@@ -89,13 +89,15 @@ const MetadataType = {
   ENUM: "ENUM",
 };
 
+
 /**
- * Check if a type is VEC2, VEC3 or VEC4
+ * 检查类型是否是 VEC2、VEC3 或 VEC4
  *
- * @param {MetadataType} type The type
- * @return {boolean} <code>true</code> if the type is a vector, <code>false</code> otherwise
+ * @param {MetadataType} type 类型
+ * @return {boolean} 如果类型是向量，则返回 <code>true</code>，否则返回 <code>false</code>
  * @private
  */
+
 MetadataType.isVectorType = function (type) {
   //>>includeStart('debug', pragmas.debug);
   Check.typeOf.string("type", type);
@@ -112,12 +114,13 @@ MetadataType.isVectorType = function (type) {
 };
 
 /**
- * Check if a type is MAT2, MAT3 or MAT4
+ * 检查类型是否是 MAT2、MAT3 或 MAT4
  *
- * @param {MetadataType} type The type
- * @return {boolean} <code>true</code> if the type is a matrix, <code>false</code> otherwise
+ * @param {MetadataType} type 类型
+ * @return {boolean} 如果类型是矩阵，则返回 <code>true</code>，否则返回 <code>false</code>
  * @private
  */
+
 MetadataType.isMatrixType = function (type) {
   //>>includeStart('debug', pragmas.debug);
   Check.typeOf.string("type", type);
@@ -134,13 +137,14 @@ MetadataType.isMatrixType = function (type) {
 };
 
 /**
- * Get the number of components for a vector or matrix type. e.g.
- * a VECN returns N, and a MATN returns N*N. All other types return 1.
+ * 获取向量或矩阵类型的组件数量。例如，
+ * VECN 返回 N，MATN 返回 N*N。所有其他类型返回 1。
  *
- * @param {MetadataType} type The type to get the component count for
- * @return {number} The number of components
+ * @param {MetadataType} type 要获取组件数量的类型
+ * @return {number} 组件的数量
  * @private
  */
+
 MetadataType.getComponentCount = function (type) {
   //>>includeStart('debug', pragmas.debug);
   Check.typeOf.string("type", type);
@@ -172,12 +176,13 @@ MetadataType.getComponentCount = function (type) {
 };
 
 /**
- * Get the corresponding vector or matrix class. This is used to simplify
- * packing and unpacking code.
- * @param {MetadataType} type The metadata type
- * @return {object} The appropriate CartesianN class for vector types, MatrixN class for matrix types, or undefined otherwise.
+ * 获取相应的向量或矩阵类。这用于简化
+ * 打包和解包代码。
+ * @param {MetadataType} type 元数据类型
+ * @return {object} 对于向量类型返回相应的 CartesianN 类，对于矩阵类型返回 MatrixN 类，否则返回 undefined。
  * @private
  */
+
 MetadataType.getMathType = function (type) {
   switch (type) {
     case MetadataType.VEC2:

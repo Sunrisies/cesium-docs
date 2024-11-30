@@ -4,13 +4,14 @@ import defined from "../Core/defined.js";
 import srgbToLinear from "../Core/srgbToLinear.js";
 
 /**
- * This class implements an I3S symbology for I3S Layers.
+ * 该类实现了 I3S 层的 I3S 符号学。
  * <p>
- * Do not construct this directly, instead access symbology through {@link I3SLayer}.
+ * 不要直接构造此类，而是通过 {@link I3SLayer} 访问符号学。
  * </p>
  * @alias I3SSymbology
  * @internalConstructor
  */
+
 function I3SSymbology(layer) {
   this._layer = layer;
   this._defaultSymbology = undefined;
@@ -23,11 +24,12 @@ function I3SSymbology(layer) {
 
 Object.defineProperties(I3SSymbology.prototype, {
   /**
-   * Gets the default symbology data.
+   * 获取默认的符号学数据。
    * @memberof I3SSymbology.prototype
    * @type {object}
    * @readonly
    */
+
   defaultSymbology: {
     get: function () {
       return this._defaultSymbology;
