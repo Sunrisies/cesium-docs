@@ -11,13 +11,13 @@ import PrimitiveType from "./PrimitiveType.js";
 import VertexFormat from "./VertexFormat.js";
 
 /**
- * Describes geometry representing a plane centered at the origin, with a unit width and length.
+ * 描述表示一个中心位于原点的平面的几何体，宽度和长度均为单位长度。
  *
  * @alias PlaneGeometry
  * @constructor
  *
- * @param {object} [options] Object with the following properties:
- * @param {VertexFormat} [options.vertexFormat=VertexFormat.DEFAULT] The vertex attributes to be computed.
+ * @param {object} [options] 具有以下属性的对象：
+ * @param {VertexFormat} [options.vertexFormat=VertexFormat.DEFAULT] 要计算的顶点属性。
  *
  * @example
  * const planeGeometry = new Cesium.PlaneGeometry({
@@ -67,13 +67,14 @@ const scratchOptions = {
 };
 
 /**
- * 从打包数组中检索实例.
+ * 从打包数组中检索实例。
  *
- * @param {number[]} array 压缩数组.
- * @param {number} [startingIndex=0] 需要解包的元素的起始索引.
- * @param {PlaneGeometry} [result] 存储结果的对象.
- * @returns {PlaneGeometry} The modified result parameter or a new PlaneGeometry instance if one was not provided.
+ * @param {number[]} array 压缩数组。
+ * @param {number} [startingIndex=0] 需要解包的元素的起始索引。
+ * @param {PlaneGeometry} [result] 存储结果的对象。
+ * @returns {PlaneGeometry} 修改后的结果参数或如果未提供，则返回一个新的 PlaneGeometry 实例。
  */
+
 PlaneGeometry.unpack = function (array, startingIndex, result) {
   //>>includeStart('debug', pragmas.debug);
   Check.defined("array", array);
@@ -100,11 +101,12 @@ const min = new Cartesian3(-0.5, -0.5, 0.0);
 const max = new Cartesian3(0.5, 0.5, 0.0);
 
 /**
- * Computes the geometric representation of a plane, including its vertices, indices, and a bounding sphere.
+ * 计算平面的几何表示，包括其顶点、索引和包围球。
  *
- * @param {PlaneGeometry} planeGeometry A description of the plane.
- * @returns {Geometry|undefined} The computed vertices and indices.
+ * @param {PlaneGeometry} planeGeometry 对平面的描述。
+ * @returns {Geometry|undefined} 计算得到的顶点和索引。
  */
+
 PlaneGeometry.createGeometry = function (planeGeometry) {
   const vertexFormat = planeGeometry._vertexFormat;
 

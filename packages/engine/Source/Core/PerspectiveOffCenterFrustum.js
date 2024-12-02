@@ -8,21 +8,20 @@ import CesiumMath from "./Math.js";
 import Matrix4 from "./Matrix4.js";
 
 /**
- * The viewing frustum is defined by 6 planes.
- * Each plane is represented by a {@link Cartesian4} object, where the x, y, and z components
- * define the unit vector normal to the plane, and the w component is the distance of the
- * plane from the origin/camera position.
+ * 视锥体由 6 个平面定义。
+ * 每个平面由一个 {@link Cartesian4} 对象表示，其中 x、y 和 z 分量
+ * 定义了法向量的单位向量，而 w 分量是平面离原点/相机位置的距离。
  *
  * @alias PerspectiveOffCenterFrustum
  * @constructor
  *
- * @param {object} [options] An object with the following properties:
- * @param {number} [options.left] The left clipping plane distance.
- * @param {number} [options.right] The right clipping plane distance.
- * @param {number} [options.top] The top clipping plane distance.
- * @param {number} [options.bottom] The bottom clipping plane distance.
- * @param {number} [options.near=1.0] The near clipping plane distance.
- * @param {number} [options.far=500000000.0] The far clipping plane distance.
+ * @param {object} [options] 具有以下属性的对象：
+ * @param {number} [options.left] 左侧裁剪平面的距离。
+ * @param {number} [options.right] 右侧裁剪平面的距离。
+ * @param {number} [options.top] 顶部裁剪平面的距离。
+ * @param {number} [options.bottom] 底部裁剪平面的距离。
+ * @param {number} [options.near=1.0] 近平面的距离。
+ * @param {number} [options.far=500000000.0] 远平面的距离。
  *
  * @example
  * const frustum = new Cesium.PerspectiveOffCenterFrustum({
@@ -40,7 +39,7 @@ function PerspectiveOffCenterFrustum(options) {
   options = defaultValue(options, defaultValue.EMPTY_OBJECT);
 
   /**
-   * Defines the left clipping plane.
+   * 定义左侧裁剪平面。
    * @type {number|undefined}
    * @default undefined
    */
@@ -48,7 +47,7 @@ function PerspectiveOffCenterFrustum(options) {
   this._left = undefined;
 
   /**
-   * Defines the right clipping plane.
+   * 定义右侧裁剪平面。
    * @type {number|undefined}
    * @default undefined
    */
@@ -56,7 +55,7 @@ function PerspectiveOffCenterFrustum(options) {
   this._right = undefined;
 
   /**
-   * Defines the top clipping plane.
+   * 定义顶部裁剪平面。
    * @type {number|undefined}
    * @default undefined
    */
@@ -64,7 +63,7 @@ function PerspectiveOffCenterFrustum(options) {
   this._top = undefined;
 
   /**
-   * Defines the bottom clipping plane.
+   * 定义底部裁剪平面。
    * @type {number|undefined}
    * @default undefined
    */
@@ -72,7 +71,7 @@ function PerspectiveOffCenterFrustum(options) {
   this._bottom = undefined;
 
   /**
-   * The distance of the near plane.
+   * 近平面的距离。
    * @type {number}
    * @default 1.0
    */
@@ -80,7 +79,7 @@ function PerspectiveOffCenterFrustum(options) {
   this._near = this.near;
 
   /**
-   * The distance of the far plane.
+   * 远平面的距离。
    * @type {number}
    * @default 500000000.0
    */
@@ -91,6 +90,7 @@ function PerspectiveOffCenterFrustum(options) {
   this._perspectiveMatrix = new Matrix4();
   this._infinitePerspective = new Matrix4();
 }
+
 
 function update(frustum) {
   //>>includeStart('debug', pragmas.debug);
@@ -156,8 +156,8 @@ function update(frustum) {
 
 Object.defineProperties(PerspectiveOffCenterFrustum.prototype, {
   /**
-   * Gets the perspective projection matrix computed from the view frustum.
-   * The projection matrix will be recomputed if any frustum parameters have changed.
+   * 获取从视锥体计算出的透视投影矩阵。
+   * 如果任何视锥体参数发生变化，投影矩阵将被重新计算。
    *
    * @memberof PerspectiveOffCenterFrustum.prototype
    * @type {Matrix4}
@@ -173,13 +173,14 @@ Object.defineProperties(PerspectiveOffCenterFrustum.prototype, {
   },
 
   /**
-   * Gets the perspective projection matrix computed from the view frustum with an infinite far plane.
+   * 获取从视锥体计算出的透视投影矩阵，具有无限远平面。
    * @memberof PerspectiveOffCenterFrustum.prototype
    * @type {Matrix4}
    * @readonly
    *
    * @see PerspectiveOffCenterFrustum#projectionMatrix
    */
+
   infiniteProjectionMatrix: {
     get: function () {
       update(this);
@@ -193,13 +194,14 @@ const getPlanesNearCenter = new Cartesian3();
 const getPlanesFarCenter = new Cartesian3();
 const getPlanesNormal = new Cartesian3();
 /**
- * Creates a culling volume for this frustum.
+ * 为此视锥体创建一个剔除体。
  *
- * @param {Cartesian3} position The eye position.
- * @param {Cartesian3} direction The view direction.
- * @param {Cartesian3} up The up direction.
- * @returns {CullingVolume} A culling volume at the given position and orientation.
+ * @param {Cartesian3} position 眼睛的位置。
+ * @param {Cartesian3} direction 视线方向。
+ * @param {Cartesian3} up 上方向。
+ * @returns {CullingVolume} 在给定位置和方向的剔除体。
  *
+
  * @example
  * // Check if a bounding volume intersects the frustum.
  * const cullingVolume = frustum.computeCullingVolume(cameraPosition, cameraDirection, cameraUp);
@@ -336,18 +338,18 @@ PerspectiveOffCenterFrustum.prototype.computeCullingVolume = function (
 };
 
 /**
- * Returns the pixel's width and height in meters.
+ * 返回像素在米中的宽度和高度。
  *
- * @param {number} drawingBufferWidth The width of the drawing buffer.
- * @param {number} drawingBufferHeight The height of the drawing buffer.
- * @param {number} distance The distance to the near plane in meters.
- * @param {number} pixelRatio The scaling factor from pixel space to coordinate space.
- * @param {Cartesian2} result 存储结果的对象.
- * @returns {Cartesian2} The modified result parameter or a new instance of {@link Cartesian2} with the pixel's width and height in the x and y properties, respectively.
+ * @param {number} drawingBufferWidth 绘图缓冲区的宽度。
+ * @param {number} drawingBufferHeight 绘图缓冲区的高度。
+ * @param {number} distance 到近平面的距离（以米为单位）。
+ * @param {number} pixelRatio 从像素空间到坐标空间的缩放因子。
+ * @param {Cartesian2} result 存储结果的对象。
+ * @returns {Cartesian2} 修改后的结果参数或一个新的 {@link Cartesian2} 实例，其 x 和 y 属性分别为像素的宽度和高度。
  *
- * @exception {DeveloperError} drawingBufferWidth must be greater than zero.
- * @exception {DeveloperError} drawingBufferHeight must be greater than zero.
- * @exception {DeveloperError} pixelRatio must be greater than zero.
+ * @exception {DeveloperError} drawingBufferWidth 必须大于零。
+ * @exception {DeveloperError} drawingBufferHeight 必须大于零。
+ * @exception {DeveloperError} pixelRatio 必须大于零。
  *
  * @example
  * // Example 1
@@ -414,11 +416,12 @@ PerspectiveOffCenterFrustum.prototype.getPixelDimensions = function (
 };
 
 /**
- * Returns a duplicate of a PerspectiveOffCenterFrustum instance.
+ * 返回一个 PerspectiveOffCenterFrustum 实例的副本。
  *
  * @param {PerspectiveOffCenterFrustum} [result] 存储结果的对象.
- * @returns {PerspectiveOffCenterFrustum} The modified result parameter or a new PerspectiveFrustum instance if one was not provided.
+ * @returns {PerspectiveOffCenterFrustum} 修改后的结果参数或如果未提供，则返回一个新的 PerspectiveOffCenterFrustum 实例。
  */
+
 PerspectiveOffCenterFrustum.prototype.clone = function (result) {
   if (!defined(result)) {
     result = new PerspectiveOffCenterFrustum();
@@ -443,12 +446,13 @@ PerspectiveOffCenterFrustum.prototype.clone = function (result) {
 };
 
 /**
- * Compares the provided PerspectiveOffCenterFrustum componentwise and returns
- * 如果相等则为 <code>true</code>，否则为 <code>false</code>
+ * 按组件比较提供的 PerspectiveOffCenterFrustum，并返回
+ * 如果相等则为 <code>true</code>，否则为 <code>false</code>。
  *
- * @param {PerspectiveOffCenterFrustum} [other] The right hand side PerspectiveOffCenterFrustum.
- * @returns {boolean} 如果相等则为 <code>true</code>，否则为 <code>false</code>
+ * @param {PerspectiveOffCenterFrustum} [other] 右侧的 PerspectiveOffCenterFrustum。
+ * @returns {boolean} 如果相等则为 <code>true</code>，否则为 <code>false</code>。
  */
+
 PerspectiveOffCenterFrustum.prototype.equals = function (other) {
   return (
     defined(other) &&
@@ -463,14 +467,15 @@ PerspectiveOffCenterFrustum.prototype.equals = function (other) {
 };
 
 /**
- * Compares the provided PerspectiveOffCenterFrustum componentwise and returns
+ * 按组件比较提供的 PerspectiveOffCenterFrustum，并返回
  * 如果通过绝对或相对公差测试，则为 <code>true</code>，否则为 <code>false</code>。
  *
- * @param {PerspectiveOffCenterFrustum} other The right hand side PerspectiveOffCenterFrustum.
- * @param {number} relativeEpsilon 用于相等性测试的相对 epsilon 容差.
- * @param {number} [absoluteEpsilon=relativeEpsilon] 用于平等测试的绝对 epsilon 容差.
- * @returns {boolean} <code>true</code> if this and other are within the provided epsilon, <code>false</code> otherwise.
+ * @param {PerspectiveOffCenterFrustum} other 右侧的 PerspectiveOffCenterFrustum。
+ * @param {number} relativeEpsilon 用于相等性测试的相对 epsilon 容差。
+ * @param {number} [absoluteEpsilon=relativeEpsilon] 用于平等测试的绝对 epsilon 容差。
+ * @returns {boolean} <code>true</code> 如果 this 和 other 在提供的 epsilon 内，<code>false</code> 否则。
  */
+
 PerspectiveOffCenterFrustum.prototype.equalsEpsilon = function (
   other,
   relativeEpsilon,

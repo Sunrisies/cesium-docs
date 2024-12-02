@@ -8,15 +8,15 @@ import ReferenceFrame from "../Core/ReferenceFrame.js";
 import Property from "./Property.js";
 
 /**
- * A {@link Property} whose value is an array whose items are the computed value
- * of other PositionProperty instances.
+ * 一个 {@link Property}，其值是一个数组，该数组的项目是其他 PositionProperty 实例的计算值。
  *
  * @alias PositionPropertyArray
  * @constructor
  *
- * @param {Property[]} [value] An array of Property instances.
- * @param {ReferenceFrame} [referenceFrame=ReferenceFrame.FIXED] The reference frame in which the position is defined.
+ * @param {Property[]} [value] 一个 Property 实例的数组。
+ * @param {ReferenceFrame} [referenceFrame=ReferenceFrame.FIXED] 位置定义所使用的参考框架。
  */
+
 function PositionPropertyArray(value, referenceFrame) {
   this._value = undefined;
   this._definitionChanged = new Event();
@@ -27,13 +27,14 @@ function PositionPropertyArray(value, referenceFrame) {
 
 Object.defineProperties(PositionPropertyArray.prototype, {
   /**
-   * Gets a value indicating if this property is constant.  This property
-   * is considered constant if all property items in the array are constant.
+   * 获取一个值，指示该属性是否为常量。该属性
+   * 被认为是常量，如果数组中的所有属性项都是常量。
    * @memberof PositionPropertyArray.prototype
    *
    * @type {boolean}
    * @readonly
    */
+
   isConstant: {
     get: function () {
       const value = this._value;
@@ -51,9 +52,9 @@ Object.defineProperties(PositionPropertyArray.prototype, {
     },
   },
   /**
-   * Gets the event that is raised whenever the definition of this property changes.
-   * The definition is changed whenever setValue is called with data different
-   * than the current value or one of the properties in the array also changes.
+   * 获取每当该属性的定义发生变化时引发的事件。
+   * 每当调用 setValue 时，传入的数据与当前值不同
+   * 或数组中的某个属性也发生变化时，定义就会改变。
    * @memberof PositionPropertyArray.prototype
    *
    * @type {Event}
@@ -65,11 +66,12 @@ Object.defineProperties(PositionPropertyArray.prototype, {
     },
   },
   /**
-   * Gets the reference frame in which the position is defined.
+   * 获取位置所定义的参考框架。
    * @memberof PositionPropertyArray.prototype
    * @type {ReferenceFrame}
    * @default ReferenceFrame.FIXED;
    */
+
   referenceFrame: {
     get: function () {
       return this._referenceFrame;
@@ -80,11 +82,11 @@ Object.defineProperties(PositionPropertyArray.prototype, {
 const timeScratch = new JulianDate();
 
 /**
- * Gets the value of the property.
+ * 获取属性的值。
  *
- * @param {JulianDate} [time=JulianDate.now()] The time for which to retrieve the value. If omitted, the current system time is used.
- * @param {Cartesian3[]} [result] The object to store the value into, if omitted, a new instance is created and returned.
- * @returns {Cartesian3[]} The modified result parameter or a new instance if the result parameter was not supplied.
+ * @param {JulianDate} [time=JulianDate.now()] 要检索值的时间。如果省略，则使用当前系统时间。
+ * @param {Cartesian3[]} [result] 要存储值的对象，如果省略，则创建并返回一个新实例。
+ * @returns {Cartesian3[]} 修改后的结果参数或如果未提供结果参数则返回的新实例。
  */
 PositionPropertyArray.prototype.getValue = function (time, result) {
   if (!defined(time)) {
@@ -94,13 +96,14 @@ PositionPropertyArray.prototype.getValue = function (time, result) {
 };
 
 /**
- * Gets the value of the property at the provided time and in the provided reference frame.
+ * 获取在提供时间和提供的参考框架中的属性值。
  *
- * @param {JulianDate} time The time for which to retrieve the value.
- * @param {ReferenceFrame} referenceFrame The desired referenceFrame of the result.
- * @param {Cartesian3[]} [result] The object to store the value into, if omitted, a new instance is created and returned.
- * @returns {Cartesian3[]} The modified result parameter or a new instance if the result parameter was not supplied.
+ * @param {JulianDate} time 要检索值的时间。
+ * @param {ReferenceFrame} referenceFrame 结果的期望参考框架。
+ * @param {Cartesian3[]} [result] 要存储值的对象，如果省略，则创建并返回一个新实例。
+ * @returns {Cartesian3[]} 修改后的结果参数或如果未提供结果参数则返回的新实例。
  */
+
 PositionPropertyArray.prototype.getValueInReferenceFrame = function (
   time,
   referenceFrame,
@@ -144,10 +147,11 @@ PositionPropertyArray.prototype.getValueInReferenceFrame = function (
 };
 
 /**
- * Sets the value of the property.
+ * 设置属性的值。
  *
- * @param {Property[]} value An array of Property instances.
+ * @param {Property[]} value 一个 Property 实例的数组。
  */
+
 PositionPropertyArray.prototype.setValue = function (value) {
   const eventHelper = this._eventHelper;
   eventHelper.removeAll();
@@ -172,12 +176,13 @@ PositionPropertyArray.prototype.setValue = function (value) {
 };
 
 /**
- * Compares this property to the provided property and returns
+ * 比较此属性与提供的属性并返回
  * 如果相等则为 <code>true</code>，否则为 <code>false</code>
  *
- * @param {Property} [other] The other property.
+ * @param {Property} [other] 另一个属性。
  * @returns {boolean} 如果左右相等，则 <code>true</code>，否则 <code>false</code>
  */
+
 PositionPropertyArray.prototype.equals = function (other) {
   return (
     this === other || //

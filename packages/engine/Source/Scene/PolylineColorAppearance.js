@@ -14,19 +14,19 @@ if (!FeatureDetection.isInternetExplorer()) {
 }
 
 /**
- * An appearance for {@link GeometryInstance} instances with color attributes and
- * {@link PolylineGeometry} or {@link GroundPolylineGeometry}.
- * This allows several geometry instances, each with a different color, to
- * be drawn with the same {@link Primitive}.
+ * 为具有颜色属性的 {@link GeometryInstance} 实例提供外观和
+ * {@link PolylineGeometry} 或 {@link GroundPolylineGeometry}。
+ * 这允许多个几何实例，每个实例具有不同的颜色，可以
+ * 使用相同的 {@link Primitive} 进行绘制。
  *
  * @alias PolylineColorAppearance
  * @constructor
  *
- * @param {object} [options] Object with the following properties:
- * @param {boolean} [options.translucent=true] When <code>true</code>, the geometry is expected to appear translucent so {@link PolylineColorAppearance#renderState} has alpha blending enabled.
- * @param {string} [options.vertexShaderSource] Optional GLSL vertex shader source to override the default vertex shader.
- * @param {string} [options.fragmentShaderSource] Optional GLSL fragment shader source to override the default fragment shader.
- * @param {object} [options.renderState] Optional render state to override the default render state.
+ * @param {object} [options] 具有以下属性的对象：
+ * @param {boolean} [options.translucent=true] 当 <code>true</code> 时，几何体预计将呈现为半透明，因此 {@link PolylineColorAppearance#renderState} 启用了 alpha 混合。
+ * @param {string} [options.vertexShaderSource] 可选的 GLSL 顶点着色器源，用于覆盖默认的顶点着色器。
+ * @param {string} [options.fragmentShaderSource] 可选的 GLSL 片段着色器源，用于覆盖默认的片段着色器。
+ * @param {object} [options.renderState] 可选的渲染状态，用于覆盖默认的渲染状态。
  *
  * @example
  * // A solid white line segment
@@ -57,8 +57,7 @@ function PolylineColorAppearance(options) {
   const vertexFormat = PolylineColorAppearance.VERTEX_FORMAT;
 
   /**
-   * This property is part of the {@link Appearance} interface, but is not
-   * used by {@link PolylineColorAppearance} since a fully custom fragment shader is used.
+   * 该属性是 {@link Appearance} 接口的一部分，但 {@link PolylineColorAppearance} 不使用它，因为使用了完全自定义的片段着色器。
    *
    * @type Material
    *
@@ -67,13 +66,14 @@ function PolylineColorAppearance(options) {
   this.material = undefined;
 
   /**
-   * When <code>true</code>, the geometry is expected to appear translucent so
-   * {@link PolylineColorAppearance#renderState} has alpha blending enabled.
+   * 当 <code>true</code> 时，几何体预计将呈现为半透明，因此
+   * {@link PolylineColorAppearance#renderState} 启用了 alpha 混合。
    *
    * @type {boolean}
    *
    * @default true
    */
+
   this.translucent = translucent;
 
   this._vertexShaderSource = defaultValue(
@@ -98,7 +98,7 @@ function PolylineColorAppearance(options) {
 
 Object.defineProperties(PolylineColorAppearance.prototype, {
   /**
-   * The GLSL source code for the vertex shader.
+   * 顶点着色器的 GLSL 源代码。
    *
    * @memberof PolylineColorAppearance.prototype
    *
@@ -112,7 +112,7 @@ Object.defineProperties(PolylineColorAppearance.prototype, {
   },
 
   /**
-   * The GLSL source code for the fragment shader.
+   * 片段着色器的 GLSL 源代码。
    *
    * @memberof PolylineColorAppearance.prototype
    *
@@ -126,10 +126,10 @@ Object.defineProperties(PolylineColorAppearance.prototype, {
   },
 
   /**
-   * The WebGL fixed-function state to use when rendering the geometry.
+   * 渲染几何体时使用的 WebGL 固定功能状态。
    * <p>
-   * The render state can be explicitly defined when constructing a {@link PolylineColorAppearance}
-   * instance, or it is set implicitly via {@link PolylineColorAppearance#translucent}.
+   * 渲染状态可以在构造 {@link PolylineColorAppearance} 实例时显式定义，
+   * 或通过 {@link PolylineColorAppearance#translucent} 隐式设置。
    * </p>
    *
    * @memberof PolylineColorAppearance.prototype
@@ -144,9 +144,9 @@ Object.defineProperties(PolylineColorAppearance.prototype, {
   },
 
   /**
-   * 当 <code>true</code> 时，几何图形应闭合 so
-   * {@link PolylineColorAppearance#renderState} has backface culling enabled.
-   * This is always <code>false</code> for <code>PolylineColorAppearance</code>.
+   * 当 <code>true</code> 时，几何图形应闭合，因此
+   * {@link PolylineColorAppearance#renderState} 启用了背面剔除。
+   * 对于 <code>PolylineColorAppearance</code>，这始终为 <code>false</code>。
    *
    * @memberof PolylineColorAppearance.prototype
    *
@@ -162,9 +162,9 @@ Object.defineProperties(PolylineColorAppearance.prototype, {
   },
 
   /**
-   * The {@link VertexFormat} that this appearance instance is compatible with.
-   * A geometry can have more vertex attributes and still be compatible - at a
-   * potential performance cost - but it can't have less.
+   * 此外观实例兼容的 {@link VertexFormat}。
+   * 几何体可以具有更多的顶点属性仍然兼容——但这可能会导致性能损失——
+   * 但它不能少于。
    *
    * @memberof PolylineColorAppearance.prototype
    *
@@ -180,9 +180,10 @@ Object.defineProperties(PolylineColorAppearance.prototype, {
   },
 });
 
+
 /**
- * The {@link VertexFormat} that all {@link PolylineColorAppearance} instances
- * are compatible with. This requires only a <code>position</code> attribute.
+ * 所有 {@link PolylineColorAppearance} 实例兼容的 {@link VertexFormat}。
+ * 这仅要求有一个 <code>position</code> 属性。
  *
  * @type VertexFormat
  *
@@ -191,34 +192,35 @@ Object.defineProperties(PolylineColorAppearance.prototype, {
 PolylineColorAppearance.VERTEX_FORMAT = VertexFormat.POSITION_ONLY;
 
 /**
- * Procedurally creates the full GLSL fragment shader source.
+ * 以程序方式创建完整的 GLSL 片段着色器源。
  *
  * @function
  *
- * @returns {string} The full GLSL fragment shader source.
+ * @returns {string} 完整的 GLSL 片段着色器源。
  */
 PolylineColorAppearance.prototype.getFragmentShaderSource =
   Appearance.prototype.getFragmentShaderSource;
 
 /**
- * Determines if the geometry is translucent based on {@link PolylineColorAppearance#translucent}.
+ * 根据 {@link PolylineColorAppearance#translucent} 确定几何体是否为半透明。
  *
  * @function
  *
- * @returns {boolean} <code>true</code> if the appearance is translucent.
+ * @returns {boolean} 如果外观是半透明的则返回 <code>true</code>。
  */
+
 PolylineColorAppearance.prototype.isTranslucent =
   Appearance.prototype.isTranslucent;
 
 /**
- * Creates a render state.  This is not the final render state instance; instead,
- * it can contain a subset of render state properties identical to the render state
- * created in the context.
+ * 创建一个渲染状态。 这不是最终的渲染状态实例；相反，
+ * 它可以包含与上下文中创建的渲染状态相同的渲染状态属性的子集。
  *
  * @function
  *
- * @returns {object} The render state.
+ * @returns {object} 渲染状态。
  */
+
 PolylineColorAppearance.prototype.getRenderState =
   Appearance.prototype.getRenderState;
 export default PolylineColorAppearance;

@@ -69,15 +69,16 @@ function insertUpdaterIntoBatch(that, time, updater) {
 }
 
 /**
- * A visualizer for polylines represented by {@link Primitive} instances.
+ * 一个用于可视化由 {@link Primitive} 实例表示的多段线的可视化器。
  * @alias PolylineVisualizer
  * @constructor
  *
- * @param {Scene} scene The scene the primitives will be rendered in.
- * @param {EntityCollection} entityCollection The entityCollection to visualize.
- * @param {PrimitiveCollection} [primitives=scene.primitives] A collection to add primitives related to the entities
- * @param {PrimitiveCollection} [groundPrimitives=scene.groundPrimitives] A collection to add ground primitives related to the entities
+ * @param {Scene} scene 要在其中渲染原始对象的场景。
+ * @param {EntityCollection} entityCollection 要可视化的实体集合。
+ * @param {PrimitiveCollection} [primitives=scene.primitives] 一个集合，用于添加与实体相关的原始对象。
+ * @param {PrimitiveCollection} [groundPrimitives=scene.groundPrimitives] 一个集合，用于添加与实体相关的地面原始对象。
  */
+
 function PolylineVisualizer(
   scene,
   entityCollection,
@@ -189,13 +190,14 @@ function PolylineVisualizer(
 }
 
 /**
- * Updates all of the primitives created by this visualizer to match their
- * Entity counterpart at the given time.
+ * 更新该可视化器创建的所有原始对象，以匹配其
+ * 在给定时间的实体对应物。
  *
- * @param {JulianDate} time The time to update to.
- * @returns {boolean} True if the visualizer successfully updated to the provided time,
- * false if the visualizer is waiting for asynchronous primitives to be created.
+ * @param {JulianDate} time 要更新到的时间。
+ * @returns {boolean} 如果可视化器成功更新到提供的时间，则返回 true，
+ * 如果可视化器正在等待异步原始对象的创建，则返回 false。
  */
+
 PolylineVisualizer.prototype.update = function (time) {
   //>>includeStart('debug', pragmas.debug);
   Check.defined("time", time);
@@ -276,16 +278,17 @@ const getBoundingSphereArrayScratch = [];
 const getBoundingSphereBoundingSphereScratch = new BoundingSphere();
 
 /**
- * Computes a bounding sphere which encloses the visualization produced for the specified entity.
- * The bounding sphere is in the fixed frame of the scene's globe.
+ * 计算一个包围球，该包围球包含为指定实体生成的可视化。
+ * 包围球位于场景地球的固定坐标系中。
  *
- * @param {Entity} entity The entity whose bounding sphere to compute.
- * @param {BoundingSphere} result The bounding sphere onto which to store the result.
- * @returns {BoundingSphereState} BoundingSphereState.DONE if the result contains the bounding sphere,
- *                       BoundingSphereState.PENDING if the result is still being computed, or
- *                       BoundingSphereState.FAILED if the entity has no visualization in the current scene.
+ * @param {Entity} entity 要计算其包围球的实体。
+ * @param {BoundingSphere} result 用于存储结果的包围球。
+ * @returns {BoundingSphereState} 如果结果包含包围球，则返回 BoundingSphereState.DONE，
+ *                       如果结果仍在计算中，则返回 BoundingSphereState.PENDING，或者
+ *                       如果实体在当前场景中没有可视化，则返回 BoundingSphereState.FAILED。
  * @private
  */
+
 PolylineVisualizer.prototype.getBoundingSphere = function (entity, result) {
   //>>includeStart('debug', pragmas.debug);
   Check.defined("entity", entity);
@@ -321,19 +324,19 @@ PolylineVisualizer.prototype.getBoundingSphere = function (entity, result) {
   BoundingSphere.fromBoundingSpheres(boundingSpheres, result);
   return BoundingSphereState.DONE;
 };
-
 /**
- * Returns true if this object was destroyed; otherwise, false.
+ * 如果此对象已被销毁，则返回 true；否则返回 false。
  *
- * @returns {boolean} True if this object was destroyed; otherwise, false.
+ * @returns {boolean} 如果此对象已被销毁，则为 true；否则为 false。
  */
 PolylineVisualizer.prototype.isDestroyed = function () {
   return false;
 };
 
 /**
- * Removes and destroys all primitives created by this instance.
+ * 移除并销毁此实例创建的所有原始对象。
  */
+
 PolylineVisualizer.prototype.destroy = function () {
   this._entityCollection.collectionChanged.removeEventListener(
     PolylineVisualizer.prototype._onCollectionChanged,

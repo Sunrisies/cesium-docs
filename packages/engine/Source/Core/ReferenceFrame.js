@@ -1,11 +1,11 @@
 /**
- * Constants for identifying well-known reference frames.
+ * 用于标识众所周知的参考框架的常量。
  *
  * @enum {number}
  */
 const ReferenceFrame = {
   /**
-   * The fixed frame.
+   * 固定框架。
    *
    * @type {number}
    * @constant
@@ -13,7 +13,7 @@ const ReferenceFrame = {
   FIXED: 0,
 
   /**
-   * The inertial frame.
+   * 惯性框架。
    *
    * @type {number}
    * @constant
@@ -21,3 +21,4 @@ const ReferenceFrame = {
   INERTIAL: 1,
 };
 export default Object.freeze(ReferenceFrame);
+

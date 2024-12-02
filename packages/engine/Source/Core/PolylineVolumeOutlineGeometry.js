@@ -75,17 +75,17 @@ function computeAttributes(positions, shape) {
 }
 
 /**
- * A description of a polyline with a volume (a 2D shape extruded along a polyline).
+ * 描述一个具有体积的多段线（沿多段线挤出的 2D 形状）。
  *
  * @alias PolylineVolumeOutlineGeometry
  * @constructor
  *
- * @param {object} options Object with the following properties:
- * @param {Cartesian3[]} options.polylinePositions An array of positions that define the center of the polyline volume.
- * @param {Cartesian2[]} options.shapePositions An array of positions that define the shape to be extruded along the polyline
- * @param {Ellipsoid} [options.ellipsoid=Ellipsoid.default] The ellipsoid to be used as a reference.
- * @param {number} [options.granularity=CesiumMath.RADIANS_PER_DEGREE] The distance, in radians, between each latitude and longitude. Determines the number of positions in the buffer.
- * @param {CornerType} [options.cornerType=CornerType.ROUNDED] Determines the style of the corners.
+ * @param {object} options 包含以下属性的对象：
+ * @param {Cartesian3[]} options.polylinePositions 一个位置数组，定义多段线体积的中心。
+ * @param {Cartesian2[]} options.shapePositions 一个位置数组，定义沿多段线挤出的形状。
+ * @param {Ellipsoid} [options.ellipsoid=Ellipsoid.default] 用作参考的椭球体。
+ * @param {number} [options.granularity=CesiumMath.RADIANS_PER_DEGREE] 每个纬度和经度之间的距离（以弧度为单位）。决定缓冲区中的位置数量。
+ * @param {CornerType} [options.cornerType=CornerType.ROUNDED] 决定角落的样式。
  *
  * @see PolylineVolumeOutlineGeometry#createGeometry
  *
@@ -207,8 +207,9 @@ const scratchOptions = {
  * @param {number[]} array 压缩数组.
  * @param {number} [startingIndex=0] 需要解包的元素的起始索引.
  * @param {PolylineVolumeOutlineGeometry} [result] 存储结果的对象.
- * @returns {PolylineVolumeOutlineGeometry} The modified result parameter or a new PolylineVolumeOutlineGeometry instance if one was not provided.
+ * @returns {PolylineVolumeOutlineGeometry} 修改后的结果参数或如果未提供结果参数则返回的新 PolylineVolumeOutlineGeometry 实例.
  */
+
 PolylineVolumeOutlineGeometry.unpack = function (array, startingIndex, result) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(array)) {
@@ -258,13 +259,13 @@ PolylineVolumeOutlineGeometry.unpack = function (array, startingIndex, result) {
 };
 
 const brScratch = new BoundingRectangle();
-
 /**
- * Computes the geometric representation of the outline of a polyline with a volume, including its vertices, indices, and a bounding sphere.
+ * 计算具有体积的多段线轮廓的几何表示，包括其顶点、索引和包围球。
  *
- * @param {PolylineVolumeOutlineGeometry} polylineVolumeOutlineGeometry A description of the polyline volume outline.
- * @returns {Geometry|undefined} The computed vertices and indices.
+ * @param {PolylineVolumeOutlineGeometry} polylineVolumeOutlineGeometry 对多段线体积轮廓的描述。
+ * @returns {Geometry|undefined} 计算得到的顶点和索引。
  */
+
 PolylineVolumeOutlineGeometry.createGeometry = function (
   polylineVolumeOutlineGeometry,
 ) {

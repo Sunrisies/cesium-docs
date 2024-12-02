@@ -7,23 +7,21 @@ import CesiumMath from "./Math.js";
 import Matrix4 from "./Matrix4.js";
 
 /**
- * A plane in Hessian Normal Form defined by
+ * 以 Hessian 标准形式定义的平面
  * <pre>
  * ax + by + cz + d = 0
  * </pre>
- * where (a, b, c) is the plane's <code>normal</code>, d is the signed
- * <code>distance</code> to the plane, and (x, y, z) is any point on
- * the plane.
+ * 其中 (a, b, c) 是平面的 <code>normal</code>，d 是到平面的带符号
+ * <code>distance</code>，(x, y, z) 是平面上的任意点。
  *
  * @alias Plane
  * @constructor
  *
- * @param {Cartesian3} normal The plane's normal (normalized).
- * @param {number} distance The shortest distance from the origin to the plane.  The sign of
- * <code>distance</code> determines which side of the plane the origin
- * is on.  If <code>distance</code> is positive, the origin is in the half-space
- * in the direction of the normal; if negative, the origin is in the half-space
- * opposite to the normal; if zero, the plane passes through the origin.
+ * @param {Cartesian3} normal 平面的法线（已归一化）。
+ * @param {number} distance 从原点到平面的最短距离。<code>distance</code> 的符号
+ * 决定原点位于平面的哪一侧。如果 <code>distance</code> 为正，原点位于
+ * 向法线方向的半空间中；如果为负，原点位于与法线相反的半空间；
+ * 如果为零，平面通过原点。
  *
  * @example
  * // The plane x=0
@@ -47,32 +45,34 @@ function Plane(normal, distance) {
   //>>includeEnd('debug');
 
   /**
-   * The plane's normal.
+   * 平面的法线。
    *
    * @type {Cartesian3}
    */
+
   this.normal = Cartesian3.clone(normal);
 
   /**
-   * The shortest distance from the origin to the plane.  The sign of
-   * <code>distance</code> determines which side of the plane the origin
-   * is on.  If <code>distance</code> is positive, the origin is in the half-space
-   * in the direction of the normal; if negative, the origin is in the half-space
-   * opposite to the normal; if zero, the plane passes through the origin.
+   * 从原点到平面的最短距离。<code>distance</code> 的符号
+   * 决定原点位于平面的哪一侧。如果 <code>distance</code> 为正，原点位于
+   * 向法线方向的半空间中；如果为负，原点位于与法线相反的半空间；
+   * 如果为零，平面通过原点。
    *
    * @type {number}
    */
+
   this.distance = distance;
 }
 
 /**
- * Creates a plane from a normal and a point on the plane.
+ * 从一个法线和一个平面上的点创建一个平面。
  *
- * @param {Cartesian3} point The point on the plane.
- * @param {Cartesian3} normal The plane's normal (normalized).
- * @param {Plane} [result] 存储结果的对象.
- * @returns {Plane} A new plane instance or the modified result parameter.
+ * @param {Cartesian3} point 平面上的点。
+ * @param {Cartesian3} normal 平面的法线（已归一化）。
+ * @param {Plane} [result] 存储结果的对象。
+ * @returns {Plane} 一个新的平面实例或修改后的结果参数。
  *
+
  * @example
  * const point = Cesium.Cartesian3.fromDegrees(-72.0, 40.0);
  * const normal = ellipsoid.geodeticSurfaceNormal(point);
@@ -108,14 +108,15 @@ Plane.fromPointNormal = function (point, normal, result) {
 
 const scratchNormal = new Cartesian3();
 /**
- * Creates a plane from the general equation
+ * 根据一般方程创建一个平面。
  *
- * @param {Cartesian4} coefficients The plane's normal (normalized).
- * @param {Plane} [result] 存储结果的对象.
- * @returns {Plane} A new plane instance or the modified result parameter.
+ * @param {Cartesian4} coefficients 平面的法线（已归一化）。
+ * @param {Plane} [result] 存储结果的对象。
+ * @returns {Plane} 一个新的平面实例或修改后的结果参数。
  *
- * @exception {DeveloperError} Normal must be normalized
+ * @exception {DeveloperError} 法线必须是已归一化的
  */
+
 Plane.fromCartesian4 = function (coefficients, result) {
   //>>includeStart('debug', pragmas.debug);
   Check.typeOf.object("coefficients", coefficients);
@@ -145,16 +146,16 @@ Plane.fromCartesian4 = function (coefficients, result) {
 };
 
 /**
- * Computes the signed shortest distance of a point to a plane.
- * The sign of the distance determines which side of the plane the point
- * is on.  If the distance is positive, the point is in the half-space
- * in the direction of the normal; if negative, the point is in the half-space
- * opposite to the normal; if zero, the plane passes through the point.
+ * 计算一个点到平面的带符号最短距离。
+ * 距离的符号决定了点位于平面的哪一侧。如果距离为正，点位于
+ * 向法线方向的半空间中；如果为负，点位于与法线相反的半空间；
+ * 如果为零，平面通过该点。
  *
- * @param {Plane} plane The plane.
- * @param {Cartesian3} point The point.
- * @returns {number} The signed shortest distance of the point to the plane.
+ * @param {Plane} plane 平面。
+ * @param {Cartesian3} point 点。
+ * @returns {number} 点到平面的带符号最短距离。
  */
+
 Plane.getPointDistance = function (plane, point) {
   //>>includeStart('debug', pragmas.debug);
   Check.typeOf.object("plane", plane);
@@ -166,12 +167,13 @@ Plane.getPointDistance = function (plane, point) {
 
 const scratchCartesian = new Cartesian3();
 /**
- * Projects a point onto the plane.
- * @param {Plane} plane The plane to project the point onto
- * @param {Cartesian3} point The point to project onto the plane
- * @param {Cartesian3} [result] The result point.  If undefined, a new Cartesian3 will be created.
- * @returns {Cartesian3} 修改后的结果参数或新的 三维笛卡尔 实例（如果未提供）
+ * 将一个点投影到平面上。
+ * @param {Plane} plane 要将点投影到的平面。
+ * @param {Cartesian3} point 要投影到平面的点。
+ * @param {Cartesian3} [result] 结果点。如果未定义，将创建一个新的 Cartesian3。
+ * @returns {Cartesian3} 修改后的结果参数或新的三维笛卡尔实例（如果未提供）。
  */
+
 Plane.projectPointOntoPlane = function (plane, point, result) {
   //>>includeStart('debug', pragmas.debug);
   Check.typeOf.object("plane", plane);
@@ -197,13 +199,14 @@ const scratchInverseTranspose = new Matrix4();
 const scratchPlaneCartesian4 = new Cartesian4();
 const scratchTransformNormal = new Cartesian3();
 /**
- * Transforms the plane by the given transformation matrix.
+ * 通过给定的变换矩阵变换平面。
  *
- * @param {Plane} plane The plane.
- * @param {Matrix4} transform The transformation matrix.
- * @param {Plane} [result] 存储结果的对象.
- * @returns {Plane} The plane transformed by the given transformation matrix.
+ * @param {Plane} plane 要变换的平面。
+ * @param {Matrix4} transform 变换矩阵。
+ * @param {Plane} [result] 存储结果的对象。
+ * @returns {Plane} 通过给定变换矩阵变换后的平面。
  */
+
 Plane.transform = function (plane, transform, result) {
   //>>includeStart('debug', pragmas.debug);
   Check.typeOf.object("plane", plane);
@@ -245,12 +248,13 @@ Plane.transform = function (plane, transform, result) {
 };
 
 /**
- * Duplicates a Plane instance.
+ * 复制一个 Plane 实例。
  *
- * @param {Plane} plane The plane to duplicate.
- * @param {Plane} [result] 存储结果的对象.
- * @returns {Plane} The modified result parameter or a new Plane instance if one was not provided.
+ * @param {Plane} plane 要复制的平面。
+ * @param {Plane} [result] 存储结果的对象。
+ * @returns {Plane} 修改后的结果参数或如果未提供，则返回一个新的 Plane 实例。
  */
+
 Plane.clone = function (plane, result) {
   //>>includeStart('debug', pragmas.debug);
   Check.typeOf.object("plane", plane);
@@ -267,13 +271,14 @@ Plane.clone = function (plane, result) {
 };
 
 /**
- * Compares the provided Planes by normal and distance and returns
- * 如果相等则为 <code>true</code>，否则为 <code>false</code>
+ * 按法线和距离比较提供的平面，并返回
+ * 如果相等则为 <code>true</code>，否则为 <code>false</code>。
  *
- * @param {Plane} left The first plane.
- * @param {Plane} right The second plane.
- * @returns {boolean} 如果左右相等，则 <code>true</code>，否则 <code>false</code>
+ * @param {Plane} left 第一个平面。
+ * @param {Plane} right 第二个平面。
+ * @returns {boolean} 如果左右相等，则 <code>true</code>，否则 <code>false</code>。
  */
+
 Plane.equals = function (left, right) {
   //>>includeStart('debug', pragmas.debug);
   Check.typeOf.object("left", left);
@@ -287,7 +292,7 @@ Plane.equals = function (left, right) {
 };
 
 /**
- * A constant initialized to the XY plane passing through the origin, with normal in positive Z.
+ * 一个常量，初始化为通过原点的 XY 平面，法线在正 Z 方向。
  *
  * @type {Plane}
  * @constant
@@ -295,7 +300,7 @@ Plane.equals = function (left, right) {
 Plane.ORIGIN_XY_PLANE = Object.freeze(new Plane(Cartesian3.UNIT_Z, 0.0));
 
 /**
- * A constant initialized to the YZ plane passing through the origin, with normal in positive X.
+ * 一个常量，初始化为通过原点的 YZ 平面，法线在正 X 方向。
  *
  * @type {Plane}
  * @constant
@@ -303,10 +308,11 @@ Plane.ORIGIN_XY_PLANE = Object.freeze(new Plane(Cartesian3.UNIT_Z, 0.0));
 Plane.ORIGIN_YZ_PLANE = Object.freeze(new Plane(Cartesian3.UNIT_X, 0.0));
 
 /**
- * A constant initialized to the ZX plane passing through the origin, with normal in positive Y.
+ * 一个常量，初始化为通过原点的 ZX 平面，法线在正 Y 方向。
  *
  * @type {Plane}
  * @constant
  */
+
 Plane.ORIGIN_ZX_PLANE = Object.freeze(new Plane(Cartesian3.UNIT_Y, 0.0));
 export default Plane;

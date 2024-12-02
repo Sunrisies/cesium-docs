@@ -8,27 +8,28 @@ import createPropertyDescriptor from "./createPropertyDescriptor.js";
 /**
  * @typedef {object} PlaneGraphics.ConstructorOptions
  *
- * Initialization options for the PlaneGraphics constructor
+ * PlaneGraphics 构造函数的初始化选项
  *
- * @property {Property | boolean} [show=true] A boolean Property specifying the visibility of the plane.
- * @property {Property | Plane} [plane] A {@link Plane} Property specifying the normal and distance for the plane.
- * @property {Property | Cartesian2} [dimensions] A {@link Cartesian2} Property specifying the width and height of the plane.
- * @property {Property | boolean} [fill=true] A boolean Property specifying whether the plane is filled with the provided material.
- * @property {MaterialProperty | Color} [material=Color.WHITE] A Property specifying the material used to fill the plane.
- * @property {Property | boolean} [outline=false] A boolean Property specifying whether the plane is outlined.
- * @property {Property | Color} [outlineColor=Color.BLACK] A Property specifying the {@link Color} of the outline.
- * @property {Property | number} [outlineWidth=1.0] A numeric Property specifying the width of the outline.
- * @property {Property | ShadowMode} [shadows=ShadowMode.DISABLED] An enum Property specifying whether the plane casts or receives shadows from light sources.
- * @property {Property | DistanceDisplayCondition} [distanceDisplayCondition] A Property specifying at what distance from the camera that this plane will be displayed.
+ * @property {Property | boolean} [show=true] 一个布尔 Property，指定平面的可见性。
+ * @property {Property | Plane} [plane] 一个 {@link Plane} Property，指定平面的法线和距离。
+ * @property {Property | Cartesian2} [dimensions] 一个 {@link Cartesian2} Property，指定平面的宽度和高度。
+ * @property {Property | boolean} [fill=true] 一个布尔 Property，指定平面是否填充所提供的材料。
+ * @property {MaterialProperty | Color} [material=Color.WHITE] 一个 Property，指定用于填充平面的材料。
+ * @property {Property | boolean} [outline=false] 一个布尔 Property，指定平面是否有轮廓线。
+ * @property {Property | Color} [outlineColor=Color.BLACK] 一个 Property，指定轮廓的 {@link Color}。
+ * @property {Property | number} [outlineWidth=1.0] 一个数值 Property，指定轮廓的宽度。
+ * @property {Property | ShadowMode} [shadows=ShadowMode.DISABLED] 一个枚举 Property，指定平面是否会对光源投射或接收阴影。
+ * @property {Property | DistanceDisplayCondition} [distanceDisplayCondition] 一个 Property，指定从相机到该平面的显示距离。
  */
 
+
 /**
- * Describes a plane. The center position and orientation are determined by the containing {@link Entity}.
+ * 描述一个平面。中心位置和方向由包含的 {@link Entity} 决定。
  *
  * @alias PlaneGraphics
  * @constructor
  *
- * @param {PlaneGraphics.ConstructorOptions} [options] Object describing initialization options
+ * @param {PlaneGraphics.ConstructorOptions} [options] 描述初始化选项的对象。
  *
  * @demo {@link https://sandcastle.cesium.com/index.html?src=Plane.html|Cesium Sandcastle Plane Demo}
  */
@@ -60,7 +61,7 @@ function PlaneGraphics(options) {
 
 Object.defineProperties(PlaneGraphics.prototype, {
   /**
-   * Gets the event that is raised whenever a property or sub-property is changed or modified.
+   * 获取每当属性或子属性更改或修改时引发的事件。
    * @memberof PlaneGraphics.prototype
    * @type {Event}
    * @readonly
@@ -72,7 +73,7 @@ Object.defineProperties(PlaneGraphics.prototype, {
   },
 
   /**
-   * Gets or sets the boolean Property specifying the visibility of the plane.
+   * 获取或设置布尔 Property，指定平面的可见性。
    * @memberof PlaneGraphics.prototype
    * @type {Property|undefined}
    * @default true
@@ -80,7 +81,7 @@ Object.defineProperties(PlaneGraphics.prototype, {
   show: createPropertyDescriptor("show"),
 
   /**
-   * Gets or sets the {@link Plane} Property specifying the normal and distance of the plane.
+   * 获取或设置 {@link Plane} Property，指定平面的法线和距离。
    *
    * @memberof PlaneGraphics.prototype
    * @type {Property|undefined}
@@ -88,7 +89,7 @@ Object.defineProperties(PlaneGraphics.prototype, {
   plane: createPropertyDescriptor("plane"),
 
   /**
-   * Gets or sets the {@link Cartesian2} Property specifying the width and height of the plane.
+   * 获取或设置 {@link Cartesian2} Property，指定平面的宽度和高度。
    *
    * @memberof PlaneGraphics.prototype
    * @type {Property|undefined}
@@ -96,7 +97,7 @@ Object.defineProperties(PlaneGraphics.prototype, {
   dimensions: createPropertyDescriptor("dimensions"),
 
   /**
-   * Gets or sets the boolean Property specifying whether the plane is filled with the provided material.
+   * 获取或设置布尔 Property，指定平面是否填充所提供的材料。
    * @memberof PlaneGraphics.prototype
    * @type {Property|undefined}
    * @default true
@@ -104,7 +105,7 @@ Object.defineProperties(PlaneGraphics.prototype, {
   fill: createPropertyDescriptor("fill"),
 
   /**
-   * Gets or sets the material used to fill the plane.
+   * 获取或设置用于填充平面的材料。
    * @memberof PlaneGraphics.prototype
    * @type {MaterialProperty}
    * @default Color.WHITE
@@ -112,7 +113,7 @@ Object.defineProperties(PlaneGraphics.prototype, {
   material: createMaterialPropertyDescriptor("material"),
 
   /**
-   * Gets or sets the Property specifying whether the plane is outlined.
+   * 获取或设置 Property，指定平面是否有轮廓线。
    * @memberof PlaneGraphics.prototype
    * @type {Property|undefined}
    * @default false
@@ -120,7 +121,7 @@ Object.defineProperties(PlaneGraphics.prototype, {
   outline: createPropertyDescriptor("outline"),
 
   /**
-   * Gets or sets the Property specifying the {@link Color} of the outline.
+   * 获取或设置 Property，指定轮廓的 {@link Color}。
    * @memberof PlaneGraphics.prototype
    * @type {Property|undefined}
    * @default Color.BLACK
@@ -128,9 +129,9 @@ Object.defineProperties(PlaneGraphics.prototype, {
   outlineColor: createPropertyDescriptor("outlineColor"),
 
   /**
-   * Gets or sets the numeric Property specifying the width of the outline.
+   * 获取或设置数值 Property，指定轮廓的宽度。
    * <p>
-   * Note: This property will be ignored on all major browsers on Windows platforms. For details, see (@link https://github.com/CesiumGS/cesium/issues/40}.
+   * 注意：此属性将在 Windows 平台上的所有主要浏览器上被忽略。有关详细信息，请参见 (@link https://github.com/CesiumGS/cesium/issues/40}。
    * </p>
    * @memberof PlaneGraphics.prototype
    * @type {Property|undefined}
@@ -139,8 +140,8 @@ Object.defineProperties(PlaneGraphics.prototype, {
   outlineWidth: createPropertyDescriptor("outlineWidth"),
 
   /**
-   * Get or sets the enum Property specifying whether the plane
-   * casts or receives shadows from light sources.
+   * 获取或设置枚举 Property，指定平面
+   * 是否对光源投射或接收阴影。
    * @memberof PlaneGraphics.prototype
    * @type {Property|undefined}
    * @default ShadowMode.DISABLED
@@ -148,7 +149,7 @@ Object.defineProperties(PlaneGraphics.prototype, {
   shadows: createPropertyDescriptor("shadows"),
 
   /**
-   * Gets or sets the {@link DistanceDisplayCondition} Property specifying at what distance from the camera that this plane will be displayed.
+   * 获取或设置 {@link DistanceDisplayCondition} Property，指定从相机到该平面的显示距离。
    * @memberof PlaneGraphics.prototype
    * @type {Property|undefined}
    */
@@ -157,12 +158,14 @@ Object.defineProperties(PlaneGraphics.prototype, {
   ),
 });
 
+
 /**
- * Duplicates this instance.
+ * 复制此实例。
  *
  * @param {PlaneGraphics} [result] 存储结果的对象.
- * @returns {PlaneGraphics} The modified result parameter or a new instance if one was not provided.
+ * @returns {PlaneGraphics} 修改后的结果参数或如果未提供，则返回一个新的实例。
  */
+
 PlaneGraphics.prototype.clone = function (result) {
   if (!defined(result)) {
     return new PlaneGraphics(this);
@@ -181,11 +184,11 @@ PlaneGraphics.prototype.clone = function (result) {
 };
 
 /**
- * Assigns each unassigned property on this object to the value
- * of the same property on the provided source object.
+ * 将此对象上每个未分配的属性赋值为提供的源对象上相同属性的值。
  *
- * @param {PlaneGraphics} source The object to be merged into this object.
+ * @param {PlaneGraphics} source 要合并到此对象中的对象。
  */
+
 PlaneGraphics.prototype.merge = function (source) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(source)) {

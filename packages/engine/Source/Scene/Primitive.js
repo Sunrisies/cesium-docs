@@ -40,44 +40,41 @@ import SceneMode from "./SceneMode.js";
 import ShadowMode from "./ShadowMode.js";
 
 /**
- * A primitive represents geometry in the {@link Scene}.  The geometry can be from a single {@link GeometryInstance}
- * as shown in example 1 below, or from an array of instances, even if the geometry is from different
- * geometry types, e.g., an {@link RectangleGeometry} and an {@link EllipsoidGeometry} as shown in Code Example 2.
+ * 一个原始对象表示 {@link Scene} 中的几何图形。几何图形可以来自单个 {@link GeometryInstance}
+ *（如下例 1 所示），也可以来自多个实例，即使几何图形来自不同的几何类型，例如 {@link RectangleGeometry} 
+ * 和 {@link EllipsoidGeometry}，如代码示例 2 所示。
  * <p>
- * A primitive combines geometry instances with an {@link Appearance} that describes the full shading, including
- * {@link Material} and {@link RenderState}.  Roughly, the geometry instance defines the structure and placement,
- * and the appearance defines the visual characteristics.  Decoupling geometry and appearance allows us to mix
- * and match most of them and add a new geometry or appearance independently of each other.
+ * 一个原始对象将几何实例与描述完整阴影的 {@link Appearance} 结合在一起，包括 {@link Material} 和 {@link RenderState}。
+ * 大致上，几何实例定义了结构和放置，外观定义了视觉特征。将几何和外观解耦允许我们混合和匹配大多数内容，并独立于彼此添加新的几何或外观。
  * </p>
  * <p>
- * Combining multiple instances into one primitive is called batching, and significantly improves performance for static data.
- * Instances can be individually picked; {@link Scene#pick} returns their {@link GeometryInstance#id}.  Using
- * per-instance appearances like {@link PerInstanceColorAppearance}, each instance can also have a unique color.
+ * 将多个实例合并为一个原始对象被称为批处理，这显著提高了静态数据的性能。
+ * 实例可以被单独选择；{@link Scene#pick} 返回它们的 {@link GeometryInstance#id}。使用每实例外观，如 {@link PerInstanceColorAppearance}，
+ * 每个实例也可以具有唯一的颜色。
  * </p>
  * <p>
- * {@link Geometry} can either be created and batched on a web worker or the main thread. The first two examples
- * show geometry that will be created on a web worker by using the descriptions of the geometry. The third example
- * shows how to create the geometry on the main thread by explicitly calling the <code>createGeometry</code> method.
+ * {@link Geometry} 可以在 Web Worker 或主线程中创建和批处理。前两个示例显示了使用几何描述在 Web Worker 中创建的几何。
+ * 第三个示例显示了如何通过显式调用 <code>createGeometry</code> 方法在主线程中创建几何。
  * </p>
  *
  * @alias Primitive
  * @constructor
  *
- * @param {object} [options] Object with the following properties:
- * @param {GeometryInstance[]|GeometryInstance} [options.geometryInstances] The geometry instances - or a single geometry instance - to render.
- * @param {Appearance} [options.appearance] The appearance used to render the primitive.
- * @param {Appearance} [options.depthFailAppearance] The appearance used to shade this primitive when it fails the depth test.
- * @param {boolean} [options.show=true] Determines if this primitive will be shown.
- * @param {Matrix4} [options.modelMatrix=Matrix4.IDENTITY] The 4x4 transformation matrix that transforms the primitive (all geometry instances) from model to world coordinates.
- * @param {boolean} [options.vertexCacheOptimize=false] When <code>true</code>, geometry vertices are optimized for the pre and post-vertex-shader caches.
- * @param {boolean} [options.interleave=false] When <code>true</code>, geometry vertex attributes are interleaved, which can slightly improve rendering performance but increases load time.
- * @param {boolean} [options.compressVertices=true] When <code>true</code>, the geometry vertices are compressed, which will save memory.
- * @param {boolean} [options.releaseGeometryInstances=true] When <code>true</code>, the primitive does not keep a reference to the input <code>geometryInstances</code> to save memory.
- * @param {boolean} [options.allowPicking=true] When <code>true</code>, each geometry instance will only be pickable with {@link Scene#pick}.  When <code>false</code>, GPU memory is saved.
- * @param {boolean} [options.cull=true] When <code>true</code>, the renderer frustum culls and horizon culls the primitive's commands based on their bounding volume.  Set this to <code>false</code> for a small performance gain if you are manually culling the primitive.
- * @param {boolean} [options.asynchronous=true] Determines if the primitive will be created asynchronously or block until ready.
- * @param {boolean} [options.debugShowBoundingVolume=false] For debugging only. Determines if this primitive's commands' bounding spheres are shown.
- * @param {ShadowMode} [options.shadows=ShadowMode.DISABLED] Determines whether this primitive casts or receives shadows from light sources.
+ * @param {object} [options] 包含以下属性的对象：
+ * @param {GeometryInstance[]|GeometryInstance} [options.geometryInstances] 要渲染的几何实例 - 或单个几何实例。
+ * @param {Appearance} [options.appearance] 用于渲染原始对象的外观。
+ * @param {Appearance} [options.depthFailAppearance] 当原始对象未通过深度测试时用于着色该原始对象的外观。
+ * @param {boolean} [options.show=true] 确定此原始对象是否会被显示。
+ * @param {Matrix4} [options.modelMatrix=Matrix4.IDENTITY] 将原始对象（所有几何实例）从模型坐标转换为世界坐标的 4x4 变换矩阵。
+ * @param {boolean} [options.vertexCacheOptimize=false] 当 <code>true</code> 时，几何顶点对预和后顶点着色器缓存进行了优化。
+ * @param {boolean} [options.interleave=false] 当 <code>true</code> 时，几何顶点属性是交错的，这可以略微提高渲染性能，但会增加加载时间。
+ * @param {boolean} [options.compressVertices=true] 当 <code>true</code> 时，几何顶点被压缩，这将节省内存。
+ * @param {boolean} [options.releaseGeometryInstances=true] 当 <code>true</code> 时，原始对象不会保留对输入的 <code>geometryInstances</code> 的引用，以节省内存。
+ * @param {boolean} [options.allowPicking=true] 当 <code>true</code> 时，每个几何实例将只能通过 {@link Scene#pick} 进行选择。当 <code>false</code> 时，节省 GPU 内存。
+ * @param {boolean} [options.cull=true] 当 <code>true</code> 时，渲染器根据原始对象的包围体积进行视锥剔除和地平线剔除。如果手动剔除原始对象，则将其设置为 <code>false</code> 以获得小的性能提升。
+ * @param {boolean} [options.asynchronous=true] 确定原始对象是异步创建还是在准备好之前阻塞。
+ * @param {boolean} [options.debugShowBoundingVolume=false] 仅用于调试。确定是否显示此原始对象的命令的包围球。
+ * @param {ShadowMode} [options.shadows=ShadowMode.DISABLED] 确定此原始对象是否从光源投射或接收阴影。
  *
  * @example
  * // 1. Draw a translucent ellipse on the surface with a checkerboard pattern
@@ -155,11 +152,10 @@ function Primitive(options) {
   options = defaultValue(options, defaultValue.EMPTY_OBJECT);
 
   /**
-   * The geometry instances rendered with this primitive.  This may
-   * be <code>undefined</code> if <code>options.releaseGeometryInstances</code>
-   * is <code>true</code> when the primitive is constructed.
+   * 与此原始对象一起渲染的几何实例。如果在构造原始对象时 <code>options.releaseGeometryInstances</code>
+   * 为 <code>true</code>，则可能为 <code>undefined</code>。
    * <p>
-   * Changing this property after the primitive is rendered has no effect.
+   * 在原始对象渲染后更改此属性没有效果。
    * </p>
    *
    * @readonly
@@ -170,33 +166,28 @@ function Primitive(options) {
   this.geometryInstances = options.geometryInstances;
 
   /**
-   * The {@link Appearance} used to shade this primitive. Each geometry
-   * instance is shaded with the same appearance.  Some appearances, like
-   * {@link PerInstanceColorAppearance} allow giving each instance unique
-   * properties.
+   * 用于阴影此原始对象的 {@link Appearance}。每个几何实例都使用相同的外观进行阴影处理。某些外观，例如
+   * {@link PerInstanceColorAppearance} 允许为每个实例提供独特的属性。
    *
    * @type Appearance
    *
    * @default undefined
    */
+
   this.appearance = options.appearance;
   this._appearance = undefined;
   this._material = undefined;
 
   /**
-   * The {@link Appearance} used to shade this primitive when it fails the depth test. Each geometry
-   * instance is shaded with the same appearance.  Some appearances, like
-   * {@link PerInstanceColorAppearance} allow giving each instance unique
-   * properties.
+   * 当深度测试失败时用于阴影此原始对象的 {@link Appearance}。每个几何实例都使用相同的外观进行阴影处理。某些外观，例如
+   * {@link PerInstanceColorAppearance} 允许为每个实例提供独特的属性。
    *
    * <p>
-   * When using an appearance that requires a color attribute, like PerInstanceColorAppearance,
-   * add a depthFailColor per-instance attribute instead.
+   * 当使用需要颜色属性的外观时，例如 PerInstanceColorAppearance，请为每个实例属性添加 depthFailColor。
    * </p>
    *
    * <p>
-   * Requires the EXT_frag_depth WebGL extension to render properly. If the extension is not supported,
-   * there may be artifacts.
+   * 渲染时需要 EXT_frag_depth WebGL 扩展。如果不支持该扩展，可能会出现伪影。
    * </p>
    * @type Appearance
    *
@@ -207,13 +198,12 @@ function Primitive(options) {
   this._depthFailMaterial = undefined;
 
   /**
-   * The 4x4 transformation matrix that transforms the primitive (all geometry instances) from model to world coordinates.
-   * When this is the identity matrix, the primitive is drawn in world coordinates, i.e., Earth's WGS84 coordinates.
-   * Local reference frames can be used by providing a different transformation matrix, like that returned
-   * by {@link Transforms.eastNorthUpToFixedFrame}.
+   * 将原始对象（所有几何实例）从模型坐标转换到世界坐标的 4x4 变换矩阵。
+   * 当这是单位矩阵时，原始对象在世界坐标中绘制，即地球的 WGS84 坐标。
+   * 可以通过提供不同的变换矩阵来使用局部参考框架，例如 {@link Transforms.eastNorthUpToFixedFrame} 返回的矩阵。
    *
    * <p>
-   * This property is only supported in 3D mode.
+   * 此属性仅在 3D 模式下支持。
    * </p>
    *
    * @type Matrix4
@@ -230,13 +220,13 @@ function Primitive(options) {
   this._modelMatrix = new Matrix4();
 
   /**
-   * Determines if the primitive will be shown.  This affects all geometry
-   * instances in the primitive.
+   * 确定原始对象是否会被显示。此设置影响原始对象中的所有几何实例。
    *
    * @type {boolean}
    *
    * @default true
    */
+
   this.show = defaultValue(options.show, true);
 
   this._vertexCacheOptimize = defaultValue(options.vertexCacheOptimize, false);
@@ -250,9 +240,8 @@ function Primitive(options) {
   this._compressVertices = defaultValue(options.compressVertices, true);
 
   /**
-   * When <code>true</code>, the renderer frustum culls and horizon culls the primitive's commands
-   * based on their bounding volume.  Set this to <code>false</code> for a small performance gain
-   * if you are manually culling the primitive.
+   * 当 <code>true</code> 时，渲染器根据原始对象的包围体积进行视锥剔除和地平线剔除。
+   * 如果您手动剔除原始对象，可以将此设置为 <code>false</code> 以获得小的性能提升。
    *
    * @type {boolean}
    *
@@ -261,15 +250,16 @@ function Primitive(options) {
   this.cull = defaultValue(options.cull, true);
 
   /**
-   * This property is for debugging only; it is not for production use nor is it optimized.
+   * 此属性仅用于调试；不适合生产使用，也未进行优化。
    * <p>
-   * Draws the bounding sphere for each draw command in the primitive.
+   * 绘制原始对象中每个绘制命令的包围球。
    * </p>
    *
    * @type {boolean}
    *
    * @default false
    */
+
   this.debugShowBoundingVolume = defaultValue(
     options.debugShowBoundingVolume,
     false,
@@ -294,12 +284,13 @@ function Primitive(options) {
   //>>includeEnd('debug');
 
   /**
-   * Determines whether this primitive casts or receives shadows from light sources.
+   * 确定此原始对象是否从光源投射或接收阴影。
    *
    * @type {ShadowMode}
    *
    * @default ShadowMode.DISABLED
    */
+
   this.shadows = defaultValue(options.shadows, ShadowMode.DISABLED);
 
   this._translucent = undefined;
@@ -364,7 +355,7 @@ function Primitive(options) {
 
 Object.defineProperties(Primitive.prototype, {
   /**
-   * When <code>true</code>, geometry vertices are optimized for the pre and post-vertex-shader caches.
+   * 当 <code>true</code> 时，几何顶点会针对预顶点着色器和后顶点着色器缓存进行优化。
    *
    * @memberof Primitive.prototype
    *
@@ -380,7 +371,7 @@ Object.defineProperties(Primitive.prototype, {
   },
 
   /**
-   * Determines if geometry vertex attributes are interleaved, which can slightly improve rendering performance.
+   * 确定几何顶点属性是否交错，这可以略微提高渲染性能。
    *
    * @memberof Primitive.prototype
    *
@@ -396,7 +387,7 @@ Object.defineProperties(Primitive.prototype, {
   },
 
   /**
-   * When <code>true</code>, the primitive does not keep a reference to the input <code>geometryInstances</code> to save memory.
+   * 当 <code>true</code> 时，原始对象不保留对输入 <code>geometryInstances</code> 的引用以节省内存。
    *
    * @memberof Primitive.prototype
    *
@@ -412,7 +403,7 @@ Object.defineProperties(Primitive.prototype, {
   },
 
   /**
-   * When <code>true</code>, each geometry instance will only be pickable with {@link Scene#pick}.  When <code>false</code>, GPU memory is saved.         *
+   * 当 <code>true</code> 时，每个几何实例将只能通过 {@link Scene#pick} 进行选择。当 <code>false</code> 时，节省 GPU 内存。
    *
    * @memberof Primitive.prototype
    *
@@ -428,7 +419,7 @@ Object.defineProperties(Primitive.prototype, {
   },
 
   /**
-   * Determines if the geometry instances will be created and batched on a web worker.
+   * 确定几何实例是否将在 Web Worker 中创建和批处理。
    *
    * @memberof Primitive.prototype
    *
@@ -437,6 +428,7 @@ Object.defineProperties(Primitive.prototype, {
    *
    * @default true
    */
+
   asynchronous: {
     get: function () {
       return this._asynchronous;
@@ -444,7 +436,7 @@ Object.defineProperties(Primitive.prototype, {
   },
 
   /**
-   * When <code>true</code>, geometry vertices are compressed, which will save memory.
+   * 当 <code>true</code> 时，几何顶点会被压缩，这将节省内存。
    *
    * @memberof Primitive.prototype
    *
@@ -453,6 +445,7 @@ Object.defineProperties(Primitive.prototype, {
    *
    * @default true
    */
+
   compressVertices: {
     get: function () {
       return this._compressVertices;
@@ -460,9 +453,8 @@ Object.defineProperties(Primitive.prototype, {
   },
 
   /**
-   * Determines if the primitive is complete and ready to render.  If this property is
-   * true, the primitive will be rendered the next time that {@link Primitive#update}
-   * is called.
+   * 确定原始对象是否完整并准备渲染。如果此属性为
+   * true，则原始对象将在下次调用 {@link Primitive#update} 时被渲染。
    *
    * @memberof Primitive.prototype
    *
@@ -2075,18 +2067,18 @@ function updateAndQueueCommands(
 }
 
 /**
- * Called when {@link Viewer} or {@link CesiumWidget} render the scene to
- * get the draw commands needed to render this primitive.
+ * 当 {@link Viewer} 或 {@link CesiumWidget} 渲染场景时被调用，
+ * 以获取渲染该原始对象所需的绘制命令。
  * <p>
- * Do not call this function directly.  This is documented just to
- * list the exceptions that may be propagated when the scene is rendered:
+ * 不要直接调用此函数。此文档仅用于列出在渲染场景时可能传播的异常：
  * </p>
  *
- * @exception {DeveloperError} All instance geometries must have the same primitiveType.
- * @exception {DeveloperError} Appearance and material have a uniform with the same name.
- * @exception {DeveloperError} Primitive.modelMatrix is only supported in 3D mode.
- * @exception {RuntimeError} Vertex texture fetch support is required to render primitives with per-instance attributes. The maximum number of vertex texture image units must be greater than zero.
+ * @exception {DeveloperError} 所有实例几何体必须具有相同的 primitiveType。
+ * @exception {DeveloperError} Appearance 和材质具有相同名称的 uniform。
+ * @exception {DeveloperError} Primitive.modelMatrix 仅在 3D 模式下支持。
+ * @exception {RuntimeError} 渲染具有每实例属性的原始对象需要支持顶点纹理获取。顶点纹理图像单元的最大数量必须大于零。
  */
+
 Primitive.prototype.update = function (frameState) {
   if (
     (!defined(this.geometryInstances) && this._va.length === 0) ||
@@ -2372,12 +2364,12 @@ function createPickIdProperty(primitive, properties, index) {
 }
 
 /**
- * Returns the modifiable per-instance attributes for a {@link GeometryInstance}.
+ * 返回 {@link GeometryInstance} 的可修改每实例属性。
  *
- * @param {*} id The id of the {@link GeometryInstance}.
- * @returns {object} The typed array in the attribute's format or undefined if the is no instance with id.
+ * @param {*} id {@link GeometryInstance} 的 ID。
+ * @returns {object} 属性格式的类型数组，如果没有具有该 ID 的实例则返回 undefined。
  *
- * @exception {DeveloperError} must call update before calling getGeometryInstanceAttributes.
+ * @exception {DeveloperError} 必须在调用 getGeometryInstanceAttributes 之前调用 update。
  *
  * @example
  * const attributes = primitive.getGeometryInstanceAttributes('an id');
@@ -2444,13 +2436,12 @@ Primitive.prototype.getGeometryInstanceAttributes = function (id) {
 };
 
 /**
- * Returns true if this object was destroyed; otherwise, false.
+ * 如果此对象已被销毁，则返回 true；否则返回 false。
  * <p>
- * If this object was destroyed, it should not be used; calling any function other than
- * <code>isDestroyed</code> will result in a {@link DeveloperError} exception.
+ * 如果此对象已被销毁，则不应使用；调用除 <code>isDestroyed</code> 之外的任何功能将导致 {@link DeveloperError} 异常。
  * </p>
  *
- * @returns {boolean} <code>true</code> if this object was destroyed; otherwise, <code>false</code>.
+ * @returns {boolean} 如果此对象已被销毁，则返回 <code>true</code>；否则返回 <code>false</code>。
  *
  * @see Primitive#destroy
  */
@@ -2459,15 +2450,14 @@ Primitive.prototype.isDestroyed = function () {
 };
 
 /**
- * Destroys the WebGL resources held by this object.  Destroying an object allows for deterministic
- * release of WebGL resources, instead of relying on the garbage collector to destroy this object.
+ * 销毁此对象持有的 WebGL 资源。销毁对象允许确定性地释放
+ * WebGL 资源，而不是依赖于垃圾收集器销毁此对象。
  * <p>
- * Once an object is destroyed, it should not be used; calling any function other than
- * <code>isDestroyed</code> will result in a {@link DeveloperError} exception.  Therefore,
- * assign the return value (<code>undefined</code>) to the object as done in the example.
+ * 一旦对象被销毁，就不应使用；调用除 <code>isDestroyed</code> 之外的任何功能将导致 {@link DeveloperError} 异常。因此，
+ * 将返回值 (<code>undefined</code>) 赋给对象，如示例中所示。
  * </p>
  *
- * @exception {DeveloperError} This object was destroyed, i.e., destroy() was called.
+ * @exception {DeveloperError} 此对象已被销毁，即调用了 destroy()。
  *
  *
  * @example

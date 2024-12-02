@@ -1,13 +1,14 @@
 import WebGLConstants from "./WebGLConstants.js";
 
 /**
- * The type of a geometric primitive, i.e., points, lines, and triangles.
+ * 几何原始对象的类型，例如点、线和三角形。
  *
  * @enum {number}
  */
+
 const PrimitiveType = {
   /**
-   * Points primitive where each vertex (or index) is a separate point.
+   * 点原始对象，每个顶点（或索引）是一个独立的点。
    *
    * @type {number}
    * @constant
@@ -15,7 +16,7 @@ const PrimitiveType = {
   POINTS: WebGLConstants.POINTS,
 
   /**
-   * Lines primitive where each two vertices (or indices) is a line segment.  Line segments are not necessarily connected.
+   * 线原始对象，每两个顶点（或索引）形成一条线段。线段不一定相连。
    *
    * @type {number}
    * @constant
@@ -23,8 +24,8 @@ const PrimitiveType = {
   LINES: WebGLConstants.LINES,
 
   /**
-   * Line loop primitive where each vertex (or index) after the first connects a line to
-   * the previous vertex, and the last vertex implicitly connects to the first.
+   * 线环原始对象，每个顶点（或索引）在第一个之后连接到前一个顶点，
+   * 最后一个顶点隐式连接到第一个。
    *
    * @type {number}
    * @constant
@@ -32,7 +33,7 @@ const PrimitiveType = {
   LINE_LOOP: WebGLConstants.LINE_LOOP,
 
   /**
-   * Line strip primitive where each vertex (or index) after the first connects a line to the previous vertex.
+   * 线条带原始对象，每个顶点（或索引）在第一个之后连接到前一个顶点。
    *
    * @type {number}
    * @constant
@@ -40,7 +41,7 @@ const PrimitiveType = {
   LINE_STRIP: WebGLConstants.LINE_STRIP,
 
   /**
-   * Triangles primitive where each three vertices (or indices) is a triangle.  Triangles do not necessarily share edges.
+   * 三角形原始对象，每三个顶点（或索引）形成一个三角形。三角形不一定共享边。
    *
    * @type {number}
    * @constant
@@ -48,8 +49,8 @@ const PrimitiveType = {
   TRIANGLES: WebGLConstants.TRIANGLES,
 
   /**
-   * Triangle strip primitive where each vertex (or index) after the first two connect to
-   * the previous two vertices forming a triangle.  For example, this can be used to model a wall.
+   * 三角形带原始对象，每个在前两个之后的顶点（或索引）连接到
+   * 前两个顶点形成一个三角形。例如，这可以用于建模一面墙。
    *
    * @type {number}
    * @constant
@@ -57,15 +58,15 @@ const PrimitiveType = {
   TRIANGLE_STRIP: WebGLConstants.TRIANGLE_STRIP,
 
   /**
-   * Triangle fan primitive where each vertex (or index) after the first two connect to
-   * the previous vertex and the first vertex forming a triangle.  For example, this can be used
-   * to model a cone or circle.
+   * 三角形扇原始对象，每个在前两个之后的顶点（或索引）连接到
+   * 前一个顶点和第一个顶点形成一个三角形。例如，这可以用于建模一个圆锥或圆圈。
    *
    * @type {number}
    * @constant
    */
   TRIANGLE_FAN: WebGLConstants.TRIANGLE_FAN,
 };
+
 
 /**
  * @private

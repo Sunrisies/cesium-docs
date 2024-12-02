@@ -6,21 +6,20 @@ import CesiumMath from "./Math.js";
 import PerspectiveOffCenterFrustum from "./PerspectiveOffCenterFrustum.js";
 
 /**
- * The viewing frustum is defined by 6 planes.
- * Each plane is represented by a {@link Cartesian4} object, where the x, y, and z components
- * define the unit vector normal to the plane, and the w component is the distance of the
- * plane from the origin/camera position.
+ * 视锥体由 6 个平面定义。
+ * 每个平面由一个 {@link Cartesian4} 对象表示，其中 x、y 和 z 分量
+ * 定义了法向量的单位向量，w 分量是平面离原点/相机位置的距离。
  *
  * @alias PerspectiveFrustum
  * @constructor
  *
- * @param {object} [options] An object with the following properties:
- * @param {number} [options.fov] The angle of the field of view (FOV), in radians.
- * @param {number} [options.aspectRatio] The aspect ratio of the frustum's width to it's height.
- * @param {number} [options.near=1.0] The distance of the near plane.
- * @param {number} [options.far=500000000.0] The distance of the far plane.
- * @param {number} [options.xOffset=0.0] The offset in the x direction.
- * @param {number} [options.yOffset=0.0] The offset in the y direction.
+ * @param {object} [options] 具有以下属性的对象：
+ * @param {number} [options.fov] 视场角（FOV），以弧度表示。
+ * @param {number} [options.aspectRatio] 视锥体宽度与高度的纵横比。
+ * @param {number} [options.near=1.0] 近平面的距离。
+ * @param {number} [options.far=500000000.0] 远平面的距离。
+ * @param {number} [options.xOffset=0.0] x 方向上的偏移量。
+ * @param {number} [options.yOffset=0.0] y 方向上的偏移量。
  *
  * @example
  * const frustum = new Cesium.PerspectiveFrustum({
@@ -38,9 +37,9 @@ function PerspectiveFrustum(options) {
   this._offCenterFrustum = new PerspectiveOffCenterFrustum();
 
   /**
-   * The angle of the field of view (FOV), in radians.  This angle will be used
-   * as the horizontal FOV if the width is greater than the height, otherwise
-   * it will be the vertical FOV.
+   * 视场角（FOV），以弧度表示。该角度将用于
+   * 作为水平 FOV，如果宽度大于高度，则使用，
+   * 否则将为垂直 FOV。
    * @type {number|undefined}
    * @default undefined
    */
@@ -51,7 +50,7 @@ function PerspectiveFrustum(options) {
   this._sseDenominator = undefined;
 
   /**
-   * The aspect ratio of the frustum's width to it's height.
+   * 视锥体宽度与高度的纵横比。
    * @type {number|undefined}
    * @default undefined
    */
@@ -59,7 +58,7 @@ function PerspectiveFrustum(options) {
   this._aspectRatio = undefined;
 
   /**
-   * The distance of the near plane.
+   * 近平面的距离。
    * @type {number}
    * @default 1.0
    */
@@ -67,7 +66,7 @@ function PerspectiveFrustum(options) {
   this._near = this.near;
 
   /**
-   * The distance of the far plane.
+   * 远平面的距离。
    * @type {number}
    * @default 500000000.0
    */
@@ -75,7 +74,7 @@ function PerspectiveFrustum(options) {
   this._far = this.far;
 
   /**
-   * Offsets the frustum in the x direction.
+   * x 方向上的视锥体偏移量。
    * @type {number}
    * @default 0.0
    */
@@ -83,13 +82,14 @@ function PerspectiveFrustum(options) {
   this._xOffset = this.xOffset;
 
   /**
-   * Offsets the frustum in the y direction.
+   * y 方向上的视锥体偏移量。
    * @type {number}
    * @default 0.0
    */
   this.yOffset = defaultValue(options.yOffset, 0.0);
   this._yOffset = this.yOffset;
 }
+
 
 /**
  * 用于将对象打包到数组中的元素数量。
@@ -130,8 +130,9 @@ PerspectiveFrustum.pack = function (value, array, startingIndex) {
  * @param {number[]} array 压缩数组.
  * @param {number} [startingIndex=0] 需要解包的元素的起始索引.
  * @param {PerspectiveFrustum} [result] 存储结果的对象.
- * @returns {PerspectiveFrustum} The modified result parameter or a new PerspectiveFrustum instance if one was not provided.
+ * @returns {PerspectiveFrustum} 修改后的结果参数或如果未提供，则返回一个新的 PerspectiveFrustum 实例.
  */
+
 PerspectiveFrustum.unpack = function (array, startingIndex, result) {
   //>>includeStart('debug', pragmas.debug);
   Check.defined("array", array);
@@ -224,8 +225,8 @@ function update(frustum) {
 
 Object.defineProperties(PerspectiveFrustum.prototype, {
   /**
-   * Gets the perspective projection matrix computed from the view frustum.
-   * If necessary, the projection matrix will be recomputed.
+   * 获取从视锥体计算出的透视投影矩阵。
+   * 如果必要，投影矩阵将被重新计算。
    *
    * @memberof PerspectiveFrustum.prototype
    * @type {Matrix4}
@@ -234,6 +235,7 @@ Object.defineProperties(PerspectiveFrustum.prototype, {
    * @see PerspectiveOffCenterFrustum#projectionMatrix.
    * @see PerspectiveFrustum#infiniteProjectionMatrix
    */
+
   projectionMatrix: {
     get: function () {
       update(this);
@@ -242,7 +244,7 @@ Object.defineProperties(PerspectiveFrustum.prototype, {
   },
 
   /**
-   * The perspective projection matrix computed from the view frustum with an infinite far plane.
+   * 从视锥体计算出的透视投影矩阵，具有无限远平面。
    * @memberof PerspectiveFrustum.prototype
    * @type {Matrix4}
    * @readonly
@@ -257,12 +259,13 @@ Object.defineProperties(PerspectiveFrustum.prototype, {
   },
 
   /**
-   * Gets the angle of the vertical field of view, in radians.
+   * 获取垂直视场角，以弧度表示。
    * @memberof PerspectiveFrustum.prototype
    * @type {number|undefined}
    * @readonly
    * @default undefined
    */
+
   fovy: {
     get: function () {
       update(this);
@@ -282,12 +285,13 @@ Object.defineProperties(PerspectiveFrustum.prototype, {
   },
 
   /**
-   * Gets the orthographic projection matrix computed from the view frustum.
+   * 获取从视锥体计算出的正交投影矩阵。
    * @memberof PerspectiveFrustum.prototype
    * @type {PerspectiveOffCenterFrustum}
    * @readonly
    * @private
    */
+
   offCenterFrustum: {
     get: function () {
       update(this);
@@ -297,12 +301,12 @@ Object.defineProperties(PerspectiveFrustum.prototype, {
 });
 
 /**
- * Creates a culling volume for this frustum.
+ * 为此视锥体创建一个剔除体。
  *
- * @param {Cartesian3} position The eye position.
- * @param {Cartesian3} direction The view direction.
- * @param {Cartesian3} up The up direction.
- * @returns {CullingVolume} A culling volume at the given position and orientation.
+ * @param {Cartesian3} position 眼睛的位置。
+ * @param {Cartesian3} direction 视线方向。
+ * @param {Cartesian3} up 上方向。
+ * @returns {CullingVolume} 在给定位置和方向的剔除体。
  *
  * @example
  * // Check if a bounding volume intersects the frustum.
@@ -319,18 +323,18 @@ PerspectiveFrustum.prototype.computeCullingVolume = function (
 };
 
 /**
- * Returns the pixel's width and height in meters.
+ * 返回像素在米中的宽度和高度。
  *
- * @param {number} drawingBufferWidth The width of the drawing buffer.
- * @param {number} drawingBufferHeight The height of the drawing buffer.
- * @param {number} distance The distance to the near plane in meters.
- * @param {number} pixelRatio The scaling factor from pixel space to coordinate space.
- * @param {Cartesian2} result 存储结果的对象.
- * @returns {Cartesian2} The modified result parameter or a new instance of {@link Cartesian2} with the pixel's width and height in the x and y properties, respectively.
+ * @param {number} drawingBufferWidth 绘图缓冲区的宽度。
+ * @param {number} drawingBufferHeight 绘图缓冲区的高度。
+ * @param {number} distance 到近平面的距离（以米为单位）。
+ * @param {number} pixelRatio 从像素空间到坐标空间的缩放因子。
+ * @param {Cartesian2} result 存储结果的对象。
+ * @returns {Cartesian2} 修改后的结果参数或一个新的 {@link Cartesian2} 实例，其 x 和 y 属性分别为像素的宽度和高度。
  *
- * @exception {DeveloperError} drawingBufferWidth must be greater than zero.
- * @exception {DeveloperError} drawingBufferHeight must be greater than zero.
- * @exception {DeveloperError} pixelRatio must be greater than zero.
+ * @exception {DeveloperError} drawingBufferWidth 必须大于零。
+ * @exception {DeveloperError} drawingBufferHeight 必须大于零。
+ * @exception {DeveloperError} pixelRatio 必须大于零。
  *
  * @example
  * // Example 1
@@ -366,11 +370,12 @@ PerspectiveFrustum.prototype.getPixelDimensions = function (
 };
 
 /**
- * Returns a duplicate of a PerspectiveFrustum instance.
+ * 返回一个 PerspectiveFrustum 实例的副本。
  *
  * @param {PerspectiveFrustum} [result] 存储结果的对象.
- * @returns {PerspectiveFrustum} The modified result parameter or a new PerspectiveFrustum instance if one was not provided.
+ * @returns {PerspectiveFrustum} 修改后的结果参数或如果未提供，则返回一个新的 PerspectiveFrustum 实例。
  */
+
 PerspectiveFrustum.prototype.clone = function (result) {
   if (!defined(result)) {
     result = new PerspectiveFrustum();
@@ -393,12 +398,13 @@ PerspectiveFrustum.prototype.clone = function (result) {
 };
 
 /**
- * Compares the provided PerspectiveFrustum componentwise and returns
- * 如果相等则为 <code>true</code>，否则为 <code>false</code>
+ * 按组件比较提供的 PerspectiveFrustum，并返回
+ * 如果相等则为 <code>true</code>，否则为 <code>false</code>。
  *
- * @param {PerspectiveFrustum} [other] The right hand side PerspectiveFrustum.
- * @returns {boolean} 如果相等则为 <code>true</code>，否则为 <code>false</code>
+ * @param {PerspectiveFrustum} [other] 右侧的 PerspectiveFrustum。
+ * @returns {boolean} 如果相等则为 <code>true</code>，否则为 <code>false</code>。
  */
+
 PerspectiveFrustum.prototype.equals = function (other) {
   if (!defined(other) || !(other instanceof PerspectiveFrustum)) {
     return false;
@@ -413,16 +419,16 @@ PerspectiveFrustum.prototype.equals = function (other) {
     this._offCenterFrustum.equals(other._offCenterFrustum)
   );
 };
-
 /**
- * Compares the provided PerspectiveFrustum componentwise and returns
+ * 按组件比较提供的 PerspectiveFrustum，并返回
  * 如果通过绝对或相对公差测试，则为 <code>true</code>，否则为 <code>false</code>。
  *
- * @param {PerspectiveFrustum} other The right hand side PerspectiveFrustum.
- * @param {number} relativeEpsilon 用于相等性测试的相对 epsilon 容差.
- * @param {number} [absoluteEpsilon=relativeEpsilon] 用于平等测试的绝对 epsilon 容差.
- * @returns {boolean} <code>true</code> if this and other are within the provided epsilon, <code>false</code> otherwise.
+ * @param {PerspectiveFrustum} other 右侧的 PerspectiveFrustum。
+ * @param {number} relativeEpsilon 用于相等性测试的相对 epsilon 容差。
+ * @param {number} [absoluteEpsilon=relativeEpsilon] 用于平等测试的绝对 epsilon 容差。
+ * @returns {boolean} <code>true</code> 如果 this 和 other 在提供的 epsilon 内，<code>false</code> 否则。
  */
+
 PerspectiveFrustum.prototype.equalsEpsilon = function (
   other,
   relativeEpsilon,

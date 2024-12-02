@@ -39,34 +39,35 @@ const pageUri =
 const requestCompletedEvent = new Event();
 
 /**
- * The request scheduler is used to track and constrain the number of active requests in order to prioritize incoming requests. The ability
- * to retain control over the number of requests in CesiumJS is important because due to events such as changes in the camera position,
- * a lot of new requests may be generated and a lot of in-flight requests may become redundant. The request scheduler manually constrains the
- * number of requests so that newer requests wait in a shorter queue and don't have to compete for bandwidth with requests that have expired.
+ * 请求调度器用于跟踪和限制活跃请求的数量，以优先处理传入的请求。
+ * 在 CesiumJS 中保持对请求数量的控制非常重要，因为由于相机位置等事件的变化，可能会生成大量新请求，
+ * 同时很多正在处理的请求可能变得多余。请求调度器手动限制请求的数量，以便新请求能够在更短的队列中等待，
+ * 而不必与已过期的请求竞争带宽。
  *
  * @namespace RequestScheduler
  *
  */
+
 function RequestScheduler() {}
 
 /**
- * The maximum number of simultaneous active requests. Un-throttled requests do not observe this limit.
+ * 同时活跃请求的最大数量。未进行节流的请求不受此限制。
  * @type {number}
  * @default 50
  */
 RequestScheduler.maximumRequests = 50;
 
 /**
- * The maximum number of simultaneous active requests per server. Un-throttled requests or servers specifically
- * listed in {@link requestsByServer} do not observe this limit.
+ * 每个服务器同时活跃请求的最大数量。未进行节流的请求或在 {@link requestsByServer} 中专门列出的服务器不受此限制。
  * @type {number}
  * @default 18
  */
+
 RequestScheduler.maximumRequestsPerServer = 18;
 
 /**
- * A per server key list of overrides to use for throttling instead of <code>maximumRequestsPerServer</code>.
- * Useful when streaming data from a known HTTP/2 or HTTP/3 server.
+ * 每个服务器的键列表，用于替代 <code>maximumRequestsPerServer</code> 的节流设置。
+ * 在从已知的 HTTP/2 或 HTTP/3 服务器流式传输数据时非常有用。
  * @type {object}
  *
  * @example
@@ -81,14 +82,14 @@ RequestScheduler.maximumRequestsPerServer = 18;
 RequestScheduler.requestsByServer = {};
 
 /**
- * Specifies if the request scheduler should throttle incoming requests, or let the browser queue requests under its control.
+ * 指定请求调度器是否应对传入请求进行节流，或让浏览器在其控制下排队请求。
  * @type {boolean}
  * @default true
  */
 RequestScheduler.throttleRequests = true;
 
 /**
- * When true, log statistics to the console every frame
+ * 如果为 true，则每帧将统计信息记录到控制台。
  * @type {boolean}
  * @default false
  * @private
@@ -96,18 +97,18 @@ RequestScheduler.throttleRequests = true;
 RequestScheduler.debugShowStatistics = false;
 
 /**
- * An event that's raised when a request is completed.  Event handlers are passed
- * the error object if the request fails.
+ * 当请求完成时触发的事件。如果请求失败，事件处理程序将收到错误对象。
  *
  * @type {Event}
  * @default Event()
  * @private
  */
+
 RequestScheduler.requestCompletedEvent = requestCompletedEvent;
 
 Object.defineProperties(RequestScheduler, {
   /**
-   * Returns the statistics used by the request scheduler.
+   * 返回请求调度器使用的统计信息。
    *
    * @memberof RequestScheduler
    *
@@ -122,7 +123,7 @@ Object.defineProperties(RequestScheduler, {
   },
 
   /**
-   * The maximum size of the priority heap. This limits the number of requests that are sorted by priority. Only applies to requests that are not yet active.
+   * 优先级堆的最大大小。这限制了按优先级排序的请求数量。仅适用于尚未激活的请求。
    *
    * @memberof RequestScheduler
    *
@@ -130,6 +131,7 @@ Object.defineProperties(RequestScheduler, {
    * @default 20
    * @private
    */
+
   priorityHeapLength: {
     get: function () {
       return priorityHeapLength;
@@ -157,12 +159,13 @@ function updatePriority(request) {
 }
 
 /**
- * Check if there are open slots for a particular server key. If desiredRequests is greater than 1, this checks if the queue has room for scheduling multiple requests.
- * @param {string} serverKey The server key returned by {@link RequestScheduler.getServerKey}.
- * @param {number} [desiredRequests=1] How many requests the caller plans to request
- * @return {boolean} True if there are enough open slots for <code>desiredRequests</code> more requests.
+ * 检查特定服务器键是否有可用的空槽。如果 desiredRequests 大于 1，则检查队列是否有空间调度多个请求。
+ * @param {string} serverKey 由 {@link RequestScheduler.getServerKey} 返回的服务器键。
+ * @param {number} [desiredRequests=1] 调用者计划请求的请求数量。
+ * @return {boolean} 如果有足够的空槽容纳 <code>desiredRequests</code> 个更多请求，则返回 true。
  * @private
  */
+
 RequestScheduler.serverHasOpenSlots = function (serverKey, desiredRequests) {
   desiredRequests = defaultValue(desiredRequests, 1);
 
@@ -177,14 +180,14 @@ RequestScheduler.serverHasOpenSlots = function (serverKey, desiredRequests) {
 };
 
 /**
- * Check if the priority heap has open slots, regardless of which server they
- * are from. This is used in {@link Multiple3DTileContent} for determining when
- * all requests can be scheduled
- * @param {number} desiredRequests The number of requests the caller intends to make
- * @return {boolean} <code>true</code> if the heap has enough available slots to meet the desiredRequests. <code>false</code> otherwise.
+ * 检查优先级堆是否有空槽，忽略这些槽来自哪个服务器。
+ * 这在 {@link Multiple3DTileContent} 中用于确定何时可以调度所有请求。
+ * @param {number} desiredRequests 调用者打算发出的请求数量。
+ * @return {boolean} 如果堆有足够的可用槽以满足 desiredRequests，则返回 <code>true</code>，否则返回 <code>false</code>。
  *
  * @private
  */
+
 RequestScheduler.heapHasOpenSlots = function (desiredRequests) {
   const hasOpenSlotsHeap =
     requestHeap.length + desiredRequests <= priorityHeapLength;
@@ -271,9 +274,10 @@ function cancelRequest(request) {
 }
 
 /**
- * Sort requests by priority and start requests.
+ * 按优先级排序请求并启动请求。
  * @private
  */
+
 RequestScheduler.update = function () {
   let i;
   let request;
@@ -338,14 +342,14 @@ RequestScheduler.update = function () {
 
   updateStatistics();
 };
-
 /**
- * Get the server key from a given url.
+ * 从给定的 URL 获取服务器键。
  *
- * @param {string} url The url.
- * @returns {string} The server key.
+ * @param {string} url URL。
+ * @returns {string} 服务器键。
  * @private
  */
+
 RequestScheduler.getServerKey = function (url) {
   //>>includeStart('debug', pragmas.debug);
   Check.typeOf.string("url", url);
@@ -372,15 +376,15 @@ RequestScheduler.getServerKey = function (url) {
 };
 
 /**
- * Issue a request. If request.throttle is false, the request is sent immediately. Otherwise the request will be
- * queued and sorted by priority before being sent.
+ * 发起请求。如果 request.throttle 为 false，则请求立即发送。否则，请求将被排队并按优先级排序后发送。
  *
- * @param {Request} request The request object.
+ * @param {Request} request 请求对象。
  *
- * @returns {Promise|undefined} A Promise for the requested data, or undefined if this request does not have high enough priority to be issued.
+ * @returns {Promise|undefined} 请求数据的 Promise，如果该请求的优先级不够高而无法发出，则返回 undefined。
  *
  * @private
  */
+
 RequestScheduler.request = function (request) {
   //>>includeStart('debug', pragmas.debug);
   Check.typeOf.object("request", request);
@@ -477,10 +481,11 @@ function updateStatistics() {
 }
 
 /**
- * For testing only. Clears any requests that may not have completed from previous tests.
+ * 仅供测试使用。清除之前测试中可能未完成的所有请求。
  *
  * @private
  */
+
 RequestScheduler.clearForSpecs = function () {
   while (requestHeap.length > 0) {
     const request = requestHeap.pop();
@@ -504,7 +509,7 @@ RequestScheduler.clearForSpecs = function () {
 };
 
 /**
- * For testing only.
+ * 仅供测试使用。
  *
  * @private
  */
@@ -513,9 +518,10 @@ RequestScheduler.numberOfActiveRequestsByServer = function (serverKey) {
 };
 
 /**
- * For testing only.
+ * 仅供测试使用。
  *
  * @private
  */
+
 RequestScheduler.requestHeap = requestHeap;
 export default RequestScheduler;

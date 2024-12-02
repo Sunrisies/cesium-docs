@@ -641,13 +641,14 @@ PolylineUpdater.prototype.destroy = function () {
 };
 
 /**
- * A {@link Visualizer} which maps {@link Entity#path} to a {@link Polyline}.
+ * 一个 {@link Visualizer}，将 {@link Entity#path} 映射到 {@link Polyline}。
  * @alias PathVisualizer
  * @constructor
  *
- * @param {Scene} scene The scene the primitives will be rendered in.
- * @param {EntityCollection} entityCollection The entityCollection to visualize.
+ * @param {Scene} scene 将要在其中渲染基元的场景。
+ * @param {EntityCollection} entityCollection 要可视化的实体集合。
  */
+
 function PathVisualizer(scene, entityCollection) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(scene)) {
@@ -672,12 +673,12 @@ function PathVisualizer(scene, entityCollection) {
 }
 
 /**
- * Updates all of the primitives created by this visualizer to match their
- * Entity counterpart at the given time.
+ * 更新此可视化器创建的所有基元，以与给定时间的实体对应物匹配。
  *
- * @param {JulianDate} time The time to update to.
- * @returns {boolean} This function always returns true.
+ * @param {JulianDate} time 要更新到的时间。
+ * @returns {boolean} 此函数始终返回 true。
  */
+
 PathVisualizer.prototype.update = function (time) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(time)) {
@@ -744,17 +745,18 @@ PathVisualizer.prototype.update = function (time) {
 };
 
 /**
- * Returns true if this object was destroyed; otherwise, false.
+ * 如果该对象已被销毁，则返回 true；否则返回 false。
  *
- * @returns {boolean} True if this object was destroyed; otherwise, false.
+ * @returns {boolean} 如果该对象已被销毁，则为 true；否则为 false。
  */
 PathVisualizer.prototype.isDestroyed = function () {
   return false;
 };
 
 /**
- * Removes and destroys all primitives created by this instance.
+ * 移除并销毁此实例创建的所有基元。
  */
+
 PathVisualizer.prototype.destroy = function () {
   this._entityCollection.collectionChanged.removeEventListener(
     PathVisualizer.prototype._onCollectionChanged,

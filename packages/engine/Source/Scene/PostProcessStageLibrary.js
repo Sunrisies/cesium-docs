@@ -29,10 +29,11 @@ import PostProcessStageComposite from "./PostProcessStageComposite.js";
 import PostProcessStageSampleMode from "./PostProcessStageSampleMode.js";
 
 /**
- * Contains functions for creating common post-process stages.
+ * 包含用于创建常见后处理阶段的函数。
  *
  * @namespace PostProcessStageLibrary
  */
+
 const PostProcessStageLibrary = {};
 
 function createBlur(name) {
@@ -105,39 +106,39 @@ function createBlur(name) {
 }
 
 /**
- * Creates a post-process stage that applies a Gaussian blur to the input texture. This stage is usually applied in conjunction with another stage.
+ * 创建一个后处理阶段，对输入纹理应用高斯模糊。这个阶段通常与其他阶段一起应用。
  * <p>
- * This stage has the following uniforms: <code>delta</code>, <code>sigma</code>, and <code>stepSize</code>.
+ * 此阶段具有以下 uniforms： <code>delta</code>、<code>sigma</code> 和 <code>stepSize</code>。
  * </p>
  * <p>
- * <code>delta</code> and <code>sigma</code> are used to compute the weights of a Gaussian filter. The equation is <code>exp((-0.5 * delta * delta) / (sigma * sigma))</code>.
- * The default value for <code>delta</code> is <code>1.0</code>. The default value for <code>sigma</code> is <code>2.0</code>.
- * <code>stepSize</code> is the distance to the next texel. The default is <code>1.0</code>.
+ * <code>delta</code> 和 <code>sigma</code> 用于计算高斯滤波器的权重。计算公式为 <code>exp((-0.5 * delta * delta) / (sigma * sigma))</code>。
+ * <code>delta</code> 的默认值为 <code>1.0</code>。<code>sigma</code> 的默认值为 <code>2.0</code>。
+ * <code>stepSize</code> 是到下一个纹理元素的距离。默认值为 <code>1.0</code>。
  * </p>
- * @return {PostProcessStageComposite} A post-process stage that applies a Gaussian blur to the input texture.
+ * @return {PostProcessStageComposite} 一个后处理阶段，对输入纹理应用高斯模糊。
  */
 PostProcessStageLibrary.createBlurStage = function () {
   return createBlur("czm_blur");
 };
 
 /**
- * Creates a post-process stage that applies a depth of field effect.
+ * 创建一个后处理阶段，应用景深效果。
  * <p>
- * Depth of field simulates camera focus. Objects in the scene that are in focus
- * will be clear whereas objects not in focus will be blurred.
+ * 景深模拟相机对焦。场景中的对焦物体会清晰，而未对焦的物体会模糊。
  * </p>
  * <p>
- * This stage has the following uniforms: <code>focalDistance</code>, <code>delta</code>, <code>sigma</code>, and <code>stepSize</code>.
+ * 此阶段具有以下 uniforms： <code>focalDistance</code>、<code>delta</code>、<code>sigma</code> 和 <code>stepSize</code>。
  * </p>
  * <p>
- * <code>focalDistance</code> is the distance in meters from the camera to set the camera focus.
+ * <code>focalDistance</code> 是从相机到设置相机对焦的距离（以米为单位）。
  * </p>
  * <p>
- * <code>delta</code>, <code>sigma</code>, and <code>stepSize</code> are the same properties as {@link PostProcessStageLibrary#createBlurStage}.
- * The blur is applied to the areas out of focus.
+ * <code>delta</code>、<code>sigma</code> 和 <code>stepSize</code> 是与 {@link PostProcessStageLibrary#createBlurStage} 相同的属性。
+ * 模糊应用于未对焦的区域。
  * </p>
- * @return {PostProcessStageComposite} A post-process stage that applies a depth of field effect.
+ * @return {PostProcessStageComposite} 一个后处理阶段，应用景深效果。
  */
+
 PostProcessStageLibrary.createDepthOfFieldStage = function () {
   const blur = createBlur("czm_depth_of_field_blur");
   const dof = new PostProcessStage({
@@ -193,13 +194,13 @@ PostProcessStageLibrary.createDepthOfFieldStage = function () {
 };
 
 /**
- * Whether or not a depth of field stage is supported.
+ * 是否支持景深阶段。
  * <p>
- * This stage requires the WEBGL_depth_texture extension.
+ * 此阶段需要 WEBGL_depth_texture 扩展。
  * </p>
  *
- * @param {Scene} scene The scene.
- * @return {boolean} Whether this post process stage is supported.
+ * @param {Scene} scene 场景。
+ * @return {boolean} 该后处理阶段是否受支持。
  *
  * @see {Context#depthTexture}
  * @see {@link http://www.khronos.org/registry/webgl/extensions/WEBGL_depth_texture/|WEBGL_depth_texture}
@@ -209,21 +210,21 @@ PostProcessStageLibrary.isDepthOfFieldSupported = function (scene) {
 };
 
 /**
- * Creates a post-process stage that detects edges.
+ * 创建一个检测边缘的后处理阶段。
  * <p>
- * Writes the color to the output texture with alpha set to 1.0 when it is on an edge.
+ * 在边缘处，将颜色写入输出纹理，alpha 设置为 1.0。
  * </p>
  * <p>
- * This stage has the following uniforms: <code>color</code> and <code>length</code>
+ * 此阶段具有以下 uniforms： <code>color</code> 和 <code>length</code>
  * </p>
  * <ul>
- * <li><code>color</code> is the color of the highlighted edge. The default is {@link Color#BLACK}.</li>
- * <li><code>length</code> is the length of the edges in pixels. The default is <code>0.5</code>.</li>
+ * <li><code>color</code> 是高亮边缘的颜色。默认值为 {@link Color#BLACK}。</li>
+ * <li><code>length</code> 是以像素为单位的边缘长度。默认值为 <code>0.5</code>。</li>
  * </ul>
  * <p>
- * This stage is not supported in 2D.
+ * 此阶段在 2D 模式下不支持。
  * </p>
- * @return {PostProcessStage} A post-process stage that applies an edge detection effect.
+ * @return {PostProcessStage} 一个应用边缘检测效果的后处理阶段。
  *
  * @example
  * // multiple silhouette effects
@@ -252,13 +253,13 @@ PostProcessStageLibrary.createEdgeDetectionStage = function () {
 };
 
 /**
- * Whether or not an edge detection stage is supported.
+ * 是否支持边缘检测阶段。
  * <p>
- * This stage requires the WEBGL_depth_texture extension.
+ * 此阶段需要 WEBGL_depth_texture 扩展。
  * </p>
  *
- * @param {Scene} scene The scene.
- * @return {boolean} Whether this post process stage is supported.
+ * @param {Scene} scene 场景。
+ * @return {boolean} 该后处理阶段是否受支持。
  *
  * @see {Context#depthTexture}
  * @see {@link http://www.khronos.org/registry/webgl/extensions/WEBGL_depth_texture/|WEBGL_depth_texture}
@@ -314,20 +315,21 @@ function getSilhouetteEdgeDetection(edgeDetectionStages) {
 }
 
 /**
- * Creates a post-process stage that applies a silhouette effect.
+ * 创建一个应用轮廓效果的后处理阶段。
  * <p>
- * A silhouette effect composites the color from the edge detection pass with input color texture.
+ * 轮廓效果将边缘检测阶段的颜色与输入颜色纹理进行复合。
  * </p>
  * <p>
- * This stage has the following uniforms when <code>edgeDetectionStages</code> is <code>undefined</code>: <code>color</code> and <code>length</code>
+ * 当 <code>edgeDetectionStages</code> 为 <code>undefined</code> 时，此阶段具有以下 uniforms： <code>color</code> 和 <code>length</code>。
  * </p>
  * <p>
- * <code>color</code> is the color of the highlighted edge. The default is {@link Color#BLACK}.
- * <code>length</code> is the length of the edges in pixels. The default is <code>0.5</code>.
+ * <code>color</code> 是高亮边缘的颜色。默认值为 {@link Color#BLACK}。
+ * <code>length</code> 是以像素为单位的边缘长度。默认值为 <code>0.5</code>。
  * </p>
- * @param {PostProcessStage[]} [edgeDetectionStages] An array of edge detection post process stages.
- * @return {PostProcessStageComposite} A post-process stage that applies a silhouette effect.
+ * @param {PostProcessStage[]} [edgeDetectionStages] 一个边缘检测后处理阶段的数组。
+ * @return {PostProcessStageComposite} 一个应用轮廓效果的后处理阶段。
  */
+
 PostProcessStageLibrary.createSilhouetteStage = function (edgeDetectionStages) {
   const edgeDetection = getSilhouetteEdgeDetection(edgeDetectionStages);
   const silhouetteProcess = new PostProcessStage({
@@ -347,13 +349,13 @@ PostProcessStageLibrary.createSilhouetteStage = function (edgeDetectionStages) {
 };
 
 /**
- * Whether or not a silhouette stage is supported.
+ * 是否支持轮廓阶段。
  * <p>
- * This stage requires the WEBGL_depth_texture extension.
+ * 此阶段需要 WEBGL_depth_texture 扩展。
  * </p>
  *
- * @param {Scene} scene The scene.
- * @return {boolean} Whether this post process stage is supported.
+ * @param {Scene} scene 场景。
+ * @return {boolean} 该后处理阶段是否受支持。
  *
  * @see {Context#depthTexture}
  * @see {@link http://www.khronos.org/registry/webgl/extensions/WEBGL_depth_texture/|WEBGL_depth_texture}
@@ -363,28 +365,28 @@ PostProcessStageLibrary.isSilhouetteSupported = function (scene) {
 };
 
 /**
- * Creates a post-process stage that applies a bloom effect to the input texture.
+ * 创建一个对输入纹理应用辉光效果的后处理阶段。
  * <p>
- * A bloom effect adds glow effect, makes bright areas brighter, and dark areas darker.
+ * 辉光效果添加了发光效果，使亮区更亮，暗区更暗。
  * </p>
  * <p>
- * This post-process stage has the following uniforms: <code>contrast</code>, <code>brightness</code>, <code>glowOnly</code>,
- * <code>delta</code>, <code>sigma</code>, and <code>stepSize</code>.
+ * 此后处理阶段具有以下 uniforms： <code>contrast</code>、<code>brightness</code>、<code>glowOnly</code>、
+ * <code>delta</code>、<code>sigma</code> 和 <code>stepSize</code>。
  * </p>
  * <ul>
- * <li><code>contrast</code> is a scalar value in the range [-255.0, 255.0] and affects the contract of the effect. The default value is <code>128.0</code>.</li>
- * <li><code>brightness</code> is a scalar value. The input texture RGB value is converted to hue, saturation, and brightness (HSB) then this value is
- * added to the brightness. The default value is <code>-0.3</code>.</li>
- * <li><code>glowOnly</code> is a boolean value. When <code>true</code>, only the glow effect will be shown. When <code>false</code>, the glow will be added to the input texture.
- * The default value is <code>false</code>. This is a debug option for viewing the effects when changing the other uniform values.</li>
+ * <li><code>contrast</code> 是范围为 [-255.0, 255.0] 的标量值，影响效果的对比度。默认值为 <code>128.0</code>。</li>
+ * <li><code>brightness</code> 是一个标量值。输入纹理的 RGB 值被转换为色调、饱和度和亮度 (HSB)，然后将这个值添加到亮度中。默认值为 <code>-0.3</code>。</li>
+ * <li><code>glowOnly</code> 是一个布尔值。当 <code>true</code> 时，仅显示辉光效果；当 <code>false</code> 时，辉光将添加到输入纹理中。
+ * 默认值为 <code>false</code>。这是一个调试选项，用于查看更改其他 uniform 值时的效果。</li>
  * </ul>
  * <p>
- * <code>delta</code>, <code>sigma</code>, and <code>stepSize</code> are the same properties as {@link PostProcessStageLibrary#createBlurStage}.
+ * <code>delta</code>、<code>sigma</code> 和 <code>stepSize</code> 是与 {@link PostProcessStageLibrary#createBlurStage} 相同的属性。
  * </p>
- * @return {PostProcessStageComposite} A post-process stage to applies a bloom effect.
+ * @return {PostProcessStageComposite} 一个应用辉光效果的后处理阶段。
  *
  * @private
  */
+
 PostProcessStageLibrary.createBloomStage = function () {
   const contrastBias = new PostProcessStage({
     name: "czm_bloom_contrast_bias",
@@ -470,37 +472,37 @@ PostProcessStageLibrary.createBloomStage = function () {
 };
 
 /**
- * Creates a post-process stage that Horizon-based Ambient Occlusion (HBAO) to the input texture.
+ * 创建一个后处理阶段，对输入纹理应用基于地平线的环境光遮蔽 (HBAO)。
  * <p>
- * Ambient occlusion simulates shadows from ambient light. These shadows would always be present when the
- * surface receives light and regardless of the light's position.
+ * 环境光遮蔽模拟来自环境光的阴影。这些阴影在表面接收光线时始终存在，无论光源的位置如何。
  * </p>
  * <p>
- * The uniforms have the following properties: <code>intensity</code>, <code>bias</code>, <code>lengthCap</code>,
- * <code>stepSize</code>, <code>frustumLength</code>, <code>randomTexture</code>, <code>ambientOcclusionOnly</code>,
- * <code>delta</code>, <code>sigma</code>, and <code>blurStepSize</code>.
+ * 此后处理阶段具有以下 uniforms： <code>intensity</code>、<code>bias</code>、<code>lengthCap</code>、
+ * <code>stepSize</code>、<code>frustumLength</code>、<code>randomTexture</code>、<code>ambientOcclusionOnly</code>、
+ * <code>delta</code>、<code>sigma</code> 和 <code>blurStepSize</code>。
  * </p>
  * <ul>
- * <li><code>intensity</code> is a scalar value used to lighten or darken the shadows exponentially. Higher values make the shadows darker. The default value is <code>3.0</code>.</li>
- * <li><code>bias</code> is a scalar value representing an angle in radians. If the dot product between the normal of the sample and the vector to the camera is less than this value,
- * sampling stops in the current direction. This is used to remove shadows from near planar edges. The default value is <code>0.1</code>.</li>
- * <li><code>lengthCap</code> is a scalar value representing a length in meters. If the distance from the current sample to first sample is greater than this value,
- * sampling stops in the current direction. The default value is <code>0.26</code>.</li>
- * <li><code>stepSize</code> is a scalar value indicating the distance to the next texel sample in the current direction. The default value is <code>1.95</code>.</li>
- * <li><code>frustumLength</code> is a scalar value in meters. If the current fragment has a distance from the camera greater than this value, ambient occlusion is not computed for the fragment.
- * The default value is <code>1000.0</code>.</li>
- * <li><code>randomTexture</code> is a texture where the red channel is a random value in [0.0, 1.0]. The default value is <code>undefined</code>. This texture needs to be set.</li>
- * <li><code>ambientOcclusionOnly</code> is a boolean value. When <code>true</code>, only the shadows generated are written to the output. When <code>false</code>, the input texture is modulated
- * with the ambient occlusion. This is a useful debug option for seeing the effects of changing the uniform values. The default value is <code>false</code>.</li>
+ * <li><code>intensity</code> 是一个标量值，用于以指数方式增强或减弱阴影。较高的值使阴影变得更深。默认值为 <code>3.0</code>。</li>
+ * <li><code>bias</code> 是一个标量值，表示弧度角。如果样本的法线与指向相机的向量之间的点积小于此值，
+ * 则在当前方向上停止采样。这用于消除近似平面边缘的阴影。默认值为 <code>0.1</code>。</li>
+ * <li><code>lengthCap</code> 是一个标量值，表示以米为单位的长度。如果当前样本到第一个样本的距离大于此值，
+ * 则在当前方向上停止采样。默认值为 <code>0.26</code>。</li>
+ * <li><code>stepSize</code> 是一个标量值，表示当前方向上下一个纹理样本的距离。默认值为 <code>1.95</code>。</li>
+ * <li><code>frustumLength</code> 是一个以米为单位的标量值。如果当前片段与相机的距离大于此值，则不计算该片段的环境光遮蔽。
+ * 默认值为 <code>1000.0</code>。</li>
+ * <li><code>randomTexture</code> 是一张纹理，红色通道的随机值在 [0.0, 1.0] 范围内。默认值为 <code>undefined</code>。该纹理需要被设置。</li>
+ * <li><code>ambientOcclusionOnly</code> 是一个布尔值。当 <code>true</code> 时，仅生成的阴影会写入输出。当 <code>false</code> 时，输入纹理会与环境光遮蔽进行调制。
+ * 这是一个有用的调试选项，可以查看更改 uniform 值的效果。默认值为 <code>false</code>。</li>
  * </ul>
  * <p>
- * <code>delta</code>, <code>sigma</code>, and <code>blurStepSize</code> are the same properties as {@link PostProcessStageLibrary#createBlurStage}.
- * The blur is applied to the shadows generated from the image to make them smoother.
+ * <code>delta</code>、<code>sigma</code> 和 <code>blurStepSize</code> 是与 {@link PostProcessStageLibrary#createBlurStage} 相同的属性。
+ * 模糊应用于从图像生成的阴影，以使其更平滑。
  * </p>
- * @return {PostProcessStageComposite} A post-process stage that applies an ambient occlusion effect.
+ * @return {PostProcessStageComposite} 一个应用环境光遮蔽效果的后处理阶段。
  *
  * @private
  */
+
 PostProcessStageLibrary.createAmbientOcclusionStage = function () {
   const generate = new PostProcessStage({
     name: "czm_ambient_occlusion_generate",
@@ -623,13 +625,13 @@ PostProcessStageLibrary.createAmbientOcclusionStage = function () {
 };
 
 /**
- * Whether or not an ambient occlusion stage is supported.
+ * 是否支持环境光遮蔽阶段。
  * <p>
- * This stage requires the WEBGL_depth_texture extension.
+ * 此阶段需要 WEBGL_depth_texture 扩展。
  * </p>
  *
- * @param {Scene} scene The scene.
- * @return {boolean} Whether this post process stage is supported.
+ * @param {Scene} scene 场景。
+ * @return {boolean} 该后处理阶段是否受支持。
  *
  * @see {Context#depthTexture}
  * @see {@link http://www.khronos.org/registry/webgl/extensions/WEBGL_depth_texture/|WEBGL_depth_texture}
@@ -641,8 +643,8 @@ PostProcessStageLibrary.isAmbientOcclusionSupported = function (scene) {
 const fxaaFS = `#define FXAA_QUALITY_PRESET 39 \n${FXAA3_11}\n${FXAA}`;
 
 /**
- * Creates a post-process stage that applies Fast Approximate Anti-aliasing (FXAA) to the input texture.
- * @return {PostProcessStage} A post-process stage that applies Fast Approximate Anti-aliasing to the input texture.
+ * 创建一个对输入纹理应用快速近似抗锯齿（FXAA）的后处理阶段。
+ * @return {PostProcessStage} 一个对输入纹理应用快速近似抗锯齿的后处理阶段。
  *
  * @private
  */
@@ -655,11 +657,12 @@ PostProcessStageLibrary.createFXAAStage = function () {
 };
 
 /**
- * Creates a post-process stage that applies ACES tonemapping operator.
- * @param {boolean} useAutoExposure Whether or not to use auto-exposure.
- * @return {PostProcessStage} A post-process stage that applies ACES tonemapping operator.
+ * 创建一个应用 ACES 调色映射运算符的后处理阶段。
+ * @param {boolean} useAutoExposure 是否使用自动曝光。
+ * @return {PostProcessStage} 一个应用 ACES 调色映射运算符的后处理阶段。
  * @private
  */
+
 PostProcessStageLibrary.createAcesTonemappingStage = function (
   useAutoExposure,
 ) {
@@ -676,9 +679,9 @@ PostProcessStageLibrary.createAcesTonemappingStage = function (
 };
 
 /**
- * Creates a post-process stage that applies filmic tonemapping operator.
- * @param {boolean} useAutoExposure Whether or not to use auto-exposure.
- * @return {PostProcessStage} A post-process stage that applies filmic tonemapping operator.
+ * 创建一个应用影片调色映射运算符的后处理阶段。
+ * @param {boolean} useAutoExposure 是否使用自动曝光。
+ * @return {PostProcessStage} 一个应用影片调色映射运算符的后处理阶段。
  * @private
  */
 PostProcessStageLibrary.createFilmicTonemappingStage = function (
@@ -697,11 +700,12 @@ PostProcessStageLibrary.createFilmicTonemappingStage = function (
 };
 
 /**
- * Creates a post-process stage that applies filmic tonemapping operator.
- * @param {boolean} useAutoExposure Whether or not to use auto-exposure.
- * @return {PostProcessStage} A post-process stage that applies filmic tonemapping operator.
+ * 创建一个应用影片调色映射运算符的后处理阶段。
+ * @param {boolean} useAutoExposure 是否使用自动曝光。
+ * @return {PostProcessStage} 一个应用影片调色映射运算符的后处理阶段。
  * @private
  */
+
 PostProcessStageLibrary.createPbrNeutralTonemappingStage = function (
   useAutoExposure,
 ) {
@@ -718,9 +722,9 @@ PostProcessStageLibrary.createPbrNeutralTonemappingStage = function (
 };
 
 /**
- * Creates a post-process stage that applies Reinhard tonemapping operator.
- * @param {boolean} useAutoExposure Whether or not to use auto-exposure.
- * @return {PostProcessStage} A post-process stage that applies Reinhard tonemapping operator.
+ * 创建一个应用 Reinhard 调色映射运算符的后处理阶段。
+ * @param {boolean} useAutoExposure 是否使用自动曝光。
+ * @return {PostProcessStage} 一个应用 Reinhard 调色映射运算符的后处理阶段。
  * @private
  */
 PostProcessStageLibrary.createReinhardTonemappingStage = function (
@@ -739,11 +743,12 @@ PostProcessStageLibrary.createReinhardTonemappingStage = function (
 };
 
 /**
- * Creates a post-process stage that applies modified Reinhard tonemapping operator.
- * @param {boolean} useAutoExposure Whether or not to use auto-exposure.
- * @return {PostProcessStage} A post-process stage that applies modified Reinhard tonemapping operator.
+ * 创建一个应用修改过的 Reinhard 调色映射运算符的后处理阶段。
+ * @param {boolean} useAutoExposure 是否使用自动曝光。
+ * @return {PostProcessStage} 一个应用修改过的 Reinhard 调色映射运算符的后处理阶段。
  * @private
  */
+
 PostProcessStageLibrary.createModifiedReinhardTonemappingStage = function (
   useAutoExposure,
 ) {
@@ -761,8 +766,8 @@ PostProcessStageLibrary.createModifiedReinhardTonemappingStage = function (
 };
 
 /**
- * Creates a post-process stage that finds the average luminance of the input texture.
- * @return {PostProcessStage} A post-process stage that finds the average luminance of the input texture.
+ * 创建一个后处理阶段，计算输入纹理的平均亮度。
+ * @return {PostProcessStage} 一个计算输入纹理平均亮度的后处理阶段。
  * @private
  */
 PostProcessStageLibrary.createAutoExposureStage = function () {
@@ -770,11 +775,11 @@ PostProcessStageLibrary.createAutoExposureStage = function () {
 };
 
 /**
- * Creates a post-process stage that renders the input texture with black and white gradations.
+ * 创建一个后处理阶段，以黑白渐变渲染输入纹理。
  * <p>
- * This stage has one uniform value, <code>gradations</code>, which scales the luminance of each pixel.
+ * 此阶段有一个 uniform 值 <code>gradations</code>，用来缩放每个像素的亮度。
  * </p>
- * @return {PostProcessStage} A post-process stage that renders the input texture with black and white gradations.
+ * @return {PostProcessStage} 一个以黑白渐变渲染输入纹理的后处理阶段。
  */
 PostProcessStageLibrary.createBlackAndWhiteStage = function () {
   return new PostProcessStage({
@@ -787,12 +792,13 @@ PostProcessStageLibrary.createBlackAndWhiteStage = function () {
 };
 
 /**
- * Creates a post-process stage that saturates the input texture.
+ * 创建一个后处理阶段，增强输入纹理的饱和度。
  * <p>
- * This stage has one uniform value, <code>brightness</code>, which scales the saturation of each pixel.
+ * 此阶段有一个 uniform 值 <code>brightness</code>，用来缩放每个像素的饱和度。
  * </p>
- * @return {PostProcessStage} A post-process stage that saturates the input texture.
+ * @return {PostProcessStage} 一个增强输入纹理饱和度的后处理阶段。
  */
+
 PostProcessStageLibrary.createBrightnessStage = function () {
   return new PostProcessStage({
     name: "czm_brightness",
@@ -804,8 +810,8 @@ PostProcessStageLibrary.createBrightnessStage = function () {
 };
 
 /**
- * Creates a post-process stage that adds a night vision effect to the input texture.
- * @return {PostProcessStage} A post-process stage that adds a night vision effect to the input texture.
+ * 创建一个对输入纹理添加夜视效果的后处理阶段。
+ * @return {PostProcessStage} 一个对输入纹理添加夜视效果的后处理阶段。
  */
 PostProcessStageLibrary.createNightVisionStage = function () {
   return new PostProcessStage({
@@ -815,11 +821,12 @@ PostProcessStageLibrary.createNightVisionStage = function () {
 };
 
 /**
- * Creates a post-process stage that replaces the input color texture with a black and white texture representing the fragment depth at each pixel.
- * @return {PostProcessStage} A post-process stage that replaces the input color texture with a black and white texture representing the fragment depth at each pixel.
+ * 创建一个将输入颜色纹理替换为黑白纹理的后处理阶段，该黑白纹理表示每个像素的片段深度。
+ * @return {PostProcessStage} 一个将输入颜色纹理替换为表示每个像素的片段深度的黑白纹理的后处理阶段。
  *
  * @private
  */
+
 PostProcessStageLibrary.createDepthViewStage = function () {
   return new PostProcessStage({
     name: "czm_depth_view",
@@ -828,23 +835,24 @@ PostProcessStageLibrary.createDepthViewStage = function () {
 };
 
 /**
- * Creates a post-process stage that applies an effect simulating light flaring a camera lens.
+ * 创建一个应用模拟镜头光晕效果的后处理阶段。
  * <p>
- * This stage has the following uniforms: <code>dirtTexture</code>, <code>starTexture</code>, <code>intensity</code>, <code>distortion</code>, <code>ghostDispersal</code>,
- * <code>haloWidth</code>, <code>dirtAmount</code>, and <code>earthRadius</code>.
+ * 此阶段具有以下 uniforms： <code>dirtTexture</code>、<code>starTexture</code>、<code>intensity</code>、<code>distortion</code>、<code>ghostDispersal</code>、
+ * <code>haloWidth</code>、<code>dirtAmount</code> 和 <code>earthRadius</code>。
  * <ul>
- * <li><code>dirtTexture</code> is a texture sampled to simulate dirt on the lens.</li>
- * <li><code>starTexture</code> is the texture sampled for the star pattern of the flare.</li>
- * <li><code>intensity</code> is a scalar multiplied by the result of the lens flare. The default value is <code>2.0</code>.</li>
- * <li><code>distortion</code> is a scalar value that affects the chromatic effect distortion. The default value is <code>10.0</code>.</li>
- * <li><code>ghostDispersal</code> is a scalar indicating how far the halo effect is from the center of the texture. The default value is <code>0.4</code>.</li>
- * <li><code>haloWidth</code> is a scalar representing the width of the halo  from the ghost dispersal. The default value is <code>0.4</code>.</li>
- * <li><code>dirtAmount</code> is a scalar representing the amount of dirt on the lens. The default value is <code>0.4</code>.</li>
- * <li><code>earthRadius</code> is the maximum radius of the earth. The default value is <code>Ellipsoid.WGS84.maximumRadius</code>.</li>
+ * <li><code>dirtTexture</code> 是一个纹理，样本用于模拟镜头上的污垢。</li>
+ * <li><code>starTexture</code> 是用于光晕星形图案的纹理。</li>
+ * <li><code>intensity</code> 是一个标量，与镜头光晕的结果相乘。默认值为 <code>2.0</code>。</li>
+ * <li><code>distortion</code> 是一个影响色差效果失真的标量值。默认值为 <code>10.0</code>。</li>
+ * <li><code>ghostDispersal</code> 是一个标量，指示光晕效果距离纹理中心的距离。默认值为 <code>0.4</code>。</li>
+ * <li><code>haloWidth</code> 是一个标量，表示从光晕扩散的宽度。默认值为 <code>0.4</code>。</li>
+ * <li><code>dirtAmount</code> 是一个标量，表示镜头上的污垢量。默认值为 <code>0.4</code>。</li>
+ * <li><code>earthRadius</code> 是地球的最大半径。默认值为 <code>Ellipsoid.WGS84.maximumRadius</code>。</li>
  * </ul>
  * </p>
- * @return {PostProcessStage} A post-process stage for applying a lens flare effect.
+ * @return {PostProcessStage} 一个应用镜头光晕效果的后处理阶段。
  */
+
 PostProcessStageLibrary.createLensFlareStage = function () {
   return new PostProcessStage({
     name: "czm_lens_flare",

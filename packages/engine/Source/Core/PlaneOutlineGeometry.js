@@ -9,12 +9,13 @@ import GeometryAttributes from "./GeometryAttributes.js";
 import PrimitiveType from "./PrimitiveType.js";
 
 /**
- * Describes geometry representing the outline of a plane centered at the origin, with a unit width and length.
+ * 描述表示一个中心位于原点的平面轮廓的几何体，宽度和长度均为单位长度。
  *
  * @alias PlaneOutlineGeometry
  * @constructor
  *
  */
+
 function PlaneOutlineGeometry() {
   this._workerName = "createPlaneOutlineGeometry";
 }
@@ -43,13 +44,14 @@ PlaneOutlineGeometry.pack = function (value, array) {
 };
 
 /**
- * 从打包数组中检索实例.
+ * 从打包数组中检索实例。
  *
- * @param {number[]} array 压缩数组.
- * @param {number} [startingIndex=0] 需要解包的元素的起始索引.
- * @param {PlaneOutlineGeometry} [result] 存储结果的对象.
- * @returns {PlaneOutlineGeometry} The modified result parameter or a new PlaneOutlineGeometry instance if one was not provided.
+ * @param {number[]} array 压缩数组。
+ * @param {number} [startingIndex=0] 需要解包的元素的起始索引。
+ * @param {PlaneOutlineGeometry} [result] 存储结果的对象。
+ * @returns {PlaneOutlineGeometry} 修改后的结果参数或如果未提供，则返回一个新的 PlaneOutlineGeometry 实例。
  */
+
 PlaneOutlineGeometry.unpack = function (array, startingIndex, result) {
   //>>includeStart('debug', pragmas.debug);
   Check.defined("array", array);
@@ -66,10 +68,11 @@ const min = new Cartesian3(-0.5, -0.5, 0.0);
 const max = new Cartesian3(0.5, 0.5, 0.0);
 
 /**
- * Computes the geometric representation of an outline of a plane, including its vertices, indices, and a bounding sphere.
+ * 计算平面轮廓的几何表示，包括其顶点、索引和包围球。
  *
- * @returns {Geometry|undefined} The computed vertices and indices.
+ * @returns {Geometry|undefined} 计算得到的顶点和索引。
  */
+
 PlaneOutlineGeometry.createGeometry = function () {
   const attributes = new GeometryAttributes();
   const indices = new Uint16Array(4 * 2);

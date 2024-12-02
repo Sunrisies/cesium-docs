@@ -7,21 +7,21 @@ import PerInstanceFlatColorAppearanceVS from "../Shaders/Appearances/PerInstance
 import Appearance from "./Appearance.js";
 
 /**
- * An appearance for {@link GeometryInstance} instances with color attributes.
- * This allows several geometry instances, each with a different color, to
- * be drawn with the same {@link Primitive} as shown in the second example below.
+ * 为具有颜色属性的 {@link GeometryInstance} 实例提供外观。
+ * 这允许多个几何实例，每个实例具有不同的颜色，可以
+ * 使用相同的 {@link Primitive} 进行绘制，如下例中的第二个例子所示。
  *
  * @alias PerInstanceColorAppearance
  * @constructor
  *
- * @param {object} [options] Object with the following properties:
- * @param {boolean} [options.flat=false] When <code>true</code>, flat shading is used in the fragment shader, which means lighting is not taking into account.
- * @param {boolean} [options.faceForward=!options.closed] When <code>true</code>, the fragment shader flips the surface normal as needed to ensure that the normal faces the viewer to avoid dark spots.  This is useful when both sides of a geometry should be shaded like {@link WallGeometry}.
- * @param {boolean} [options.translucent=true] When <code>true</code>, the geometry is expected to appear translucent so {@link PerInstanceColorAppearance#renderState} has alpha blending enabled.
- * @param {boolean} [options.closed=false] 当 <code>true</code> 时，几何图形应闭合 so {@link PerInstanceColorAppearance#renderState} has backface culling enabled.
- * @param {string} [options.vertexShaderSource] Optional GLSL vertex shader source to override the default vertex shader.
- * @param {string} [options.fragmentShaderSource] Optional GLSL fragment shader source to override the default fragment shader.
- * @param {object} [options.renderState] Optional render state to override the default render state.
+ * @param {object} [options] 具有以下属性的对象：
+ * @param {boolean} [options.flat=false] 当 <code>true</code> 时，使用平面着色器，这意味着光照不会被考虑在内。
+ * @param {boolean} [options.faceForward=!options.closed] 当 <code>true</code> 时，片段着色器根据需要翻转表面法线，以确保法线面向观察者，以避免黑暗点。 这在几何体的两个面都应进行着色时很有用，例如 {@link WallGeometry}。
+ * @param {boolean} [options.translucent=true] 当 <code>true</code> 时，几何体预计将呈现为半透明，因此 {@link PerInstanceColorAppearance#renderState} 启用了 alpha 混合。
+ * @param {boolean} [options.closed=false] 当 <code>true</code> 时，几何体应闭合，因此 {@link PerInstanceColorAppearance#renderState} 启用了背面剔除。
+ * @param {string} [options.vertexShaderSource] 可选的 GLSL 顶点着色器源，用于覆盖默认的顶点着色器。
+ * @param {string} [options.fragmentShaderSource] 可选的 GLSL 片段着色器源，用于覆盖默认的片段着色器。
+ * @param {object} [options.renderState] 可选的渲染状态，用于覆盖默认的渲染状态。
  *
  * @example
  * // A solid white line segment
@@ -84,8 +84,7 @@ function PerInstanceColorAppearance(options) {
     : PerInstanceColorAppearance.VERTEX_FORMAT;
 
   /**
-   * This property is part of the {@link Appearance} interface, but is not
-   * used by {@link PerInstanceColorAppearance} since a fully custom fragment shader is used.
+   * 该属性是 {@link Appearance} 接口的一部分，但 {@link PerInstanceColorAppearance} 不使用它，因为使用了完全自定义的片段着色器。
    *
    * @type Material
    *
@@ -94,13 +93,14 @@ function PerInstanceColorAppearance(options) {
   this.material = undefined;
 
   /**
-   * When <code>true</code>, the geometry is expected to appear translucent so
-   * {@link PerInstanceColorAppearance#renderState} has alpha blending enabled.
+   * 当 <code>true</code> 时，几何体预计将呈现为半透明，因此
+   * {@link PerInstanceColorAppearance#renderState} 启用了 alpha 混合。
    *
    * @type {boolean}
    *
    * @default true
    */
+
   this.translucent = translucent;
 
   this._vertexShaderSource = defaultValue(options.vertexShaderSource, vs);
@@ -121,7 +121,7 @@ function PerInstanceColorAppearance(options) {
 
 Object.defineProperties(PerInstanceColorAppearance.prototype, {
   /**
-   * The GLSL source code for the vertex shader.
+   * 顶点着色器的 GLSL 源代码。
    *
    * @memberof PerInstanceColorAppearance.prototype
    *
@@ -135,7 +135,7 @@ Object.defineProperties(PerInstanceColorAppearance.prototype, {
   },
 
   /**
-   * The GLSL source code for the fragment shader.
+   * 片段着色器的 GLSL 源代码。
    *
    * @memberof PerInstanceColorAppearance.prototype
    *
@@ -149,11 +149,11 @@ Object.defineProperties(PerInstanceColorAppearance.prototype, {
   },
 
   /**
-   * The WebGL fixed-function state to use when rendering the geometry.
+   * 渲染几何体时使用的 WebGL 固定功能状态。
    * <p>
-   * The render state can be explicitly defined when constructing a {@link PerInstanceColorAppearance}
-   * instance, or it is set implicitly via {@link PerInstanceColorAppearance#translucent}
-   * and {@link PerInstanceColorAppearance#closed}.
+   * 渲染状态可以在构造 {@link PerInstanceColorAppearance} 实例时显式定义，
+   * 或者通过 {@link PerInstanceColorAppearance#translucent} 和
+   * {@link PerInstanceColorAppearance#closed} 隐式设置。
    * </p>
    *
    * @memberof PerInstanceColorAppearance.prototype
@@ -168,9 +168,9 @@ Object.defineProperties(PerInstanceColorAppearance.prototype, {
   },
 
   /**
-   * 当 <code>true</code> 时，几何图形应闭合 so
-   * {@link PerInstanceColorAppearance#renderState} has backface culling enabled.
-   * If the viewer enters the geometry, it will not be visible.
+   * 当 <code>true</code> 时，几何图形应闭合，因此
+   * {@link PerInstanceColorAppearance#renderState} 启用了背面剔除。
+   * 如果观察者进入该几何体，它将不可见。
    *
    * @memberof PerInstanceColorAppearance.prototype
    *
@@ -186,9 +186,9 @@ Object.defineProperties(PerInstanceColorAppearance.prototype, {
   },
 
   /**
-   * The {@link VertexFormat} that this appearance instance is compatible with.
-   * A geometry can have more vertex attributes and still be compatible - at a
-   * potential performance cost - but it can't have less.
+   * 此外观实例兼容的 {@link VertexFormat}。
+   * 几何体可以具有更多的顶点属性并仍然兼容——但这可能会导致性能损失——
+   * 但它不能少于。
    *
    * @memberof PerInstanceColorAppearance.prototype
    *
@@ -202,8 +202,8 @@ Object.defineProperties(PerInstanceColorAppearance.prototype, {
   },
 
   /**
-   * When <code>true</code>, flat shading is used in the fragment shader,
-   * which means lighting is not taking into account.
+   * 当 <code>true</code> 时，在片段着色器中使用平面着色，
+   * 这意味着不考虑光照。
    *
    * @memberof PerInstanceColorAppearance.prototype
    *
@@ -219,10 +219,9 @@ Object.defineProperties(PerInstanceColorAppearance.prototype, {
   },
 
   /**
-   * When <code>true</code>, the fragment shader flips the surface normal
-   * as needed to ensure that the normal faces the viewer to avoid
-   * dark spots.  This is useful when both sides of a geometry should be
-   * shaded like {@link WallGeometry}.
+   * 当 <code>true</code> 时，片段着色器根据需要翻转表面法线，
+   * 以确保法线面向观察者以避免黑暗点。 
+   * 这在几何体的两个面都应进行着色时很有用，比如 {@link WallGeometry}。
    *
    * @memberof PerInstanceColorAppearance.prototype
    *
@@ -238,10 +237,10 @@ Object.defineProperties(PerInstanceColorAppearance.prototype, {
   },
 });
 
+
 /**
- * The {@link VertexFormat} that all {@link PerInstanceColorAppearance} instances
- * are compatible with.  This requires only <code>position</code> and <code>normal</code>
- * attributes.
+ * 所有 {@link PerInstanceColorAppearance} 实例兼容的 {@link VertexFormat}。
+ * 这仅要求有 <code>position</code> 和 <code>normal</code> 属性。
  *
  * @type VertexFormat
  *
@@ -250,47 +249,48 @@ Object.defineProperties(PerInstanceColorAppearance.prototype, {
 PerInstanceColorAppearance.VERTEX_FORMAT = VertexFormat.POSITION_AND_NORMAL;
 
 /**
- * The {@link VertexFormat} that all {@link PerInstanceColorAppearance} instances
- * are compatible with when {@link PerInstanceColorAppearance#flat} is <code>true</code>.
- * This requires only a <code>position</code> attribute.
+ * 所有 {@link PerInstanceColorAppearance} 实例兼容的 {@link VertexFormat}，
+ * 当 {@link PerInstanceColorAppearance#flat} 为 <code>true</code> 时。
+ * 这仅要求有一个 <code>position</code> 属性。
  *
  * @type VertexFormat
  *
  * @constant
  */
+
 PerInstanceColorAppearance.FLAT_VERTEX_FORMAT = VertexFormat.POSITION_ONLY;
 
 /**
- * Procedurally creates the full GLSL fragment shader source.  For {@link PerInstanceColorAppearance},
- * this is derived from {@link PerInstanceColorAppearance#fragmentShaderSource}, {@link PerInstanceColorAppearance#flat},
- * and {@link PerInstanceColorAppearance#faceForward}.
+ * 以程序方式创建完整的 GLSL 片段着色器源。对于 {@link PerInstanceColorAppearance}，
+ * 这源自 {@link PerInstanceColorAppearance#fragmentShaderSource}、{@link PerInstanceColorAppearance#flat}、
+ * 和 {@link PerInstanceColorAppearance#faceForward}。
  *
  * @function
  *
- * @returns {string} The full GLSL fragment shader source.
+ * @returns {string} 完整的 GLSL 片段着色器源。
  */
 PerInstanceColorAppearance.prototype.getFragmentShaderSource =
   Appearance.prototype.getFragmentShaderSource;
 
 /**
- * Determines if the geometry is translucent based on {@link PerInstanceColorAppearance#translucent}.
+ * 根据 {@link PerInstanceColorAppearance#translucent} 确定几何体是否为半透明。
  *
  * @function
  *
- * @returns {boolean} <code>true</code> if the appearance is translucent.
+ * @returns {boolean} <code>true</code> 如果外观是半透明的。
  */
 PerInstanceColorAppearance.prototype.isTranslucent =
   Appearance.prototype.isTranslucent;
 
 /**
- * Creates a render state.  This is not the final render state instance; instead,
- * it can contain a subset of render state properties identical to the render state
- * created in the context.
+ * 创建渲染状态。这不是最终的渲染状态实例；相反，
+ * 它可以包含一组与上下文中创建的渲染状态相同的渲染状态属性的子集。
  *
  * @function
  *
- * @returns {object} The render state.
+ * @returns {object} 渲染状态。
  */
+
 PerInstanceColorAppearance.prototype.getRenderState =
   Appearance.prototype.getRenderState;
 export default PerInstanceColorAppearance;

@@ -1,11 +1,11 @@
 /**
- * State of the request.
+ * 请求的状态。
  *
  * @enum {number}
  */
 const RequestState = {
   /**
-   * Initial unissued state.
+   * 初始未发出状态。
    *
    * @type {number}
    * @constant
@@ -13,7 +13,7 @@ const RequestState = {
   UNISSUED: 0,
 
   /**
-   * Issued but not yet active. Will become active when open slots are available.
+   * 已发出但尚未激活。当有空槽可用时将变为激活状态。
    *
    * @type {number}
    * @constant
@@ -21,7 +21,7 @@ const RequestState = {
   ISSUED: 1,
 
   /**
-   * Actual http request has been sent.
+   * 实际的 HTTP 请求已被发送。
    *
    * @type {number}
    * @constant
@@ -29,7 +29,7 @@ const RequestState = {
   ACTIVE: 2,
 
   /**
-   * Request completed successfully.
+   * 请求成功完成。
    *
    * @type {number}
    * @constant
@@ -37,7 +37,7 @@ const RequestState = {
   RECEIVED: 3,
 
   /**
-   * Request was cancelled, either explicitly or automatically because of low priority.
+   * 请求被取消，可能是显式取消或因优先级过低而自动取消。
    *
    * @type {number}
    * @constant
@@ -45,7 +45,7 @@ const RequestState = {
   CANCELLED: 4,
 
   /**
-   * Request failed.
+   * 请求失败。
    *
    * @type {number}
    * @constant

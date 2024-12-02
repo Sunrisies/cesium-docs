@@ -6,16 +6,16 @@ import DeveloperError from "../Core/DeveloperError.js";
 import Event from "../Core/Event.js";
 
 /**
- * A collection of primitives.  This is most often used with {@link Scene#primitives},
- * but <code>PrimitiveCollection</code> is also a primitive itself so collections can
- * be added to collections forming a hierarchy.
+ * 原始对象的集合。通常与 {@link Scene#primitives} 一起使用，
+ * 但 <code>PrimitiveCollection</code> 本身也是一个原始对象，因此可以将集合
+ * 添加到集合中，形成层次结构。
  *
  * @alias PrimitiveCollection
  * @constructor
  *
- * @param {object} [options] Object with the following properties:
- * @param {boolean} [options.show=true] Determines if the primitives in the collection will be shown.
- * @param {boolean} [options.destroyPrimitives=true] Determines if primitives in the collection are destroyed when they are removed.
+ * @param {object} [options] 包含以下属性的对象：
+ * @param {boolean} [options.show=true] 确定集合中的原始对象是否会被显示。
+ * @param {boolean} [options.destroyPrimitives=true] 确定从集合中移除时是否销毁原始对象。
  *
  * @example
  * const billboards = new Cesium.BillboardCollection();
@@ -39,7 +39,7 @@ function PrimitiveCollection(options) {
   this._zIndex = undefined;
 
   /**
-   * Determines if primitives in this collection will be shown.
+   * 确定此集合中的原始对象是否会被显示。
    *
    * @type {boolean}
    * @default true
@@ -47,9 +47,8 @@ function PrimitiveCollection(options) {
   this.show = defaultValue(options.show, true);
 
   /**
-   * Determines if primitives in the collection are destroyed when they are removed by
-   * {@link PrimitiveCollection#destroy} or  {@link PrimitiveCollection#remove} or implicitly
-   * by {@link PrimitiveCollection#removeAll}.
+   * 确定集合中的原始对象在通过 {@link PrimitiveCollection#destroy}、{@link PrimitiveCollection#remove}
+   * 或通过 {@link PrimitiveCollection#removeAll} 隐式移除时是否会被销毁。
    *
    * @type {boolean}
    * @default true
@@ -75,7 +74,7 @@ function PrimitiveCollection(options) {
 
 Object.defineProperties(PrimitiveCollection.prototype, {
   /**
-   * Gets the number of primitives in the collection.
+   * 获取集合中原始对象的数量。
    *
    * @memberof PrimitiveCollection.prototype
    *
@@ -89,8 +88,8 @@ Object.defineProperties(PrimitiveCollection.prototype, {
   },
 
   /**
-   * An event that is raised when a primitive is added to the collection.
-   * Event handlers are passed the primitive that was added.
+   * 当原始对象被添加到集合时引发的事件。
+   * 事件处理程序会接收到被添加的原始对象。
    * @memberof PrimitiveCollection.prototype
    * @type {Event}
    * @readonly
@@ -102,10 +101,10 @@ Object.defineProperties(PrimitiveCollection.prototype, {
   },
 
   /**
-   * An event that is raised when a primitive is removed from the collection.
-   * Event handlers are passed the primitive that was removed.
+   * 当原始对象从集合中移除时引发的事件。
+   * 事件处理程序会接收到被移除的原始对象。
    * <p>
-   * Note: Depending on the destroyPrimitives constructor option, the primitive may already be destroyed.
+   * 注意：根据 destroyPrimitives 构造函数选项，该原始对象可能已经被销毁。
    * </p>
    * @memberof PrimitiveCollection.prototype
    * @type {Event}
@@ -118,14 +117,15 @@ Object.defineProperties(PrimitiveCollection.prototype, {
   },
 });
 
+
 /**
- * Adds a primitive to the collection.
+ * 将一个原始对象添加到集合中。
  *
- * @param {object} primitive The primitive to add.
- * @param {number} [index] The index to add the layer at.  If omitted, the primitive will be added at the bottom of all existing primitives.
- * @returns {object} The primitive added to the collection.
+ * @param {object} primitive 要添加的原始对象。
+ * @param {number} [index] 要添加层的索引。如果省略，则原始对象将添加到所有现有原始对象的底部。
+ * @returns {object} 添加到集合中的原始对象。
  *
- * @exception {DeveloperError} This object was destroyed, i.e., destroy() was called.
+ * @exception {DeveloperError} 此对象已被销毁，即调用了 destroy()。
  *
  * @example
  * const billboards = scene.primitives.add(new Cesium.BillboardCollection());
@@ -166,13 +166,12 @@ PrimitiveCollection.prototype.add = function (primitive, index) {
 };
 
 /**
- * Removes a primitive from the collection.
+ * 从集合中移除一个原始对象。
  *
- * @param {object} [primitive] The primitive to remove.
- * @returns {boolean} <code>true</code> if the primitive was removed; <code>false</code> if the primitive is <code>undefined</code> or was not found in the collection.
+ * @param {object} [primitive] 要移除的原始对象。
+ * @returns {boolean} 如果原始对象被移除，则返回 <code>true</code>；如果原始对象是 <code>undefined</code> 或未在集合中找到，则返回 <code>false</code>。
  *
- * @exception {DeveloperError} This object was destroyed, i.e., destroy() was called.
- *
+ * @exception {DeveloperError} 此对象已被销毁，即调用了 destroy()。
  *
  * @example
  * const billboards = scene.primitives.add(new Cesium.BillboardCollection());
@@ -204,7 +203,7 @@ PrimitiveCollection.prototype.remove = function (primitive) {
 };
 
 /**
- * Removes and destroys a primitive, regardless of destroyPrimitives setting.
+ * 移除并销毁一个原始对象，不论 destroyPrimitives 设置如何。
  * @private
  */
 PrimitiveCollection.prototype.removeAndDestroy = function (primitive) {
@@ -216,12 +215,13 @@ PrimitiveCollection.prototype.removeAndDestroy = function (primitive) {
 };
 
 /**
- * Removes all primitives in the collection.
+ * 移除集合中的所有原始对象。
  *
- * @exception {DeveloperError} This object was destroyed, i.e., destroy() was called.
+ * @exception {DeveloperError} 此对象已被销毁，即调用了 destroy()。
  *
  * @see PrimitiveCollection#destroyPrimitives
  */
+
 PrimitiveCollection.prototype.removeAll = function () {
   const primitives = this._primitives;
   const length = primitives.length;
@@ -238,15 +238,16 @@ PrimitiveCollection.prototype.removeAll = function () {
 };
 
 /**
- * Determines if this collection contains a primitive.
+ * 确定此集合是否包含一个原始对象。
  *
- * @param {object} [primitive] The primitive to check for.
- * @returns {boolean} <code>true</code> if the primitive is in the collection; <code>false</code> if the primitive is <code>undefined</code> or was not found in the collection.
+ * @param {object} [primitive] 要检查的原始对象。
+ * @returns {boolean} 如果原始对象在集合中，则返回 <code>true</code>；如果原始对象是 <code>undefined</code> 或未在集合中找到，则返回 <code>false</code>。
  *
- * @exception {DeveloperError} This object was destroyed, i.e., destroy() was called.
+ * @exception {DeveloperError} 此对象已被销毁，即调用了 destroy()。
  *
  * @see PrimitiveCollection#get
  */
+
 PrimitiveCollection.prototype.contains = function (primitive) {
   return !!(
     defined(primitive) &&
@@ -267,18 +268,19 @@ function getPrimitiveIndex(compositePrimitive, primitive) {
 }
 
 /**
- * Raises a primitive "up one" in the collection.  If all primitives in the collection are drawn
- * on the globe surface, this visually moves the primitive up one.
+ * 将原始对象在集合中“向上移动一位”。如果集合中的所有原始对象都绘制在地球表面上，
+ * 这将视觉上将原始对象向上移动一位。
  *
- * @param {object} [primitive] The primitive to raise.
+ * @param {object} [primitive] 要提升的原始对象。
  *
- * @exception {DeveloperError} primitive is not in this collection.
- * @exception {DeveloperError} This object was destroyed, i.e., destroy() was called.
+ * @exception {DeveloperError} 原始对象不在此集合中。
+ * @exception {DeveloperError} 此对象已被销毁，即调用了 destroy()。
  *
  * @see PrimitiveCollection#raiseToTop
  * @see PrimitiveCollection#lower
  * @see PrimitiveCollection#lowerToBottom
  */
+
 PrimitiveCollection.prototype.raise = function (primitive) {
   if (defined(primitive)) {
     const index = getPrimitiveIndex(this, primitive);
@@ -293,18 +295,19 @@ PrimitiveCollection.prototype.raise = function (primitive) {
 };
 
 /**
- * Raises a primitive to the "top" of the collection.  If all primitives in the collection are drawn
- * on the globe surface, this visually moves the primitive to the top.
+ * 将原始对象提升到集合的“顶部”。如果集合中的所有原始对象都绘制在地球表面上，
+ * 这将视觉上将原始对象移动到顶部。
  *
- * @param {object} [primitive] The primitive to raise the top.
+ * @param {object} [primitive] 要提升到顶部的原始对象。
  *
- * @exception {DeveloperError} primitive is not in this collection.
- * @exception {DeveloperError} This object was destroyed, i.e., destroy() was called.
+ * @exception {DeveloperError} 原始对象不在此集合中。
+ * @exception {DeveloperError} 此对象已被销毁，即调用了 destroy()。
  *
  * @see PrimitiveCollection#raise
  * @see PrimitiveCollection#lower
  * @see PrimitiveCollection#lowerToBottom
  */
+
 PrimitiveCollection.prototype.raiseToTop = function (primitive) {
   if (defined(primitive)) {
     const index = getPrimitiveIndex(this, primitive);
@@ -319,18 +322,19 @@ PrimitiveCollection.prototype.raiseToTop = function (primitive) {
 };
 
 /**
- * Lowers a primitive "down one" in the collection.  If all primitives in the collection are drawn
- * on the globe surface, this visually moves the primitive down one.
+ * 将原始对象在集合中“向下移动一位”。如果集合中的所有原始对象都绘制在地球表面上，
+ * 这将视觉上将原始对象向下移动一位。
  *
- * @param {object} [primitive] The primitive to lower.
+ * @param {object} [primitive] 要降低的原始对象。
  *
- * @exception {DeveloperError} primitive is not in this collection.
- * @exception {DeveloperError} This object was destroyed, i.e., destroy() was called.
+ * @exception {DeveloperError} 原始对象不在此集合中。
+ * @exception {DeveloperError} 此对象已被销毁，即调用了 destroy()。
  *
  * @see PrimitiveCollection#lowerToBottom
  * @see PrimitiveCollection#raise
  * @see PrimitiveCollection#raiseToTop
  */
+
 PrimitiveCollection.prototype.lower = function (primitive) {
   if (defined(primitive)) {
     const index = getPrimitiveIndex(this, primitive);
@@ -345,18 +349,19 @@ PrimitiveCollection.prototype.lower = function (primitive) {
 };
 
 /**
- * Lowers a primitive to the "bottom" of the collection.  If all primitives in the collection are drawn
- * on the globe surface, this visually moves the primitive to the bottom.
+ * 将原始对象降低到集合的“底部”。如果集合中的所有原始对象都绘制在地球表面上，
+ * 这将视觉上将原始对象移动到底部。
  *
- * @param {object} [primitive] The primitive to lower to the bottom.
+ * @param {object} [primitive] 要降低到底部的原始对象。
  *
- * @exception {DeveloperError} primitive is not in this collection.
- * @exception {DeveloperError} This object was destroyed, i.e., destroy() was called.
+ * @exception {DeveloperError} 原始对象不在此集合中。
+ * @exception {DeveloperError} 此对象已被销毁，即调用了 destroy()。
  *
  * @see PrimitiveCollection#lower
  * @see PrimitiveCollection#raise
  * @see PrimitiveCollection#raiseToTop
  */
+
 PrimitiveCollection.prototype.lowerToBottom = function (primitive) {
   if (defined(primitive)) {
     const index = getPrimitiveIndex(this, primitive);
@@ -371,12 +376,12 @@ PrimitiveCollection.prototype.lowerToBottom = function (primitive) {
 };
 
 /**
- * Returns the primitive in the collection at the specified index.
+ * 返回集合中指定索引处的原始对象。
  *
- * @param {number} index The zero-based index of the primitive to return.
- * @returns {object} The primitive at the <code>index</code>.
+ * @param {number} index 要返回的原始对象的零基索引。
+ * @returns {object} 位于 <code>index</code> 处的原始对象。
  *
- * @exception {DeveloperError} This object was destroyed, i.e., destroy() was called.
+ * @exception {DeveloperError} 此对象已被销毁，即调用了 destroy()。
  *
  *
  * @example
@@ -466,32 +471,30 @@ PrimitiveCollection.prototype.postPassesUpdate = function (frameState) {
 };
 
 /**
- * Returns true if this object was destroyed; otherwise, false.
+ * 如果此对象已被销毁，则返回 true；否则返回 false。
  * <br /><br />
- * If this object was destroyed, it should not be used; calling any function other than
- * <code>isDestroyed</code> will result in a {@link DeveloperError} exception.
+ * 如果此对象已被销毁，则不应使用；调用除 <code>isDestroyed</code> 之外的任何功能将导致 {@link DeveloperError} 异常。
  *
- * @returns {boolean} True if this object was destroyed; otherwise, false.
+ * @returns {boolean} 如果此对象已被销毁，则返回 true；否则返回 false。
  *
  * @see PrimitiveCollection#destroy
  */
+
 PrimitiveCollection.prototype.isDestroyed = function () {
   return false;
 };
 
 /**
- * Destroys the WebGL resources held by each primitive in this collection.  Explicitly destroying this
- * collection allows for deterministic release of WebGL resources, instead of relying on the garbage
- * collector to destroy this collection.
+ * 销毁此集合中每个原始对象持有的 WebGL 资源。显式销毁此
+ * 集合允许确定性地释放 WebGL 资源，而不是依赖于垃圾收集器销毁此集合。
  * <br /><br />
- * Since destroying a collection destroys all the contained primitives, only destroy a collection
- * when you are sure no other code is still using any of the contained primitives.
+ * 由于销毁集合会销毁所有包含的原始对象，因此仅在确定没有其他代码仍在使用
+ * 任何包含的原始对象时才销毁集合。
  * <br /><br />
- * Once this collection is destroyed, it should not be used; calling any function other than
- * <code>isDestroyed</code> will result in a {@link DeveloperError} exception.  Therefore,
- * assign the return value (<code>undefined</code>) to the object as done in the example.
+ * 一旦销毁此集合，就不应使用；调用除 <code>isDestroyed</code> 之外的任何功能将导致
+ * {@link DeveloperError} 异常。因此，将返回值 (<code>undefined</code>) 赋给对象，如示例中所示。
  *
- * @exception {DeveloperError} This object was destroyed, i.e., destroy() was called.
+ * @exception {DeveloperError} 此对象已被销毁，即调用了 destroy()。
  *
  *
  * @example

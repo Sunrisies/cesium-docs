@@ -4,13 +4,14 @@ import defaultValue from "./defaultValue.js";
 import defined from "./defined.js";
 
 /**
- * Represents a ray that extends infinitely from the provided origin in the provided direction.
+ * 表示从提供的原点沿提供的方向无限延伸的光线。
  * @alias Ray
  * @constructor
  *
- * @param {Cartesian3} [origin=Cartesian3.ZERO] The origin of the ray.
- * @param {Cartesian3} [direction=Cartesian3.ZERO] The direction of the ray.
+ * @param {Cartesian3} [origin=Cartesian3.ZERO] 光线的原点。
+ * @param {Cartesian3} [direction=Cartesian3.ZERO] 光线的方向。
  */
+
 function Ray(origin, direction) {
   direction = Cartesian3.clone(defaultValue(direction, Cartesian3.ZERO));
   if (!Cartesian3.equals(direction, Cartesian3.ZERO)) {
@@ -18,26 +19,28 @@ function Ray(origin, direction) {
   }
 
   /**
-   * The origin of the ray.
+   * 光线的原点。
    * @type {Cartesian3}
    * @default {@link Cartesian3.ZERO}
    */
   this.origin = Cartesian3.clone(defaultValue(origin, Cartesian3.ZERO));
 
   /**
-   * The direction of the ray.
+   * 光线的方向。
    * @type {Cartesian3}
    */
+
   this.direction = direction;
 }
 
 /**
- * Duplicates a Ray instance.
+ * 复制一个光线实例。
  *
- * @param {Ray} ray The ray to duplicate.
- * @param {Ray} [result] 存储结果的对象.
- * @returns {Ray} The modified result parameter or a new Ray instance if one was not provided. (Returns undefined if ray is undefined)
+ * @param {Ray} ray 要复制的光线。
+ * @param {Ray} [result] 存储结果的对象。
+ * @returns {Ray} 修改后的结果参数或如果未提供结果参数则返回的新 Ray 实例。（如果 ray 为 undefined，则返回 undefined）
  */
+
 Ray.clone = function (ray, result) {
   if (!defined(ray)) {
     return undefined;
@@ -51,13 +54,13 @@ Ray.clone = function (ray, result) {
 };
 
 /**
- * Computes the point along the ray given by r(t) = o + t*d,
- * where o is the origin of the ray and d is the direction.
+ * 计算沿光线的点，由 r(t) = o + t*d 给出，
+ * 其中 o 是光线的原点，d 是方向。
  *
- * @param {Ray} ray The ray.
- * @param {number} t A scalar value.
- * @param {Cartesian3} [result] The object in which the result will be stored.
- * @returns {Cartesian3} The modified result parameter, or a new instance if none was provided.
+ * @param {Ray} ray 光线。
+ * @param {number} t 标量值。
+ * @param {Cartesian3} [result] 存储结果的对象。
+ * @returns {Cartesian3} 修改后的结果参数，如果未提供则返回新实例。
  *
  * @example
  * //Get the first intersection point of a ray and an ellipsoid.

@@ -60,14 +60,15 @@ function GroundGeometryOptions() {
 }
 
 /**
- * A {@link GeometryUpdater} for polylines.
- * Clients do not normally create this class directly, but instead rely on {@link DataSourceDisplay}.
+ * 一个 {@link GeometryUpdater} 用于多段线。
+ * 客户端通常不会直接创建此类，而是依赖于 {@link DataSourceDisplay}。
  * @alias PolylineGeometryUpdater
  * @constructor
  *
- * @param {Entity} entity The entity containing the geometry to be visualized.
- * @param {Scene} scene The scene where visualization is taking place.
+ * @param {Entity} entity 包含要可视化几何图形的实体。
+ * @param {Scene} scene 可视化发生的场景。
  */
+
 function PolylineGeometryUpdater(entity, scene) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(entity)) {
@@ -106,7 +107,7 @@ function PolylineGeometryUpdater(entity, scene) {
 
 Object.defineProperties(PolylineGeometryUpdater.prototype, {
   /**
-   * Gets the unique ID associated with this updater
+   * 获取与此更新器关联的唯一 ID
    * @memberof PolylineGeometryUpdater.prototype
    * @type {string}
    * @readonly
@@ -117,7 +118,7 @@ Object.defineProperties(PolylineGeometryUpdater.prototype, {
     },
   },
   /**
-   * Gets the entity associated with this geometry.
+   * 获取与此几何图形关联的实体。
    * @memberof PolylineGeometryUpdater.prototype
    *
    * @type {Entity}
@@ -129,7 +130,7 @@ Object.defineProperties(PolylineGeometryUpdater.prototype, {
     },
   },
   /**
-   * Gets a value indicating if the geometry has a fill component.
+   * 获取一个值，指示几何图形是否具有填充组件。
    * @memberof PolylineGeometryUpdater.prototype
    *
    * @type {boolean}
@@ -141,7 +142,7 @@ Object.defineProperties(PolylineGeometryUpdater.prototype, {
     },
   },
   /**
-   * Gets a value indicating if fill visibility varies with simulation time.
+   * 获取一个值，指示填充可见性是否随模拟时间而变化。
    * @memberof PolylineGeometryUpdater.prototype
    *
    * @type {boolean}
@@ -157,7 +158,7 @@ Object.defineProperties(PolylineGeometryUpdater.prototype, {
     },
   },
   /**
-   * Gets the material property used to fill the geometry.
+   * 获取用于填充几何图形的材质属性。
    * @memberof PolylineGeometryUpdater.prototype
    *
    * @type {MaterialProperty}
@@ -169,7 +170,7 @@ Object.defineProperties(PolylineGeometryUpdater.prototype, {
     },
   },
   /**
-   * Gets the material property used to fill the geometry when it fails the depth test.
+   * 获取在深度测试失败时用于填充几何图形的材质属性。
    * @memberof PolylineGeometryUpdater.prototype
    *
    * @type {MaterialProperty}
@@ -181,7 +182,7 @@ Object.defineProperties(PolylineGeometryUpdater.prototype, {
     },
   },
   /**
-   * Gets a value indicating if the geometry has an outline component.
+   * 获取一个值，指示几何图形是否具有轮廓组件。
    * @memberof PolylineGeometryUpdater.prototype
    *
    * @type {boolean}
@@ -191,7 +192,7 @@ Object.defineProperties(PolylineGeometryUpdater.prototype, {
     value: false,
   },
   /**
-   * Gets a value indicating if outline visibility varies with simulation time.
+   * 获取一个值，指示轮廓可见性是否随模拟时间而变化。
    * @memberof PolylineGeometryUpdater.prototype
    *
    * @type {boolean}
@@ -201,7 +202,7 @@ Object.defineProperties(PolylineGeometryUpdater.prototype, {
     value: true,
   },
   /**
-   * Gets the {@link Color} property for the geometry outline.
+   * 获取几何图形轮廓的 {@link Color} 属性。
    * @memberof PolylineGeometryUpdater.prototype
    *
    * @type {Property}
@@ -211,8 +212,8 @@ Object.defineProperties(PolylineGeometryUpdater.prototype, {
     value: undefined,
   },
   /**
-   * Gets the property specifying whether the geometry
-   * casts or receives shadows from light sources.
+   * 获取属性，指示几何图形
+   * 是否从光源投射或接收阴影。
    * @memberof PolylineGeometryUpdater.prototype
    *
    * @type {Property}
@@ -224,7 +225,7 @@ Object.defineProperties(PolylineGeometryUpdater.prototype, {
     },
   },
   /**
-   * Gets or sets the {@link DistanceDisplayCondition} Property specifying at what distance from the camera that this geometry will be displayed.
+   * 获取或设置 {@link DistanceDisplayCondition} 属性，指定从相机的距离显示此几何图形。
    * @memberof PolylineGeometryUpdater.prototype
    *
    * @type {Property}
@@ -236,7 +237,7 @@ Object.defineProperties(PolylineGeometryUpdater.prototype, {
     },
   },
   /**
-   * Gets or sets the {@link ClassificationType} Property specifying if this geometry will classify terrain, 3D Tiles, or both when on the ground.
+   * 获取或设置 {@link ClassificationType} 属性，指定该几何图形是否在地面上对地形、3D Tiles 或两者进行分类。
    * @memberof PolylineGeometryUpdater.prototype
    *
    * @type {Property}
@@ -248,7 +249,7 @@ Object.defineProperties(PolylineGeometryUpdater.prototype, {
     },
   },
   /**
-   * Gets a value indicating if the geometry is time-varying.
+   * 获取一个值，指示几何图形是否是时间变化的。
    *
    * @memberof PolylineGeometryUpdater.prototype
    *
@@ -261,8 +262,8 @@ Object.defineProperties(PolylineGeometryUpdater.prototype, {
     },
   },
   /**
-   * Gets a value indicating if the geometry is closed.
-   * This property is only valid for static geometry.
+   * 获取一个值，指示几何图形是否闭合。
+   * 此属性仅对静态几何图形有效。
    * @memberof PolylineGeometryUpdater.prototype
    *
    * @type {boolean}
@@ -272,8 +273,7 @@ Object.defineProperties(PolylineGeometryUpdater.prototype, {
     value: false,
   },
   /**
-   * Gets an event that is raised whenever the public properties
-   * of this updater change.
+   * 获取每当此更新器的公共属性发生变化时引发的事件。
    * @memberof PolylineGeometryUpdater.prototype
    *
    * @type {boolean}
@@ -286,7 +286,7 @@ Object.defineProperties(PolylineGeometryUpdater.prototype, {
   },
 
   /**
-   * Gets a value indicating if the path of the line.
+   * 获取表示线的路径的值。
    * @memberof PolylineGeometryUpdater.prototype
    *
    * @type {ArcType}
@@ -299,8 +299,8 @@ Object.defineProperties(PolylineGeometryUpdater.prototype, {
   },
 
   /**
-   * Gets a value indicating if the geometry is clamped to the ground.
-   * Returns false if polylines on terrain is not supported.
+   * 获取一个值，指示几何图形是否被钉靠到地面。
+   * 如果不支持地形上的多段线则返回 false。
    * @memberof PolylineGeometryUpdater.prototype
    *
    * @type {boolean}
@@ -313,7 +313,7 @@ Object.defineProperties(PolylineGeometryUpdater.prototype, {
   },
 
   /**
-   * Gets the zindex
+   * 获取 z 索引
    * @type {number}
    * @memberof PolylineGeometryUpdater.prototype
    * @readonly
@@ -325,22 +325,24 @@ Object.defineProperties(PolylineGeometryUpdater.prototype, {
   },
 });
 
+
 /**
- * Checks if the geometry is outlined at the provided time.
+ * 检查在提供时间几何图形是否有轮廓。
  *
- * @param {JulianDate} time The time for which to retrieve visibility.
- * @returns {boolean} true if geometry is outlined at the provided time, false otherwise.
+ * @param {JulianDate} time 要检索可见性的时间。
+ * @returns {boolean} 如果在提供时间几何图形有轮廓，则为 true，反之为 false。
  */
 PolylineGeometryUpdater.prototype.isOutlineVisible = function (time) {
   return false;
 };
 
 /**
- * Checks if the geometry is filled at the provided time.
+ * 检查在提供时间几何图形是否填充。
  *
- * @param {JulianDate} time The time for which to retrieve visibility.
- * @returns {boolean} true if geometry is filled at the provided time, false otherwise.
+ * @param {JulianDate} time 要检索可见性的时间。
+ * @returns {boolean} 如果在提供时间几何图形被填充，则为 true，反之为 false。
  */
+
 PolylineGeometryUpdater.prototype.isFilled = function (time) {
   const entity = this._entity;
   const visible =
@@ -351,13 +353,14 @@ PolylineGeometryUpdater.prototype.isFilled = function (time) {
 };
 
 /**
- * Creates the geometry instance which represents the fill of the geometry.
+ * 创建表示几何图形填充的几何实例。
  *
- * @param {JulianDate} time The time to use when retrieving initial attribute values.
- * @returns {GeometryInstance} The geometry instance representing the filled portion of the geometry.
+ * @param {JulianDate} time 用于检索初始属性值的时间。
+ * @returns {GeometryInstance} 表示几何图形填充部分的几何实例。
  *
- * @exception {DeveloperError} This instance does not represent a filled geometry.
+ * @exception {DeveloperError} 此实例不表示填充几何图形。
  */
+
 PolylineGeometryUpdater.prototype.createFillGeometryInstance = function (time) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(time)) {
@@ -438,13 +441,14 @@ PolylineGeometryUpdater.prototype.createFillGeometryInstance = function (time) {
 };
 
 /**
- * Creates the geometry instance which represents the outline of the geometry.
+ * 创建表示几何图形轮廓的几何实例。
  *
- * @param {JulianDate} time The time to use when retrieving initial attribute values.
- * @returns {GeometryInstance} The geometry instance representing the outline portion of the geometry.
+ * @param {JulianDate} time 用于检索初始属性值的时间。
+ * @returns {GeometryInstance} 表示几何图形轮廓部分的几何实例。
  *
- * @exception {DeveloperError} This instance does not represent an outlined geometry.
+ * @exception {DeveloperError} 此实例不表示轮廓几何图形。
  */
+
 PolylineGeometryUpdater.prototype.createOutlineGeometryInstance = function (
   time,
 ) {
@@ -456,19 +460,20 @@ PolylineGeometryUpdater.prototype.createOutlineGeometryInstance = function (
 };
 
 /**
- * Returns true if this object was destroyed; otherwise, false.
+ * 如果此对象已被销毁，则返回 true；否则返回 false。
  *
- * @returns {boolean} True if this object was destroyed; otherwise, false.
+ * @returns {boolean} 如果此对象已被销毁，则为 true；否则为 false。
  */
 PolylineGeometryUpdater.prototype.isDestroyed = function () {
   return false;
 };
 
 /**
- * Destroys and resources used by the object.  Once an object is destroyed, it should not be used.
+ * 销毁对象使用的所有资源。一旦对象被销毁，则不应使用它。
  *
- * @exception {DeveloperError} This object was destroyed, i.e., destroy() was called.
+ * @exception {DeveloperError} 此对象已被销毁，即调用了 destroy()。
  */
+
 PolylineGeometryUpdater.prototype.destroy = function () {
   this._entitySubscription();
   destroyObject(this);
@@ -607,15 +612,16 @@ PolylineGeometryUpdater.prototype._onEntityPropertyChanged = function (
 };
 
 /**
- * Creates the dynamic updater to be used when GeometryUpdater#isDynamic is true.
+ * 创建用于在 GeometryUpdater#isDynamic 为 true 时使用的动态更新器。
  *
- * @param {PrimitiveCollection} primitives The primitive collection to use.
- * @param {PrimitiveCollection|OrderedGroundPrimitiveCollection} groundPrimitives The primitive collection to use for ordered ground primitives.
- * @returns {DynamicGeometryUpdater} The dynamic updater used to update the geometry each frame.
+ * @param {PrimitiveCollection} primitives 要使用的原始集合。
+ * @param {PrimitiveCollection|OrderedGroundPrimitiveCollection} groundPrimitives 用于有序地面原始的集合。
+ * @returns {DynamicGeometryUpdater} 用于每帧更新几何图形的动态更新器。
  *
- * @exception {DeveloperError} This instance does not represent dynamic geometry.
+ * @exception {DeveloperError} 此实例不表示动态几何图形。
  * @private
  */
+
 PolylineGeometryUpdater.prototype.createDynamicUpdater = function (
   primitives,
   groundPrimitives,

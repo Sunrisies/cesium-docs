@@ -60,26 +60,25 @@ function interpolateColors(p0, p1, color0, color1, numPoints) {
 }
 
 /**
- * A description of a polyline modeled as a line strip; the first two positions define a line segment,
- * and each additional position defines a line segment from the previous position. The polyline is capable of
- * displaying with a material.
+ * 描述一个多段线，建模为线条段；前两个位置定义一条线段，
+ * 每个额外的位置定义一条从前一个位置延续的线段。多段线能够使用材质进行显示。
  *
  * @alias PolylineGeometry
  * @constructor
  *
- * @param {object} options Object with the following properties:
- * @param {Cartesian3[]} options.positions An array of {@link Cartesian3} defining the positions in the polyline as a line strip.
- * @param {number} [options.width=1.0] The width in pixels.
- * @param {Color[]} [options.colors] An Array of {@link Color} defining the per vertex or per segment colors.
- * @param {boolean} [options.colorsPerVertex=false] A boolean that determines whether the colors will be flat across each segment of the line or interpolated across the vertices.
- * @param {ArcType} [options.arcType=ArcType.GEODESIC] The type of line the polyline segments must follow.
- * @param {number} [options.granularity=CesiumMath.RADIANS_PER_DEGREE] The distance, in radians, between each latitude and longitude if options.arcType is not ArcType.NONE. Determines the number of positions in the buffer.
- * @param {VertexFormat} [options.vertexFormat=VertexFormat.DEFAULT] The vertex attributes to be computed.
- * @param {Ellipsoid} [options.ellipsoid=Ellipsoid.default] The ellipsoid to be used as a reference.
+ * @param {object} options 包含以下属性的对象：
+ * @param {Cartesian3[]} options.positions 一个 {@link Cartesian3} 数组，定义作为线条段的多段线中的位置。
+ * @param {number} [options.width=1.0] 线条的宽度（以像素为单位）。
+ * @param {Color[]} [options.colors] 一个 {@link Color} 数组，定义每个顶点或每段线的颜色。
+ * @param {boolean} [options.colorsPerVertex=false] 一个布尔值，决定颜色是在线每段保持平坦还是在顶点之间插值。
+ * @param {ArcType} [options.arcType=ArcType.GEODESIC] 多段线段必须遵循的线条类型。
+ * @param {number} [options.granularity=CesiumMath.RADIANS_PER_DEGREE] 如果 options.arcType 不是 ArcType.NONE，纬度和经度之间的距离（以弧度为单位）。
+ * @param {VertexFormat} [options.vertexFormat=VertexFormat.DEFAULT] 要计算的顶点属性。
+ * @param {Ellipsoid} [options.ellipsoid=Ellipsoid.default] 用作参考的椭球体。
  *
- * @exception {DeveloperError} At least two positions are required.
- * @exception {DeveloperError} width must be greater than or equal to one.
- * @exception {DeveloperError} colors has an invalid length.
+ * @exception {DeveloperError} 至少需要两个位置。
+ * @exception {DeveloperError} width 必须大于或等于一。
+ * @exception {DeveloperError} colors 的长度无效。
  *
  * @see PolylineGeometry#createGeometry
  *
@@ -221,8 +220,9 @@ const scratchOptions = {
  * @param {number[]} array 压缩数组.
  * @param {number} [startingIndex=0] 需要解包的元素的起始索引.
  * @param {PolylineGeometry} [result] 存储结果的对象.
- * @returns {PolylineGeometry} The modified result parameter or a new PolylineGeometry instance if one was not provided.
+ * @returns {PolylineGeometry} 修改后的结果参数，或者如果未提供结果参数则返回一个新的 PolylineGeometry 实例.
  */
+
 PolylineGeometry.unpack = function (array, startingIndex, result) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(array)) {
@@ -291,11 +291,12 @@ const scratchPrevPosition = new Cartesian3();
 const scratchNextPosition = new Cartesian3();
 
 /**
- * Computes the geometric representation of a polyline, including its vertices, indices, and a bounding sphere.
+ * 计算多段线的几何表示，包括其顶点、索引和包围球。
  *
- * @param {PolylineGeometry} polylineGeometry A description of the polyline.
- * @returns {Geometry|undefined} The computed vertices and indices.
+ * @param {PolylineGeometry} polylineGeometry 多段线的描述。
+ * @returns {Geometry|undefined} 计算得到的顶点和索引。
  */
+
 PolylineGeometry.createGeometry = function (polylineGeometry) {
   const width = polylineGeometry._width;
   const vertexFormat = polylineGeometry._vertexFormat;

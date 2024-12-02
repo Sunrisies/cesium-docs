@@ -574,24 +574,24 @@ function createGeometryFromPositionsExtruded(
 }
 
 /**
- * A description of a polygon on the ellipsoid. The polygon is defined by a polygon hierarchy. Polygon geometry can be rendered with both {@link Primitive} and {@link GroundPrimitive}.
+ * 描述椭球体上的多边形。多边形由多边形层次结构定义。多边形几何体可以通过 {@link Primitive} 和 {@link GroundPrimitive} 进行渲染。
  *
  * @alias PolygonGeometry
  * @constructor
  *
- * @param {object} options Object with the following properties:
- * @param {PolygonHierarchy} options.polygonHierarchy A polygon hierarchy that can include holes.
- * @param {number} [options.height=0.0] The distance in meters between the polygon and the ellipsoid surface.
- * @param {number} [options.extrudedHeight] The distance in meters between the polygon's extruded face and the ellipsoid surface.
- * @param {VertexFormat} [options.vertexFormat=VertexFormat.DEFAULT] The vertex attributes to be computed.
- * @param {number} [options.stRotation=0.0] The rotation of the texture coordinates, in radians. A positive rotation is counter-clockwise.
- * @param {Ellipsoid} [options.ellipsoid=Ellipsoid.default] The ellipsoid to be used as a reference.
- * @param {number} [options.granularity=CesiumMath.RADIANS_PER_DEGREE] The distance, in radians, between each latitude and longitude. Determines the number of positions in the buffer.
- * @param {boolean} [options.perPositionHeight=false] Use the height of options.positions for each position instead of using options.height to determine the height.
- * @param {boolean} [options.closeTop=true] When false, leaves off the top of an extruded polygon open.
- * @param {boolean} [options.closeBottom=true] When false, leaves off the bottom of an extruded polygon open.
- * @param {ArcType} [options.arcType=ArcType.GEODESIC] The type of line the polygon edges must follow. Valid options are {@link ArcType.GEODESIC} and {@link ArcType.RHUMB}.
- * @param {PolygonHierarchy} [options.textureCoordinates] Texture coordinates as a {@link PolygonHierarchy} of {@link Cartesian2} points. Has no effect for ground primitives.
+ * @param {object} options 具有以下属性的对象：
+ * @param {PolygonHierarchy} options.polygonHierarchy 可以包含孔的多边形层次结构。
+ * @param {number} [options.height=0.0] 多边形与椭球表面之间的距离（以米为单位）。
+ * @param {number} [options.extrudedHeight] 多边形的挤出面与椭球表面之间的距离（以米为单位）。
+ * @param {VertexFormat} [options.vertexFormat=VertexFormat.DEFAULT] 要计算的顶点属性。
+ * @param {number} [options.stRotation=0.0] 纹理坐标的旋转，单位为弧度。正旋转为逆时针方向。
+ * @param {Ellipsoid} [options.ellipsoid=Ellipsoid.default] 用作参考的椭球体。
+ * @param {number} [options.granularity=CesiumMath.RADIANS_PER_DEGREE] 每个纬度和经度之间的距离（以弧度为单位）。确定缓冲区中的位置数量。
+ * @param {boolean} [options.perPositionHeight=false] 对于每个位置使用 options.positions 的高度，而不是使用 options.height 来确定高度。
+ * @param {boolean} [options.closeTop=true] 当为 false 时，留下一个开放的挤出多边形的顶部。
+ * @param {boolean} [options.closeBottom=true] 当为 false 时，留下一个开放的挤出多边形的底部。
+ * @param {ArcType} [options.arcType=ArcType.GEODESIC] 多边形边缘必须遵循的线的类型。有效选项为 {@link ArcType.GEODESIC} 和 {@link ArcType.RHUMB}。
+ * @param {PolygonHierarchy} [options.textureCoordinates] 作为 {@link PolygonHierarchy} 的 {@link Cartesian2} 点的纹理坐标。对地面原语没有影响。
  *
  * @see PolygonGeometry#createGeometry
  * @see PolygonGeometry#fromPositions
@@ -751,21 +751,21 @@ function PolygonGeometry(options) {
 }
 
 /**
- * A description of a polygon from an array of positions. Polygon geometry can be rendered with both {@link Primitive} and {@link GroundPrimitive}.
+ * 从位置数组描述一个多边形。多边形几何体可以通过 {@link Primitive} 和 {@link GroundPrimitive} 进行渲染。
  *
- * @param {object} options Object with the following properties:
- * @param {Cartesian3[]} options.positions An array of positions that defined the corner points of the polygon.
- * @param {number} [options.height=0.0] The height of the polygon.
- * @param {number} [options.extrudedHeight] The height of the polygon extrusion.
- * @param {VertexFormat} [options.vertexFormat=VertexFormat.DEFAULT] The vertex attributes to be computed.
- * @param {number} [options.stRotation=0.0] The rotation of the texture coordinates, in radians. A positive rotation is counter-clockwise.
- * @param {Ellipsoid} [options.ellipsoid=Ellipsoid.default] The ellipsoid to be used as a reference.
- * @param {number} [options.granularity=CesiumMath.RADIANS_PER_DEGREE] The distance, in radians, between each latitude and longitude. Determines the number of positions in the buffer.
- * @param {boolean} [options.perPositionHeight=false] Use the height of options.positions for each position instead of using options.height to determine the height.
- * @param {boolean} [options.closeTop=true] When false, leaves off the top of an extruded polygon open.
- * @param {boolean} [options.closeBottom=true] When false, leaves off the bottom of an extruded polygon open.
- * @param {ArcType} [options.arcType=ArcType.GEODESIC] The type of line the polygon edges must follow. Valid options are {@link ArcType.GEODESIC} and {@link ArcType.RHUMB}.
- * @param {PolygonHierarchy} [options.textureCoordinates] Texture coordinates as a {@link PolygonHierarchy} of {@link Cartesian2} points. Has no effect for ground primitives.
+ * @param {object} options 具有以下属性的对象：
+ * @param {Cartesian3[]} options.positions 定义多边形角点的位置信息数组。
+ * @param {number} [options.height=0.0] 多边形的高度。
+ * @param {number} [options.extrudedHeight] 多边形挤出部分的高度。
+ * @param {VertexFormat} [options.vertexFormat=VertexFormat.DEFAULT] 要计算的顶点属性。
+ * @param {number} [options.stRotation=0.0] 纹理坐标的旋转，单位为弧度。正旋转为逆时针方向。
+ * @param {Ellipsoid} [options.ellipsoid=Ellipsoid.default] 用作参考的椭球体。
+ * @param {number} [options.granularity=CesiumMath.RADIANS_PER_DEGREE] 每个纬度和经度之间的距离（以弧度为单位）。确定缓冲区中的位置数量。
+ * @param {boolean} [options.perPositionHeight=false] 对于每个位置使用 options.positions 的高度，而不是使用 options.height 来确定高度。
+ * @param {boolean} [options.closeTop=true] 当为 false 时，留下一个开放的挤出多边形的顶部。
+ * @param {boolean} [options.closeBottom=true] 当为 false 时，留下一个开放的挤出多边形的底部。
+ * @param {ArcType} [options.arcType=ArcType.GEODESIC] 多边形边缘必须遵循的线的类型。有效选项为 {@link ArcType.GEODESIC} 和 {@link ArcType.RHUMB}。
+ * @param {PolygonHierarchy} [options.textureCoordinates] 作为 {@link PolygonHierarchy} 的 {@link Cartesian2} 点的纹理坐标。对地面原语没有影响。
  * @returns {PolygonGeometry}
  *
  * @example
@@ -1037,15 +1037,16 @@ const polygon = {
 };
 
 /**
- * Computes a rectangle which encloses the polygon defined by the list of positions, including cases over the international date line and the poles.
+ * 计算一个矩形，该矩形包围由位置列表定义的多边形，包括跨越国际日期线和极点的情况。
  *
- * @param {Cartesian3[]} positions A linear ring defining the outer boundary of the polygon.
- * @param {Ellipsoid} [ellipsoid=Ellipsoid.default] The ellipsoid to be used as a reference.
- * @param {ArcType} [arcType=ArcType.GEODESIC] The type of line the polygon edges must follow. Valid options are {@link ArcType.GEODESIC} and {@link ArcType.RHUMB}.
- * @param {Rectangle} [result] An object in which to store the result.
+ * @param {Cartesian3[]} positions 定义多边形外边界的线性环。
+ * @param {Ellipsoid} [ellipsoid=Ellipsoid.default] 用作参考的椭球体。
+ * @param {ArcType} [arcType=ArcType.GEODESIC] 多边形边缘必须遵循的线的类型。有效选项为 {@link ArcType.GEODESIC} 和 {@link ArcType.RHUMB}。
+ * @param {Rectangle} [result] 用于存储结果的对象。
  *
- * @returns {Rectangle} The result rectangle
+ * @returns {Rectangle} 结果矩形
  */
+
 PolygonGeometry.computeRectangleFromPositions = function (
   positions,
   ellipsoid,
@@ -1270,11 +1271,12 @@ function computeBoundingRectangle(outerRing, rectangle, ellipsoid, stRotation) {
 }
 
 /**
- * Computes the geometric representation of a polygon, including its vertices, indices, and a bounding sphere.
+ * 计算多边形的几何表示，包括其顶点、索引和包围球。
  *
- * @param {PolygonGeometry} polygonGeometry A description of the polygon.
- * @returns {Geometry|undefined} The computed vertices and indices.
+ * @param {PolygonGeometry} polygonGeometry 对多边形的描述。
+ * @returns {Geometry|undefined} 计算得到的顶点和索引。
  */
+
 PolygonGeometry.createGeometry = function (polygonGeometry) {
   const vertexFormat = polygonGeometry._vertexFormat;
   const ellipsoid = polygonGeometry._ellipsoid;
@@ -1565,10 +1567,11 @@ Object.defineProperties(PolygonGeometry.prototype, {
       return this._rectangle;
     },
   },
-  /**
-   * For remapping texture coordinates when rendering PolygonGeometries as GroundPrimitives.
+/**
+   * 在将 PolygonGeometries 渲染为 GroundPrimitives 时，用于重新映射纹理坐标。
    * @private
    */
+
   textureCoordinateRotationPoints: {
     get: function () {
       if (!defined(this._textureCoordinateRotationPoints)) {

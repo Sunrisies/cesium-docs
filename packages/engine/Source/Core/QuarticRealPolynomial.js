@@ -4,22 +4,23 @@ import CesiumMath from "./Math.js";
 import QuadraticRealPolynomial from "./QuadraticRealPolynomial.js";
 
 /**
- * Defines functions for 4th order polynomial functions of one variable with only real coefficients.
+ * 定义仅具有实系数的一元四次多项式函数的功能。
  *
  * @namespace QuarticRealPolynomial
  */
 const QuarticRealPolynomial = {};
 
 /**
- * Provides the discriminant of the quartic equation from the supplied coefficients.
+ * 提供从提供的系数得到的四次方程的判别式。
  *
- * @param {number} a The coefficient of the 4th order monomial.
- * @param {number} b The coefficient of the 3rd order monomial.
- * @param {number} c The coefficient of the 2nd order monomial.
- * @param {number} d The coefficient of the 1st order monomial.
- * @param {number} e The coefficient of the 0th order monomial.
- * @returns {number} The value of the discriminant.
+ * @param {number} a 四次项的系数。
+ * @param {number} b 三次项的系数。
+ * @param {number} c 二次项的系数。
+ * @param {number} d 一次项的系数。
+ * @param {number} e 常数项的系数。
+ * @returns {number} 判别式的值。
  */
+
 QuarticRealPolynomial.computeDiscriminant = function (a, b, c, d, e) {
   //>>includeStart('debug', pragmas.debug);
   if (typeof a !== "number") {
@@ -261,15 +262,16 @@ function neumark(a3, a2, a1, a0) {
 }
 
 /**
- * Provides the real valued roots of the quartic polynomial with the provided coefficients.
+ * 提供具有所提供系数的四次多项式的实数根。
  *
- * @param {number} a The coefficient of the 4th order monomial.
- * @param {number} b The coefficient of the 3rd order monomial.
- * @param {number} c The coefficient of the 2nd order monomial.
- * @param {number} d The coefficient of the 1st order monomial.
- * @param {number} e The coefficient of the 0th order monomial.
- * @returns {number[]} The real valued roots.
+ * @param {number} a 四次项的系数。
+ * @param {number} b 三次项的系数。
+ * @param {number} c 二次项的系数。
+ * @param {number} d 一次项的系数。
+ * @param {number} e 常数项的系数。
+ * @returns {number[]} 实数根数组。
  */
+
 QuarticRealPolynomial.computeRealRoots = function (a, b, c, d, e) {
   //>>includeStart('debug', pragmas.debug);
   if (typeof a !== "number") {

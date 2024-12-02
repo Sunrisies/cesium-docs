@@ -970,26 +970,26 @@ function computeRectangle(rectangle, granularity, rotation, ellipsoid, result) {
 }
 
 /**
- * A description of a cartographic rectangle on an ellipsoid centered at the origin. Rectangle geometry can be rendered with both {@link Primitive} and {@link GroundPrimitive}.
+ * 描述一个位于原点的椭球体上的地理矩形。矩形几何体可以通过 {@link Primitive} 和 {@link GroundPrimitive} 渲染。
  *
  * @alias RectangleGeometry
  * @constructor
  *
- * @param {object} options Object with the following properties:
- * @param {Rectangle} options.rectangle A cartographic rectangle with north, south, east and west properties in radians.
- * @param {VertexFormat} [options.vertexFormat=VertexFormat.DEFAULT] The vertex attributes to be computed.
- * @param {Ellipsoid} [options.ellipsoid=Ellipsoid.default] The ellipsoid on which the rectangle lies.
- * @param {number} [options.granularity=CesiumMath.RADIANS_PER_DEGREE] The distance, in radians, between each latitude and longitude. Determines the number of positions in the buffer.
- * @param {number} [options.height=0.0] The distance in meters between the rectangle and the ellipsoid surface.
- * @param {number} [options.rotation=0.0] The rotation of the rectangle, in radians. A positive rotation is counter-clockwise.
- * @param {number} [options.stRotation=0.0] The rotation of the texture coordinates, in radians. A positive rotation is counter-clockwise.
- * @param {number} [options.extrudedHeight] The distance in meters between the rectangle's extruded face and the ellipsoid surface.
+ * @param {object} options 包含以下属性的对象：
+ * @param {Rectangle} options.rectangle 一个具有北、南、东和西属性（以弧度表示）的地理矩形。
+ * @param {VertexFormat} [options.vertexFormat=VertexFormat.DEFAULT] 要计算的顶点属性。
+ * @param {Ellipsoid} [options.ellipsoid=Ellipsoid.default] 矩形所在的椭球体。
+ * @param {number} [options.granularity=CesiumMath.RADIANS_PER_DEGREE] 每个纬度和经度之间的距离（以弧度为单位）。决定缓冲区中的位置数量。
+ * @param {number} [options.height=0.0] 矩形与椭球表面之间的距离（以米为单位）。
+ * @param {number} [options.rotation=0.0] 矩形的旋转角度（以弧度为单位）。正旋转为逆时针方向。
+ * @param {number} [options.stRotation=0.0] 纹理坐标的旋转角度（以弧度为单位）。正旋转为逆时针方向。
+ * @param {number} [options.extrudedHeight] 矩形的挤出面与椭球表面之间的距离（以米为单位）。
  *
- * @exception {DeveloperError} <code>options.rectangle.north</code> must be in the interval [<code>-Pi/2</code>, <code>Pi/2</code>].
- * @exception {DeveloperError} <code>options.rectangle.south</code> must be in the interval [<code>-Pi/2</code>, <code>Pi/2</code>].
- * @exception {DeveloperError} <code>options.rectangle.east</code> must be in the interval [<code>-Pi</code>, <code>Pi</code>].
- * @exception {DeveloperError} <code>options.rectangle.west</code> must be in the interval [<code>-Pi</code>, <code>Pi</code>].
- * @exception {DeveloperError} <code>options.rectangle.north</code> must be greater than <code>options.rectangle.south</code>.
+ * @exception {DeveloperError} <code>options.rectangle.north</code> 必须在区间 [<code>-Pi/2</code>, <code>Pi/2</code>] 内。
+ * @exception {DeveloperError} <code>options.rectangle.south</code> 必须在区间 [<code>-Pi/2</code>, <code>Pi/2</code>] 内。
+ * @exception {DeveloperError} <code>options.rectangle.east</code> 必须在区间 [<code>-Pi</code>, <code>Pi</code>] 内。
+ * @exception {DeveloperError} <code>options.rectangle.west</code> 必须在区间 [<code>-Pi</code>, <code>Pi</code>] 内。
+ * @exception {DeveloperError} <code>options.rectangle.north</code> 必须大于 <code>options.rectangle.south</code>。
  *
  * @see RectangleGeometry#createGeometry
  *
@@ -1117,13 +1117,14 @@ const scratchOptions = {
 };
 
 /**
- * 从打包数组中检索实例.
+ * 从打包数组中检索实例。
  *
- * @param {number[]} array 压缩数组.
- * @param {number} [startingIndex=0] 需要解包的元素的起始索引.
- * @param {RectangleGeometry} [result] 存储结果的对象.
- * @returns {RectangleGeometry} The modified result parameter or a new RectangleGeometry instance if one was not provided.
+ * @param {number[]} array 压缩数组。
+ * @param {number} [startingIndex=0] 需要解包的元素的起始索引。
+ * @param {RectangleGeometry} [result] 存储结果的对象。
+ * @returns {RectangleGeometry} 修改后的结果参数或如果未提供结果参数则返回的新 RectangleGeometry 实例。
  */
+
 RectangleGeometry.unpack = function (array, startingIndex, result) {
   //>>includeStart('debug', pragmas.debug);
   Check.defined("array", array);
@@ -1181,17 +1182,18 @@ RectangleGeometry.unpack = function (array, startingIndex, result) {
 };
 
 /**
- * Computes the bounding rectangle based on the provided options
+ * 根据提供的选项计算包围矩形。
  *
- * @param {object} options Object with the following properties:
- * @param {Rectangle} options.rectangle A cartographic rectangle with north, south, east and west properties in radians.
- * @param {Ellipsoid} [options.ellipsoid=Ellipsoid.default] The ellipsoid on which the rectangle lies.
- * @param {number} [options.granularity=CesiumMath.RADIANS_PER_DEGREE] The distance, in radians, between each latitude and longitude. Determines the number of positions in the buffer.
- * @param {number} [options.rotation=0.0] The rotation of the rectangle, in radians. A positive rotation is counter-clockwise.
- * @param {Rectangle} [result] An object in which to store the result.
+ * @param {object} options 包含以下属性的对象：
+ * @param {Rectangle} options.rectangle 一个具有北、南、东和西属性（以弧度表示）的地理矩形。
+ * @param {Ellipsoid} [options.ellipsoid=Ellipsoid.default] 矩形所在的椭球体。
+ * @param {number} [options.granularity=CesiumMath.RADIANS_PER_DEGREE] 每个纬度和经度之间的距离（以弧度为单位）。决定缓冲区中的位置数量。
+ * @param {number} [options.rotation=0.0] 矩形的旋转角度（以弧度为单位）。正旋转为逆时针方向。
+ * @param {Rectangle} [result] 存储结果的对象。
  *
- * @returns {Rectangle} The result rectangle
+ * @returns {Rectangle} 结果矩形。
  */
+
 RectangleGeometry.computeRectangle = function (options, result) {
   options = defaultValue(options, defaultValue.EMPTY_OBJECT);
 
@@ -1221,13 +1223,14 @@ const tangentRotationMatrixScratch = new Matrix3();
 const quaternionScratch = new Quaternion();
 const centerScratch = new Cartographic();
 /**
- * Computes the geometric representation of a rectangle, including its vertices, indices, and a bounding sphere.
+ * 计算矩形的几何表示，包括其顶点、索引和包围球。
  *
- * @param {RectangleGeometry} rectangleGeometry A description of the rectangle.
- * @returns {Geometry|undefined} The computed vertices and indices.
+ * @param {RectangleGeometry} rectangleGeometry 矩形的描述。
+ * @returns {Geometry|undefined} 计算得到的顶点和索引。
  *
- * @exception {DeveloperError} Rotated rectangle is invalid.
+ * @exception {DeveloperError} 旋转的矩形无效。
  */
+
 RectangleGeometry.createGeometry = function (rectangleGeometry) {
   if (
     CesiumMath.equalsEpsilon(
@@ -1469,12 +1472,13 @@ Object.defineProperties(RectangleGeometry.prototype, {
     },
   },
   /**
-   * For remapping texture coordinates when rendering RectangleGeometries as GroundPrimitives.
-   * This version permits skew in textures by computing offsets directly in cartographic space and
-   * more accurately approximates rendering RectangleGeometries with height as standard Primitives.
+   * 在将 RectangleGeometries 渲染为 GroundPrimitives 时，用于重映射纹理坐标。
+   * 该版本通过在地理坐标空间中直接计算偏移量来允许纹理的倾斜，
+   * 并更准确地近似具有高度的 RectangleGeometries 渲染为标准原始对象。
    * @see Geometry#_textureCoordinateRotationPoints
    * @private
    */
+
   textureCoordinateRotationPoints: {
     get: function () {
       if (!defined(this._textureCoordinateRotationPoints)) {

@@ -11,15 +11,16 @@ const defaultOutlineColor = Color.BLACK;
 const defaultOutlineWidth = 1.0;
 
 /**
- * A {@link MaterialProperty} that maps to polyline outline {@link Material} uniforms.
+ * 一个 {@link MaterialProperty}，映射到多段线轮廓 {@link Material} 的 uniforms。
  * @alias PolylineOutlineMaterialProperty
  * @constructor
  *
- * @param {object} [options] Object with the following properties:
- * @param {Property|Color} [options.color=Color.WHITE] A Property specifying the {@link Color} of the line.
- * @param {Property|Color} [options.outlineColor=Color.BLACK] A Property specifying the {@link Color} of the outline.
- * @param {Property|number} [options.outlineWidth=1.0] A numeric Property specifying the width of the outline, in pixels.
+ * @param {object} [options] 包含以下属性的对象：
+ * @param {Property|Color} [options.color=Color.WHITE] 一个属性，指定线条的 {@link Color}。
+ * @param {Property|Color} [options.outlineColor=Color.BLACK] 一个属性，指定轮廓的 {@link Color}。
+ * @param {Property|number} [options.outlineWidth=1.0] 一个数值属性，指定轮廓的宽度（以像素为单位）。
  */
+
 function PolylineOutlineMaterialProperty(options) {
   options = defaultValue(options, defaultValue.EMPTY_OBJECT);
 
@@ -38,8 +39,7 @@ function PolylineOutlineMaterialProperty(options) {
 
 Object.defineProperties(PolylineOutlineMaterialProperty.prototype, {
   /**
-   * Gets a value indicating if this property is constant.  A property is considered
-   * constant if getValue always returns the same result for the current definition.
+   * 获取一个值，指示该属性是否为常量。如果 getValue 始终返回相同的结果，则该属性被认为是常量。
    * @memberof PolylineOutlineMaterialProperty.prototype
    *
    * @type {boolean}
@@ -55,9 +55,8 @@ Object.defineProperties(PolylineOutlineMaterialProperty.prototype, {
     },
   },
   /**
-   * Gets the event that is raised whenever the definition of this property changes.
-   * The definition is considered to have changed if a call to getValue would return
-   * a different result for the same time.
+   * 获取每当该属性的定义发生变化时引发的事件。
+   * 如果调用 getValue 返回同一时间不同的结果，则认为定义已发生变化。
    * @memberof PolylineOutlineMaterialProperty.prototype
    *
    * @type {Event}
@@ -69,7 +68,7 @@ Object.defineProperties(PolylineOutlineMaterialProperty.prototype, {
     },
   },
   /**
-   * Gets or sets the Property specifying the {@link Color} of the line.
+   * 获取或设置指定线条 {@link Color} 的属性。
    * @memberof PolylineOutlineMaterialProperty.prototype
    * @type {Property|undefined}
    * @default Color.WHITE
@@ -77,7 +76,7 @@ Object.defineProperties(PolylineOutlineMaterialProperty.prototype, {
   color: createPropertyDescriptor("color"),
 
   /**
-   * Gets or sets the Property specifying the {@link Color} of the outline.
+   * 获取或设置指定轮廓 {@link Color} 的属性。
    * @memberof PolylineOutlineMaterialProperty.prototype
    * @type {Property|undefined}
    * @default Color.BLACK
@@ -85,7 +84,7 @@ Object.defineProperties(PolylineOutlineMaterialProperty.prototype, {
   outlineColor: createPropertyDescriptor("outlineColor"),
 
   /**
-   * Gets or sets the numeric Property specifying the width of the outline.
+   * 获取或设置指定轮廓宽度的数值属性。
    * @memberof PolylineOutlineMaterialProperty.prototype
    * @type {Property|undefined}
    * @default 1.0
@@ -93,11 +92,12 @@ Object.defineProperties(PolylineOutlineMaterialProperty.prototype, {
   outlineWidth: createPropertyDescriptor("outlineWidth"),
 });
 
+
 /**
- * Gets the {@link Material} type at the provided time.
+ * 获取在提供时间的 {@link Material} 类型。
  *
- * @param {JulianDate} time The time for which to retrieve the type.
- * @returns {string} The type of material.
+ * @param {JulianDate} time 要检索类型的时间。
+ * @returns {string} 材料的类型。
  */
 PolylineOutlineMaterialProperty.prototype.getType = function (time) {
   return "PolylineOutline";
@@ -106,12 +106,13 @@ PolylineOutlineMaterialProperty.prototype.getType = function (time) {
 const timeScratch = new JulianDate();
 
 /**
- * Gets the value of the property at the provided time.
+ * 获取在提供时间的属性值。
  *
- * @param {JulianDate} [time=JulianDate.now()] The time for which to retrieve the value. If omitted, the current system time is used.
- * @param {object} [result] The object to store the value into, if omitted, a new instance is created and returned.
- * @returns {object} The modified result parameter or a new instance if the result parameter was not supplied.
+ * @param {JulianDate} [time=JulianDate.now()] 要检索值的时间。如果省略，则使用当前系统时间。
+ * @param {object} [result] 要存储值的对象，如果省略，则创建并返回一个新实例。
+ * @returns {object} 修改后的结果参数或如果未提供结果参数则返回的新实例。
  */
+
 PolylineOutlineMaterialProperty.prototype.getValue = function (time, result) {
   if (!defined(time)) {
     time = JulianDate.now(timeScratch);
@@ -140,12 +141,13 @@ PolylineOutlineMaterialProperty.prototype.getValue = function (time, result) {
 };
 
 /**
- * Compares this property to the provided property and returns
+ * 比较此属性与提供的属性并返回
  * 如果相等则为 <code>true</code>，否则为 <code>false</code>
  *
- * @param {Property} [other] The other property.
+ * @param {Property} [other] 另一个属性。
  * @returns {boolean} 如果左右相等，则 <code>true</code>，否则 <code>false</code>
  */
+
 PolylineOutlineMaterialProperty.prototype.equals = function (other) {
   return (
     this === other || //

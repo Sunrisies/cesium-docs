@@ -1,33 +1,34 @@
 import defaultValue from "../Core/defaultValue.js";
 
 /**
- * Represents a burst of {@link Particle}s from a {@link ParticleSystem} at a given time in the systems lifetime.
+ * 表示在粒子系统生命周期的给定时刻从 {@link ParticleSystem} 发出的 {@link Particle} 弹幕。
  *
  * @alias ParticleBurst
  * @constructor
  *
- * @param {object} [options] An object with the following properties:
- * @param {number} [options.time=0.0] The time in seconds after the beginning of the particle system's lifetime that the burst will occur.
- * @param {number} [options.minimum=0.0] The minimum number of particles emmitted in the burst.
- * @param {number} [options.maximum=50.0] The maximum number of particles emitted in the burst.
+ * @param {object} [options] 具有以下属性的对象：
+ * @param {number} [options.time=0.0] 粒子系统生命周期开始后，弹幕发生的时间（以秒为单位）。
+ * @param {number} [options.minimum=0.0] 弹幕中发射的最少粒子数量。
+ * @param {number} [options.maximum=50.0] 弹幕中发射的最多粒子数量。
  */
+
 function ParticleBurst(options) {
   options = defaultValue(options, defaultValue.EMPTY_OBJECT);
 
   /**
-   * The time in seconds after the beginning of the particle system's lifetime that the burst will occur.
+   * 粒子系统生命周期开始后，弹幕发生的时间（以秒为单位）。
    * @type {number}
    * @default 0.0
    */
   this.time = defaultValue(options.time, 0.0);
   /**
-   * The minimum number of particles emitted.
+   * 发射的最少粒子数量。
    * @type {number}
    * @default 0.0
    */
   this.minimum = defaultValue(options.minimum, 0.0);
   /**
-   * The maximum number of particles emitted.
+   * 发射的最多粒子数量。
    * @type {number}
    * @default 50.0
    */
@@ -36,12 +37,14 @@ function ParticleBurst(options) {
   this._complete = false;
 }
 
+
 Object.defineProperties(ParticleBurst.prototype, {
   /**
-   * <code>true</code> if the burst has been completed; <code>false</code> otherwise.
+   * <code>true</code> 如果弹幕已完成；<code>false</code> 否则。
    * @memberof ParticleBurst.prototype
    * @type {boolean}
    */
+
   complete: {
     get: function () {
       return this._complete;

@@ -5,14 +5,14 @@ import JulianDate from "../Core/JulianDate.js";
 import Property from "./Property.js";
 
 /**
- * A {@link Property} whose value is an array whose items are the computed value
- * of other property instances.
+ * 一个 {@link Property}，其值是一个数组，该数组的项目是其他属性实例的计算值。
  *
  * @alias PropertyArray
  * @constructor
  *
- * @param {Property[]} [value] An array of Property instances.
+ * @param {Property[]} [value] 一个 Property 实例的数组。
  */
+
 function PropertyArray(value) {
   this._value = undefined;
   this._definitionChanged = new Event();
@@ -22,13 +22,14 @@ function PropertyArray(value) {
 
 Object.defineProperties(PropertyArray.prototype, {
   /**
-   * Gets a value indicating if this property is constant.  This property
-   * is considered constant if all property items in the array are constant.
+   * 获取一个值，指示该属性是否为常量。该属性
+   * 被认为是常量，如果数组中的所有属性项都是常量。
    * @memberof PropertyArray.prototype
    *
    * @type {boolean}
    * @readonly
    */
+
   isConstant: {
     get: function () {
       const value = this._value;
@@ -45,14 +46,15 @@ Object.defineProperties(PropertyArray.prototype, {
     },
   },
   /**
-   * Gets the event that is raised whenever the definition of this property changes.
-   * The definition is changed whenever setValue is called with data different
-   * than the current value or one of the properties in the array also changes.
+   * 获取每当该属性的定义发生变化时引发的事件。
+   * 每当调用 setValue 时，传入的数据与当前值不同
+   * 或数组中的某个属性也发生变化时，定义就会改变。
    * @memberof PropertyArray.prototype
    *
    * @type {Event}
    * @readonly
    */
+
   definitionChanged: {
     get: function () {
       return this._definitionChanged;
@@ -63,12 +65,13 @@ Object.defineProperties(PropertyArray.prototype, {
 const timeScratch = new JulianDate();
 
 /**
- * Gets the value of the property.
+ * 获取属性的值。
  *
- * @param {JulianDate} [time=JulianDate.now()] The time for which to retrieve the value. If omitted, the current system time is used.
- * @param {Object[]} [result] The object to store the value into, if omitted, a new instance is created and returned.
- * @returns {Object[]} The modified result parameter, which is an array of values produced by evaluating each of the contained properties at the given time or a new instance if the result parameter was not supplied.
+ * @param {JulianDate} [time=JulianDate.now()] 要检索值的时间。如果省略，则使用当前系统时间。
+ * @param {Object[]} [result] 要存储值的对象，如果省略，则创建并返回一个新实例。
+ * @returns {Object[]} 修改后的结果参数，它是通过在给定时间评估每个包含的属性产生的值数组；如果未提供结果参数，则返回一个新实例。
  */
+
 PropertyArray.prototype.getValue = function (time, result) {
   if (!defined(time)) {
     time = JulianDate.now(timeScratch);
@@ -99,10 +102,11 @@ PropertyArray.prototype.getValue = function (time, result) {
 };
 
 /**
- * Sets the value of the property.
+ * 设置属性的值。
  *
- * @param {Property[]} value An array of Property instances.
+ * @param {Property[]} value 一个 Property 实例的数组。
  */
+
 PropertyArray.prototype.setValue = function (value) {
   const eventHelper = this._eventHelper;
   eventHelper.removeAll();
@@ -127,12 +131,13 @@ PropertyArray.prototype.setValue = function (value) {
 };
 
 /**
- * Compares this property to the provided property and returns
+ * 比较此属性与提供的属性并返回
  * 如果相等则为 <code>true</code>，否则为 <code>false</code>
  *
- * @param {Property} [other] The other property.
+ * @param {Property} [other] 另一个属性。
  * @returns {boolean} 如果左右相等，则 <code>true</code>，否则 <code>false</code>
  */
+
 PropertyArray.prototype.equals = function (other) {
   return (
     this === other || //

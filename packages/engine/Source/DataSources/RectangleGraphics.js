@@ -31,15 +31,13 @@ import createPropertyDescriptor from "./createPropertyDescriptor.js";
  */
 
 /**
- * Describes graphics for a {@link Rectangle}.
- * The rectangle conforms to the curvature of the globe and can be placed on the surface or
- * at altitude and can optionally be extruded into a volume.
+ * 描述 {@link Rectangle} 的图形。
+ * 矩形符合地球的曲率，可以放置在地表或高处，并且可以选择性地被拉伸成一个体积。
  *
  * @alias RectangleGraphics
  * @constructor
  *
- * @param {RectangleGraphics.ConstructorOptions} [options] Object describing initialization options
- *
+ * @param {RectangleGraphics.ConstructorOptions} [options] 描述初始化选项的对象
  * @see Entity
  * @demo {@link https://sandcastle.cesium.com/index.html?src=Rectangle.html|Cesium Sandcastle Rectangle Demo}
  */
@@ -87,7 +85,7 @@ function RectangleGraphics(options) {
 
 Object.defineProperties(RectangleGraphics.prototype, {
   /**
-   * Gets the event that is raised whenever a property or sub-property is changed or modified.
+   * 获取每当属性或子属性被改变或修改时所触发的事件。
    * @memberof RectangleGraphics.prototype
    *
    * @type {Event}
@@ -100,7 +98,7 @@ Object.defineProperties(RectangleGraphics.prototype, {
   },
 
   /**
-   * Gets or sets the boolean Property specifying the visibility of the rectangle.
+   * 获取或设置指定矩形可见性的布尔属性。
    * @memberof RectangleGraphics.prototype
    * @type {Property|undefined}
    * @default true
@@ -108,14 +106,14 @@ Object.defineProperties(RectangleGraphics.prototype, {
   show: createPropertyDescriptor("show"),
 
   /**
-   * Gets or sets the Property specifying the {@link Rectangle}.
+   * 获取或设置指定 {@link Rectangle} 的属性。
    * @memberof RectangleGraphics.prototype
    * @type {Property|undefined}
    */
   coordinates: createPropertyDescriptor("coordinates"),
 
   /**
-   * Gets or sets the numeric Property specifying the altitude of the rectangle.
+   * 获取或设置指定矩形高度的数值属性。
    * @memberof RectangleGraphics.prototype
    * @type {Property|undefined}
    * @default 0.0
@@ -123,7 +121,7 @@ Object.defineProperties(RectangleGraphics.prototype, {
   height: createPropertyDescriptor("height"),
 
   /**
-   * Gets or sets the Property specifying the {@link HeightReference}.
+   * 获取或设置指定 {@link HeightReference} 的属性。
    * @memberof RectangleGraphics.prototype
    * @type {Property|undefined}
    * @default HeightReference.NONE
@@ -131,15 +129,15 @@ Object.defineProperties(RectangleGraphics.prototype, {
   heightReference: createPropertyDescriptor("heightReference"),
 
   /**
-   * Gets or sets the numeric Property specifying the altitude of the rectangle extrusion.
-   * Setting this property creates volume starting at height and ending at this altitude.
+   * 获取或设置指定矩形拉伸高度的数值属性。
+   * 设置此属性将在高度开始并以此高度结束时创建一个体积。
    * @memberof RectangleGraphics.prototype
    * @type {Property|undefined}
    */
   extrudedHeight: createPropertyDescriptor("extrudedHeight"),
 
   /**
-   * Gets or sets the Property specifying the extruded {@link HeightReference}.
+   * 获取或设置指定拉伸 {@link HeightReference} 的属性。
    * @memberof RectangleGraphics.prototype
    * @type {Property|undefined}
    * @default HeightReference.NONE
@@ -147,7 +145,7 @@ Object.defineProperties(RectangleGraphics.prototype, {
   extrudedHeightReference: createPropertyDescriptor("extrudedHeightReference"),
 
   /**
-   * Gets or sets the numeric property specifying the rotation of the rectangle clockwise from north.
+   * 获取或设置指定矩形从北起顺时针旋转的数值属性。
    * @memberof RectangleGraphics.prototype
    * @type {Property|undefined}
    * @default 0
@@ -155,7 +153,7 @@ Object.defineProperties(RectangleGraphics.prototype, {
   rotation: createPropertyDescriptor("rotation"),
 
   /**
-   * Gets or sets the numeric property specifying the rotation of the rectangle texture counter-clockwise from north.
+   * 获取或设置指定矩形纹理从北起逆时针旋转的数值属性。
    * @memberof RectangleGraphics.prototype
    * @type {Property|undefined}
    * @default 0
@@ -163,7 +161,7 @@ Object.defineProperties(RectangleGraphics.prototype, {
   stRotation: createPropertyDescriptor("stRotation"),
 
   /**
-   * Gets or sets the numeric Property specifying the angular distance between points on the rectangle.
+   * 获取或设置指定矩形上点之间的角距离的数值属性。
    * @memberof RectangleGraphics.prototype
    * @type {Property|undefined}
    * @default {CesiumMath.RADIANS_PER_DEGREE}
@@ -171,7 +169,7 @@ Object.defineProperties(RectangleGraphics.prototype, {
   granularity: createPropertyDescriptor("granularity"),
 
   /**
-   * Gets or sets the boolean Property specifying whether the rectangle is filled with the provided material.
+   * 获取或设置一个布尔属性，指定矩形是否用提供的材质填充。
    * @memberof RectangleGraphics.prototype
    * @type {Property|undefined}
    * @default true
@@ -179,7 +177,7 @@ Object.defineProperties(RectangleGraphics.prototype, {
   fill: createPropertyDescriptor("fill"),
 
   /**
-   * Gets or sets the Property specifying the material used to fill the rectangle.
+   * 获取或设置指定用于填充矩形的材质的属性。
    * @memberof RectangleGraphics.prototype
    * @type {MaterialProperty}
    * @default Color.WHITE
@@ -187,7 +185,7 @@ Object.defineProperties(RectangleGraphics.prototype, {
   material: createMaterialPropertyDescriptor("material"),
 
   /**
-   * Gets or sets the Property specifying whether the rectangle is outlined.
+   * 获取或设置一个属性，指定矩形是否有轮廓。
    * @memberof RectangleGraphics.prototype
    * @type {Property|undefined}
    * @default false
@@ -195,7 +193,7 @@ Object.defineProperties(RectangleGraphics.prototype, {
   outline: createPropertyDescriptor("outline"),
 
   /**
-   * Gets or sets the Property specifying the {@link Color} of the outline.
+   * 获取或设置指定轮廓 {@link Color} 的属性。
    * @memberof RectangleGraphics.prototype
    * @type {Property|undefined}
    * @default Color.BLACK
@@ -203,9 +201,9 @@ Object.defineProperties(RectangleGraphics.prototype, {
   outlineColor: createPropertyDescriptor("outlineColor"),
 
   /**
-   * Gets or sets the numeric Property specifying the width of the outline.
+   * 获取或设置指定轮廓宽度的数值属性。
    * <p>
-   * Note: This property will be ignored on all major browsers on Windows platforms. For details, see (@link https://github.com/CesiumGS/cesium/issues/40}.
+   * 注意：此属性将在所有主要浏览器的Windows平台上被忽略。有关详细信息，请参阅 (@link https://github.com/CesiumGS/cesium/issues/40}。
    * </p>
    * @memberof RectangleGraphics.prototype
    * @type {Property|undefined}
@@ -214,8 +212,7 @@ Object.defineProperties(RectangleGraphics.prototype, {
   outlineWidth: createPropertyDescriptor("outlineWidth"),
 
   /**
-   * Get or sets the enum Property specifying whether the rectangle
-   * casts or receives shadows from light sources.
+   * 获取或设置指定矩形是否投射或接收光源的阴影的枚举属性。
    * @memberof RectangleGraphics.prototype
    * @type {Property|undefined}
    * @default ShadowMode.DISABLED
@@ -223,7 +220,7 @@ Object.defineProperties(RectangleGraphics.prototype, {
   shadows: createPropertyDescriptor("shadows"),
 
   /**
-   * Gets or sets the {@link DistanceDisplayCondition} Property specifying at what distance from the camera that this rectangle will be displayed.
+   * 获取或设置指定矩形在距相机的距离下显示的 {@link DistanceDisplayCondition} 属性。
    * @memberof RectangleGraphics.prototype
    * @type {Property|undefined}
    */
@@ -232,7 +229,7 @@ Object.defineProperties(RectangleGraphics.prototype, {
   ),
 
   /**
-   * Gets or sets the {@link ClassificationType} Property specifying whether this rectangle will classify terrain, 3D Tiles, or both when on the ground.
+   * 获取或设置指定矩形在地面上时是否会对地形、3D Tiles 或两者进行分类的 {@link ClassificationType} 属性。
    * @memberof RectangleGraphics.prototype
    * @type {Property|undefined}
    * @default ClassificationType.BOTH
@@ -240,7 +237,7 @@ Object.defineProperties(RectangleGraphics.prototype, {
   classificationType: createPropertyDescriptor("classificationType"),
 
   /**
-   * Gets or sets the zIndex Property specifying the ordering of the rectangle.  Only has an effect if the rectangle is constant and neither height or extrudedHeight are specified.
+   * 获取或设置指定矩形的 zIndex 属性，指定矩形的顺序。仅在矩形是常量且未指定高度或拉伸高度时有效。
    * @memberof RectangleGraphics.prototype
    * @type {ConstantProperty|undefined}
    * @default 0
@@ -248,12 +245,14 @@ Object.defineProperties(RectangleGraphics.prototype, {
   zIndex: createPropertyDescriptor("zIndex"),
 });
 
+
 /**
- * Duplicates this instance.
+ * 复制此实例。
  *
- * @param {RectangleGraphics} [result] 存储结果的对象.
- * @returns {RectangleGraphics} The modified result parameter or a new instance if one was not provided.
+ * @param {RectangleGraphics} [result] 存储结果的对象。
+ * @returns {RectangleGraphics} 修改后的结果参数，如果未提供，则返回一个新实例。
  */
+
 RectangleGraphics.prototype.clone = function (result) {
   if (!defined(result)) {
     return new RectangleGraphics(this);
@@ -280,11 +279,12 @@ RectangleGraphics.prototype.clone = function (result) {
 };
 
 /**
- * Assigns each unassigned property on this object to the value
- * of the same property on the provided source object.
+ * 将此对象上每个未分配的属性赋值为
+ * 提供的源对象上相同属性的值。
  *
- * @param {RectangleGraphics} source The object to be merged into this object.
+ * @param {RectangleGraphics} source 要合并到此对象中的对象。
  */
+
 RectangleGraphics.prototype.merge = function (source) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(source)) {

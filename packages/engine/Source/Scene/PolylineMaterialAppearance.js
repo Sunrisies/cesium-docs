@@ -16,17 +16,17 @@ if (!FeatureDetection.isInternetExplorer()) {
 }
 
 /**
- * An appearance for {@link PolylineGeometry} that supports shading with materials.
+ * {@link PolylineGeometry} 的外观，支持使用材质进行阴影处理。
  *
  * @alias PolylineMaterialAppearance
  * @constructor
  *
- * @param {object} [options] Object with the following properties:
- * @param {boolean} [options.translucent=true] When <code>true</code>, the geometry is expected to appear translucent so {@link PolylineMaterialAppearance#renderState} has alpha blending enabled.
- * @param {Material} [options.material=Material.ColorType] The material used to determine the fragment color.
- * @param {string} [options.vertexShaderSource] Optional GLSL vertex shader source to override the default vertex shader.
- * @param {string} [options.fragmentShaderSource] Optional GLSL fragment shader source to override the default fragment shader.
- * @param {object} [options.renderState] Optional render state to override the default render state.
+ * @param {object} [options] 包含以下属性的对象：
+ * @param {boolean} [options.translucent=true] 当 <code>true</code> 时，几何图形被期望呈现为半透明，因此 {@link PolylineMaterialAppearance#renderState} 启用 alpha 混合。
+ * @param {Material} [options.material=Material.ColorType] 用于确定片段颜色的材质。
+ * @param {string} [options.vertexShaderSource] 可选的 GLSL 顶点着色器源，用于覆盖默认的顶点着色器。
+ * @param {string} [options.fragmentShaderSource] 可选的 GLSL 片段着色器源，用于覆盖默认的片段着色器。
+ * @param {object} [options.renderState] 可选的渲染状态，用于覆盖默认的渲染状态。
  *
  * @see {@link https://github.com/CesiumGS/cesium/wiki/Fabric|Fabric}
  *
@@ -55,27 +55,28 @@ function PolylineMaterialAppearance(options) {
   const vertexFormat = PolylineMaterialAppearance.VERTEX_FORMAT;
 
   /**
-   * The material used to determine the fragment color.  Unlike other {@link PolylineMaterialAppearance}
-   * properties, this is not read-only, so an appearance's material can change on the fly.
-   *
-   * @type Material
-   *
-   * @default {@link Material.ColorType}
-   *
-   * @see {@link https://github.com/CesiumGS/cesium/wiki/Fabric|Fabric}
-   */
-  this.material = defined(options.material)
-    ? options.material
-    : Material.fromType(Material.ColorType);
+ * 用于确定片段颜色的材质。与其他 {@link PolylineMaterialAppearance}
+ * 属性不同，它不是只读的，因此外观的材质可以动态更改。
+ *
+ * @type Material
+ *
+ * @default {@link Material.ColorType}
+ *
+ * @see {@link https://github.com/CesiumGS/cesium/wiki/Fabric|Fabric}
+ */
+this.material = defined(options.material)
+  ? options.material
+  : Material.fromType(Material.ColorType);
 
-  /**
-   * When <code>true</code>, the geometry is expected to appear translucent so
-   * {@link PolylineMaterialAppearance#renderState} has alpha blending enabled.
-   *
-   * @type {boolean}
-   *
-   * @default true
-   */
+/**
+ * 当 <code>true</code> 时，几何图形被期望呈现为半透明，因此
+ * {@link PolylineMaterialAppearance#renderState} 启用 alpha 混合。
+ *
+ * @type {boolean}
+ *
+ * @default true
+ */
+
   this.translucent = translucent;
 
   this._vertexShaderSource = defaultValue(
@@ -100,13 +101,14 @@ function PolylineMaterialAppearance(options) {
 
 Object.defineProperties(PolylineMaterialAppearance.prototype, {
   /**
-   * The GLSL source code for the vertex shader.
+   * 顶点着色器的 GLSL 源代码。
    *
    * @memberof PolylineMaterialAppearance.prototype
    *
    * @type {string}
    * @readonly
    */
+
   vertexShaderSource: {
     get: function () {
       let vs = this._vertexShaderSource;
@@ -121,25 +123,24 @@ Object.defineProperties(PolylineMaterialAppearance.prototype, {
   },
 
   /**
-   * The GLSL source code for the fragment shader.
+   * 片段着色器的 GLSL 源代码。
    *
    * @memberof PolylineMaterialAppearance.prototype
    *
    * @type {string}
    * @readonly
    */
-  fragmentShaderSource: {
+fragmentShaderSource: {
     get: function () {
       return this._fragmentShaderSource;
     },
   },
 
   /**
-   * The WebGL fixed-function state to use when rendering the geometry.
+   * 渲染几何图形时使用的 WebGL 固定功能状态。
    * <p>
-   * The render state can be explicitly defined when constructing a {@link PolylineMaterialAppearance}
-   * instance, or it is set implicitly via {@link PolylineMaterialAppearance#translucent}
-   * and {@link PolylineMaterialAppearance#closed}.
+   * 在构造 {@link PolylineMaterialAppearance} 实例时可以显式定义渲染状态，
+   * 或通过 {@link PolylineMaterialAppearance#translucent} 和 {@link PolylineMaterialAppearance#closed} 隐式设置。
    * </p>
    *
    * @memberof PolylineMaterialAppearance.prototype
@@ -147,6 +148,7 @@ Object.defineProperties(PolylineMaterialAppearance.prototype, {
    * @type {object}
    * @readonly
    */
+
   renderState: {
     get: function () {
       return this._renderState;
@@ -154,9 +156,9 @@ Object.defineProperties(PolylineMaterialAppearance.prototype, {
   },
 
   /**
-   * 当 <code>true</code> 时，几何图形应闭合 so
-   * {@link PolylineMaterialAppearance#renderState} has backface culling enabled.
-   * This is always <code>false</code> for <code>PolylineMaterialAppearance</code>.
+   * 当 <code>true</code> 时，几何图形应闭合，因此
+   * {@link PolylineMaterialAppearance#renderState} 启用背面剔除。
+   * 对于 <code>PolylineMaterialAppearance</code>，这始终为 <code>false</code>。
    *
    * @memberof PolylineMaterialAppearance.prototype
    *
@@ -165,16 +167,15 @@ Object.defineProperties(PolylineMaterialAppearance.prototype, {
    *
    * @default false
    */
-  closed: {
+closed: {
     get: function () {
       return this._closed;
     },
   },
 
   /**
-   * The {@link VertexFormat} that this appearance instance is compatible with.
-   * A geometry can have more vertex attributes and still be compatible - at a
-   * potential performance cost - but it can't have less.
+   * 此外观实例兼容的 {@link VertexFormat}。
+   * 几何图形可以具有更多的顶点属性并仍然兼容 - 可能会带来性能成本 - 但不能少于。
    *
    * @memberof PolylineMaterialAppearance.prototype
    *
@@ -183,6 +184,7 @@ Object.defineProperties(PolylineMaterialAppearance.prototype, {
    *
    * @default {@link PolylineMaterialAppearance.VERTEX_FORMAT}
    */
+
   vertexFormat: {
     get: function () {
       return this._vertexFormat;
@@ -191,8 +193,8 @@ Object.defineProperties(PolylineMaterialAppearance.prototype, {
 });
 
 /**
- * The {@link VertexFormat} that all {@link PolylineMaterialAppearance} instances
- * are compatible with. This requires <code>position</code> and <code>st</code> attributes.
+ * 所有 {@link PolylineMaterialAppearance} 实例兼容的 {@link VertexFormat}。
+ * 这需要 <code>position</code> 和 <code>st</code> 属性。
  *
  * @type VertexFormat
  *
@@ -201,35 +203,36 @@ Object.defineProperties(PolylineMaterialAppearance.prototype, {
 PolylineMaterialAppearance.VERTEX_FORMAT = VertexFormat.POSITION_AND_ST;
 
 /**
- * Procedurally creates the full GLSL fragment shader source.  For {@link PolylineMaterialAppearance},
- * this is derived from {@link PolylineMaterialAppearance#fragmentShaderSource} and {@link PolylineMaterialAppearance#material}.
+ * 基于 {@link PolylineMaterialAppearance#fragmentShaderSource} 和 {@link PolylineMaterialAppearance#material}
+ * 生成完整的 GLSL 片段着色器源。
  *
  * @function
  *
- * @returns {string} The full GLSL fragment shader source.
+ * @returns {string} 完整的 GLSL 片段着色器源。
  */
 PolylineMaterialAppearance.prototype.getFragmentShaderSource =
   Appearance.prototype.getFragmentShaderSource;
 
 /**
- * Determines if the geometry is translucent based on {@link PolylineMaterialAppearance#translucent} and {@link Material#isTranslucent}.
+ * 根据 {@link PolylineMaterialAppearance#translucent} 和 {@link Material#isTranslucent} 
+ * 确定几何图形是否是半透明的。
  *
  * @function
  *
- * @returns {boolean} <code>true</code> if the appearance is translucent.
+ * @returns {boolean} 如果外观是半透明的，则为 <code>true</code>。
  */
 PolylineMaterialAppearance.prototype.isTranslucent =
   Appearance.prototype.isTranslucent;
 
 /**
- * Creates a render state.  This is not the final render state instance; instead,
- * it can contain a subset of render state properties identical to the render state
- * created in the context.
+ * 创建渲染状态。这不是最终的渲染状态实例；相反，
+ * 它可以包含与上下文中创建的渲染状态相同的渲染状态属性的子集。
  *
  * @function
  *
- * @returns {object} The render state.
+ * @returns {object} 渲染状态。
  */
+
 PolylineMaterialAppearance.prototype.getRenderState =
   Appearance.prototype.getRenderState;
 export default PolylineMaterialAppearance;

@@ -333,96 +333,95 @@
 - [x] OrthographicFrustum
 - [x] OrthographicOffCenterFrustum
 
-- [ ] PackableForInterpolation
-- [ ] Particle
-- [ ] ParticleBurst
-- [ ] ParticleEmitter
-- [ ] ParticleSystem
-- [ ] PathGraphics
-- [ ] PathVisualizer
-- [ ] PeliasGeocoderService
-- [ ] PerInstanceColorAppearance
-- [ ] PerspectiveFrustum
-- [ ] PerspectiveOffCenterFrustum
-- [ ] PickedMetadataInfo
-- [ ] PinBuilder
-- [ ] PixelDatatype
-- [ ] PixelFormat
-- [ ] Plane
-- [ ] PlaneGeometry
-- [ ] PlaneGeometryUpdater
-- [ ] PlaneGraphics
-- [ ] PlaneOutlineGeometry
-- [ ] PointCloudShading
-- [ ] PointGraphics
-- [ ] pointInsideTriangle
-- [ ] PointPrimitive
-- [ ] PointPrimitiveCollection
-- [ ] PointVisualizer
-- [ ] PolygonGeometry
-- [ ] PolygonGeometryUpdater
-- [ ] PolygonGraphics
-- [ ] PolygonHierarchy
-- [ ] PolygonOutlineGeometry
-- [ ] Polyline
-- [ ] PolylineArrowMaterialProperty
-- [ ] PolylineCollection
-- [ ] PolylineColorAppearance
-- [ ] PolylineDashMaterialProperty
-- [ ] PolylineGeometry
-- [ ] PolylineGeometryUpdater
-- [ ] PolylineGlowMaterialProperty
-- [ ] PolylineGraphics
-- [ ] PolylineMaterialAppearance
-- [ ] PolylineOutlineMaterialProperty
-- [ ] PolylineVisualizer
-- [ ] PolylineVolumeGeometry
-- [ ] PolylineVolumeGeometryUpdater
-- [ ] PolylineVolumeGraphics
-- [ ] PolylineVolumeOutlineGeometry
-- [ ] PositionProperty
-- [ ] PositionPropertyArray
-- [ ] PostProcessStage
-- [ ] PostProcessStageCollection
-- [ ] PostProcessStageComposite
-- [ ] PostProcessStageLibrary
-- [ ] PostProcessStageSampleMode
-- [ ] Primitive
-- [ ] PrimitiveCollection
-- [ ] PrimitiveType
-- [ ] Property
-- [ ] PropertyArray
-- [ ] PropertyBag
-- [ ] propertyName
-- [ ] Proxy
+- [x] PackableForInterpolation
+- [x] Particle
+- [x] ParticleBurst
+- [x] ParticleEmitter
+- [x] ParticleSystem
+- [x] PathGraphics
+- [x] PathVisualizer
+- [x] PeliasGeocoderService
+- [x] PerInstanceColorAppearance
+- [x] PerspectiveFrustum
+- [x] PerspectiveOffCenterFrustum
+- [x] PickedMetadataInfo
+- [x] PinBuilder
+- [x] PixelDatatype
+- [x] PixelFormat
+- [x] Plane
+- [x] PlaneGeometry
+- [x] PlaneGeometryUpdater
+- [x] PlaneGraphics
+- [x] PlaneOutlineGeometry
+- [x] PointCloudShading
+- [x] PointGraphics
+- [x] pointInsideTriangle
+- [x] PointPrimitive
+- [x] PointPrimitiveCollection
+- [x] PointVisualizer
+- [x] PolygonGeometry
+- [x] PolygonGeometryUpdater
+- [x] PolygonGraphics
+- [x] PolygonHierarchy
+- [x] PolygonOutlineGeometry
+- [x] Polyline
+- [x] PolylineArrowMaterialProperty
+- [x] PolylineCollection
+- [x] PolylineColorAppearance
+- [x] PolylineDashMaterialProperty
+- [x] PolylineGeometry
+- [x] PolylineGeometryUpdater
+- [x] PolylineGlowMaterialProperty
+- [x] PolylineGraphics
+- [x] PolylineMaterialAppearance
+- [x] PolylineOutlineMaterialProperty
+- [x] PolylineVisualizer
+- [x] PolylineVolumeGeometry
+- [x] PolylineVolumeGeometryUpdater
+- [x] PolylineVolumeGraphics
+- [x] PolylineVolumeOutlineGeometry
+- [x] PositionProperty
+- [x] PositionPropertyArray
+- [x] PostProcessStage
+- [x] PostProcessStageCollection
+- [x] PostProcessStageComposite
+- [x] PostProcessStageLibrary
+- [x] PostProcessStageSampleMode
+- [x] Primitive
+- [x] PrimitiveCollection
+- [x] PrimitiveType
+- [x] Property
+- [x] PropertyArray
+- [x] PropertyBag
+- [x] propertyName
+- [x] Proxy
+- [x] QuadraticRealPolynomial
+- [x] QuantizedMeshTerrainData
+- [x] QuarticRealPolynomial
+- [x] Quaternion
+- [x] QuaternionSpline
+- [x] queryToObject
+- [x] Queue
+- [x] Ray
+- [x] Rectangle
+- [x] RectangleGeometry
+- [x] RectangleGeometryUpdater
+- [x] RectangleGraphics
+- [x] RectangleOutlineGeometry
+- [x] ReferenceFrame
+- [x] ReferenceProperty
+- [x] removeExtension
+- [x] Request
+- [x] RequestErrorEvent
+- [x] RequestScheduler
+- [x] RequestState
+- [x] RequestType
+- [x] Resource
+- [x] RuntimeError
+- [x] SampledPositionProperty
+- [x] SampledProperty
+- [x] sampleTerrain
 
-- [ ] QuadraticRealPolynomial
-- [ ] QuantizedMeshTerrainData
-- [ ] QuarticRealPolynomial
-- [ ] Quaternion
-- [ ] QuaternionSpline
-- [ ] queryToObject
-- [ ] Queue
-- [ ] Ray
-- [ ] Rectangle
-- [ ] RectangleGeometry
-- [ ] RectangleGeometryUpdater
-- [ ] RectangleGraphics
-- [ ] RectangleOutlineGeometry
-- [ ] ReferenceFrame
-- [ ] ReferenceProperty
-- [ ] removeExtension
-- [ ] Request
-- [ ] RequestErrorEvent
-- [ ] RequestScheduler
-- [ ] RequestState
-- [ ] RequestType
-- [ ] Resource
-- [ ] RuntimeError
-
-- [ ] SampledPositionProperty
-- [ ] SampledProperty
-- [ ] sampleTerrain
 - [ ] sampleTerrainMostDetailed
 - [ ] Scene
 - [ ] SceneMode

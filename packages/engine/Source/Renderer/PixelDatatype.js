@@ -1,11 +1,11 @@
 import WebGLConstants from "../Core/WebGLConstants.js";
-
 /**
- * The data type of a pixel.
+ * 像素的数据类型。
  *
  * @enum {number}
  * @see PostProcessStage
  */
+
 const PixelDatatype = {
   UNSIGNED_BYTE: WebGLConstants.UNSIGNED_BYTE,
   UNSIGNED_SHORT: WebGLConstants.UNSIGNED_SHORT,
@@ -96,13 +96,14 @@ PixelDatatype.validate = function (pixelDatatype) {
 };
 
 /**
- * Determine which TypedArray class should be used for a given PixelDatatype.
+ * 确定对于给定的 PixelDatatype 应该使用哪个 TypedArray 类。
  *
- * @param {PixelDatatype} pixelDatatype The pixel datatype.
- * @returns {function} The constructor for the appropriate TypedArray class.
+ * @param {PixelDatatype} pixelDatatype 像素数据类型。
+ * @returns {function} 适当的 TypedArray 类的构造函数。
  *
  * @private
  */
+
 PixelDatatype.getTypedArrayConstructor = function (pixelDatatype) {
   const sizeInBytes = PixelDatatype.sizeInBytes(pixelDatatype);
   if (sizeInBytes === Uint8Array.BYTES_PER_ELEMENT) {

@@ -16,41 +16,41 @@ import Particle from "./Particle.js";
 const defaultImageSize = new Cartesian2(1.0, 1.0);
 
 /**
- * A ParticleSystem manages the updating and display of a collection of particles.
+ * 粒子系统管理一组粒子的更新和显示。
  *
  * @alias ParticleSystem
  * @constructor
  *
- * @param {object} [options] Object with the following properties:
- * @param {boolean} [options.show=true] Whether to display the particle system.
- * @param {ParticleSystem.updateCallback} [options.updateCallback] The callback function to be called each frame to update a particle.
- * @param {ParticleEmitter} [options.emitter=new CircleEmitter(0.5)] The particle emitter for this system.
- * @param {Matrix4} [options.modelMatrix=Matrix4.IDENTITY] The 4x4 transformation matrix that transforms the particle system from model to world coordinates.
- * @param {Matrix4} [options.emitterModelMatrix=Matrix4.IDENTITY] The 4x4 transformation matrix that transforms the particle system emitter within the particle systems local coordinate system.
- * @param {number} [options.emissionRate=5] The number of particles to emit per second.
- * @param {ParticleBurst[]} [options.bursts] An array of {@link ParticleBurst}, emitting bursts of particles at periodic times.
- * @param {boolean} [options.loop=true] Whether the particle system should loop its bursts when it is complete.
- * @param {number} [options.scale=1.0] Sets the scale to apply to the image of the particle for the duration of its particleLife.
- * @param {number} [options.startScale] The initial scale to apply to the image of the particle at the beginning of its life.
- * @param {number} [options.endScale] The final scale to apply to the image of the particle at the end of its life.
- * @param {Color} [options.color=Color.WHITE] Sets the color of a particle for the duration of its particleLife.
- * @param {Color} [options.startColor] The color of the particle at the beginning of its life.
- * @param {Color} [options.endColor] The color of the particle at the end of its life.
- * @param {object} [options.image] The URI, HTMLImageElement, or HTMLCanvasElement to use for the billboard.
- * @param {Cartesian2} [options.imageSize=new Cartesian2(1.0, 1.0)] If set, overrides the minimumImageSize and maximumImageSize inputs that scale the particle image's dimensions in pixels.
- * @param {Cartesian2} [options.minimumImageSize] Sets the minimum bound, width by height, above which to randomly scale the particle image's dimensions in pixels.
- * @param {Cartesian2} [options.maximumImageSize] Sets the maximum bound, width by height, below which to randomly scale the particle image's dimensions in pixels.
- * @param {boolean} [options.sizeInMeters] Sets if the size of particles is in meters or pixels. <code>true</code> to size the particles in meters; otherwise, the size is in pixels.
- * @param {number} [options.speed=1.0] If set, overrides the minimumSpeed and maximumSpeed inputs with this value.
- * @param {number} [options.minimumSpeed] Sets the minimum bound in meters per second above which a particle's actual speed will be randomly chosen.
- * @param {number} [options.maximumSpeed] Sets the maximum bound in meters per second below which a particle's actual speed will be randomly chosen.
- * @param {number} [options.lifetime=Number.MAX_VALUE] How long the particle system will emit particles, in seconds.
- * @param {number} [options.particleLife=5.0] If set, overrides the minimumParticleLife and maximumParticleLife inputs with this value.
- * @param {number} [options.minimumParticleLife] Sets the minimum bound in seconds for the possible duration of a particle's life above which a particle's actual life will be randomly chosen.
- * @param {number} [options.maximumParticleLife] Sets the maximum bound in seconds for the possible duration of a particle's life below which a particle's actual life will be randomly chosen.
- * @param {number} [options.mass=1.0] Sets the minimum and maximum mass of particles in kilograms.
- * @param {number} [options.minimumMass] Sets the minimum bound for the mass of a particle in kilograms. A particle's actual mass will be chosen as a random amount above this value.
- * @param {number} [options.maximumMass] Sets the maximum mass of particles in kilograms. A particle's actual mass will be chosen as a random amount below this value.
+ * @param {object} [options] 具有以下属性的对象：
+ * @param {boolean} [options.show=true] 是否显示粒子系统。
+ * @param {ParticleSystem.updateCallback} [options.updateCallback] 每帧调用的回调函数，用于更新粒子。
+ * @param {ParticleEmitter} [options.emitter=new CircleEmitter(0.5)] 此系统的粒子发射器。
+ * @param {Matrix4} [options.modelMatrix=Matrix4.IDENTITY] 将粒子系统从模型坐标转换到世界坐标的 4x4 变换矩阵。
+ * @param {Matrix4} [options.emitterModelMatrix=Matrix4.IDENTITY] 在粒子系统局部坐标系中转换粒子系统发射器的 4x4 变换矩阵。
+ * @param {number} [options.emissionRate=5] 每秒发射的粒子数量。
+ * @param {ParticleBurst[]} [options.bursts] 一个 {@link ParticleBurst} 数组，在固定时间间隔内发射粒子弹幕。
+ * @param {boolean} [options.loop=true] 粒子系统完成时是否循环其弹幕。
+ * @param {number} [options.scale=1.0] 设置粒子在其生命周期内图像的缩放比例。
+ * @param {number} [options.startScale] 粒子生命周期开始时应用于其图像的初始缩放比例。
+ * @param {number} [options.endScale] 粒子生命周期结束时应用于其图像的最终缩放比例。
+ * @param {Color} [options.color=Color.WHITE] 设置粒子在其生命周期内的颜色。
+ * @param {Color} [options.startColor] 粒子生命周期开始时的颜色。
+ * @param {Color} [options.endColor] 粒子生命周期结束时的颜色。
+ * @param {object} [options.image] 用于广告牌的 URI、HTMLImageElement 或 HTMLCanvasElement。
+ * @param {Cartesian2} [options.imageSize=new Cartesian2(1.0, 1.0)] 如果设置，将覆盖最小图像尺寸和最大图像尺寸，以像素为单位缩放粒子图像的尺寸。
+ * @param {Cartesian2} [options.minimumImageSize] 设置最小边界（宽度和高度），超过此边界随机缩放粒子图像的尺寸（以像素为单位）。
+ * @param {Cartesian2} [options.maximumImageSize] 设置最大边界（宽度和高度），低于此边界随机缩放粒子图像的尺寸（以像素为单位）。
+ * @param {boolean} [options.sizeInMeters] 设置粒子的大小是以米还是像素为单位。<code>true</code> 表示粒子以米为单位；否则，大小以像素为单位。
+ * @param {number} [options.speed=1.0] 如果设置，将使用此值覆盖最小速度和最大速度输入。
+ * @param {number} [options.minimumSpeed] 设置粒子实际速度随机选择的最小边界（以米每秒为单位）。
+ * @param {number} [options.maximumSpeed] 设置粒子实际速度随机选择的最大边界（以米每秒为单位）。
+ * @param {number} [options.lifetime=Number.MAX_VALUE] 粒子系统发射粒子的持续时间（以秒为单位）。
+ * @param {number} [options.particleLife=5.0] 如果设置，将使用此值覆盖最小粒子生命周期和最大粒子生命周期输入。
+ * @param {number} [options.minimumParticleLife] 设置粒子生命周期的最小边界（以秒为单位）。粒子的实际生命周期将在此值之上随机选择。
+ * @param {number} [options.maximumParticleLife] 设置粒子生命周期的最大边界（以秒为单位）。粒子的实际生命周期将在此值之下随机选择。
+ * @param {number} [options.mass=1.0] 设置粒子的最小和最大质量（以千克为单位）。
+ * @param {number} [options.minimumMass] 设置粒子的质量的最小边界（以千克为单位）。粒子的实际质量将在此值之上随机选择。
+ * @param {number} [options.maximumMass] 设置粒子的最大质量（以千克为单位）。粒子的实际质量将在此值之下随机选择。
  * @demo {@link https://cesium.com/learn/cesiumjs-learn/cesiumjs-particle-systems/|Particle Systems Tutorial}
  * @demo {@link https://sandcastle.cesium.com/?src=Particle%20System.html&label=Showcases|Particle Systems Tutorial Demo}
  * @demo {@link https://sandcastle.cesium.com/?src=Particle%20System%20Fireworks.html&label=Showcases|Particle Systems Fireworks Demo}
@@ -59,31 +59,32 @@ function ParticleSystem(options) {
   options = defaultValue(options, defaultValue.EMPTY_OBJECT);
 
   /**
-   * Whether to display the particle system.
-   * @type {boolean}
-   * @default true
-   */
+    * 是否显示粒子系统。
+    * @type {boolean}
+    * @default true
+    */
   this.show = defaultValue(options.show, true);
 
   /**
-   * An array of force callbacks. The callback is passed a {@link Particle} and the difference from the last time
+   * 一个包含力回调函数的数组。回调函数接收一个 {@link Particle} 和自上次调用以来的差值。
    * @type {ParticleSystem.updateCallback}
    * @default undefined
    */
   this.updateCallback = options.updateCallback;
 
   /**
-   * Whether the particle system should loop it's bursts when it is complete.
+   * 粒子系统完成时是否循环其弹幕。
    * @type {boolean}
    * @default true
    */
   this.loop = defaultValue(options.loop, true);
 
   /**
-   * The URI, HTMLImageElement, or HTMLCanvasElement to use for the billboard.
+   * 用于广告牌的 URI、HTMLImageElement 或 HTMLCanvasElement。
    * @type {object}
    * @default undefined
    */
+
   this.image = defaultValue(options.image, undefined);
 
   let emitter = options.emitter;
@@ -184,16 +185,16 @@ function ParticleSystem(options) {
 
 Object.defineProperties(ParticleSystem.prototype, {
   /**
-   * The particle emitter for this
+   * 此系统的粒子发射器。
    * @memberof ParticleSystem.prototype
    * @type {ParticleEmitter}
    * @default CircleEmitter
    */
   emitter: {
-    get: function () {
+    get: function() {
       return this._emitter;
     },
-    set: function (value) {
+    set: function(value) {
       //>>includeStart('debug', pragmas.debug);
       Check.defined("value", value);
       //>>includeEnd('debug');
@@ -201,31 +202,31 @@ Object.defineProperties(ParticleSystem.prototype, {
     },
   },
   /**
-   * An array of {@link ParticleBurst}, emitting bursts of particles at periodic times.
+   * 一个 {@link ParticleBurst} 数组，在固定时间间隔内发射粒子弹幕。
    * @memberof ParticleSystem.prototype
    * @type {ParticleBurst[]}
    * @default undefined
    */
   bursts: {
-    get: function () {
+    get: function() {
       return this._bursts;
     },
-    set: function (value) {
+    set: function(value) {
       this._bursts = value;
       this._updateParticlePool = true;
     },
   },
   /**
-   * The 4x4 transformation matrix that transforms the particle system from model to world coordinates.
+   * 将粒子系统从模型坐标转换到世界坐标的 4x4 变换矩阵。
    * @memberof ParticleSystem.prototype
    * @type {Matrix4}
    * @default Matrix4.IDENTITY
    */
   modelMatrix: {
-    get: function () {
+    get: function() {
       return this._modelMatrix;
     },
-    set: function (value) {
+    set: function(value) {
       //>>includeStart('debug', pragmas.debug);
       Check.defined("value", value);
       //>>includeEnd('debug');
@@ -235,16 +236,17 @@ Object.defineProperties(ParticleSystem.prototype, {
     },
   },
   /**
-   * The 4x4 transformation matrix that transforms the particle system emitter within the particle systems local coordinate system.
+   * 在粒子系统局部坐标系中转换粒子系统发射器的 4x4 变换矩阵。
    * @memberof ParticleSystem.prototype
    * @type {Matrix4}
    * @default Matrix4.IDENTITY
    */
+
   emitterModelMatrix: {
-    get: function () {
+    get: function() {
       return this._emitterModelMatrix;
     },
-    set: function (value) {
+    set: function(value) {
       //>>includeStart('debug', pragmas.debug);
       Check.defined("value", value);
       //>>includeEnd('debug');
@@ -254,16 +256,16 @@ Object.defineProperties(ParticleSystem.prototype, {
     },
   },
   /**
-   * The color of the particle at the beginning of its life.
+   * 粒子生命周期开始时的颜色。
    * @memberof ParticleSystem.prototype
    * @type {Color}
    * @default Color.WHITE
    */
   startColor: {
-    get: function () {
+    get: function() {
       return this._startColor;
     },
-    set: function (value) {
+    set: function(value) {
       //>>includeStart('debug', pragmas.debug);
       Check.defined("value", value);
       //>>includeEnd('debug');
@@ -271,16 +273,17 @@ Object.defineProperties(ParticleSystem.prototype, {
     },
   },
   /**
-   * The color of the particle at the end of its life.
+   * 粒子生命周期结束时的颜色。
    * @memberof ParticleSystem.prototype
    * @type {Color}
    * @default Color.WHITE
    */
+
   endColor: {
-    get: function () {
+    get: function() {
       return this._endColor;
     },
-    set: function (value) {
+    set: function(value) {
       //>>includeStart('debug', pragmas.debug);
       Check.defined("value", value);
       //>>includeEnd('debug');
@@ -288,16 +291,16 @@ Object.defineProperties(ParticleSystem.prototype, {
     },
   },
   /**
-   * The initial scale to apply to the image of the particle at the beginning of its life.
+   * 粒子生命周期开始时应用于其图像的初始缩放比例。
    * @memberof ParticleSystem.prototype
    * @type {number}
    * @default 1.0
    */
   startScale: {
-    get: function () {
+    get: function() {
       return this._startScale;
     },
-    set: function (value) {
+    set: function(value) {
       //>>includeStart('debug', pragmas.debug);
       Check.typeOf.number.greaterThanOrEquals("value", value, 0.0);
       //>>includeEnd('debug');
@@ -305,16 +308,17 @@ Object.defineProperties(ParticleSystem.prototype, {
     },
   },
   /**
-   * The final scale to apply to the image of the particle at the end of its life.
+   * 粒子生命周期结束时应用于其图像的最终缩放比例。
    * @memberof ParticleSystem.prototype
    * @type {number}
    * @default 1.0
    */
+
   endScale: {
-    get: function () {
+    get: function() {
       return this._endScale;
     },
-    set: function (value) {
+    set: function(value) {
       //>>includeStart('debug', pragmas.debug);
       Check.typeOf.number.greaterThanOrEquals("value", value, 0.0);
       //>>includeEnd('debug');
@@ -322,16 +326,16 @@ Object.defineProperties(ParticleSystem.prototype, {
     },
   },
   /**
-   * The number of particles to emit per second.
-   * @memberof ParticleSystem.prototype
-   * @type {number}
-   * @default 5
-   */
+     * 每秒发射的粒子数量。
+     * @memberof ParticleSystem.prototype
+     * @type {number}
+     * @default 5
+     */
   emissionRate: {
-    get: function () {
+    get: function() {
       return this._emissionRate;
     },
-    set: function (value) {
+    set: function(value) {
       //>>includeStart('debug', pragmas.debug);
       Check.typeOf.number.greaterThanOrEquals("value", value, 0.0);
       //>>includeEnd('debug');
@@ -340,16 +344,17 @@ Object.defineProperties(ParticleSystem.prototype, {
     },
   },
   /**
-   * Sets the minimum bound in meters per second above which a particle's actual speed will be randomly chosen.
+   * 设置粒子实际速度随机选择的最小边界（以米每秒为单位）。
    * @memberof ParticleSystem.prototype
    * @type {number}
    * @default 1.0
    */
+
   minimumSpeed: {
-    get: function () {
+    get: function() {
       return this._minimumSpeed;
     },
-    set: function (value) {
+    set: function(value) {
       //>>includeStart('debug', pragmas.debug);
       Check.typeOf.number.greaterThanOrEquals("value", value, 0.0);
       //>>includeEnd('debug');
@@ -357,16 +362,16 @@ Object.defineProperties(ParticleSystem.prototype, {
     },
   },
   /**
-   * Sets the maximum bound in meters per second below which a particle's actual speed will be randomly chosen.
+   * 设置粒子实际速度随机选择的最大边界（以米每秒为单位）。
    * @memberof ParticleSystem.prototype
    * @type {number}
    * @default 1.0
    */
   maximumSpeed: {
-    get: function () {
+    get: function() {
       return this._maximumSpeed;
     },
-    set: function (value) {
+    set: function(value) {
       //>>includeStart('debug', pragmas.debug);
       Check.typeOf.number.greaterThanOrEquals("value", value, 0.0);
       //>>includeEnd('debug');
@@ -374,16 +379,16 @@ Object.defineProperties(ParticleSystem.prototype, {
     },
   },
   /**
-   * Sets the minimum bound in seconds for the possible duration of a particle's life above which a particle's actual life will be randomly chosen.
+   * 设置粒子生命周期的最小边界（以秒为单位），粒子的实际生命周期将在此值之上随机选择。
    * @memberof ParticleSystem.prototype
    * @type {number}
    * @default 5.0
    */
   minimumParticleLife: {
-    get: function () {
+    get: function() {
       return this._minimumParticleLife;
     },
-    set: function (value) {
+    set: function(value) {
       //>>includeStart('debug', pragmas.debug);
       Check.typeOf.number.greaterThanOrEquals("value", value, 0.0);
       //>>includeEnd('debug');
@@ -391,16 +396,17 @@ Object.defineProperties(ParticleSystem.prototype, {
     },
   },
   /**
-   * Sets the maximum bound in seconds for the possible duration of a particle's life below which a particle's actual life will be randomly chosen.
+   * 设置粒子生命周期的最大边界（以秒为单位），粒子的实际生命周期将在此值之下随机选择。
    * @memberof ParticleSystem.prototype
    * @type {number}
    * @default 5.0
    */
+
   maximumParticleLife: {
-    get: function () {
+    get: function() {
       return this._maximumParticleLife;
     },
-    set: function (value) {
+    set: function(value) {
       //>>includeStart('debug', pragmas.debug);
       Check.typeOf.number.greaterThanOrEquals("value", value, 0.0);
       //>>includeEnd('debug');
@@ -409,16 +415,16 @@ Object.defineProperties(ParticleSystem.prototype, {
     },
   },
   /**
-   * Sets the minimum mass of particles in kilograms.
+   * 设置粒子的最小质量（以千克为单位）。
    * @memberof ParticleSystem.prototype
    * @type {number}
    * @default 1.0
    */
   minimumMass: {
-    get: function () {
+    get: function() {
       return this._minimumMass;
     },
-    set: function (value) {
+    set: function(value) {
       //>>includeStart('debug', pragmas.debug);
       Check.typeOf.number.greaterThanOrEquals("value", value, 0.0);
       //>>includeEnd('debug');
@@ -426,16 +432,17 @@ Object.defineProperties(ParticleSystem.prototype, {
     },
   },
   /**
-   * Sets the maximum mass of particles in kilograms.
+   * 设置粒子的最大质量（以千克为单位）。
    * @memberof ParticleSystem.prototype
    * @type {number}
    * @default 1.0
    */
+
   maximumMass: {
-    get: function () {
+    get: function() {
       return this._maximumMass;
     },
-    set: function (value) {
+    set: function(value) {
       //>>includeStart('debug', pragmas.debug);
       Check.typeOf.number.greaterThanOrEquals("value", value, 0.0);
       //>>includeEnd('debug');
@@ -443,16 +450,16 @@ Object.defineProperties(ParticleSystem.prototype, {
     },
   },
   /**
-   * Sets the minimum bound, width by height, above which to randomly scale the particle image's dimensions in pixels.
+   * 设置最小边界（宽度和高度），超过此边界随机缩放粒子图像的尺寸（以像素为单位）。
    * @memberof ParticleSystem.prototype
    * @type {Cartesian2}
    * @default new Cartesian2(1.0, 1.0)
    */
   minimumImageSize: {
-    get: function () {
+    get: function() {
       return this._minimumImageSize;
     },
-    set: function (value) {
+    set: function(value) {
       //>>includeStart('debug', pragmas.debug);
       Check.typeOf.object("value", value);
       Check.typeOf.number.greaterThanOrEquals("value.x", value.x, 0.0);
@@ -462,16 +469,17 @@ Object.defineProperties(ParticleSystem.prototype, {
     },
   },
   /**
-   * Sets the maximum bound, width by height, below which to randomly scale the particle image's dimensions in pixels.
+   * 设置最大边界（宽度和高度），低于此边界随机缩放粒子图像的尺寸（以像素为单位）。
    * @memberof ParticleSystem.prototype
    * @type {Cartesian2}
    * @default new Cartesian2(1.0, 1.0)
    */
+
   maximumImageSize: {
-    get: function () {
+    get: function() {
       return this._maximumImageSize;
     },
-    set: function (value) {
+    set: function(value) {
       //>>includeStart('debug', pragmas.debug);
       Check.typeOf.object("value", value);
       Check.typeOf.number.greaterThanOrEquals("value.x", value.x, 0.0);
@@ -481,16 +489,16 @@ Object.defineProperties(ParticleSystem.prototype, {
     },
   },
   /**
-   * Gets or sets if the particle size is in meters or pixels. <code>true</code> to size particles in meters; otherwise, the size is in pixels.
+   * 获取或设置粒子的大小是否以米为单位或像素为单位。<code>true</code> 表示以米为单位；否则，大小以像素为单位。
    * @memberof ParticleSystem.prototype
    * @type {boolean}
    * @default false
    */
   sizeInMeters: {
-    get: function () {
+    get: function() {
       return this._sizeInMeters;
     },
-    set: function (value) {
+    set: function(value) {
       //>>includeStart('debug', pragmas.debug);
       Check.typeOf.bool("value", value);
       //>>includeEnd('debug');
@@ -498,16 +506,17 @@ Object.defineProperties(ParticleSystem.prototype, {
     },
   },
   /**
-   * How long the particle system will emit particles, in seconds.
+   * 粒子系统将发射粒子的持续时间（以秒为单位）。
    * @memberof ParticleSystem.prototype
    * @type {number}
    * @default Number.MAX_VALUE
    */
+
   lifetime: {
-    get: function () {
+    get: function() {
       return this._lifetime;
     },
-    set: function (value) {
+    set: function(value) {
       //>>includeStart('debug', pragmas.debug);
       Check.typeOf.number.greaterThanOrEquals("value", value, 0.0);
       //>>includeEnd('debug');
@@ -515,22 +524,23 @@ Object.defineProperties(ParticleSystem.prototype, {
     },
   },
   /**
-   * Fires an event when the particle system has reached the end of its lifetime.
+   * 当粒子系统到达其生命周期的结束时触发事件。
    * @memberof ParticleSystem.prototype
    * @type {Event}
    */
   complete: {
-    get: function () {
+    get: function() {
       return this._complete;
     },
   },
   /**
-   * When <code>true</code>, the particle system has reached the end of its lifetime; <code>false</code> otherwise.
+   * 当 <code>true</code> 时，粒子系统已达到其生命周期的结束；<code>false</code> 否则。
    * @memberof ParticleSystem.prototype
    * @type {boolean}
    */
+
   isComplete: {
-    get: function () {
+    get: function() {
       return this._isComplete;
     },
   },
@@ -731,7 +741,7 @@ const rotatedVelocityScratch = new Cartesian3();
 /**
  * @private
  */
-ParticleSystem.prototype.update = function (frameState) {
+ParticleSystem.prototype.update = function(frameState) {
   if (!this.show) {
     return;
   }
@@ -862,34 +872,31 @@ ParticleSystem.prototype.update = function (frameState) {
     freeParticlePool(this);
   }
 };
-
 /**
- * Returns true if this object was destroyed; otherwise, false.
+ * 如果该对象已被销毁，则返回 true；否则返回 false。
  * <br /><br />
- * If this object was destroyed, it should not be used; calling any function other than
- * <code>isDestroyed</code> will result in a {@link DeveloperError} exception.
+ * 如果该对象已被销毁，则不应使用它；调用除 <code>isDestroyed</code> 之外的任何函数将导致 {@link DeveloperError} 异常。
  *
- * @returns {boolean} <code>true</code> if this object was destroyed; otherwise, <code>false</code>.
+ * @returns {boolean} <code>true</code> 如果该对象已被销毁；否则，<code>false</code>。
  *
  * @see ParticleSystem#destroy
  */
-ParticleSystem.prototype.isDestroyed = function () {
+ParticleSystem.prototype.isDestroyed = function() {
   return false;
 };
 
 /**
- * Destroys the WebGL resources held by this object.  Destroying an object allows for deterministic
- * release of WebGL resources, instead of relying on the garbage collector to destroy this object.
+ * 销毁此对象持有的 WebGL 资源。销毁对象可以确定性地释放 WebGL 资源，而不是依赖垃圾回收器来销毁该对象。
  * <br /><br />
- * Once an object is destroyed, it should not be used; calling any function other than
- * <code>isDestroyed</code> will result in a {@link DeveloperError} exception.  Therefore,
- * assign the return value (<code>undefined</code>) to the object as done in the example.
+ * 一旦对象被销毁，就不应使用它；调用除 <code>isDestroyed</code> 之外的任何函数将导致 {@link DeveloperError} 异常。因此，
+ * 将返回值（<code>undefined</code>）分配给对象，如示例所示。
  *
- * @exception {DeveloperError} This object was destroyed, i.e., destroy() was called.
+ * @exception {DeveloperError} 此对象已被销毁，即已调用 destroy()。
  *
  * @see ParticleSystem#isDestroyed
  */
-ParticleSystem.prototype.destroy = function () {
+
+ParticleSystem.prototype.destroy = function() {
   this._billboardCollection =
     this._billboardCollection && this._billboardCollection.destroy();
   return destroyObject(this);

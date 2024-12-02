@@ -28,14 +28,15 @@ function PolylineVolumeGeometryOptions(entity) {
 }
 
 /**
- * A {@link GeometryUpdater} for polyline volumes.
- * Clients do not normally create this class directly, but instead rely on {@link DataSourceDisplay}.
+ * 一个 {@link GeometryUpdater} 用于多段线体积。
+ * 客户端通常不会直接创建此类，而是依赖于 {@link DataSourceDisplay}。
  * @alias PolylineVolumeGeometryUpdater
  * @constructor
  *
- * @param {Entity} entity The entity containing the geometry to be visualized.
- * @param {Scene} scene The scene where visualization is taking place.
+ * @param {Entity} entity 包含要可视化几何图形的实体。
+ * @param {Scene} scene 可视化发生的场景。
  */
+
 function PolylineVolumeGeometryUpdater(entity, scene) {
   GeometryUpdater.call(this, {
     entity: entity,
@@ -62,13 +63,14 @@ if (defined(Object.create)) {
 }
 
 /**
- * Creates the geometry instance which represents the fill of the geometry.
+ * 创建表示几何图形填充的几何实例。
  *
- * @param {JulianDate} time The time to use when retrieving initial attribute values.
- * @returns {GeometryInstance} The geometry instance representing the filled portion of the geometry.
+ * @param {JulianDate} time 用于检索初始属性值的时间。
+ * @returns {GeometryInstance} 表示几何图形填充部分的几何实例。
  *
- * @exception {DeveloperError} This instance does not represent a filled geometry.
+ * @exception {DeveloperError} 此实例不表示填充几何图形。
  */
+
 PolylineVolumeGeometryUpdater.prototype.createFillGeometryInstance = function (
   time,
 ) {
@@ -132,13 +134,14 @@ PolylineVolumeGeometryUpdater.prototype.createFillGeometryInstance = function (
 };
 
 /**
- * Creates the geometry instance which represents the outline of the geometry.
+ * 创建表示几何图形轮廓的几何实例。
  *
- * @param {JulianDate} time The time to use when retrieving initial attribute values.
- * @returns {GeometryInstance} The geometry instance representing the outline portion of the geometry.
+ * @param {JulianDate} time 用于检索初始属性值的时间。
+ * @returns {GeometryInstance} 表示几何图形轮廓部分的几何实例。
  *
- * @exception {DeveloperError} This instance does not represent an outlined geometry.
+ * @exception {DeveloperError} 此实例不表示轮廓几何图形。
  */
+
 PolylineVolumeGeometryUpdater.prototype.createOutlineGeometryInstance =
   function (time) {
     //>>includeStart('debug', pragmas.debug);

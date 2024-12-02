@@ -3,8 +3,8 @@ import defined from "../Core/defined.js";
 import DeveloperError from "../Core/DeveloperError.js";
 
 /**
- * The interface for all properties, which represent a value that can optionally vary over time.
- * This type defines an interface and cannot be instantiated directly.
+ * 所有属性的接口，表示一个可以选择随着时间变化的值。
+ * 该类型定义了一个接口，不能直接实例化。
  *
  * @alias Property
  * @constructor
@@ -18,14 +18,14 @@ import DeveloperError from "../Core/DeveloperError.js";
  * @see PositionProperty
  * @see ReferenceProperty
  */
+
 function Property() {
   DeveloperError.throwInstantiationError();
 }
 
 Object.defineProperties(Property.prototype, {
   /**
-   * Gets a value indicating if this property is constant.  A property is considered
-   * constant if getValue always returns the same result for the current definition.
+   * 获取一个值，指示该属性是否为常量。如果 getValue 始终返回相同的结果，则该属性被认为是常量。
    * @memberof Property.prototype
    *
    * @type {boolean}
@@ -35,9 +35,8 @@ Object.defineProperties(Property.prototype, {
     get: DeveloperError.throwInstantiationError,
   },
   /**
-   * Gets the event that is raised whenever the definition of this property changes.
-   * The definition is considered to have changed if a call to getValue would return
-   * a different result for the same time.
+   * 获取每当该属性的定义发生变化时引发的事件。
+   * 如果调用 getValue 返回同一时间不同的结果，则认为定义已发生变化。
    * @memberof Property.prototype
    *
    * @type {Event}
@@ -48,24 +47,26 @@ Object.defineProperties(Property.prototype, {
   },
 });
 
+
 /**
- * Gets the value of the property at the provided time.
+ * 获取在提供时间的属性值。
  * @function
  *
- * @param {JulianDate} [time=JulianDate.now()] The time for which to retrieve the value. If omitted, the current system time is used.
- * @param {object} [result] The object to store the value into, if omitted, a new instance is created and returned.
- * @returns {object} The modified result parameter or a new instance if the result parameter was not supplied.
+ * @param {JulianDate} [time=JulianDate.now()] 要检索值的时间。如果省略，则使用当前系统时间。
+ * @param {object} [result] 要存储值的对象，如果省略，则创建并返回一个新实例。
+ * @returns {object} 修改后的结果参数或如果未提供结果参数则返回的新实例。
  */
 Property.prototype.getValue = DeveloperError.throwInstantiationError;
 
 /**
- * Compares this property to the provided property and returns
+ * 比较此属性与提供的属性并返回
  * 如果相等则为 <code>true</code>，否则为 <code>false</code>
  * @function
  *
- * @param {Property} [other] The other property.
+ * @param {Property} [other] 另一个属性。
  * @returns {boolean} 如果左右相等，则 <code>true</code>，否则 <code>false</code>
  */
+
 Property.prototype.equals = DeveloperError.throwInstantiationError;
 
 /**

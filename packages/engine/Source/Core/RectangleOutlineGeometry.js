@@ -240,24 +240,24 @@ function constructExtrudedRectangle(rectangleGeometry, computedOptions) {
 }
 
 /**
- * A description of the outline of a a cartographic rectangle on an ellipsoid centered at the origin.
+ * 描述位于原点的椭球体上一个制图矩形的轮廓。
  *
  * @alias RectangleOutlineGeometry
  * @constructor
  *
- * @param {object} options Object with the following properties:
- * @param {Rectangle} options.rectangle A cartographic rectangle with north, south, east and west properties in radians.
- * @param {Ellipsoid} [options.ellipsoid=Ellipsoid.default] The ellipsoid on which the rectangle lies.
- * @param {number} [options.granularity=CesiumMath.RADIANS_PER_DEGREE] The distance, in radians, between each latitude and longitude. Determines the number of positions in the buffer.
- * @param {number} [options.height=0.0] The distance in meters between the rectangle and the ellipsoid surface.
- * @param {number} [options.rotation=0.0] The rotation of the rectangle, in radians. A positive rotation is counter-clockwise.
- * @param {number} [options.extrudedHeight] The distance in meters between the rectangle's extruded face and the ellipsoid surface.
+ * @param {object} options 具有以下属性的对象：
+ * @param {Rectangle} options.rectangle 具有北、南、东和西属性（以弧度为单位）的制图矩形。
+ * @param {Ellipsoid} [options.ellipsoid=Ellipsoid.default] 矩形所在的椭球体。
+ * @param {number} [options.granularity=CesiumMath.RADIANS_PER_DEGREE] 每个纬度和经度之间的距离（以弧度为单位）。决定缓冲区中的位置数量。
+ * @param {number} [options.height=0.0] 矩形与椭球体表面之间的距离（以米为单位）。
+ * @param {number} [options.rotation=0.0] 矩形的旋转角度（以弧度为单位）。正旋转为逆时针方向。
+ * @param {number} [options.extrudedHeight] 矩形拉伸面与椭球体表面之间的距离（以米为单位）。
  *
- * @exception {DeveloperError} <code>options.rectangle.north</code> must be in the interval [<code>-Pi/2</code>, <code>Pi/2</code>].
- * @exception {DeveloperError} <code>options.rectangle.south</code> must be in the interval [<code>-Pi/2</code>, <code>Pi/2</code>].
- * @exception {DeveloperError} <code>options.rectangle.east</code> must be in the interval [<code>-Pi</code>, <code>Pi</code>].
- * @exception {DeveloperError} <code>options.rectangle.west</code> must be in the interval [<code>-Pi</code>, <code>Pi</code>].
- * @exception {DeveloperError} <code>options.rectangle.north</code> must be greater than <code>rectangle.south</code>.
+ * @exception {DeveloperError} <code>options.rectangle.north</code> 必须在区间 [<code>-Pi/2</code>, <code>Pi/2</code>] 内。
+ * @exception {DeveloperError} <code>options.rectangle.south</code> 必须在区间 [<code>-Pi/2</code>, <code>Pi/2</code>] 内。
+ * @exception {DeveloperError} <code>options.rectangle.east</code> 必须在区间 [<code>-Pi</code>, <code>Pi</code>] 内。
+ * @exception {DeveloperError} <code>options.rectangle.west</code> 必须在区间 [<code>-Pi</code>, <code>Pi</code>] 内。
+ * @exception {DeveloperError} <code>options.rectangle.north</code> 必须大于 <code>rectangle.south</code>。
  *
  * @see RectangleOutlineGeometry#createGeometry
  *
@@ -362,13 +362,14 @@ const scratchOptions = {
 };
 
 /**
- * 从打包数组中检索实例.
+ * 从打包数组中检索实例。
  *
- * @param {number[]} array 压缩数组.
- * @param {number} [startingIndex=0] 需要解包的元素的起始索引.
- * @param {RectangleOutlineGeometry} [result] 存储结果的对象.
- * @returns {RectangleOutlineGeometry} The modified result parameter or a new Quaternion instance if one was not provided.
+ * @param {number[]} array 压缩数组。
+ * @param {number} [startingIndex=0] 需要解包的元素的起始索引。
+ * @param {RectangleOutlineGeometry} [result] 存储结果的对象。
+ * @returns {RectangleOutlineGeometry} 修改后的结果参数，如果未提供，则返回一个新实例。
  */
+
 RectangleOutlineGeometry.unpack = function (array, startingIndex, result) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(array)) {
@@ -414,13 +415,14 @@ RectangleOutlineGeometry.unpack = function (array, startingIndex, result) {
 
 const nwScratch = new Cartographic();
 /**
- * Computes the geometric representation of an outline of a rectangle, including its vertices, indices, and a bounding sphere.
+ * 计算矩形轮廓的几何表示，包括其顶点、索引和包围球。
  *
- * @param {RectangleOutlineGeometry} rectangleGeometry A description of the rectangle outline.
- * @returns {Geometry|undefined} The computed vertices and indices.
+ * @param {RectangleOutlineGeometry} rectangleGeometry 矩形轮廓的描述。
+ * @returns {Geometry|undefined} 计算得到的顶点和索引。
  *
- * @exception {DeveloperError} Rotated rectangle is invalid.
+ * @exception {DeveloperError} 旋转的矩形无效。
  */
+
 RectangleOutlineGeometry.createGeometry = function (rectangleGeometry) {
   const rectangle = rectangleGeometry._rectangle;
   const ellipsoid = rectangleGeometry._ellipsoid;

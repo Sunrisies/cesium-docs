@@ -2,36 +2,34 @@ import defined from "./defined.js";
 import parseResponseHeaders from "./parseResponseHeaders.js";
 
 /**
- * An event that is raised when a request encounters an error.
+ * 当请求遇到错误时触发的事件。
  *
  * @constructor
  * @alias RequestErrorEvent
  *
- * @param {number} [statusCode] The HTTP error status code, such as 404.
- * @param {object} [response] The response included along with the error.
- * @param {string|object} [responseHeaders] The response headers, represented either as an object literal or as a
- *                        string in the format returned by XMLHttpRequest's getAllResponseHeaders() function.
+ * @param {number} [statusCode] HTTP 错误状态码，例如 404。
+ * @param {object} [response] 伴随错误返回的响应。
+ * @param {string|object} [responseHeaders] 响应头，可以表示为对象字面量或字符串，格式与 XMLHttpRequest 的 getAllResponseHeaders() 函数返回的格式相同。
  */
+
 function RequestErrorEvent(statusCode, response, responseHeaders) {
   /**
-   * The HTTP error status code, such as 404.  If the error does not have a particular
-   * HTTP code, this property will be undefined.
+   * HTTP 错误状态码，例如 404。如果错误没有特定的 HTTP 代码，则该属性将为 undefined。
    *
    * @type {number}
    */
   this.statusCode = statusCode;
 
   /**
-   * The response included along with the error.  If the error does not include a response,
-   * this property will be undefined.
+   * 伴随错误返回的响应。如果错误不包含响应，则该属性将为 undefined。
    *
    * @type {object}
    */
   this.response = response;
 
   /**
-   * The headers included in the response, represented as an object literal of key/value pairs.
-   * If the error does not include any headers, this property will be undefined.
+   * 响应中包含的头部，以键/值对的对象字面量表示。
+   * 如果错误不包含任何头部，则该属性将为 undefined。
    *
    * @type {object}
    */
@@ -42,12 +40,14 @@ function RequestErrorEvent(statusCode, response, responseHeaders) {
   }
 }
 
+
 /**
- * Creates a string representing this RequestErrorEvent.
+ * 创建一个表示此 RequestErrorEvent 的字符串。
  * @memberof RequestErrorEvent
  *
- * @returns {string} A string representing the provided RequestErrorEvent.
+ * @returns {string} 表示提供的 RequestErrorEvent 的字符串。
  */
+
 RequestErrorEvent.prototype.toString = function () {
   let str = "Request has failed.";
   if (defined(this.statusCode)) {

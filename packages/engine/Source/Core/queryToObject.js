@@ -2,13 +2,12 @@ import defined from "./defined.js";
 import DeveloperError from "./DeveloperError.js";
 
 /**
- * Parses a query string into an object, where the keys and values of the object are the
- * name/value pairs from the query string, decoded. If a name appears multiple times,
- * the value in the object will be an array of values.
+ * 将查询字符串解析为对象，其中对象的键和值是解码后的查询字符串中的
+ * 名称/值对。如果名称出现多次，则对象中的值将是一个值的数组。
  * @function queryToObject
  *
- * @param {string} queryString The query string.
- * @returns {object} An object containing the parameters parsed from the query string.
+ * @param {string} queryString 查询字符串。
+ * @returns {object} 包含从查询字符串解析的参数的对象。
  *
  *
  * @example
