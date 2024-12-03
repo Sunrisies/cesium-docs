@@ -86,12 +86,13 @@ async function setLevels(i3sProvider, levels) {
 }
 
 /**
- * The view model for {@link I3SBuildingSceneLayerExplorer}.
+ * {@link I3SBuildingSceneLayerExplorer} 的视图模型。
  * @alias I3sBslExplorerViewModel
  * @constructor
  *
- * @param {I3SDataProvider} i3sProvider I3S Data provider instance.
+ * @param {I3SDataProvider} i3sProvider I3S 数据提供者实例。
  */
+
 function I3SBuildingSceneLayerExplorerViewModel(i3sProvider) {
   const that = this;
   this.levels = [];

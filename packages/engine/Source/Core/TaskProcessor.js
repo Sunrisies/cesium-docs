@@ -169,19 +169,20 @@ async function getWebAssemblyLoaderConfig(processor, wasmOptions) {
 }
 
 /**
- * A wrapper around a web worker that allows scheduling tasks for a given worker,
- * returning results asynchronously via a promise.
+ * 一个封装了 Web Worker 的类，允许为给定的工作线程调度任务，
+ * 通过承诺异步返回结果。
  *
- * The Worker is not constructed until a task is scheduled.
+ * Worker 在调度任务之前不会被构造。
  *
  * @alias TaskProcessor
  * @constructor
  *
- * @param {string} workerPath The Url to the worker. This can either be an absolute path or relative to the Cesium Workers folder.
- * @param {number} [maximumActiveTasks=Number.POSITIVE_INFINITY] The maximum number of active tasks.  Once exceeded,
- *                                        scheduleTask will not queue any more tasks, allowing
- *                                        work to be rescheduled in future frames.
+ * @param {string} workerPath Worker 的 URL。可以是绝对路径，也可以相对于 Cesium Workers 文件夹的相对路径。
+ * @param {number} [maximumActiveTasks=Number.POSITIVE_INFINITY] 最大活动任务数量。一旦超过，
+ *                                        scheduleTask 将不再排队任何更多任务，允许
+ *                                        在未来的帧中重新调度工作。
  */
+
 function TaskProcessor(workerPath, maximumActiveTasks) {
   this._workerPath = workerPath;
   this._maximumActiveTasks = defaultValue(
@@ -268,16 +269,12 @@ async function scheduleTask(processor, parameters, transferableObjects) {
 }
 
 /**
- * Schedule a task to be processed by the web worker asynchronously.  If there are currently more
- * tasks active than the maximum set by the constructor, will immediately return undefined.
- * Otherwise, returns a promise that will resolve to the result posted back by the worker when
- * finished.
+ * 调度一个任务，通过 Web Worker 异步处理。如果当前活动的任务数量超过构造函数设置的最大值，将立即返回 undefined。
+ * 否则，返回一个 Promise，该 Promise 在完成时将解析为工作线程返回的结果。
  *
- * @param {object} parameters Any input data that will be posted to the worker.
- * @param {Object[]} [transferableObjects] An array of objects contained in parameters that should be
- *                                      transferred to the worker instead of copied.
- * @returns {Promise<object>|undefined} Either a promise that will resolve to the result when available, or undefined
- *                    if there are too many active tasks,
+ * @param {object} parameters 将发送到工作线程的输入数据。
+ * @param {Object[]} [transferableObjects] 包含在参数中的对象数组，这些对象应该转移到工作线程，而不是复制。
+ * @returns {Promise<object>|undefined} 一个 Promise，解析为可用时的结果，或者如果有太多活动任务，则返回 undefined。
  *
  * @example
  * const taskProcessor = new Cesium.TaskProcessor('myWorkerPath');
@@ -309,18 +306,18 @@ TaskProcessor.prototype.scheduleTask = function (
 };
 
 /**
- * Posts a message to a web worker with configuration to initialize loading
- * and compiling a web assembly module asynchronously, as well as an optional
- * fallback JavaScript module to use if Web Assembly is not supported.
+ * 向 Web Worker 发送消息，配置以异步加载和编译 WebAssembly 模块，以及可选的
+ * 备用 JavaScript 模块，用于在不支持 WebAssembly 的情况下使用。
  *
- * @param {object} [webAssemblyOptions] An object with the following properties:
- * @param {string} [webAssemblyOptions.modulePath] The path of the web assembly JavaScript wrapper module.
- * @param {string} [webAssemblyOptions.wasmBinaryFile] The path of the web assembly binary file.
- * @param {string} [webAssemblyOptions.fallbackModulePath] The path of the fallback JavaScript module to use if web assembly is not supported.
- * @returns {Promise<*>} A promise that resolves to the result when the web worker has loaded and compiled the web assembly module and is ready to process tasks.
+ * @param {object} [webAssemblyOptions] 一个具有以下属性的对象：
+ * @param {string} [webAssemblyOptions.modulePath] WebAssembly JavaScript 包装模块的路径。
+ * @param {string} [webAssemblyOptions.wasmBinaryFile] WebAssembly 二进制文件的路径。
+ * @param {string} [webAssemblyOptions.fallbackModulePath] 如果不支持 WebAssembly，备用 JavaScript 模块的路径。
+ * @returns {Promise<*>} 一个 Promise，当 Web Worker 加载并编译 WebAssembly 模块并准备处理任务时解析为结果。
  *
- * @exception {RuntimeError} This browser does not support Web Assembly, and no backup module was provided
+ * @exception {RuntimeError} 此浏览器不支持 WebAssembly，并且未提供备份模块。
  */
+
 TaskProcessor.prototype.initWebAssemblyModule = async function (
   webAssemblyOptions,
 ) {
@@ -367,12 +364,11 @@ TaskProcessor.prototype.initWebAssemblyModule = async function (
 };
 
 /**
- * Returns true if this object was destroyed; otherwise, false.
+ * 如果此对象已被销毁，则返回 true；否则返回 false。
  * <br /><br />
- * If this object was destroyed, it should not be used; calling any function other than
- * <code>isDestroyed</code> will result in a {@link DeveloperError} exception.
+ * 如果此对象已被销毁，则不应使用；调用除 <code>isDestroyed</code> 以外的任何函数将导致 {@link DeveloperError} 异常。
  *
- * @returns {boolean} True if this object was destroyed; otherwise, false.
+ * @returns {boolean} 如果此对象已被销毁，则返回 true；否则返回 false。
  *
  * @see TaskProcessor#destroy
  */
@@ -381,11 +377,11 @@ TaskProcessor.prototype.isDestroyed = function () {
 };
 
 /**
- * Destroys this object.  This will immediately terminate the Worker.
+ * 销毁此对象。此操作将立即终止 Worker。
  * <br /><br />
- * Once an object is destroyed, it should not be used; calling any function other than
- * <code>isDestroyed</code> will result in a {@link DeveloperError} exception.
+ * 一旦对象被销毁，就不应使用；调用除 <code>isDestroyed</code> 以外的任何函数将导致 {@link DeveloperError} 异常。
  */
+
 TaskProcessor.prototype.destroy = function () {
   if (defined(this._worker)) {
     this._worker.terminate();
@@ -394,13 +390,13 @@ TaskProcessor.prototype.destroy = function () {
 };
 
 /**
- * An event that's raised when a task is completed successfully.  Event handlers are passed
- * the error object is a task fails.
+ * 当任务成功完成时引发的事件。事件处理程序在任务失败时传递错误对象。
  *
  * @type {Event}
  *
  * @private
  */
+
 TaskProcessor.taskCompletedEvent = taskCompletedEvent;
 
 // exposed for testing purposes

@@ -3,8 +3,8 @@ import defined from "./defined.js";
 import DeveloperError from "./DeveloperError.js";
 
 /**
- * A singleton that contains all of the servers that are trusted. Credentials will be sent with
- * any requests to these servers.
+ * 一个单例，包含所有被信任的服务器。凭证将与
+ * 对这些服务器的任何请求一起发送。
  *
  * @namespace TrustedServers
  *
@@ -14,15 +14,16 @@ const TrustedServers = {};
 let _servers = {};
 
 /**
- * Adds a trusted server to the registry
+ * 将一个受信任的服务器添加到注册表中。
  *
- * @param {string} host The host to be added.
- * @param {number} port The port used to access the host.
+ * @param {string} host 要添加的主机。
+ * @param {number} port 用于访问主机的端口。
  *
  * @example
- * // Add a trusted server
+ * // 添加一个受信任的服务器
  * TrustedServers.add('my.server.com', 80);
  */
+
 TrustedServers.add = function (host, port) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(host)) {
@@ -40,15 +41,16 @@ TrustedServers.add = function (host, port) {
 };
 
 /**
- * Removes a trusted server from the registry
+ * 从注册表中移除一个受信任的服务器。
  *
- * @param {string} host The host to be removed.
- * @param {number} port The port used to access the host.
+ * @param {string} host 要移除的主机。
+ * @param {number} port 用于访问主机的端口。
  *
  * @example
- * // Remove a trusted server
+ * // 移除一个受信任的服务器
  * TrustedServers.remove('my.server.com', 80);
  */
+
 TrustedServers.remove = function (host, port) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(host)) {
@@ -101,11 +103,11 @@ function getAuthority(url) {
 }
 
 /**
- * Tests whether a server is trusted or not. The server must have been added with the port if it is included in the url.
+ * 测试一个服务器是否被信任。服务器必须在包含端口的情况下被添加到信任列表中。
  *
- * @param {string} url The url to be tested against the trusted list
+ * @param {string} url 要与受信任列表进行测试的url。
  *
- * @returns {boolean} Returns true if url is trusted, false otherwise.
+ * @returns {boolean} 如果url被信任，则返回true；否则返回false。
  *
  * @example
  * // Add server
@@ -134,7 +136,7 @@ TrustedServers.contains = function (url) {
 };
 
 /**
- * Clears the registry
+ * 清空注册表
  *
  * @example
  * // Remove a trusted server

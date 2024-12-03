@@ -1,11 +1,11 @@
 /**
- * This enumerated type is for classifying mouse events: down, up, click, double click, move and move while a button is held down.
+ * 此枚举类型用于分类鼠标事件：按下、抬起、点击、双击、移动和在按住按钮时移动。
  *
  * @enum {number}
  */
 const ScreenSpaceEventType = {
   /**
-   * Represents a mouse left button down event.
+   * 表示鼠标左键按下事件。
    *
    * @type {number}
    * @constant
@@ -13,7 +13,7 @@ const ScreenSpaceEventType = {
   LEFT_DOWN: 0,
 
   /**
-   * Represents a mouse left button up event.
+   * 表示鼠标左键抬起事件。
    *
    * @type {number}
    * @constant
@@ -21,7 +21,7 @@ const ScreenSpaceEventType = {
   LEFT_UP: 1,
 
   /**
-   * Represents a mouse left click event.
+   * 表示鼠标左键点击事件。
    *
    * @type {number}
    * @constant
@@ -29,7 +29,7 @@ const ScreenSpaceEventType = {
   LEFT_CLICK: 2,
 
   /**
-   * Represents a mouse left double click event.
+   * 表示鼠标左键双击事件。
    *
    * @type {number}
    * @constant
@@ -37,7 +37,7 @@ const ScreenSpaceEventType = {
   LEFT_DOUBLE_CLICK: 3,
 
   /**
-   * Represents a mouse left button down event.
+   * 表示鼠标右键按下事件。
    *
    * @type {number}
    * @constant
@@ -45,7 +45,7 @@ const ScreenSpaceEventType = {
   RIGHT_DOWN: 5,
 
   /**
-   * Represents a mouse right button up event.
+   * 表示鼠标右键抬起事件。
    *
    * @type {number}
    * @constant
@@ -53,7 +53,7 @@ const ScreenSpaceEventType = {
   RIGHT_UP: 6,
 
   /**
-   * Represents a mouse right click event.
+   * 表示鼠标右键点击事件。
    *
    * @type {number}
    * @constant
@@ -61,7 +61,7 @@ const ScreenSpaceEventType = {
   RIGHT_CLICK: 7,
 
   /**
-   * Represents a mouse middle button down event.
+   * 表示鼠标中键按下事件。
    *
    * @type {number}
    * @constant
@@ -69,7 +69,7 @@ const ScreenSpaceEventType = {
   MIDDLE_DOWN: 10,
 
   /**
-   * Represents a mouse middle button up event.
+   * 表示鼠标中键抬起事件。
    *
    * @type {number}
    * @constant
@@ -77,7 +77,7 @@ const ScreenSpaceEventType = {
   MIDDLE_UP: 11,
 
   /**
-   * Represents a mouse middle click event.
+   * 表示鼠标中键点击事件。
    *
    * @type {number}
    * @constant
@@ -85,7 +85,7 @@ const ScreenSpaceEventType = {
   MIDDLE_CLICK: 12,
 
   /**
-   * Represents a mouse move event.
+   * 表示鼠标移动事件。
    *
    * @type {number}
    * @constant
@@ -93,7 +93,7 @@ const ScreenSpaceEventType = {
   MOUSE_MOVE: 15,
 
   /**
-   * Represents a mouse wheel event.
+   * 表示鼠标滚轮事件。
    *
    * @type {number}
    * @constant
@@ -101,7 +101,7 @@ const ScreenSpaceEventType = {
   WHEEL: 16,
 
   /**
-   * Represents the start of a two-finger event on a touch surface.
+   * 表示在触摸表面上的两指事件开始。
    *
    * @type {number}
    * @constant
@@ -109,7 +109,7 @@ const ScreenSpaceEventType = {
   PINCH_START: 17,
 
   /**
-   * Represents the end of a two-finger event on a touch surface.
+   * 表示在触摸表面上的两指事件结束。
    *
    * @type {number}
    * @constant
@@ -117,7 +117,7 @@ const ScreenSpaceEventType = {
   PINCH_END: 18,
 
   /**
-   * Represents a change of a two-finger event on a touch surface.
+   * 表示在触摸表面上的两指事件变化。
    *
    * @type {number}
    * @constant

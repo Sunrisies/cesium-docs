@@ -11,13 +11,13 @@ import BlendingState from "./BlendingState.js";
 import Material from "./Material.js";
 
 /**
- * A viewport aligned quad.
+ * 一个与视口对齐的四边形。
  *
  * @alias ViewportQuad
  * @constructor
  *
- * @param {BoundingRectangle} [rectangle] The {@link BoundingRectangle} defining the quad's position within the viewport.
- * @param {Material} [material] The {@link Material} defining the surface appearance of the viewport quad.
+ * @param {BoundingRectangle} [rectangle] 定义四边形在视口内位置的 {@link BoundingRectangle}。
+ * @param {Material} [material] 定义视口四边形表面外观的 {@link Material}。
  *
  * @example
  * const viewportQuad = new Cesium.ViewportQuad(new Cesium.BoundingRectangle(0, 0, 80, 40));
@@ -25,7 +25,7 @@ import Material from "./Material.js";
  */
 function ViewportQuad(rectangle, material) {
   /**
-   * Determines if the viewport quad primitive will be shown.
+   * 确定视口四边形原语是否会被显示。
    *
    * @type {boolean}
    * @default true
@@ -37,13 +37,14 @@ function ViewportQuad(rectangle, material) {
   }
 
   /**
-   * The BoundingRectangle defining the quad's position within the viewport.
+   * 定义四边形在视口内位置的BoundingRectangle。
    *
    * @type {BoundingRectangle}
    *
    * @example
    * viewportQuad.rectangle = new Cesium.BoundingRectangle(0, 0, 80, 40);
    */
+
   this.rectangle = BoundingRectangle.clone(rectangle);
 
   if (!defined(material)) {
@@ -53,10 +54,10 @@ function ViewportQuad(rectangle, material) {
   }
 
   /**
-   * The surface appearance of the viewport quad.  This can be one of several built-in {@link Material} objects or a custom material, scripted with
-   * {@link https://github.com/CesiumGS/cesium/wiki/Fabric|Fabric}.
+   * 视口四边形的表面外观。可以是几种内置 {@link Material} 对象之一或自定义材料，通过
+   * {@link https://github.com/CesiumGS/cesium/wiki/Fabric|Fabric} 脚本化。
    * <p>
-   * The default material is <code>Material.ColorType</code>.
+   * 默认材料是 <code>Material.ColorType</code>。
    * </p>
    *
    * @type Material
@@ -78,16 +79,16 @@ function ViewportQuad(rectangle, material) {
 }
 
 /**
- * Called when {@link Viewer} or {@link CesiumWidget} render the scene to
- * get the draw commands needed to render this primitive.
+ * 当 {@link Viewer} 或 {@link CesiumWidget} 渲染场景时调用，以
+ * 获取渲染此原语所需的绘制命令。
  * <p>
- * Do not call this function directly.  This is documented just to
- * list the exceptions that may be propagated when the scene is rendered:
+ * 请不要直接调用此函数。此文档仅用于列出在渲染场景时可能传播的异常：
  * </p>
  *
- * @exception {DeveloperError} this.material must be defined.
- * @exception {DeveloperError} this.rectangle must be defined.
+ * @exception {DeveloperError} this.material 必须定义。
+ * @exception {DeveloperError} this.rectangle 必须定义。
  */
+
 ViewportQuad.prototype.update = function (frameState) {
   if (!this.show) {
     return;
@@ -142,28 +143,27 @@ ViewportQuad.prototype.update = function (frameState) {
 };
 
 /**
- * Returns true if this object was destroyed; otherwise, false.
+ * 如果此对象已被销毁，则返回true；否则返回false。
  * <br /><br />
- * If this object was destroyed, it should not be used; calling any function other than
- * <code>isDestroyed</code> will result in a {@link DeveloperError} exception.
+ * 如果此对象已被销毁，则不应使用它；调用除 <code>isDestroyed</code> 之外的任何函数将导致 {@link DeveloperError} 异常。
  *
- * @returns {boolean} True if this object was destroyed; otherwise, false.
+ * @returns {boolean} 如果此对象已被销毁，则为true；否则为false。
  *
  * @see ViewportQuad#destroy
  */
+
 ViewportQuad.prototype.isDestroyed = function () {
   return false;
 };
 
 /**
- * Destroys the WebGL resources held by this object.  Destroying an object allows for deterministic
- * release of WebGL resources, instead of relying on the garbage collector to destroy this object.
+ * 销毁此对象持有的WebGL资源。销毁对象允许以确定性的方式释放
+ * WebGL资源，而不是依赖垃圾收集器来销毁此对象。
  * <br /><br />
- * Once an object is destroyed, it should not be used; calling any function other than
- * <code>isDestroyed</code> will result in a {@link DeveloperError} exception.  Therefore,
- * assign the return value (<code>undefined</code>) to the object as done in the example.
+ * 一旦对象被销毁，就不应使用它；调用除 <code>isDestroyed</code> 之外的任何函数将导致 {@link DeveloperError} 异常。因此，
+ * 将返回值（<code>undefined</code>）赋值给对象，如示例所示。
  *
- * @exception {DeveloperError} This object was destroyed, i.e., destroy() was called.
+ * @exception {DeveloperError} 此对象已被销毁，即调用了 destroy()。
  *
  *
  * @example

@@ -11,15 +11,16 @@ import subscribeAndEvaluate from "../subscribeAndEvaluate.js";
 import InfoBoxViewModel from "./InfoBoxViewModel.js";
 
 /**
- * A widget for displaying information or a description.
+ * 一个用于显示信息或描述的小部件。
  *
  * @alias InfoBox
  * @constructor
  *
- * @param {Element|string} container 包含小部件的 DOM 元素或 ID.
+ * @param {Element|string} container 包含小部件的 DOM 元素或 ID。
  *
- * @exception {DeveloperError} 文档中不存在 ID 为“container”的元素.
+ * @exception {DeveloperError} 文档中不存在 ID 为“container”的元素。
  */
+
 function InfoBox(container) {
   //>>includeStart('debug', pragmas.debug);
   Check.defined("container", container);
@@ -172,11 +173,12 @@ Object.defineProperties(InfoBox.prototype, {
   },
 
   /**
-   * Gets the iframe used to display the description.
+   * 获取用于显示描述的 iframe。
    * @memberof InfoBox.prototype
    *
    * @type {HTMLIFrameElement}
    */
+
   frame: {
     get: function () {
       return this._frame;

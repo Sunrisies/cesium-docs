@@ -8,15 +8,16 @@ import knockout from "../ThirdParty/knockout.js";
 import HomeButtonViewModel from "./HomeButtonViewModel.js";
 
 /**
- * A single button widget for returning to the default camera view of the current scene.
+ * 一个用于返回当前场景默认相机视图的单个按钮小部件。
  *
  * @alias HomeButton
  * @constructor
  *
- * @param {Element|string} container 包含小部件的 DOM 元素或 ID.
- * @param {Scene} scene 要使用的场景实例.
- * @param {number} [duration] The time, in seconds, it takes to complete the camera flight home.
+ * @param {Element|string} container 包含小部件的 DOM 元素或 ID。
+ * @param {Scene} scene 要使用的场景实例。
+ * @param {number} [duration] 相机飞回默认视图所需的时间（以秒为单位）。
  */
+
 function HomeButton(container, scene, duration) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(container)) {

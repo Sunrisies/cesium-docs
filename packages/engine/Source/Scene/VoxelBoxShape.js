@@ -8,7 +8,7 @@ import OrientedBoundingBox from "../Core/OrientedBoundingBox.js";
 import defaultValue from "../Core/defaultValue.js";
 
 /**
- * A box {@link VoxelShape}.
+ * 一个盒子 {@link VoxelShape}。
  *
  * @alias VoxelBoxShape
  * @constructor
@@ -20,37 +20,39 @@ import defaultValue from "../Core/defaultValue.js";
  *
  * @private
  */
+
 function VoxelBoxShape() {
   /**
-   * An oriented bounding box containing the bounded shape.
-   * The update function must be called before accessing this value.
+   * 包含被限制形状的定向包围盒。
+   * 在访问此值之前必须调用更新函数。
    * @type {OrientedBoundingBox}
    * @readonly
    */
   this.orientedBoundingBox = new OrientedBoundingBox();
 
   /**
-   * A bounding sphere containing the bounded shape.
-   * The update function must be called before accessing this value.
+   * 包含被限制形状的包围球。
+   * 在访问此值之前必须调用更新函数。
    * @type {BoundingSphere}
    * @readonly
    */
   this.boundingSphere = new BoundingSphere();
 
   /**
-   * A transformation matrix containing the bounded shape.
-   * The update function must be called before accessing this value.
+   * 包含被限制形状的变换矩阵。
+   * 在访问此值之前必须调用更新函数。
    * @type {Matrix4}
    * @readonly
    */
   this.boundTransform = new Matrix4();
 
   /**
-   * A transformation matrix containing the shape, ignoring the bounds.
-   * The update function must be called before accessing this value.
+   * 包含形状的变换矩阵，忽略边界。
+   * 在访问此值之前必须调用更新函数。
    * @type {Matrix4}
    * @readonly
    */
+
   this.shapeTransform = new Matrix4();
 
   /**
@@ -92,10 +94,11 @@ function VoxelBoxShape() {
   };
 
   /**
-   * The maximum number of intersections against the shape for any ray direction.
+   * 针对任何射线方向，与形状之间的最大交点数。
    * @type {number}
    * @readonly
    */
+
   this.shaderMaximumIntersectionsLength = 0; // not known until update
 }
 
@@ -114,15 +117,16 @@ const transformLocalToUv = Matrix4.fromRotationTranslation(
 );
 
 /**
- * Update the shape's state.
+ * 更新形状的状态。
  *
- * @param {Matrix4} modelMatrix The model matrix.
- * @param {Cartesian3} minBounds The minimum bounds.
- * @param {Cartesian3} maxBounds The maximum bounds.
- * @param {Cartesian3} [clipMinBounds=VoxelBoxShape.DefaultMinBounds] The minimum clip bounds.
- * @param {Cartesian3} [clipMaxBounds=VoxelBoxShape.DefaultMaxBounds] The maximum clip bounds.
- * @returns {boolean} Whether the shape is visible.
+ * @param {Matrix4} modelMatrix 模型矩阵。
+ * @param {Cartesian3} minBounds 最小边界。
+ * @param {Cartesian3} maxBounds 最大边界。
+ * @param {Cartesian3} [clipMinBounds=VoxelBoxShape.DefaultMinBounds] 最小剪裁边界。
+ * @param {Cartesian3} [clipMaxBounds=VoxelBoxShape.DefaultMaxBounds] 最大剪裁边界。
+ * @returns {boolean} 形状是否可见。
  */
+
 VoxelBoxShape.prototype.update = function (
   modelMatrix,
   minBounds,
@@ -300,16 +304,17 @@ const scratchTileMinBounds = new Cartesian3();
 const scratchTileMaxBounds = new Cartesian3();
 
 /**
- * Computes an oriented bounding box for a specified tile.
- * The update function must be called before calling this function.
+ * 计算指定瓦片的定向包围盒。
+ * 在调用此函数之前必须调用更新函数。
  *
- * @param {number} tileLevel The tile's level.
- * @param {number} tileX The tile's x coordinate.
- * @param {number} tileY The tile's y coordinate.
- * @param {number} tileZ The tile's z coordinate.
- * @param {OrientedBoundingBox} result The oriented bounding box that will be set to enclose the specified tile
- * @returns {OrientedBoundingBox} The oriented bounding box.
+ * @param {number} tileLevel 瓦片的级别。
+ * @param {number} tileX 瓦片的 x 坐标。
+ * @param {number} tileY 瓦片的 y 坐标。
+ * @param {number} tileZ 瓦片的 z 坐标。
+ * @param {OrientedBoundingBox} result 将被设置为包围指定瓦片的定向包围盒。
+ * @returns {OrientedBoundingBox} 定向包围盒。
  */
+
 VoxelBoxShape.prototype.computeOrientedBoundingBoxForTile = function (
   tileLevel,
   tileX,
@@ -354,15 +359,16 @@ VoxelBoxShape.prototype.computeOrientedBoundingBoxForTile = function (
 const sampleSizeScratch = new Cartesian3();
 
 /**
- * Computes an oriented bounding box for a specified sample within a specified tile.
- * The update function must be called before calling this function.
+ * 计算指定瓦片内指定样本的定向包围盒。
+ * 在调用此函数之前必须调用更新函数。
  *
- * @param {SpatialNode} spatialNode The spatial node containing the sample
- * @param {Cartesian3} tileDimensions The size of the tile in number of samples, before padding
- * @param {Cartesian3} tileUv The sample coordinate within the tile
- * @param {OrientedBoundingBox} result The oriented bounding box that will be set to enclose the specified sample
- * @returns {OrientedBoundingBox} The oriented bounding box.
+ * @param {SpatialNode} spatialNode 包含样本的空间节点
+ * @param {Cartesian3} tileDimensions 瓦片的大小（样本数量），未填充前
+ * @param {Cartesian3} tileUv 瓦片内的样本坐标
+ * @param {OrientedBoundingBox} result 将被设置为包围指定样本的定向包围盒
+ * @returns {OrientedBoundingBox} 定向包围盒。
  */
+
 VoxelBoxShape.prototype.computeOrientedBoundingBoxForSample = function (
   spatialNode,
   tileDimensions,
@@ -428,7 +434,7 @@ VoxelBoxShape.prototype.computeOrientedBoundingBoxForSample = function (
 };
 
 /**
- * Defines the minimum bounds of the shape. Corresponds to minimum X, Y, Z.
+ * 定义形状的最小边界。对应于最小 X、Y、Z。
  *
  * @type {Cartesian3}
  * @constant
@@ -439,7 +445,7 @@ VoxelBoxShape.DefaultMinBounds = Object.freeze(
 );
 
 /**
- * Defines the maximum bounds of the shape. Corresponds to maximum X, Y, Z.
+ * 定义形状的最大边界。对应于最大 X、Y、Z。
  *
  * @type {Cartesian3}
  * @constant
@@ -450,18 +456,19 @@ VoxelBoxShape.DefaultMaxBounds = Object.freeze(
 );
 
 /**
- * Computes an {@link OrientedBoundingBox} for a subregion of the shape.
+ * 计算形状某个子区域的 {@link OrientedBoundingBox}。
  *
  * @function
  *
- * @param {Cartesian3} minimumBounds The minimum bounds, in the local coordinates of the shape.
- * @param {Cartesian3} maximumBounds The maximum bounds, in the local coordinates of the shape.
- * @param {Matrix4} matrix The matrix to transform the points.
- * @param {OrientedBoundingBox} result 存储结果的对象.
- * @returns {OrientedBoundingBox} The oriented bounding box that contains this subregion.
+ * @param {Cartesian3} minimumBounds 最小边界，在形状的局部坐标系中。
+ * @param {Cartesian3} maximumBounds 最大边界，在形状的局部坐标系中。
+ * @param {Matrix4} matrix 用于转换点的矩阵。
+ * @param {OrientedBoundingBox} result 存储结果的对象。
+ * @returns {OrientedBoundingBox} 包含此子区域的定向包围盒。
  *
  * @private
  */
+
 function getBoxChunkObb(minimumBounds, maximumBounds, matrix, result) {
   const defaultMinBounds = VoxelBoxShape.DefaultMinBounds;
   const defaultMaxBounds = VoxelBoxShape.DefaultMaxBounds;

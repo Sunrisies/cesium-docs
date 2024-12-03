@@ -2,16 +2,18 @@ import knockout from "../ThirdParty/knockout.js";
 import createCommand from "../createCommand.js";
 
 /**
- * The view model for {@link NavigationHelpButton}.
+ * {@link NavigationHelpButton} 的视图模型。
  * @alias NavigationHelpButtonViewModel
  * @constructor
  */
+
 function NavigationHelpButtonViewModel() {
   /**
-   * Gets or sets whether the instructions are currently shown.  This property is observable.
+   * 获取或设置当前是否显示说明。此属性是可观察的。
    * @type {boolean}
    * @default false
    */
+
   this.showInstructions = false;
 
   const that = this;
@@ -28,10 +30,11 @@ function NavigationHelpButtonViewModel() {
   this._touch = false;
 
   /**
-   * Gets or sets the tooltip.  This property is observable.
+   * 获取或设置工具提示。此属性是可观察的。
    *
    * @type {string}
    */
+
   this.tooltip = "Navigation Instructions";
 
   knockout.track(this, ["tooltip", "showInstructions", "_touch"]);
@@ -39,7 +42,7 @@ function NavigationHelpButtonViewModel() {
 
 Object.defineProperties(NavigationHelpButtonViewModel.prototype, {
   /**
-   * Gets the Command that is executed when the button is clicked.
+   * 获取按钮点击时执行的命令。
    * @memberof NavigationHelpButtonViewModel.prototype
    *
    * @type {Command}
@@ -51,7 +54,7 @@ Object.defineProperties(NavigationHelpButtonViewModel.prototype, {
   },
 
   /**
-   * Gets the Command that is executed when the mouse instructions should be shown.
+   * 获取当鼠标说明应显示时执行的命令。
    * @memberof NavigationHelpButtonViewModel.prototype
    *
    * @type {Command}
@@ -63,7 +66,7 @@ Object.defineProperties(NavigationHelpButtonViewModel.prototype, {
   },
 
   /**
-   * Gets the Command that is executed when the touch instructions should be shown.
+   * 获取当触控说明应显示时执行的命令。
    * @memberof NavigationHelpButtonViewModel.prototype
    *
    * @type {Command}
@@ -74,4 +77,5 @@ Object.defineProperties(NavigationHelpButtonViewModel.prototype, {
     },
   },
 });
+
 export default NavigationHelpButtonViewModel;

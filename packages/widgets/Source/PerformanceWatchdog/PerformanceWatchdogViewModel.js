@@ -9,17 +9,17 @@ import knockout from "../ThirdParty/knockout.js";
 import createCommand from "../createCommand.js";
 
 /**
- * The view model for {@link PerformanceWatchdog}.
+ * {@link PerformanceWatchdog} 的视图模型。
  *
  * @alias PerformanceWatchdogViewModel
  * @constructor
  *
- * @param {object} [options] Object with the following properties:
- * @param {Scene} options.scene The Scene instance for which to monitor performance.
- * @param {string} [options.lowFrameRateMessage='This application appears to be performing poorly on your system.  Please try using a different web browser or updating your video drivers.'] The
- *        message to display when a low frame rate is detected.  The message is interpeted as HTML, so make sure
- *        it comes from a trusted source so that your application is not vulnerable to cross-site scripting attacks.
+ * @param {object} [options] 带有以下属性的对象：
+ * @param {Scene} options.scene 要监控性能的 Scene 实例。
+ * @param {string} [options.lowFrameRateMessage='此应用程序在您的系统上似乎表现不佳。请尝试使用其他网络浏览器或更新您的视频驱动程序。'] 
+ *        检测到低帧率时要显示的消息。该消息被解释为 HTML，因此请确保它来自可信来源，以便您的应用程序不会受到跨站脚本攻击的威胁。
  */
+
 function PerformanceWatchdogViewModel(options) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(options) || !defined(options.scene)) {
@@ -30,25 +30,25 @@ function PerformanceWatchdogViewModel(options) {
   this._scene = options.scene;
 
   /**
-   * Gets or sets the message to display when a low frame rate is detected.  This string will be interpreted as HTML.
+   * 获取或设置在检测到低帧率时要显示的消息。该字符串将被解释为 HTML。
    * @type {string}
    */
   this.lowFrameRateMessage = defaultValue(
     options.lowFrameRateMessage,
-    "This application appears to be performing poorly on your system.  Please try using a different web browser or updating your video drivers.",
+    "此应用程序在您的系统上似乎表现不佳。请尝试使用其他网络浏览器或更新您的视频驱动程序。",
   );
 
   /**
-   * Gets or sets a value indicating whether the low frame rate message has previously been dismissed by the user.  If it has
-   * been dismissed, the message will not be redisplayed, no matter the frame rate.
+   * 获取或设置一个值，指示低帧率消息是否已被用户之前关闭。如果已关闭，该消息将不会重新显示，无论帧率如何。
    * @type {boolean}
    */
   this.lowFrameRateMessageDismissed = false;
 
   /**
-   * Gets or sets a value indicating whether the low frame rate message is currently being displayed.
+   * 获取或设置一个值，指示低帧率消息当前是否正在显示。
    * @type {boolean}
    */
+
   this.showingLowFrameRateMessage = false;
 
   knockout.track(this, [
@@ -82,7 +82,7 @@ function PerformanceWatchdogViewModel(options) {
 
 Object.defineProperties(PerformanceWatchdogViewModel.prototype, {
   /**
-   * Gets the {@link Scene} instance for which to monitor performance.
+   * 获取要监控性能的 {@link Scene} 实例。
    * @memberof PerformanceWatchdogViewModel.prototype
    * @type {Scene}
    */
@@ -93,11 +93,11 @@ Object.defineProperties(PerformanceWatchdogViewModel.prototype, {
   },
 
   /**
-   * Gets a command that dismisses the low frame rate message.  Once it is dismissed, the message
-   * will not be redisplayed.
+   * 获取一个可以关闭低帧率消息的命令。一旦被关闭，该消息将不会重新显示。
    * @memberof PerformanceWatchdogViewModel.prototype
    * @type {Command}
    */
+
   dismissMessage: {
     get: function () {
       return this._dismissMessage;

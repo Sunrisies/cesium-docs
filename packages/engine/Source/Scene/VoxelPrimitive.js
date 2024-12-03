@@ -27,16 +27,16 @@ import Ellipsoid from "../Core/Ellipsoid.js";
 import VerticalExaggeration from "../Core/VerticalExaggeration.js";
 
 /**
- * A primitive that renders voxel data from a {@link VoxelProvider}.
+ * 一个渲染来自 {@link VoxelProvider} 的体素数据的原始图元。
  *
  * @alias VoxelPrimitive
  * @constructor
  *
- * @param {object} [options] Object with the following properties:
- * @param {VoxelProvider} [options.provider] The voxel provider that supplies the primitive with tile data.
- * @param {Matrix4} [options.modelMatrix=Matrix4.IDENTITY] The model matrix used to transform the primitive.
- * @param {CustomShader} [options.customShader] The custom shader used to style the primitive.
- * @param {Clock} [options.clock] The clock used to control time dynamic behavior.
+ * @param {object} [options] 包含以下属性的对象：
+ * @param {VoxelProvider} [options.provider] 提供图元所需瓦片数据的体素提供者。
+ * @param {Matrix4} [options.modelMatrix=Matrix4.IDENTITY] 用于变换图元的模型矩阵。
+ * @param {CustomShader} [options.customShader] 用于样式化图元的自定义着色器。
+ * @param {Clock} [options.clock] 用于控制时间动态行为的时钟。
  *
  * @see VoxelProvider
  * @see Cesium3DTilesVoxelProvider
@@ -44,6 +44,7 @@ import VerticalExaggeration from "../Core/VerticalExaggeration.js";
  *
  * @experimental 该功能尚未最终确定，可能会根据 Cesium 的标准弃用政策而发生变化
  */
+
 function VoxelPrimitive(options) {
   options = defaultValue(options, defaultValue.EMPTY_OBJECT);
 
@@ -63,7 +64,7 @@ function VoxelPrimitive(options) {
   );
 
   /**
-   * This member is not created until the provider and shape are ready.
+   * 此成员在提供者和形状准备好之前不会创建。
    *
    * @type {VoxelTraversal}
    * @private
@@ -71,7 +72,7 @@ function VoxelPrimitive(options) {
   this._traversal = undefined;
 
   /**
-   * This member is not created until the provider is ready.
+   * 此成员在提供者准备好之前不会创建。
    *
    * @type {VoxelShape}
    * @private
@@ -85,7 +86,7 @@ function VoxelPrimitive(options) {
   this._shapeVisible = false;
 
   /**
-   * This member is not created until the provider is ready.
+   * 此成员在提供者准备好之前不会创建。
    *
    * @type {Cartesian3}
    * @private
@@ -93,7 +94,7 @@ function VoxelPrimitive(options) {
   this._paddingBefore = new Cartesian3();
 
   /**
-   * This member is not created until the provider is ready.
+   * 此成员在提供者准备好之前不会创建。
    *
    * @type {Cartesian3}
    * @private
@@ -101,7 +102,7 @@ function VoxelPrimitive(options) {
   this._paddingAfter = new Cartesian3();
 
   /**
-   * This member is not known until the provider is ready.
+   * 此成员在提供者准备好之前未知。
    *
    * @type {Cartesian3}
    * @private
@@ -109,8 +110,8 @@ function VoxelPrimitive(options) {
   this._minBounds = new Cartesian3();
 
   /**
-   * Used to detect if the shape is dirty.
-   * This member is not known until the provider is ready.
+   * 用于检测形状是否变脏。
+   * 此成员在提供者准备好之前未知。
    *
    * @type {Cartesian3}
    * @private
@@ -118,7 +119,7 @@ function VoxelPrimitive(options) {
   this._minBoundsOld = new Cartesian3();
 
   /**
-   * This member is not known until the provider is ready.
+   * 此成员在提供者准备好之前未知。
    *
    * @type {Cartesian3}
    * @private
@@ -126,8 +127,8 @@ function VoxelPrimitive(options) {
   this._maxBounds = new Cartesian3();
 
   /**
-   * Used to detect if the shape is dirty.
-   * This member is not known until the provider is ready.
+   * 用于检测形状是否变脏。
+   * 此成员在提供者准备好之前未知。
    *
    * @type {Cartesian3}
    * @private
@@ -135,15 +136,16 @@ function VoxelPrimitive(options) {
   this._maxBoundsOld = new Cartesian3();
 
   /**
-   * Minimum bounds with vertical exaggeration applied
+   * 应用垂直夸张后的最小边界
    *
    * @type {Cartesian3}
    * @private
    */
+
   this._exaggeratedMinBounds = new Cartesian3();
 
   /**
-   * Used to detect if the shape is dirty.
+   * 用于检测形状是否变脏。
    *
    * @type {Cartesian3}
    * @private
@@ -151,7 +153,7 @@ function VoxelPrimitive(options) {
   this._exaggeratedMinBoundsOld = new Cartesian3();
 
   /**
-   * Maximum bounds with vertical exaggeration applied
+   * 应用垂直夸张后的最大边界
    *
    * @type {Cartesian3}
    * @private
@@ -159,7 +161,7 @@ function VoxelPrimitive(options) {
   this._exaggeratedMaxBounds = new Cartesian3();
 
   /**
-   * Used to detect if the shape is dirty.
+   * 用于检测形状是否变脏。
    *
    * @type {Cartesian3}
    * @private
@@ -167,7 +169,7 @@ function VoxelPrimitive(options) {
   this._exaggeratedMaxBoundsOld = new Cartesian3();
 
   /**
-   * This member is not known until the provider is ready.
+   * 此成员在提供者准备好之前未知。
    *
    * @type {Cartesian3}
    * @private
@@ -175,8 +177,8 @@ function VoxelPrimitive(options) {
   this._minClippingBounds = new Cartesian3();
 
   /**
-   * Used to detect if the clipping is dirty.
-   * This member is not known until the provider is ready.
+   * 用于检测剪切是否变脏。
+   * 此成员在提供者准备好之前未知。
    *
    * @type {Cartesian3}
    * @private
@@ -184,7 +186,7 @@ function VoxelPrimitive(options) {
   this._minClippingBoundsOld = new Cartesian3();
 
   /**
-   * This member is not known until the provider is ready.
+   * 此成员在提供者准备好之前未知。
    *
    * @type {Cartesian3}
    * @private
@@ -192,8 +194,8 @@ function VoxelPrimitive(options) {
   this._maxClippingBounds = new Cartesian3();
 
   /**
-   * Used to detect if the clipping is dirty.
-   * This member is not known until the provider is ready.
+   * 用于检测剪切是否变脏。
+   * 此成员在提供者准备好之前未知。
    *
    * @type {Cartesian3}
    * @private
@@ -201,7 +203,7 @@ function VoxelPrimitive(options) {
   this._maxClippingBoundsOld = new Cartesian3();
 
   /**
-   * Clipping planes on the primitive
+   * 图元上的剪切平面
    *
    * @type {ClippingPlaneCollection}
    * @private
@@ -209,7 +211,7 @@ function VoxelPrimitive(options) {
   this._clippingPlanes = undefined;
 
   /**
-   * Keeps track of when the clipping planes change
+   * 跟踪剪切平面何时发生变化
    *
    * @type {number}
    * @private
@@ -217,7 +219,7 @@ function VoxelPrimitive(options) {
   this._clippingPlanesState = 0;
 
   /**
-   * Keeps track of when the clipping planes are enabled / disabled
+   * 跟踪剪切平面是否启用/禁用
    *
    * @type {boolean}
    * @private
@@ -225,17 +227,18 @@ function VoxelPrimitive(options) {
   this._clippingPlanesEnabled = false;
 
   /**
-   * The primitive's model matrix.
+   * 图元的模型矩阵。
    *
    * @type {Matrix4}
    * @private
    */
+
   this._modelMatrix = Matrix4.clone(
     defaultValue(options.modelMatrix, Matrix4.IDENTITY),
   );
 
   /**
-   * Model matrix with vertical exaggeration applied. Only used for BOX shape type.
+   * 应用垂直夸张后的模型矩阵。仅用于 BOX 形状类型。
    *
    * @type {Matrix4}
    * @private
@@ -243,8 +246,8 @@ function VoxelPrimitive(options) {
   this._exaggeratedModelMatrix = Matrix4.clone(this._modelMatrix);
 
   /**
-   * The primitive's model matrix multiplied by the provider's model matrix.
-   * This member is not known until the provider is ready.
+   * 图元的模型矩阵与提供者的模型矩阵相乘。
+   * 此成员在提供者准备好之前未知。
    *
    * @type {Matrix4}
    * @private
@@ -252,12 +255,13 @@ function VoxelPrimitive(options) {
   this._compoundModelMatrix = new Matrix4();
 
   /**
-   * Used to detect if the shape is dirty.
-   * This member is not known until the provider is ready.
+   * 用于检测形状是否变脏。
+   * 此成员在提供者准备好之前未知。
    *
    * @type {Matrix4}
    * @private
    */
+
   this._compoundModelMatrixOld = new Matrix4();
 
   /**
@@ -425,18 +429,19 @@ function VoxelPrimitive(options) {
     pickColor: new Color(),
   };
 
-  /**
-   * Shape specific shader defines from the previous shape update. Used to detect if the shader needs to be rebuilt.
+/**
+   * 来自上一次形状更新的形状特定着色器定义。用于检测是否需要重建着色器。
    * @type {Object<string, any>}
    * @private
    */
   this._shapeDefinesOld = {};
 
   /**
-   * Map uniform names to functions that return the uniform values.
+   * 将统一变量名称映射到返回统一值的函数。
    * @type {Object<string, function():any>}
    * @private
    */
+
   this._uniformMap = {};
 
   const uniforms = this._uniforms;
@@ -495,8 +500,8 @@ function initialize(primitive, provider) {
 }
 
 Object.defineProperties(VoxelPrimitive.prototype, {
-  /**
-   * Gets a value indicating whether or not the primitive is ready for use.
+/**
+   * 获取一个值，指示图元是否准备好使用。
    *
    * @memberof VoxelPrimitive.prototype
    * @type {boolean}
@@ -509,7 +514,7 @@ Object.defineProperties(VoxelPrimitive.prototype, {
   },
 
   /**
-   * Gets the {@link VoxelProvider} associated with this primitive.
+   * 获取与该图元关联的 {@link VoxelProvider}。
    *
    * @memberof VoxelPrimitive.prototype
    * @type {VoxelProvider}
@@ -522,7 +527,7 @@ Object.defineProperties(VoxelPrimitive.prototype, {
   },
 
   /**
-   * Gets the bounding sphere.
+   * 获取包围球。
    *
    * @memberof VoxelPrimitive.prototype
    * @type {BoundingSphere}
@@ -535,7 +540,7 @@ Object.defineProperties(VoxelPrimitive.prototype, {
   },
 
   /**
-   * Gets the oriented bounding box.
+   * 获取有向包围盒。
    *
    * @memberof VoxelPrimitive.prototype
    * @type {OrientedBoundingBox}
@@ -548,7 +553,7 @@ Object.defineProperties(VoxelPrimitive.prototype, {
   },
 
   /**
-   * Gets the model matrix.
+   * 获取模型矩阵。
    *
    * @memberof VoxelPrimitive.prototype
    * @type {Matrix4}
@@ -568,7 +573,7 @@ Object.defineProperties(VoxelPrimitive.prototype, {
   },
 
   /**
-   * Gets the shape type.
+   * 获取形状类型。
    *
    * @memberof VoxelPrimitive.prototype
    * @type {VoxelShapeType}
@@ -581,7 +586,7 @@ Object.defineProperties(VoxelPrimitive.prototype, {
   },
 
   /**
-   * Gets the voxel dimensions.
+   * 获取体素的维度。
    *
    * @memberof VoxelPrimitive.prototype
    * @type {Cartesian3}
@@ -594,7 +599,7 @@ Object.defineProperties(VoxelPrimitive.prototype, {
   },
 
   /**
-   * Gets the minimum value per channel of the voxel data.
+   * 获取每个通道的体素数据的最小值。
    *
    * @memberof VoxelPrimitive.prototype
    * @type {number[][]}
@@ -607,20 +612,21 @@ Object.defineProperties(VoxelPrimitive.prototype, {
   },
 
   /**
-   * Gets the maximum value per channel of the voxel data.
+   * 获取每个通道的体素数据的最大值。
    *
    * @memberof VoxelPrimitive.prototype
    * @type {number[][]}
    * @readonly
    */
+
   maximumValues: {
     get: function () {
       return this._provider.maximumValues;
     },
   },
 
-  /**
-   * Gets or sets whether or not this primitive should be displayed.
+/**
+   * 获取或设置该图元是否应显示。
    *
    * @memberof VoxelPrimitive.prototype
    * @type {boolean}
@@ -639,7 +645,7 @@ Object.defineProperties(VoxelPrimitive.prototype, {
   },
 
   /**
-   * Gets or sets whether or not the primitive should update when the view changes.
+   * 获取或设置当视图变化时图元是否应更新。
    *
    * @memberof VoxelPrimitive.prototype
    * @type {boolean}
@@ -658,7 +664,7 @@ Object.defineProperties(VoxelPrimitive.prototype, {
   },
 
   /**
-   * Gets or sets whether or not to render debug visualizations.
+   * 获取或设置是否渲染调试可视化。
    *
    * @memberof VoxelPrimitive.prototype
    * @type {boolean}
@@ -677,7 +683,7 @@ Object.defineProperties(VoxelPrimitive.prototype, {
   },
 
   /**
-   * Gets or sets whether or not to test against depth when rendering.
+   * 获取或设置渲染时是否进行深度测试。
    *
    * @memberof VoxelPrimitive.prototype
    * @type {boolean}
@@ -699,7 +705,7 @@ Object.defineProperties(VoxelPrimitive.prototype, {
   },
 
   /**
-   * Gets or sets the nearest sampling.
+   * 获取或设置最近采样。
    *
    * @memberof VoxelPrimitive.prototype
    * @type {boolean}
@@ -721,9 +727,9 @@ Object.defineProperties(VoxelPrimitive.prototype, {
   },
 
   /**
-   * Controls how quickly to blend between different levels of the tree.
-   * 0.0 means an instantaneous pop.
-   * 1.0 means a full linear blend.
+   * 控制在不同级别之间融合的速度。
+   * 0.0 意味着瞬间弹出。
+   * 1.0 意味着完全线性融合。
    *
    * @memberof VoxelPrimitive.prototype
    * @type {number}
@@ -743,10 +749,9 @@ Object.defineProperties(VoxelPrimitive.prototype, {
   },
 
   /**
-   * Gets or sets the screen space error in pixels. If the screen space size
-   * of a voxel is greater than the screen space error, the tile is subdivided.
-   * Lower screen space error corresponds with higher detail rendering, but could
-   * result in worse performance and higher memory consumption.
+   * 获取或设置屏幕空间误差（以像素为单位）。
+   * 如果体素的屏幕空间尺寸大于屏幕空间误差，则该瓦片被细分。
+   * 较低的屏幕空间误差对应更高的细节渲染，但可能导致性能下降和内存消耗增加。
    *
    * @memberof VoxelPrimitive.prototype
    * @type {number}
@@ -765,9 +770,8 @@ Object.defineProperties(VoxelPrimitive.prototype, {
   },
 
   /**
-   * Gets or sets the step size multiplier used during raymarching.
-   * The lower the value, the higher the rendering quality, but
-   * also the worse the performance.
+   * 获取或设置在光线行进过程中使用的步长倍增器。
+   * 值越低，渲染质量越高，但性能也越差。
    *
    * @memberof VoxelPrimitive.prototype
    * @type {number}
@@ -786,8 +790,8 @@ Object.defineProperties(VoxelPrimitive.prototype, {
   },
 
   /**
-   * Gets or sets the minimum bounds in the shape's local coordinate system.
-   * Voxel data is stretched or squashed to fit the bounds.
+   * 获取或设置在形状本地坐标系统中的最小边界。
+   * 体素数据被拉伸或压缩以适应边界。
    *
    * @memberof VoxelPrimitive.prototype
    * @type {Cartesian3}
@@ -806,12 +810,13 @@ Object.defineProperties(VoxelPrimitive.prototype, {
   },
 
   /**
-   * Gets or sets the maximum bounds in the shape's local coordinate system.
-   * Voxel data is stretched or squashed to fit the bounds.
+   * 获取或设置在形状本地坐标系统中的最大边界。
+   * 体素数据被拉伸或压缩以适应边界。
    *
    * @memberof VoxelPrimitive.prototype
    * @type {Cartesian3}
    */
+
   maxBounds: {
     get: function () {
       return this._maxBounds;
@@ -826,12 +831,13 @@ Object.defineProperties(VoxelPrimitive.prototype, {
   },
 
   /**
-   * Gets or sets the minimum clipping location in the shape's local coordinate system.
-   * Any voxel content outside the range is clipped.
+   * 获取或设置在形状本地坐标系统中的最小剪切位置。
+   * 超出该范围的任何体素内容都会被剪切。
    *
    * @memberof VoxelPrimitive.prototype
    * @type {Cartesian3}
    */
+
   minClippingBounds: {
     get: function () {
       return this._minClippingBounds;
@@ -849,8 +855,8 @@ Object.defineProperties(VoxelPrimitive.prototype, {
   },
 
   /**
-   * Gets or sets the maximum clipping location in the shape's local coordinate system.
-   * Any voxel content outside the range is clipped.
+   * 获取或设置在形状本地坐标系统中的最大剪切位置。
+   * 超出该范围的任何体素内容都会被剪切。
    *
    * @memberof VoxelPrimitive.prototype
    * @type {Cartesian3}
@@ -872,7 +878,7 @@ Object.defineProperties(VoxelPrimitive.prototype, {
   },
 
   /**
-   * The {@link ClippingPlaneCollection} used to selectively disable rendering the primitive.
+   * 用于选择性禁用图元渲染的 {@link ClippingPlaneCollection}。
    *
    * @memberof VoxelPrimitive.prototype
    * @type {ClippingPlaneCollection}
@@ -882,17 +888,18 @@ Object.defineProperties(VoxelPrimitive.prototype, {
       return this._clippingPlanes;
     },
     set: function (clippingPlanes) {
-      // Don't need to check if undefined, it's handled in the setOwner function
+      // 不需要检查未定义，因为它在 setOwner 函数中处理
       ClippingPlaneCollection.setOwner(clippingPlanes, this, "_clippingPlanes");
     },
   },
 
   /**
-   * Gets or sets the custom shader. If undefined, {@link VoxelPrimitive.DefaultCustomShader} is set.
+   * 获取或设置自定义着色器。如果未定义，则设置为 {@link VoxelPrimitive.DefaultCustomShader}。
    *
    * @memberof VoxelPrimitive.prototype
    * @type {CustomShader}
    */
+
   customShader: {
     get: function () {
       return this._customShader;
@@ -924,12 +931,13 @@ Object.defineProperties(VoxelPrimitive.prototype, {
   },
 
   /**
-   * Gets an event that is raised whenever a custom shader is compiled.
+   * 获取一个事件，每当自定义着色器编译时会触发该事件。
    *
    * @memberof VoxelPrimitive.prototype
    * @type {Event}
    * @readonly
    */
+
   customShaderCompilationEvent: {
     get: function () {
       return this._customShaderCompilationEvent;
@@ -960,11 +968,12 @@ const transformPositionUvToLocal = Matrix4.fromRotationTranslation(
 );
 
 /**
- * Updates the voxel primitive.
+ * 更新体素图元。
  *
  * @param {FrameState} frameState
  * @private
  */
+
 VoxelPrimitive.prototype.update = function (frameState) {
   const provider = this._provider;
 
@@ -1139,12 +1148,13 @@ const scratchCartographicCenter = new Cartographic();
 const scratchExaggerationTranslation = new Cartesian3();
 
 /**
- * Update the exaggerated bounds of a primitive to account for vertical exaggeration
- * Currently only applies to Ellipsoid shape type
+ * 更新图元的夸张边界以考虑垂直夸张
+ * 目前仅适用于椭球形状类型
  * @param {VoxelPrimitive} primitive
  * @param {FrameState} frameState
  * @private
  */
+
 function updateVerticalExaggeration(primitive, frameState) {
   primitive._exaggeratedMinBounds = Cartesian3.clone(
     primitive._minBounds,
@@ -1236,12 +1246,13 @@ function computeBoxExaggerationTranslation(primitive, frameState) {
 }
 
 /**
- * Initialize primitive properties that are derived from the voxel provider
+ * 初始化源自体素提供者的图元属性
  * @param {VoxelPrimitive} primitive
  * @param {VoxelProvider} provider
  * @param {Context} context
  * @private
  */
+
 function initFromProvider(primitive, provider, context) {
   const uniforms = primitive._uniforms;
 
@@ -1300,12 +1311,13 @@ function initFromProvider(primitive, provider, context) {
 }
 
 /**
- * Track changes in provider transform and primitive bounds
+ * 跟踪提供者变换和图元边界的变化
  * @param {VoxelPrimitive} primitive
  * @param {VoxelProvider} provider
- * @returns {boolean} Whether any of the transform or bounds changed
+ * @returns {boolean} 变换或边界是否发生变化
  * @private
  */
+
 function checkTransformAndBounds(primitive, provider) {
   const shapeTransform = defaultValue(
     provider.shapeTransform,
@@ -1347,14 +1359,15 @@ function checkTransformAndBounds(primitive, provider) {
 }
 
 /**
- * Compare old and new values of a bound and update the old if it is different.
- * @param {VoxelPrimitive} primitive The primitive with bounds properties
- * @param {string} newBoundKey A key pointing to a bounds property of type Cartesian3 or Matrix4
- * @param {string} oldBoundKey A key pointing to a bounds property of the same type as the property at newBoundKey
- * @returns {number} 1 if the bound value changed, 0 otherwise
+ * 比较边界的旧值和新值，并在不同的情况下更新旧值。
+ * @param {VoxelPrimitive} primitive 拥有边界属性的图元
+ * @param {string} newBoundKey 指向类型为 Cartesian3 或 Matrix4 的边界属性的键
+ * @param {string} oldBoundKey 指向与 newBoundKey 相同类型的边界属性的键
+ * @returns {number} 如果边界值发生变化则返回 1，否则返回 0
  *
  * @private
  */
+
 function updateBound(primitive, newBoundKey, oldBoundKey) {
   const newBound = primitive[newBoundKey];
   const oldBound = primitive[oldBoundKey];
@@ -1367,13 +1380,14 @@ function updateBound(primitive, newBoundKey, oldBoundKey) {
 }
 
 /**
- * Update the shape and related transforms
+ * 更新形状和相关变换
  * @param {VoxelPrimitive} primitive
  * @param {VoxelShape} shape
  * @param {VoxelProvider} provider
- * @returns {boolean} True if the shape is visible
+ * @returns {boolean} 如果形状可见则返回 true
  * @private
  */
+
 function updateShapeAndTransforms(primitive, shape, provider) {
   const visible = shape.update(
     primitive._compoundModelMatrix,
@@ -1433,13 +1447,14 @@ function updateShapeAndTransforms(primitive, shape, provider) {
 }
 
 /**
- * Set up a VoxelTraversal based on dimensions and types from the primitive and provider
+ * 基于图元和提供者的维度和类型设置一个 VoxelTraversal
  * @param {VoxelPrimitive} primitive
  * @param {VoxelProvider} provider
  * @param {Context} context
  * @returns {VoxelTraversal}
  * @private
  */
+
 function setupTraversal(primitive, provider, context) {
   const dimensions = Cartesian3.clone(provider.dimensions, scratchDimensions);
   Cartesian3.add(dimensions, primitive._paddingBefore, dimensions);
@@ -1471,11 +1486,12 @@ function setupTraversal(primitive, provider, context) {
 }
 
 /**
- * Set uniforms that come from the traversal.
+ * 设置来自遍历的统一变量。
  * @param {VoxelTraversal} traversal
  * @param {object} uniforms
  * @private
  */
+
 function setTraversalUniforms(traversal, uniforms) {
   uniforms.octreeInternalNodeTexture = traversal.internalNodeTexture;
   uniforms.octreeInternalNodeTexelSizeUv = Cartesian2.clone(
@@ -1515,10 +1531,10 @@ function setTraversalUniforms(traversal, uniforms) {
 }
 
 /**
- * Track changes in shape-related shader defines
+ * 跟踪与形状相关的着色器定义的变化
  * @param {VoxelPrimitive} primitive
  * @param {VoxelShape} shape
- * @returns {boolean} True if any of the shape defines changed, requiring a shader rebuild
+ * @returns {boolean} 如果任何形状定义发生变化，需要重建着色器则返回 true
  * @private
  */
 function checkShapeDefines(primitive, shape) {
@@ -1533,13 +1549,14 @@ function checkShapeDefines(primitive, shape) {
 }
 
 /**
- * Find the keyframe location to render at. Doesn't need to be a whole number.
+ * 找到用于渲染的关键帧位置。可以不是一个整数。
  * @param {TimeIntervalCollection} timeIntervalCollection
  * @param {Clock} clock
  * @returns {number}
  *
  * @private
  */
+
 function getKeyframeLocation(timeIntervalCollection, clock) {
   if (!defined(timeIntervalCollection) || !defined(clock)) {
     return 0.0;
@@ -1578,13 +1595,14 @@ function getKeyframeLocation(timeIntervalCollection, clock) {
 }
 
 /**
- * Update the clipping planes state and associated uniforms
+ * 更新剪切平面的状态及相关的统一变量
  *
  * @param {VoxelPrimitive} primitive
  * @param {FrameState} frameState
- * @returns {boolean} Whether the clipping planes changed, requiring a shader rebuild
+ * @returns {boolean} 是否剪切平面发生变化，需重建着色器
  * @private
  */
+
 function updateClippingPlanes(primitive, frameState) {
   const clippingPlanes = primitive.clippingPlanes;
   if (!defined(clippingPlanes)) {
@@ -1632,12 +1650,11 @@ function updateClippingPlanes(primitive, frameState) {
 }
 
 /**
- * Returns true if this object was destroyed; otherwise, false.
+ * 如果此对象已被销毁，则返回 true；否则返回 false。
  * <br /><br />
- * If this object was destroyed, it should not be used; calling any function other than
- * <code>isDestroyed</code> will result in a {@link DeveloperError} exception.
+ * 如果此对象已被销毁，则不应使用；调用除 <code>isDestroyed</code> 以外的任何函数将导致 {@link DeveloperError} 异常。
  *
- * @returns {boolean} <code>true</code> if this object was destroyed; otherwise, <code>false</code>.
+ * @returns {boolean} <code>true</code> 如果此对象已被销毁；否则，<code>false</code>。
  *
  * @see VoxelPrimitive#destroy
  */
@@ -1646,20 +1663,19 @@ VoxelPrimitive.prototype.isDestroyed = function () {
 };
 
 /**
- * Destroys the WebGL resources held by this object.  Destroying an object allows for deterministic
- * release of WebGL resources, instead of relying on the garbage collector to destroy this object.
+ * 销毁此对象持有的 WebGL 资源。销毁对象可以确定性地释放 WebGL 资源，而不用依赖垃圾收集器来销毁此对象。
  * <br /><br />
- * Once an object is destroyed, it should not be used; calling any function other than
- * <code>isDestroyed</code> will result in a {@link DeveloperError} exception.  Therefore,
- * assign the return value (<code>undefined</code>) to the object as done in the example.
+ * 一旦对象被销毁，就不应再使用；调用除 <code>isDestroyed</code> 以外的任何函数将导致 {@link DeveloperError} 异常。因此，
+ * 按照示例中的做法将返回值 (<code>undefined</code>) 赋值给该对象。
  *
- * @exception {DeveloperError} This object was destroyed, i.e., destroy() was called.
+ * @exception {DeveloperError} 此对象已被销毁，即调用了 destroy()。
  *
  * @see VoxelPrimitive#isDestroyed
  *
  * @example
  * voxelPrimitive = voxelPrimitive && voxelPrimitive.destroy();
  */
+
 VoxelPrimitive.prototype.destroy = function () {
   const drawCommand = this._drawCommand;
   if (defined(drawCommand)) {
@@ -1728,11 +1744,7 @@ const scratchCornersClipSpace = new Array(
 );
 
 /**
- * Projects all 8 corners of the oriented bounding box to NDC space and finds the
- * resulting NDC axis aligned bounding box. To avoid projecting a vertex that is
- * behind the near plane, it uses the intersection point of each of the vertex's
- * edges against the near plane as part of the AABB calculation. This is done in
- * clip space prior to perspective division.
+ * 将有向包围盒的所有 8 个顶点投影到 NDC 空间，并找到结果的 NDC 轴对齐包围盒。为了避免投影在近平面后面的顶点，它使用每个顶点的边与近平面的交点作为 AABB 计算的一部分。此操作在透视除法之前在裁剪空间中完成。
  *
  * @function
  *
@@ -1743,6 +1755,7 @@ const scratchCornersClipSpace = new Array(
  *
  * @private
  */
+
 function orientedBoundingBoxToNdcAabb(
   orientedBoundingBox,
   worldToProjection,
@@ -1833,7 +1846,7 @@ const polylineYAxis = new Cartesian3(0.0, polylineAxisDistance, 0.0);
 const polylineZAxis = new Cartesian3(0.0, 0.0, polylineAxisDistance);
 
 /**
- * Draws the tile bounding boxes and axes.
+ * 绘制瓦片的包围盒和坐标轴。
  *
  * @function
  *
@@ -1842,6 +1855,7 @@ const polylineZAxis = new Cartesian3(0.0, 0.0, polylineAxisDistance);
  *
  * @private
  */
+
 function debugDraw(that, frameState) {
   const traversal = that._traversal;
   const polylines = that._debugPolylines;
@@ -1923,7 +1937,7 @@ function debugDraw(that, frameState) {
 }
 
 /**
- * The default custom shader used by the primitive.
+ * 图元使用的默认自定义着色器。
  *
  * @type {CustomShader}
  * @constant
@@ -1931,6 +1945,7 @@ function debugDraw(that, frameState) {
  *
  * @private
  */
+
 VoxelPrimitive.DefaultCustomShader = new CustomShader({
   fragmentShaderText: `void fragmentMain(FragmentInput fsInput, inout czm_modelMaterial material)
 {

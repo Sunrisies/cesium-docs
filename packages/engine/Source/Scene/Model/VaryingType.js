@@ -1,56 +1,55 @@
 /**
- * An enum for the GLSL varying types. These can be used for declaring varyings
- * in {@link CustomShader}
+ * 一个用于GLSL变化类型的枚举。这些可以用于在 {@link CustomShader} 中声明变化量。
  *
  * @enum {string}
  *
- * @experimental This feature is using part of the 3D Tiles spec that is not final and is subject to change without Cesium's standard deprecation policy.
+ * @experimental 此功能使用3D Tiles规范中的部分内容，该内容尚未最终确定，并可能在不遵循Cesium的标准弃用政策的情况下发生更改。
  */
 const VaryingType = {
   /**
-   * A single floating point value.
+   * 单个浮点值。
    *
    * @type {string}
    * @constant
    */
   FLOAT: "float",
   /**
-   * A vector of 2 floating point values.
+   * 由2个浮点值组成的向量。
    *
    * @type {string}
    * @constant
    */
   VEC2: "vec2",
   /**
-   * A vector of 3 floating point values.
+   * 由3个浮点值组成的向量。
    *
    * @type {string}
    * @constant
    */
   VEC3: "vec3",
   /**
-   * A vector of 4 floating point values.
+   * 由4个浮点值组成的向量。
    *
    * @type {string}
    * @constant
    */
   VEC4: "vec4",
   /**
-   * A 2x2 matrix of floating point values.
+   * 2x2浮点值矩阵。
    *
    * @type {string}
    * @constant
    */
   MAT2: "mat2",
   /**
-   * A 3x3 matrix of floating point values.
+   * 3x3浮点值矩阵。
    *
    * @type {string}
    * @constant
    */
-  MAT3: "mat2",
+  MAT3: "mat3",
   /**
-   * A 3x3 matrix of floating point values.
+   * 4x4浮点值矩阵。
    *
    * @type {string}
    * @constant

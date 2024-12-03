@@ -6,8 +6,8 @@ import DeveloperError from "./DeveloperError.js";
 import Quaternion from "./Quaternion.js";
 
 /**
- * Creates a curve parameterized and evaluated by time. This type describes an interface
- * and is not intended to be instantiated directly.
+ * 创建一个按时间参数化和评估的曲线。此类型描述一个接口，
+ * 并不打算直接实例化。
  *
  * @alias Spline
  * @constructor
@@ -18,16 +18,17 @@ import Quaternion from "./Quaternion.js";
  * @see QuaternionSpline
  * @see MorphWeightSpline
  */
+
 function Spline() {
   /**
-   * An array of times for the control points.
+   * 控制点的时间数组。
    * @type {number[]}
    * @default undefined
    */
   this.times = undefined;
 
   /**
-   * An array of control points.
+   * 控制点数组。
    * @type {Cartesian3[]|Quaternion[]}
    * @default undefined
    */
@@ -37,16 +38,17 @@ function Spline() {
 }
 
 /**
- * Gets the type of the point. This helps a spline determine how to interpolate
- * and return its values.
+ * 获取点的类型。这有助于样条确定如何插值
+ * 并返回其值。
  *
  * @param {number|Cartesian3|Quaternion} point
- * @returns {*} The type of the point.
+ * @returns {*} 点的类型。
  *
- * @exception {DeveloperError} value must be a Cartesian3, Quaternion, or number.
+ * @exception {DeveloperError} value 必须是 Cartesian3、Quaternion 或 number。
  *
  * @private
  */
+
 Spline.getPointType = function (point) {
   if (typeof point === "number") {
     return Number;
@@ -66,31 +68,32 @@ Spline.getPointType = function (point) {
 };
 
 /**
- * Evaluates the curve at a given time.
+ * 在给定时间评估曲线。
  * @function
  *
- * @param {number} time The time at which to evaluate the curve.
- * @param {Cartesian3|Quaternion|number[]} [result] 存储结果的对象.
- * @returns {Cartesian3|Quaternion|number[]} The modified result parameter or a new instance of the point on the curve at the given time.
+ * @param {number} time 要评估曲线的时间。
+ * @param {Cartesian3|Quaternion|number[]} [result] 存储结果的对象。
+ * @returns {Cartesian3|Quaternion|number[]} 修改后的结果参数或在给定时间的曲线上点的新实例。
  *
- * @exception {DeveloperError} time must be in the range <code>[t<sub>0</sub>, t<sub>n</sub>]</code>, where <code>t<sub>0</sub></code>
- *                             is the first element in the array <code>times</code> and <code>t<sub>n</sub></code> is the last element
- *                             in the array <code>times</code>.
+ * @exception {DeveloperError} time 必须在范围 <code>[t<sub>0</sub>, t<sub>n</sub>]</code> 内，其中 <code>t<sub>0</sub></code>
+ *                             是数组 <code>times</code> 中的第一个元素，而 <code>t<sub>n</sub></code> 是最后一个元素
+ *                             在数组 <code>times</code> 中。
  */
 Spline.prototype.evaluate = DeveloperError.throwInstantiationError;
 
 /**
- * Finds an index <code>i</code> in <code>times</code> such that the parameter
- * <code>time</code> is in the interval <code>[times[i], times[i + 1]]</code>.
+ * 在 <code>times</code> 中找到一个索引 <code>i</code>，使得参数
+ * <code>time</code> 在区间 <code>[times[i], times[i + 1]]</code> 内。
  *
- * @param {number} time The time.
- * @param {number} startIndex The index from which to start the search.
- * @returns {number} The index for the element at the start of the interval.
+ * @param {number} time 当前时间。
+ * @param {number} startIndex 开始搜索的索引。
+ * @returns {number} 区间开始处元素的索引。
  *
- * @exception {DeveloperError} time must be in the range <code>[t<sub>0</sub>, t<sub>n</sub>]</code>, where <code>t<sub>0</sub></code>
- *                             is the first element in the array <code>times</code> and <code>t<sub>n</sub></code> is the last element
- *                             in the array <code>times</code>.
+ * @exception {DeveloperError} time 必须在范围 <code>[t<sub>0</sub>, t<sub>n</sub>]</code> 内，其中 <code>t<sub>0</sub></code>
+ *                             是数组 <code>times</code> 中的第一个元素，而 <code>t<sub>n</sub></code> 是最后一个元素
+ *                             在数组 <code>times</code> 中。
  */
+
 Spline.prototype.findTimeInterval = function (time, startIndex) {
   const times = this.times;
   const length = times.length;
@@ -143,12 +146,13 @@ Spline.prototype.findTimeInterval = function (time, startIndex) {
 };
 
 /**
- * Wraps the given time to the period covered by the spline.
+ * 将给定时间包装到样条覆盖的周期内。
  * @function
  *
- * @param {number} time The time.
- * @return {number} The time, wrapped around the animation period.
+ * @param {number} time 当前时间。
+ * @return {number} 包装到动画周期内的时间。
  */
+
 Spline.prototype.wrapTime = function (time) {
   //>>includeStart('debug', pragmas.debug);
   Check.typeOf.number("time", time);
@@ -171,12 +175,13 @@ Spline.prototype.wrapTime = function (time) {
 };
 
 /**
- * Clamps the given time to the period covered by the spline.
+ * 将给定时间限制在样条覆盖的周期内。
  * @function
  *
- * @param {number} time The time.
- * @return {number} The time, clamped to the animation period.
+ * @param {number} time 当前时间。
+ * @return {number} 限制在动画周期内的时间。
  */
+
 Spline.prototype.clampTime = function (time) {
   //>>includeStart('debug', pragmas.debug);
   Check.typeOf.number("time", time);

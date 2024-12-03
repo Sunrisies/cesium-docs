@@ -6,19 +6,19 @@ import EllipsoidGeometry from "./EllipsoidGeometry.js";
 import VertexFormat from "./VertexFormat.js";
 
 /**
- * A description of a sphere centered at the origin.
+ * 描述一个以原点为中心的球体。
  *
  * @alias SphereGeometry
  * @constructor
  *
- * @param {object} [options] Object with the following properties:
- * @param {number} [options.radius=1.0] The radius of the sphere.
- * @param {number} [options.stackPartitions=64] The number of times to partition the ellipsoid into stacks.
- * @param {number} [options.slicePartitions=64] The number of times to partition the ellipsoid into radial slices.
- * @param {VertexFormat} [options.vertexFormat=VertexFormat.DEFAULT] The vertex attributes to be computed.
+ * @param {object} [options] 包含以下属性的对象：
+ * @param {number} [options.radius=1.0] 球体的半径。
+ * @param {number} [options.stackPartitions=64] 将椭球体划分为堆的次数。
+ * @param {number} [options.slicePartitions=64] 将椭球体划分为径向切片的次数。
+ * @param {VertexFormat} [options.vertexFormat=VertexFormat.DEFAULT] 要计算的顶点属性。
  *
- * @exception {DeveloperError} options.slicePartitions cannot be less than three.
- * @exception {DeveloperError} options.stackPartitions cannot be less than three.
+ * @exception {DeveloperError} options.slicePartitions 不能少于三个。
+ * @exception {DeveloperError} options.stackPartitions 不能少于三个。
  *
  * @see SphereGeometry#createGeometry
  *
@@ -76,13 +76,14 @@ const scratchOptions = {
 };
 
 /**
- * 从打包数组中检索实例.
+ * 从打包数组中检索实例。
  *
- * @param {number[]} array 压缩数组.
- * @param {number} [startingIndex=0] 需要解包的元素的起始索引.
- * @param {SphereGeometry} [result] 存储结果的对象.
- * @returns {SphereGeometry} The modified result parameter or a new SphereGeometry instance if one was not provided.
+ * @param {number[]} array 压缩数组。
+ * @param {number} [startingIndex=0] 需要解包的元素的起始索引。
+ * @param {SphereGeometry} [result] 存储结果的对象。
+ * @returns {SphereGeometry} 修改后的结果参数或如果未提供则返回一个新的 SphereGeometry 实例。
  */
+
 SphereGeometry.unpack = function (array, startingIndex, result) {
   const ellipsoidGeometry = EllipsoidGeometry.unpack(
     array,
@@ -107,11 +108,12 @@ SphereGeometry.unpack = function (array, startingIndex, result) {
 };
 
 /**
- * Computes the geometric representation of a sphere, including its vertices, indices, and a bounding sphere.
+ * 计算球体的几何表示，包括其顶点、索引和包围球。
  *
- * @param {SphereGeometry} sphereGeometry A description of the sphere.
- * @returns {Geometry|undefined} The computed vertices and indices.
+ * @param {SphereGeometry} sphereGeometry 球体的描述。
+ * @returns {Geometry|undefined} 计算得到的顶点和索引。
  */
+
 SphereGeometry.createGeometry = function (sphereGeometry) {
   return EllipsoidGeometry.createGeometry(sphereGeometry._ellipsoidGeometry);
 };

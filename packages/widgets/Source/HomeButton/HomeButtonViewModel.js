@@ -3,13 +3,14 @@ import knockout from "../ThirdParty/knockout.js";
 import createCommand from "../createCommand.js";
 
 /**
- * The view model for {@link HomeButton}.
+ * {@link HomeButton} 的视图模型。
  * @alias HomeButtonViewModel
  * @constructor
  *
- * @param {Scene} scene 要使用的场景实例.
- * @param {number} [duration] The duration of the camera flight in seconds.
+ * @param {Scene} scene 要使用的场景实例。
+ * @param {number} [duration] 相机飞行的持续时间（以秒为单位）。
  */
+
 function HomeButtonViewModel(scene, duration) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(scene)) {
@@ -26,10 +27,11 @@ function HomeButtonViewModel(scene, duration) {
   });
 
   /**
-   * Gets or sets the tooltip.  This property is observable.
+   * 获取或设置工具提示。此属性是可观察的。
    *
    * @type {string}
    */
+
   this.tooltip = "View Home";
 
   knockout.track(this, ["tooltip"]);
@@ -37,7 +39,7 @@ function HomeButtonViewModel(scene, duration) {
 
 Object.defineProperties(HomeButtonViewModel.prototype, {
   /**
-   * Gets the scene to control.
+   * 获取控制的场景。
    * @memberof HomeButtonViewModel.prototype
    *
    * @type {Scene}
@@ -49,7 +51,7 @@ Object.defineProperties(HomeButtonViewModel.prototype, {
   },
 
   /**
-   * Gets the Command that is executed when the button is clicked.
+   * 获取按钮点击时执行的命令。
    * @memberof HomeButtonViewModel.prototype
    *
    * @type {Command}
@@ -61,13 +63,14 @@ Object.defineProperties(HomeButtonViewModel.prototype, {
   },
 
   /**
-   * Gets or sets the the duration of the camera flight in seconds.
-   * A value of zero causes the camera to instantly switch to home view.
-   * The duration will be computed based on the distance when undefined.
+   * 获取或设置相机飞行的持续时间（以秒为单位）。
+   * 值为零将使相机立即切换到主页视图。
+   * 当未定义时，持续时间将根据距离计算。
    * @memberof HomeButtonViewModel.prototype
    *
    * @type {number|undefined}
    */
+
   duration: {
     get: function () {
       return this._duration;

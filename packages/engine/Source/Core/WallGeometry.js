@@ -23,25 +23,22 @@ const scratchTangent = new Cartesian3();
 const scratchNormal = new Cartesian3();
 
 /**
- * A description of a wall, which is similar to a KML line string. A wall is defined by a series of points,
- * which extrude down to the ground. Optionally, they can extrude downwards to a specified height.
+ * 对墙的描述，类似于 KML 线字符串。墙由一系列点定义，这些点向下延展到地面。可选地，它们可以向下延展到指定的高度。
  *
  * @alias WallGeometry
  * @constructor
  *
- * @param {object} options Object with the following properties:
- * @param {Cartesian3[]} options.positions An array of Cartesian objects, which are the points of the wall.
- * @param {number} [options.granularity=CesiumMath.RADIANS_PER_DEGREE] The distance, in radians, between each latitude and longitude. Determines the number of positions in the buffer.
- * @param {number[]} [options.maximumHeights] An array parallel to <code>positions</code> that give the maximum height of the
- *        wall at <code>positions</code>. If undefined, the height of each position in used.
- * @param {number[]} [options.minimumHeights] An array parallel to <code>positions</code> that give the minimum height of the
- *        wall at <code>positions</code>. If undefined, the height at each position is 0.0.
- * @param {Ellipsoid} [options.ellipsoid=Ellipsoid.default] The ellipsoid for coordinate manipulation
- * @param {VertexFormat} [options.vertexFormat=VertexFormat.DEFAULT] The vertex attributes to be computed.
+ * @param {object} options 包含以下属性的对象：
+ * @param {Cartesian3[]} options.positions 一个 Cartesian 对象的数组，表示墙的点。
+ * @param {number} [options.granularity=CesiumMath.RADIANS_PER_DEGREE] 每个纬度和经度之间的距离（以弧度为单位）。决定缓冲区中的位置数量。
+ * @param {number[]} [options.maximumHeights] 与 <code>positions</code> 平行的数组，给出墙在 <code>positions</code> 处的最大高度。如果未定义，则使用每个位置的高度。
+ * @param {number[]} [options.minimumHeights] 与 <code>positions</code> 平行的数组，给出墙在 <code>positions</code> 处的最小高度。如果未定义，则每个位置的高度为 0.0。
+ * @param {Ellipsoid} [options.ellipsoid=Ellipsoid.default] 用于坐标操作的椭球体
+ * @param {VertexFormat} [options.vertexFormat=VertexFormat.DEFAULT] 要计算的顶点属性。
  *
- * @exception {DeveloperError} positions length must be greater than or equal to 2.
- * @exception {DeveloperError} positions and maximumHeights must have the same length.
- * @exception {DeveloperError} positions and minimumHeights must have the same length.
+ * @exception {DeveloperError} positions 长度必须大于或等于 2。
+ * @exception {DeveloperError} positions 和 maximumHeights 必须具有相同的长度。
+ * @exception {DeveloperError} positions 和 minimumHeights 必须具有相同的长度。
  *
  * @see WallGeometry#createGeometry
  * @see WallGeometry#fromConstantHeight
@@ -195,13 +192,14 @@ const scratchOptions = {
 };
 
 /**
- * 从打包数组中检索实例.
+ * 从打包数组中检索实例。
  *
- * @param {number[]} array 压缩数组.
- * @param {number} [startingIndex=0] 需要解包的元素的起始索引.
- * @param {WallGeometry} [result] 存储结果的对象.
- * @returns {WallGeometry} The modified result parameter or a new WallGeometry instance if one was not provided.
+ * @param {number[]} array 压缩数组。
+ * @param {number} [startingIndex=0] 需要解包的元素的起始索引。
+ * @param {WallGeometry} [result] 存储结果的对象。
+ * @returns {WallGeometry} 修改后的结果参数，如果未提供，则返回一个新的 WallGeometry 实例。
  */
+
 WallGeometry.unpack = function (array, startingIndex, result) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(array)) {
@@ -271,17 +269,14 @@ WallGeometry.unpack = function (array, startingIndex, result) {
 };
 
 /**
- * A description of a wall, which is similar to a KML line string. A wall is defined by a series of points,
- * which extrude down to the ground. Optionally, they can extrude downwards to a specified height.
+ * 对墙的描述，类似于 KML 线字符串。墙由一系列点定义，这些点向下延展到地面。可选地，它们可以向下延展到指定的高度。
  *
- * @param {object} options Object with the following properties:
- * @param {Cartesian3[]} options.positions An array of Cartesian objects, which are the points of the wall.
- * @param {number} [options.maximumHeight] A constant that defines the maximum height of the
- *        wall at <code>positions</code>. If undefined, the height of each position in used.
- * @param {number} [options.minimumHeight] A constant that defines the minimum height of the
- *        wall at <code>positions</code>. If undefined, the height at each position is 0.0.
- * @param {Ellipsoid} [options.ellipsoid=Ellipsoid.default] The ellipsoid for coordinate manipulation
- * @param {VertexFormat} [options.vertexFormat=VertexFormat.DEFAULT] The vertex attributes to be computed.
+ * @param {object} options 包含以下属性的对象：
+ * @param {Cartesian3[]} options.positions 一个 Cartesian 对象的数组，表示墙的点。
+ * @param {number} [options.maximumHeight] 一个常量，定义墙在 <code>positions</code> 处的最大高度。如果未定义，则使用每个位置的高度。
+ * @param {number} [options.minimumHeight] 一个常量，定义墙在 <code>positions</code> 处的最小高度。如果未定义，则每个位置的高度为 0.0。
+ * @param {Ellipsoid} [options.ellipsoid=Ellipsoid.default] 用于坐标操作的椭球体
+ * @param {VertexFormat} [options.vertexFormat=VertexFormat.DEFAULT] 要计算的顶点属性。
  * @returns {WallGeometry}
  *
  *
@@ -347,11 +342,12 @@ WallGeometry.fromConstantHeights = function (options) {
 };
 
 /**
- * Computes the geometric representation of a wall, including its vertices, indices, and a bounding sphere.
+ * 计算墙的几何表示，包括其顶点、索引和一个包围球。
  *
- * @param {WallGeometry} wallGeometry A description of the wall.
- * @returns {Geometry|undefined} The computed vertices and indices.
+ * @param {WallGeometry} wallGeometry 对墙的描述。
+ * @returns {Geometry|undefined} 计算得出的顶点和索引。
  */
+
 WallGeometry.createGeometry = function (wallGeometry) {
   const wallPositions = wallGeometry._positions;
   const minimumHeights = wallGeometry._minimumHeights;

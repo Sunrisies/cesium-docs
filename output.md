@@ -421,140 +421,137 @@
 - [x] SampledPositionProperty
 - [x] SampledProperty
 - [x] sampleTerrain
-
-- [ ] sampleTerrainMostDetailed
-- [ ] Scene
-- [ ] SceneMode
-- [ ] SceneTransforms
-- [ ] schemaId
-- [ ] ScreenSpaceCameraController
-- [ ] ScreenSpaceEventHandler
-- [ ] ScreenSpaceEventType
-- [ ] SensorVolumePortionToDisplay
-- [ ] shaderDefines
-- [ ] shaderMaximumIntersectionsLength
-- [ ] shaderUniforms
-- [ ] ShadowMap
-- [ ] ShadowMode
-- [ ] ShowGeometryInstanceAttribute
-- [ ] Simon1994PlanetaryPositions
-- [ ] SimplePolylineGeometry
-- [ ] SingleTileImageryProvider
-- [ ] SkyAtmosphere
-- [ ] SkyBox
-- [ ] Spdcf
-- [ ] SphereEmitter
-- [ ] SphereGeometry
-- [ ] SphereOutlineGeometry
-- [ ] Spherical
-- [ ] Spline
-- [ ] SplitDirection
-- [ ] srgbToLinear
-- [ ] StencilFunction
-- [ ] StencilOperation
-- [ ] SteppedSpline
-- [ ] Stereographic
-- [ ] StorageType
-- [ ] StripeMaterialProperty
-- [ ] StripeOrientation
-- [ ] StyleExpression
-- [ ] subdivideArray
-- [ ] Sun
-- [ ] SunLight
-
-- [ ] TaskProcessor
-- [ ] Terrain
-- [ ] TerrainData
-- [ ] TerrainProvider
-- [ ] TextureMagnificationFilter
-- [ ] TextureMinificationFilter
-- [ ] TextureUniform
-- [ ] TileAvailability
-- [ ] TileCoordinatesImageryProvider
-- [ ] TileDiscardPolicy
-- [ ] TileMapServiceImageryProvider
-- [ ] TileProviderError
-- [ ] TilingScheme
-- [ ] TimeDynamicImagery
-- [ ] TimeDynamicPointCloud
-- [ ] TimeInterval
-- [ ] TimeIntervalCollection
-- [ ] TimeIntervalCollectionPositionProperty
-- [ ] TimeIntervalCollectionProperty
-- [ ] TimeStandard
-- [ ] Tonemapper
-- [ ] Transforms
-- [ ] TranslationRotationScale
-- [ ] TridiagonalSystemSolver
-- [ ] TrustedServers
-- [ ] UniformSpecifier
-- [ ] UniformType
-- [ ] UrlTemplateImageryProvider
-- [ ] VaryingType
-- [ ] VelocityOrientationProperty
-- [ ] VelocityVectorProperty
-- [ ] VertexFormat
-- [ ] VerticalOrigin
-- [ ] VideoSynchronizer
-- [ ] ViewportQuad
-- [ ] Visibility
-- [ ] Visualizer
-- [ ] VoxelCell
-- [ ] VoxelPrimitive
-- [ ] VoxelProvider
-- [ ] VoxelShapeType
-- [ ] VRTheWorldTerrainProvider
-
-- [ ] WallGeometry
-- [ ] WallGeometryUpdater
-- [ ] WallGraphics
-- [ ] WallOutlineGeometry
-- [ ] WebGLConstants
-- [ ] WebGLOptions
-- [ ] WebMapServiceImageryProvider
-- [ ] WebMapTileServiceImageryProvider
-- [ ] WebMercatorProjection
-- [ ] WebMercatorTilingScheme
-- [ ] WindingOrder
-- [ ] writeTextToCanvas
+- [x] sampleTerrainMostDetailed
+- [x] Scene
+- [x] SceneMode
+- [x] SceneTransforms
+- [x] schemaId
+- [x] ScreenSpaceCameraController
+- [x] ScreenSpaceEventHandler
+- [x] ScreenSpaceEventType
+- [x] SensorVolumePortionToDisplay
+- [x] shaderDefines
+- [x] shaderMaximumIntersectionsLength
+- [x] shaderUniforms
+- [x] ShadowMap
+- [x] ShadowMode
+- [x] ShowGeometryInstanceAttribute
+- [x] Simon1994PlanetaryPositions
+- [x] SimplePolylineGeometry
+- [x] SingleTileImageryProvider
+- [x] SkyAtmosphere
+- [x] SkyBox
+- [x] Spdcf
+- [x] SphereEmitter
+- [x] SphereGeometry
+- [x] SphereOutlineGeometry
+- [x] Spherical
+- [x] Spline
+- [x] SplitDirection
+- [x] srgbToLinear
+- [x] StencilFunction
+- [x] StencilOperation
+- [x] SteppedSpline
+- [x] Stereographic
+- [x] StorageType
+- [x] StripeMaterialProperty
+- [x] StripeOrientation
+- [x] StyleExpression
+- [x] subdivideArray
+- [x] Sun
+- [x] SunLight
+- [x] TaskProcessor
+- [x] Terrain
+- [x] TerrainData
+- [x] TerrainProvider
+- [x] TextureMagnificationFilter
+- [x] TextureMinificationFilter
+- [x] TextureUniform
+- [x] TileAvailability
+- [x] TileCoordinatesImageryProvider
+- [x] TileDiscardPolicy
+- [x] TileMapServiceImageryProvider
+- [x] TileProviderError
+- [x] TilingScheme
+- [x] TimeDynamicImagery
+- [x] TimeDynamicPointCloud
+- [x] TimeInterval
+- [x] TimeIntervalCollection
+- [x] TimeIntervalCollectionPositionProperty
+- [x] TimeIntervalCollectionProperty
+- [x] TimeStandard
+- [x] Tonemapper
+- [x] Transforms
+- [x] TranslationRotationScale
+- [x] TridiagonalSystemSolver
+- [x] TrustedServers
+- [x] UniformSpecifier
+- [x] UniformType
+- [x] UrlTemplateImageryProvider
+- [x] VaryingType
+- [x] VelocityOrientationProperty
+- [x] VelocityVectorProperty
+- [x] VertexFormat
+- [x] VerticalOrigin
+- [x] VideoSynchronizer
+- [x] ViewportQuad
+- [x] Visibility
+- [x] Visualizer
+- [x] VoxelCell
+- [x] VoxelPrimitive
+- [x] VoxelProvider
+- [x] VoxelShapeType
+- [x] VRTheWorldTerrainProvider
+- [x] WallGeometry
+- [x] WallGeometryUpdater
+- [x] WallGraphics
+- [x] WallOutlineGeometry
+- [x] WebGLConstants
+- [x] WebGLOptions
+- [x] WebMapServiceImageryProvider
+- [x] WebMapTileServiceImageryProvider
+- [x] WebMercatorProjection
+- [x] WebMercatorTilingScheme
+- [x] WindingOrder
+- [x] writeTextToCanvas
 
 ## widget: cesium
 
 - [x] Animation
 - [x] AnimationViewModel
-- [ ] BaseLayerPicker
-- [ ] BaseLayerPickerViewModel
-- [ ] Cesium3DTilesInspector
-- [ ] Cesium3DTilesInspectorViewModel
+- [x] BaseLayerPicker
+- [x] BaseLayerPickerViewModel
+- [x] Cesium3DTilesInspector
+- [x] Cesium3DTilesInspectorViewModel
 - [x] CesiumInspector
 - [x] CesiumInspectorViewModel
-- [ ] ClockViewModel
-- [ ] Command
-- [ ] createCommand
-- [ ] FullscreenButton
-- [ ] FullscreenButtonViewModel
+- [x] ClockViewModel
+- [x] Command
+- [x] createCommand
+- [x] FullscreenButton
+- [x] FullscreenButtonViewModel
 - [x] Geocoder
 - [x] GeocoderViewModel
-- [ ] HomeButton
-- [ ] HomeButtonViewModel
-- [ ] I3sBslExplorerViewModel
-- [ ] I3SBuildingSceneLayerExplorer
-- [ ] InfoBox
-- [ ] InfoBoxViewModel
-- [ ] NavigationHelpButton
-- [ ] NavigationHelpButtonViewModel
-- [ ] PerformanceWatchdog
-- [ ] PerformanceWatchdogViewModel
-- [ ] ProjectionPicker
-- [ ] ProjectionPickerViewModel
-- [ ] ProviderViewModel
-- [ ] SceneModePicker
-- [ ] SceneModePickerViewModel
-- [ ] SelectionIndicator
-- [ ] SelectionIndicatorViewModel
-- [ ] SvgPathBindingHandler
-- [ ] Timeline
-- [ ] ToggleButtonViewModel
+- [x] HomeButton
+- [x] HomeButtonViewModel
+- [x] I3sBslExplorerViewModel
+- [x] I3SBuildingSceneLayerExplorer
+- [x] InfoBox
+- [x] InfoBoxViewModel
+- [x] NavigationHelpButton
+- [x] NavigationHelpButtonViewModel
+- [x] PerformanceWatchdog
+- [x] PerformanceWatchdogViewModel
+- [x] ProjectionPicker
+- [x] ProjectionPickerViewModel
+- [x] ProviderViewModel
+- [x] SceneModePicker
+- [x] SceneModePickerViewModel
+- [x] SelectionIndicator
+- [x] SelectionIndicatorViewModel
+- [x] SvgPathBindingHandler
+- [x] Timeline
+- [x] ToggleButtonViewModel
 - [x] Viewer
 - [x] viewerCesium3DTilesInspectorMixin
 - [x] viewerCesiumInspectorMixin
@@ -565,20 +562,3 @@
 - [x] VoxelInspectorViewModel
 - [x] VRButton
 - [x] VRButtonViewModel
-
-```javascript
-
-/**
- * Determines whether the tile's bounding volume intersects the culling volume.
- *
- * @param {FrameState} frameState The frame state.
- * @param {number} parentVisibilityPlaneMask The parent's plane mask to speed up the visibility check.
- * @returns {number} A plane mask as described above in {@link CullingVolume#computeVisibilityWithPlaneMask}.
- *
- * @private
- */ /**
-   * 用于将对象打包到数组中的元素数量。
-   * @type {number}
-   */ 这些是jsdoc注释的示例。我需要注释翻译成中文，其他不变
-
-```

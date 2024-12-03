@@ -1,12 +1,12 @@
 /**
- * Indicates if the scene is viewed in 3D, 2D, or 2.5D Columbus view.
+ * 指示场景是在 3D、2D 或 2.5D 哥伦布视图中查看。
  *
  * @enum {number}
  * @see Scene#mode
  */
 const SceneMode = {
   /**
-   * Morphing between mode, e.g., 3D to 2D.
+   * 在模式之间变形，例如，从 3D 到 2D。
    *
    * @type {number}
    * @constant
@@ -14,8 +14,8 @@ const SceneMode = {
   MORPHING: 0,
 
   /**
-   * Columbus View mode.  A 2.5D perspective view where the map is laid out
-   * flat and objects with non-zero height are drawn above it.
+   * 哥伦布视图模式。 2.5D 透视视图，其中地图平铺
+   * 展开，并且具有非零高度的对象绘制在其上方。
    *
    * @type {number}
    * @constant
@@ -23,7 +23,7 @@ const SceneMode = {
   COLUMBUS_VIEW: 1,
 
   /**
-   * 2D mode.  The map is viewed top-down with an orthographic projection.
+   * 2D 模式。 使用正交投影从顶部查看地图。
    *
    * @type {number}
    * @constant
@@ -31,7 +31,7 @@ const SceneMode = {
   SCENE2D: 2,
 
   /**
-   * 3D mode.  A traditional 3D perspective view of the globe.
+   * 3D 模式。 传统的地球 3D 透视视图。
    *
    * @type {number}
    * @constant
@@ -40,10 +40,10 @@ const SceneMode = {
 };
 
 /**
- * Returns the morph time for the given scene mode.
+ * 返回给定场景模式的变形时间。
  *
- * @param {SceneMode} value The scene mode
- * @returns {number} The morph time
+ * @param {SceneMode} value 场景模式
+ * @returns {number} 变形时间
  */
 SceneMode.getMorphTime = function (value) {
   if (value === SceneMode.SCENE3D) {

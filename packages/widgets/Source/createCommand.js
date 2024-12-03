@@ -2,18 +2,19 @@ import { defaultValue, defined, DeveloperError, Event } from "@cesium/engine";
 import knockout from "./ThirdParty/knockout.js";
 
 /**
- * Create a Command from a given function, for use with ViewModels.
+ * 从给定的函数创建一个命令，用于视图模型。
  *
- * A Command is a function with an extra <code>canExecute</code> observable property to determine
- * whether the command can be executed.  When executed, a Command function will check the
- * value of <code>canExecute</code> and throw if false.  It also provides events for when
- * a command has been or is about to be executed.
+ * 命令是一个具有额外 <code>canExecute</code> 可观察属性的函数，用于确定
+ * 命令是否可以执行。当执行时，命令函数会检查
+ * <code>canExecute</code> 的值，如果为 false，则会抛出错误。它还提供了命令
+ * 被执行或即将执行时的事件。
  *
  * @function
  *
- * @param {Function} func The function to execute.
- * @param {boolean} [canExecute=true] A boolean indicating whether the function can currently be executed.
+ * @param {Function} func 要执行的函数。
+ * @param {boolean} [canExecute=true] 一个布尔值，指示该函数是否可以当前执行。
  */
+
 function createCommand(func, canExecute) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(func)) {

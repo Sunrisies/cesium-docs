@@ -4,9 +4,9 @@ import IndexDatatype from "./IndexDatatype.js";
 import CesiumMath from "./Math.js";
 
 /**
- * Provides terrain or other geometry for the surface of an ellipsoid.  The surface geometry is
- * organized into a pyramid of tiles according to a {@link TilingScheme}.  This type describes an
- * interface and is not intended to be instantiated directly.
+ * 提供椭球体表面的地形或其他几何形状。表面几何形状
+ * 根据 {@link TilingScheme} 组织成一个金字塔状的瓦片。这种类型描述了
+ * 一个接口，并不打算直接实例化。
  *
  * @alias TerrainProvider
  * @constructor
@@ -16,15 +16,16 @@ import CesiumMath from "./Math.js";
  * @see VRTheWorldTerrainProvider
  * @see GoogleEarthEnterpriseTerrainProvider
  */
+
 function TerrainProvider() {
   DeveloperError.throwInstantiationError();
 }
 
 Object.defineProperties(TerrainProvider.prototype, {
   /**
-   * Gets an event that is raised when the terrain provider encounters an asynchronous error.  By subscribing
-   * to the event, you will be notified of the error and can potentially recover from it.  Event listeners
-   * are passed an instance of {@link TileProviderError}.
+   * 获取一个事件，当地形提供者遇到异步错误时会引发该事件。通过订阅
+   * 此事件，您将被通知错误并可能能够从中恢复。事件监听器
+   * 会接收一个 {@link TileProviderError} 的实例。
    * @memberof TerrainProvider.prototype
    * @type {Event<TerrainProvider.ErrorEvent>}
    * @readonly
@@ -34,18 +35,19 @@ Object.defineProperties(TerrainProvider.prototype, {
   },
 
   /**
-   * Gets the credit to display when this terrain provider is active.  Typically this is used to credit
-   * the source of the terrain.
+   * 获取在此地形提供者激活时显示的信用信息。通常用于标明
+   * 地形的来源。
    * @memberof TerrainProvider.prototype
    * @type {Credit}
    * @readonly
    */
+
   credit: {
     get: DeveloperError.throwInstantiationError,
   },
 
   /**
-   * Gets the tiling scheme used by the provider.
+   * 获取提供者使用的瓦片方案。
    * @memberof TerrainProvider.prototype
    * @type {TilingScheme}
    * @readonly
@@ -55,9 +57,9 @@ Object.defineProperties(TerrainProvider.prototype, {
   },
 
   /**
-   * Gets a value indicating whether or not the provider includes a water mask.  The water mask
-   * indicates which areas of the globe are water rather than land, so they can be rendered
-   * as a reflective surface with animated waves.
+   * 获取一个值，指示提供者是否包含水面掩码。水面掩码
+   * 表明地球上哪些区域是水而不是陆地，以便可以将其渲染
+   * 为带有动画波浪的反射表面。
    * @memberof TerrainProvider.prototype
    * @type {boolean}
    * @readonly
@@ -67,7 +69,7 @@ Object.defineProperties(TerrainProvider.prototype, {
   },
 
   /**
-   * Gets a value indicating whether or not the requested tiles include vertex normals.
+   * 获取一个值，指示请求的瓦片是否包含顶点法线。
    * @memberof TerrainProvider.prototype
    * @type {boolean}
    * @readonly
@@ -77,13 +79,14 @@ Object.defineProperties(TerrainProvider.prototype, {
   },
 
   /**
-   * Gets an object that can be used to determine availability of terrain from this provider, such as
-   * at points and in rectangles. This property may be undefined if availability
-   * information is not available.
+   * 获取一个对象，可以用来确定该提供者的地形可用性，例如
+   * 在点和矩形中。如果没有可用性
+   * 信息，可能会返回undefined。
    * @memberof TerrainProvider.prototype
    * @type {TileAvailability}
    * @readonly
    */
+
   availability: {
     get: DeveloperError.throwInstantiationError,
   },
@@ -92,15 +95,16 @@ Object.defineProperties(TerrainProvider.prototype, {
 const regularGridIndicesCache = [];
 
 /**
- * Gets a list of indices for a triangle mesh representing a regular grid.  Calling
- * this function multiple times with the same grid width and height returns the
- * same list of indices.  The total number of vertices must be less than or equal
- * to 65536.
+ * 获取表示规则网格的三角形网格的索引列表。多次调用
+ * 此函数时，如果网格的宽度和高度相同，将返回
+ * 相同的索引列表。顶点的总数必须小于或等于
+ * 65536。
  *
- * @param {number} width The number of vertices in the regular grid in the horizontal direction.
- * @param {number} height The number of vertices in the regular grid in the vertical direction.
- * @returns {Uint16Array|Uint32Array} The list of indices. Uint16Array gets returned for 64KB or less and Uint32Array for 4GB or less.
+ * @param {number} width 规则网格在水平方向上的顶点数量。
+ * @param {number} height 规则网格在垂直方向上的顶点数量。
+ * @returns {Uint16Array|Uint32Array} 索引列表。对于64KB或更小的情况返回Uint16Array，对于4GB或更小的情况返回Uint32Array。
  */
+
 TerrainProvider.getRegularGridIndices = function (width, height) {
   //>>includeStart('debug', pragmas.debug);
   if (width * height >= CesiumMath.FOUR_GIGABYTES) {
@@ -342,23 +346,23 @@ function addSkirtIndices(edgeIndices, vertexIndex, indices, offset) {
 }
 
 /**
- * Specifies the quality of terrain created from heightmaps.  A value of 1.0 will
- * ensure that adjacent heightmap vertices are separated by no more than
- * {@link Globe.maximumScreenSpaceError} screen pixels and will probably go very slowly.
- * A value of 0.5 will cut the estimated level zero geometric error in half, allowing twice the
- * screen pixels between adjacent heightmap vertices and thus rendering more quickly.
+ * 指定从高度图创建的地形质量。值为1.0将确保相邻高度图顶点
+ * 的间距不超过 {@link Globe.maximumScreenSpaceError} 个屏幕像素，但可能会非常慢。
+ * 值为0.5将把估计的零级几何误差减半，从而允许相邻高度图顶点之间
+ * 有两倍的屏幕像素，因此渲染更快。
  * @type {number}
  */
 TerrainProvider.heightmapTerrainQuality = 0.25;
 
 /**
- * Determines an appropriate geometric error estimate when the geometry comes from a heightmap.
+ * 当几何形状来自于高度图时，确定适当的几何误差估计值。
  *
- * @param {Ellipsoid} ellipsoid The ellipsoid to which the terrain is attached.
- * @param {number} tileImageWidth The width, in pixels, of the heightmap associated with a single tile.
- * @param {number} numberOfTilesAtLevelZero The number of tiles in the horizontal direction at tile level zero.
- * @returns {number} An estimated geometric error.
+ * @param {Ellipsoid} ellipsoid 地形所附属的椭球体。
+ * @param {number} tileImageWidth 与单个瓦片关联的高度图的宽度（以像素为单位）。
+ * @param {number} numberOfTilesAtLevelZero 在零级瓦片的水平方向上的瓦片数量。
+ * @returns {number} 估计的几何误差。
  */
+
 TerrainProvider.getEstimatedLevelZeroGeometricErrorForAHeightmap = function (
   ellipsoid,
   tileImageWidth,
@@ -374,61 +378,64 @@ TerrainProvider.getEstimatedLevelZeroGeometricErrorForAHeightmap = function (
 };
 
 /**
- * Requests the geometry for a given tile. The result must include terrain data and
- * may optionally include a water mask and an indication of which child tiles are available.
+ * 请求给定瓦片的几何形状。结果必须包括地形数据，并且
+ * 还可以选择性地包括水面掩码和指示哪些子瓦片可用的信息。
  * @function
  *
- * @param {number} x The X coordinate of the tile for which to request geometry.
- * @param {number} y The Y coordinate of the tile for which to request geometry.
- * @param {number} level The level of the tile for which to request geometry.
- * @param {Request} [request] The request object. Intended for internal use only.
+ * @param {number} x 要请求几何形状的瓦片的X坐标。
+ * @param {number} y 要请求几何形状的瓦片的Y坐标。
+ * @param {number} level 要请求几何形状的瓦片级别。
+ * @param {Request} [request] 请求对象。仅用于内部使用。
  *
- * @returns {Promise<TerrainData>|undefined} A promise for the requested geometry.  If this method
- *          returns undefined instead of a promise, it is an indication that too many requests are already
- *          pending and the request will be retried later.
+ * @returns {Promise<TerrainData>|undefined} 请求的几何形状的承诺。如果此方法
+ *          返回undefined而不是承诺，则表示已经有太多请求在等待，
+ *          该请求将在稍后重试。
  */
 TerrainProvider.prototype.requestTileGeometry =
   DeveloperError.throwInstantiationError;
 
 /**
- * Gets the maximum geometric error allowed in a tile at a given level.
+ * 获取给定级别瓦片中允许的最大几何误差。
  * @function
  *
- * @param {number} level The tile level for which to get the maximum geometric error.
- * @returns {number} The maximum geometric error.
+ * @param {number} level 要获取最大几何误差的瓦片级别。
+ * @returns {number} 最大几何误差。
  */
+
 TerrainProvider.prototype.getLevelMaximumGeometricError =
   DeveloperError.throwInstantiationError;
 
 /**
- * Determines whether data for a tile is available to be loaded.
+ * 确定某个瓦片的数据是否可以加载。
  * @function
  *
- * @param {number} x The X coordinate of the tile for which to request geometry.
- * @param {number} y The Y coordinate of the tile for which to request geometry.
- * @param {number} level The level of the tile for which to request geometry.
- * @returns {boolean|undefined} Undefined if not supported by the terrain provider, otherwise true or false.
+ * @param {number} x 要请求几何形状的瓦片的X坐标。
+ * @param {number} y 要请求几何形状的瓦片的Y坐标。
+ * @param {number} level 要请求几何形状的瓦片级别。
+ * @returns {boolean|undefined} 如果地形提供者不支持，返回undefined；否则返回true或false。
  */
 TerrainProvider.prototype.getTileDataAvailable =
   DeveloperError.throwInstantiationError;
 
 /**
- * Makes sure we load availability data for a tile
+ * 确保我们加载瓦片的可用性数据。
  * @function
  *
- * @param {number} x The X coordinate of the tile for which to request geometry.
- * @param {number} y The Y coordinate of the tile for which to request geometry.
- * @param {number} level The level of the tile for which to request geometry.
- * @returns {undefined|Promise<void>} Undefined if nothing need to be loaded or a Promise that resolves when all required tiles are loaded
+ * @param {number} x 要请求几何形状的瓦片的X坐标。
+ * @param {number} y 要请求几何形状的瓦片的Y坐标。
+ * @param {number} level 要请求几何形状的瓦片级别。
+ * @returns {undefined|Promise<void>} 如果不需要加载任何内容，则返回undefined；否则返回一个Promise，在所有所需瓦片加载完成时解析。
  */
+
 TerrainProvider.prototype.loadTileDataAvailability =
   DeveloperError.throwInstantiationError;
 export default TerrainProvider;
 
 /**
- * A function that is called when an error occurs.
+ * 当发生错误时调用的函数。
  * @callback TerrainProvider.ErrorEvent
  *
  * @this TerrainProvider
- * @param {TileProviderError} err An object holding details about the error that occurred.
+ * @param {TileProviderError} err 一个包含发生错误的详细信息的对象。
  */
+

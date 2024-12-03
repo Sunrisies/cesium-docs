@@ -160,13 +160,14 @@ const scratchColor = new Color();
 const oldColor = new Color();
 
 /**
- * The view model for {@link Cesium3DTilesInspector}.
+ * {@link Cesium3DTilesInspector} 的视图模型。
  * @alias Cesium3DTilesInspectorViewModel
  * @constructor
  *
- * @param {Scene} scene 要使用的场景实例.
- * @param {HTMLElement} performanceContainer The container for the performance display
- */
+ * @param {Scene} scene 要使用的场景实例。
+ * @param {HTMLElement} performanceContainer 性能显示的容器
+ */ 
+
 function Cesium3DTilesInspectorViewModel(scene, performanceContainer) {
   //>>includeStart('debug', pragmas.debug);
   Check.typeOf.object("scene", scene);
@@ -190,7 +191,7 @@ function Cesium3DTilesInspectorViewModel(scene, performanceContainer) {
   this._editorError = "";
 
   /**
-   * Gets or sets the flag to enable performance display.  This property is observable.
+   * 获取或设置启用性能显示的标志。此属性是可观察的。
    *
    * @type {boolean}
    * @default false
@@ -198,7 +199,7 @@ function Cesium3DTilesInspectorViewModel(scene, performanceContainer) {
   this.performance = false;
 
   /**
-   * Gets or sets the flag to show statistics.  This property is observable.
+   * 获取或设置显示统计信息的标志。此属性是可观察的。
    *
    * @type {boolean}
    * @default true
@@ -206,7 +207,7 @@ function Cesium3DTilesInspectorViewModel(scene, performanceContainer) {
   this.showStatistics = true;
 
   /**
-   * Gets or sets the flag to show pick statistics.  This property is observable.
+   * 获取或设置显示选择统计信息的标志。此属性是可观察的。
    *
    * @type {boolean}
    * @default true
@@ -214,8 +215,7 @@ function Cesium3DTilesInspectorViewModel(scene, performanceContainer) {
   this.showPickStatistics = true;
 
   /**
-   * Gets or sets the flag to show resource cache statistics. This property is
-   * observable.
+   * 获取或设置显示资源缓存统计信息的标志。此属性是可观察的。
    *
    * @type {boolean}
    * @default false
@@ -223,7 +223,7 @@ function Cesium3DTilesInspectorViewModel(scene, performanceContainer) {
   this.showResourceCacheStatistics = false;
 
   /**
-   * Gets or sets the flag to show the inspector.  This property is observable.
+   * 获取或设置显示检查器的标志。此属性是可观察的。
    *
    * @type {boolean}
    * @default true
@@ -231,7 +231,7 @@ function Cesium3DTilesInspectorViewModel(scene, performanceContainer) {
   this.inspectorVisible = true;
 
   /**
-   * Gets or sets the flag to show the tileset section.  This property is observable.
+   * 获取或设置显示图块集部分的标志。此属性是可观察的。
    *
    * @type {boolean}
    * @default false
@@ -239,7 +239,7 @@ function Cesium3DTilesInspectorViewModel(scene, performanceContainer) {
   this.tilesetVisible = false;
 
   /**
-   * Gets or sets the flag to show the display section.  This property is observable.
+   * 获取或设置显示显示部分的标志。此属性是可观察的。
    *
    * @type {boolean}
    * @default false
@@ -247,7 +247,7 @@ function Cesium3DTilesInspectorViewModel(scene, performanceContainer) {
   this.displayVisible = false;
 
   /**
-   * Gets or sets the flag to show the update section.  This property is observable.
+   * 获取或设置显示更新部分的标志。此属性是可观察的。
    *
    * @type {boolean}
    * @default false
@@ -255,15 +255,16 @@ function Cesium3DTilesInspectorViewModel(scene, performanceContainer) {
   this.updateVisible = false;
 
   /**
-   * Gets or sets the flag to show the logging section.  This property is observable.
+   * 获取或设置显示日志部分的标志。此属性是可观察的。
    *
    * @type {boolean}
    * @default false
    */
+
   this.loggingVisible = false;
 
   /**
-   * Gets or sets the flag to show the style section.  This property is observable.
+   * 获取或设置显示样式部分的标志。此属性是可观察的。
    *
    * @type {boolean}
    * @default false
@@ -271,7 +272,7 @@ function Cesium3DTilesInspectorViewModel(scene, performanceContainer) {
   this.styleVisible = false;
 
   /**
-   * Gets or sets the flag to show the tile info section.  This property is observable.
+   * 获取或设置显示图块信息部分的标志。此属性是可观察的。
    *
    * @type {boolean}
    * @default false
@@ -279,7 +280,7 @@ function Cesium3DTilesInspectorViewModel(scene, performanceContainer) {
   this.tileDebugLabelsVisible = false;
 
   /**
-   * Gets or sets the flag to show the optimization info section. This property is observable.
+   * 获取或设置显示优化信息部分的标志。此属性是可观察的。
    *
    * @type {boolean}
    * @default false;
@@ -287,7 +288,7 @@ function Cesium3DTilesInspectorViewModel(scene, performanceContainer) {
   this.optimizationVisible = false;
 
   /**
-   * Gets or sets the JSON for the tileset style.  This property is observable.
+   * 获取或设置图块集样式的 JSON。此属性是可观察的。
    *
    * @type {string}
    * @default '{}'
@@ -295,11 +296,12 @@ function Cesium3DTilesInspectorViewModel(scene, performanceContainer) {
   this.styleString = "{}";
 
   /**
-   * Gets or sets the JSON for the tileset enableDebugWireframe attribute.  This property is observable.
+   * 获取或设置图块集 enableDebugWireframe 属性的 JSON。此属性是可观察的。
    *
    * @type {boolean}
    * @default false
    */
+
   this.hasEnabledWireframe = false;
 
   this._tileset = undefined;
@@ -331,11 +333,12 @@ function Cesium3DTilesInspectorViewModel(scene, performanceContainer) {
   ]);
 
   this._properties = knockout.observable({});
-  /**
-   * Gets the names of the properties in the tileset.  This property is observable.
+/**
+   * 获取图块集中属性的名称。此属性是可观察的。
    * @type {string[]}
    * @readonly
    */
+
   this.properties = [];
   knockout.defineProperty(this, "properties", function () {
     const names = [];
@@ -361,11 +364,12 @@ function Cesium3DTilesInspectorViewModel(scene, performanceContainer) {
     },
   });
   /**
-   * Gets or sets the flag to enable dynamic screen space error.  This property is observable.
+   * 获取或设置启用动态屏幕空间误差的标志。此属性是可观察的。
    *
    * @type {boolean}
    * @default false
    */
+
   this.dynamicScreenSpaceError = false;
 
   const colorBlendMode = knockout.observable();
@@ -382,11 +386,12 @@ function Cesium3DTilesInspectorViewModel(scene, performanceContainer) {
     },
   });
   /**
-   * Gets or sets the color blend mode.  This property is observable.
+   * 获取或设置颜色混合模式。此属性是可观察的。
    *
    * @type {Cesium3DTileColorBlendMode}
    * @default Cesium3DTileColorBlendMode.HIGHLIGHT
    */
+
   this.colorBlendMode = Cesium3DTileColorBlendMode.HIGHLIGHT;
 
   const showOnlyPickedTileDebugLabel = knockout.observable();
@@ -442,11 +447,12 @@ function Cesium3DTilesInspectorViewModel(scene, performanceContainer) {
     },
   });
   /**
-   * Gets or sets the flag to enable picking.  This property is observable.
+   * 获取或设置启用选择的标志。此属性是可观察的。
    *
    * @type {boolean}
    * @default true
    */
+
   this.picking = true;
 
   const colorize = knockout.observable();
@@ -463,11 +469,12 @@ function Cesium3DTilesInspectorViewModel(scene, performanceContainer) {
     },
   });
   /**
-   * Gets or sets the flag to colorize tiles.  This property is observable.
+   * 获取或设置着色图块的标志。此属性是可观察的。
    *
    * @type {boolean}
    * @default false
    */
+
   this.colorize = false;
 
   const wireframe = knockout.observable();
@@ -484,11 +491,12 @@ function Cesium3DTilesInspectorViewModel(scene, performanceContainer) {
     },
   });
   /**
-   * Gets or sets the flag to draw with wireframe.  This property is observable.
+   * 获取或设置以线框绘制的标志。此属性是可观察的。
    *
    * @type {boolean}
    * @default false
    */
+
   this.wireframe = false;
 
   const showBoundingVolumes = knockout.observable();
@@ -504,12 +512,13 @@ function Cesium3DTilesInspectorViewModel(scene, performanceContainer) {
       }
     },
   });
-  /**
-   * Gets or sets the flag to show bounding volumes.  This property is observable.
+/**
+   * 获取或设置显示包围体的标志。此属性是可观察的。
    *
    * @type {boolean}
    * @default false
    */
+
   this.showBoundingVolumes = false;
 
   const showContentBoundingVolumes = knockout.observable();
@@ -526,11 +535,12 @@ function Cesium3DTilesInspectorViewModel(scene, performanceContainer) {
     },
   });
   /**
-   * Gets or sets the flag to show content volumes.  This property is observable.
+   * 获取或设置显示内容体的标志。此属性是可观察的。
    *
    * @type {boolean}
    * @default false
    */
+
   this.showContentBoundingVolumes = false;
 
   const showRequestVolumes = knockout.observable();
@@ -547,11 +557,12 @@ function Cesium3DTilesInspectorViewModel(scene, performanceContainer) {
     },
   });
   /**
-   * Gets or sets the flag to show request volumes.  This property is observable.
+   * 获取或设置显示请求体的标志。此属性是可观察的。
    *
    * @type {boolean}
    * @default false
    */
+
   this.showRequestVolumes = false;
 
   const freezeFrame = knockout.observable();
@@ -569,11 +580,12 @@ function Cesium3DTilesInspectorViewModel(scene, performanceContainer) {
     },
   });
   /**
-   * Gets or sets the flag to suspend updates.  This property is observable.
+   * 获取或设置暂停更新的标志。此属性是可观察的。
    *
    * @type {boolean}
    * @default false
    */
+
   this.freezeFrame = false;
 
   knockout.defineProperty(this, "showOnlyPickedTileDebugLabel", {
@@ -588,12 +600,13 @@ function Cesium3DTilesInspectorViewModel(scene, performanceContainer) {
       }
     },
   });
-  /**
-   * Gets or sets the flag to show debug labels only for the currently picked tile.  This property is observable.
+ /**
+   * 获取或设置仅为当前选中的图块显示调试标签的标志。此属性是可观察的。
    *
    * @type {boolean}
    * @default false
    */
+
   this.showOnlyPickedTileDebugLabel = false;
 
   const showGeometricError = knockout.observable();
@@ -610,7 +623,7 @@ function Cesium3DTilesInspectorViewModel(scene, performanceContainer) {
     },
   });
   /**
-   * Gets or sets the flag to show tile geometric error.  This property is observable.
+   * 获取或设置显示图块几何误差的标志。此属性是可观察的。
    *
    * @type {boolean}
    * @default false
@@ -631,11 +644,12 @@ function Cesium3DTilesInspectorViewModel(scene, performanceContainer) {
     },
   });
   /**
-   * Displays the number of commands, points, triangles and features used per tile.  This property is observable.
+   * 显示每个图块使用的命令数、点数、三角形数和特征数。此属性是可观察的。
    *
    * @type {boolean}
    * @default false
    */
+
   this.showRenderingStatistics = false;
 
   const showMemoryUsage = knockout.observable();
@@ -652,7 +666,7 @@ function Cesium3DTilesInspectorViewModel(scene, performanceContainer) {
     },
   });
   /**
-   * Displays the memory used per tile.  This property is observable.
+   * 显示每个图块使用的内存。此属性是可观察的。
    *
    * @type {boolean}
    * @default false
@@ -673,11 +687,12 @@ function Cesium3DTilesInspectorViewModel(scene, performanceContainer) {
     },
   });
   /**
-   * Gets or sets the flag to show the tile url.  This property is observable.
+   * 获取或设置显示图块 URL 的标志。此属性是可观察的。
    *
    * @type {boolean}
    * @default false
    */
+
   this.showUrl = false;
 
   const maximumScreenSpaceError = knockout.observable();
@@ -696,7 +711,7 @@ function Cesium3DTilesInspectorViewModel(scene, performanceContainer) {
     },
   });
   /**
-   * Gets or sets the maximum screen space error.  This property is observable.
+   * 获取或设置最大屏幕空间误差。此属性是可观察的。
    *
    * @type {number}
    * @default 16
@@ -719,7 +734,7 @@ function Cesium3DTilesInspectorViewModel(scene, performanceContainer) {
     },
   });
   /**
-   * Gets or sets the dynamic screen space error density.  This property is observable.
+   * 获取或设置动态屏幕空间误差密度。此属性是可观察的。
    *
    * @type {number}
    * @default 2.0e-4
@@ -727,13 +742,14 @@ function Cesium3DTilesInspectorViewModel(scene, performanceContainer) {
   this.dynamicScreenSpaceErrorDensity = 2.0e-4;
 
   /**
-   * Gets or sets the dynamic screen space error density slider value.
-   * This allows the slider to be exponential because values tend to be closer to 0 than 1.
-   * This property is observable.
+   * 获取或设置动态屏幕空间误差密度滑块值。
+   * 这允许滑块具有指数特性，因为值趋向于接近于 0 而不是 1。
+   * 此属性是可观察的。
    *
    * @type {number}
    * @default 2.0e-4
    */
+
   this.dynamicScreenSpaceErrorDensitySliderValue = undefined;
   knockout.defineProperty(this, "dynamicScreenSpaceErrorDensitySliderValue", {
     get: function () {
@@ -764,11 +780,12 @@ function Cesium3DTilesInspectorViewModel(scene, performanceContainer) {
     },
   });
   /**
-   * Gets or sets the dynamic screen space error factor.  This property is observable.
+   * 获取或设置动态屏幕空间误差因子。此属性是可观察的。
    *
    * @type {number}
    * @default 24.0
    */
+
   this.dynamicScreenSpaceErrorFactor = 24.0;
 
   const pickTileset = getPickTileset(this);
@@ -803,11 +820,12 @@ function Cesium3DTilesInspectorViewModel(scene, performanceContainer) {
     },
   });
   /**
-   * Gets or sets the flag to enable point cloud shading. This property is observable.
+   * 获取或设置启用点云着色的标志。此属性是可观察的。
    *
    * @type {boolean}
    * @default false
    */
+
   this.pointCloudShading = false;
 
   const geometricErrorScale = knockout.observable();
@@ -826,11 +844,12 @@ function Cesium3DTilesInspectorViewModel(scene, performanceContainer) {
     },
   });
   /**
-   * Gets or sets the geometric error scale.  This property is observable.
+   * 获取或设置几何误差比例。此属性是可观察的。
    *
    * @type {number}
    * @default 1.0
    */
+
   this.geometricErrorScale = 1.0;
 
   const maximumAttenuation = knockout.observable();
@@ -850,11 +869,12 @@ function Cesium3DTilesInspectorViewModel(scene, performanceContainer) {
     },
   });
   /**
-   * Gets or sets the maximum attenuation.  This property is observable.
+   * 获取或设置最大衰减值。此属性是可观察的。
    *
    * @type {number}
    * @default 0
    */
+
   this.maximumAttenuation = 0;
 
   const baseResolution = knockout.observable();
@@ -873,12 +893,13 @@ function Cesium3DTilesInspectorViewModel(scene, performanceContainer) {
       }
     },
   });
-  /**
-   * Gets or sets the base resolution.  This property is observable.
+/**
+   * 获取或设置基本分辨率。此属性是可观察的。
    *
    * @type {number}
    * @default 0
    */
+
   this.baseResolution = 0;
 
   const eyeDomeLighting = knockout.observable();
@@ -894,11 +915,12 @@ function Cesium3DTilesInspectorViewModel(scene, performanceContainer) {
     },
   });
   /**
-   * Gets or sets the flag to enable eye dome lighting. This property is observable.
+   * 获取或设置启用眼穹灯光的标志。此属性是可观察的。
    *
    * @type {boolean}
    * @default false
    */
+
   this.eyeDomeLighting = false;
 
   const eyeDomeLightingStrength = knockout.observable();
@@ -916,12 +938,13 @@ function Cesium3DTilesInspectorViewModel(scene, performanceContainer) {
       }
     },
   });
-  /**
-   * Gets or sets the eye dome lighting strength.  This property is observable.
+/**
+   * 获取或设置眼穹灯光强度。此属性是可观察的。
    *
    * @type {number}
    * @default 1.0
    */
+
   this.eyeDomeLightingStrength = 1.0;
 
   const eyeDomeLightingRadius = knockout.observable();
@@ -940,7 +963,7 @@ function Cesium3DTilesInspectorViewModel(scene, performanceContainer) {
     },
   });
   /**
-   * Gets or sets the eye dome lighting radius.  This property is observable.
+   * 获取或设置眼穹灯光半径。此属性是可观察的。
    *
    * @type {number}
    * @default 1.0
@@ -948,11 +971,12 @@ function Cesium3DTilesInspectorViewModel(scene, performanceContainer) {
   this.eyeDomeLightingRadius = 1.0;
 
   /**
-   * Gets or sets the pick state
+   * 获取或设置选择状态
    *
    * @type {boolean}
    * @default false
    */
+
   this.pickActive = false;
 
   const skipLevelOfDetail = knockout.observable();
@@ -968,11 +992,12 @@ function Cesium3DTilesInspectorViewModel(scene, performanceContainer) {
     },
   });
   /**
-   * Gets or sets the flag to determine if level of detail skipping should be applied during the traversal.
-   * This property is observable.
+   * 获取或设置标志以确定在遍历期间是否应应用细节层次跳过。
+   * 此属性是可观察的。
    * @type {boolean}
    * @default true
    */
+
   this.skipLevelOfDetail = true;
 
   const skipScreenSpaceErrorFactor = knockout.observable();
@@ -990,8 +1015,8 @@ function Cesium3DTilesInspectorViewModel(scene, performanceContainer) {
       }
     },
   });
-  /**
-   * Gets or sets the multiplier defining the minimum screen space error to skip. This property is observable.
+/**
+   * 获取或设置定义要跳过的最小屏幕空间误差的乘数。此属性是可观察的。
    * @type {number}
    * @default 16
    */
@@ -1013,10 +1038,11 @@ function Cesium3DTilesInspectorViewModel(scene, performanceContainer) {
     },
   });
   /**
-   * Gets or sets the screen space error that must be reached before skipping levels of detail. This property is observable.
+   * 获取或设置必须达到才能跳过细节层次的屏幕空间误差。此属性是可观察的。
    * @type {number}
    * @default 1024
    */
+
   this.baseScreenSpaceError = 1024;
 
   const skipLevels = knockout.observable();
@@ -1035,7 +1061,7 @@ function Cesium3DTilesInspectorViewModel(scene, performanceContainer) {
     },
   });
   /**
-   * Gets or sets the constant defining the minimum number of levels to skip when loading tiles. This property is observable.
+   * 获取或设置定义加载图块时跳过的最小层级数的常量。此属性是可观察的。
    * @type {number}
    * @default 1
    */
@@ -1054,11 +1080,12 @@ function Cesium3DTilesInspectorViewModel(scene, performanceContainer) {
     },
   });
   /**
-   * Gets or sets the flag which, when true, only tiles that meet the maximum screen space error will ever be downloaded.
-   * This property is observable.
+   * 获取或设置当为真时，仅下载满足最大屏幕空间误差的图块的标志。
+   * 此属性是可观察的。
    * @type {boolean}
    * @default false
    */
+
   this.immediatelyLoadDesiredLevelOfDetail = false;
 
   const loadSiblings = knockout.observable();
@@ -1074,11 +1101,12 @@ function Cesium3DTilesInspectorViewModel(scene, performanceContainer) {
     },
   });
   /**
-   * Gets or sets the flag which determines whether siblings of visible tiles are always downloaded during traversal.
-   * This property is observable
+   * 获取或设置一个标志，确定是否在遍历期间始终下载可见图块的兄弟图块。
+   * 此属性是可观察的
    * @type {boolean}
    * @default false
    */
+
   this.loadSiblings = false;
 
   this._style = undefined;
@@ -1129,7 +1157,7 @@ function Cesium3DTilesInspectorViewModel(scene, performanceContainer) {
 
 Object.defineProperties(Cesium3DTilesInspectorViewModel.prototype, {
   /**
-   * Gets the scene
+   * 获取场景
    * @memberof Cesium3DTilesInspectorViewModel.prototype
    * @type {Scene}
    * @readonly
@@ -1140,7 +1168,7 @@ Object.defineProperties(Cesium3DTilesInspectorViewModel.prototype, {
     },
   },
   /**
-   * Gets the performance container
+   * 获取性能容器
    * @memberof Cesium3DTilesInspectorViewModel.prototype
    * @type {HTMLElement}
    * @readonly
@@ -1152,7 +1180,7 @@ Object.defineProperties(Cesium3DTilesInspectorViewModel.prototype, {
   },
 
   /**
-   * Gets the statistics text.  This property is observable.
+   * 获取统计信息文本。此属性是可观察的。
    * @memberof Cesium3DTilesInspectorViewModel.prototype
    * @type {string}
    * @readonly
@@ -1163,7 +1191,7 @@ Object.defineProperties(Cesium3DTilesInspectorViewModel.prototype, {
     },
   },
   /**
-   * Gets the pick statistics text.  This property is observable.
+   * 获取选择统计信息文本。此属性是可观察的。
    * @memberof Cesium3DTilesInspectorViewModel.prototype
    * @type {string}
    * @readonly
@@ -1175,7 +1203,7 @@ Object.defineProperties(Cesium3DTilesInspectorViewModel.prototype, {
   },
 
   /**
-   * Gets the resource cache statistics text. This property is observable.
+   * 获取资源缓存统计信息文本。此属性是可观察的。
    * @memberof Cesium3DTilesInspectorViewModel.prototype
    * @type {string}
    * @readonly
@@ -1187,7 +1215,7 @@ Object.defineProperties(Cesium3DTilesInspectorViewModel.prototype, {
   },
 
   /**
-   * Gets the available blend modes
+   * 获取可用的混合模式
    * @memberof Cesium3DTilesInspectorViewModel.prototype
    * @type {Object[]}
    * @readonly
@@ -1199,7 +1227,7 @@ Object.defineProperties(Cesium3DTilesInspectorViewModel.prototype, {
   },
 
   /**
-   * Gets the editor error message
+   * 获取编辑器错误信息
    * @memberof Cesium3DTilesInspectorViewModel.prototype
    * @type {string}
    * @readonly
@@ -1211,7 +1239,7 @@ Object.defineProperties(Cesium3DTilesInspectorViewModel.prototype, {
   },
 
   /**
-   * Gets or sets the tileset of the view model.
+   * 获取或设置视图模型的图块集。
    * @memberof Cesium3DTilesInspectorViewModel.prototype
    * @type {Cesium3DTileset}
    */
@@ -1229,7 +1257,7 @@ Object.defineProperties(Cesium3DTilesInspectorViewModel.prototype, {
       if (defined(tileset)) {
         this._properties(tileset.properties);
 
-        // update tileset with existing settings
+        // 更新图块集与现有设置
         const settings = [
           "colorize",
           "wireframe",
@@ -1250,7 +1278,7 @@ Object.defineProperties(Cesium3DTilesInspectorViewModel.prototype, {
           this[setting] = this[setting];
         }
 
-        // update view model with existing tileset settings
+        // 使用现有图块集设置更新视图模型
         this.maximumScreenSpaceError = tileset.maximumScreenSpaceError;
         this.dynamicScreenSpaceError = tileset.dynamicScreenSpaceError;
         this.dynamicScreenSpaceErrorDensity =
@@ -1294,7 +1322,7 @@ Object.defineProperties(Cesium3DTilesInspectorViewModel.prototype, {
   },
 
   /**
-   * Gets the current feature of the view model.
+   * 获取视图模型的当前特征。
    * @memberof Cesium3DTilesInspectorViewModel.prototype
    * @type {Cesium3DTileFeature}
    */
@@ -1308,7 +1336,7 @@ Object.defineProperties(Cesium3DTilesInspectorViewModel.prototype, {
       }
       const currentFeature = this._feature;
       if (defined(currentFeature) && !currentFeature.content.isDestroyed()) {
-        // Restore original color to feature that is no longer selected
+        // 恢复不再被选中的特征的原始颜色
         if (!this.colorize && defined(this._style)) {
           currentFeature.color = defined(this._style.color)
             ? this._style.color.evaluateColor(currentFeature, scratchColor)
@@ -1319,7 +1347,7 @@ Object.defineProperties(Cesium3DTilesInspectorViewModel.prototype, {
         this._scene.requestRender();
       }
       if (defined(feature)) {
-        // Highlight new feature
+        // 高亮新的特征
         Color.clone(feature.color, oldColor);
         feature.color = highlightColor;
         this._scene.requestRender();
@@ -1329,7 +1357,7 @@ Object.defineProperties(Cesium3DTilesInspectorViewModel.prototype, {
   },
 
   /**
-   * Gets the current tile of the view model
+   * 获取视图模型的当前图块
    * @memberof Cesium3DTilesInspectorViewModel.prototype
    * @type {Cesium3DTile}
    */
@@ -1348,13 +1376,13 @@ Object.defineProperties(Cesium3DTilesInspectorViewModel.prototype, {
         !currentTile.isDestroyed() &&
         !hasFeatures(currentTile.content)
       ) {
-        // Restore original color to tile that is no longer selected
+        // 恢复不再被选中的图块的原始颜色
         currentTile.color = oldColor;
         this._scene.requestRender();
       }
 
       if (defined(tile) && !hasFeatures(tile.content)) {
-        // Highlight new tile
+        // 高亮新的图块
         Color.clone(tile.color, oldColor);
         tile.color = highlightColor;
         this._scene.requestRender();
@@ -1363,6 +1391,7 @@ Object.defineProperties(Cesium3DTilesInspectorViewModel.prototype, {
     },
   },
 });
+
 
 function hasFeatures(content) {
   if (!defined(content)) {
@@ -1386,70 +1415,71 @@ function hasFeatures(content) {
 }
 
 /**
- * Toggles the pick tileset mode
+ * 切换选择图块集模式
  */
+
 Cesium3DTilesInspectorViewModel.prototype.togglePickTileset = function () {
   this.pickActive = !this.pickActive;
 };
 
 /**
- * Toggles the inspector visibility
+ * 切换检查器的可见性
  */
 Cesium3DTilesInspectorViewModel.prototype.toggleInspector = function () {
   this.inspectorVisible = !this.inspectorVisible;
 };
 
 /**
- * Toggles the visibility of the tileset section
+ * 切换图块集部分的可见性
  */
 Cesium3DTilesInspectorViewModel.prototype.toggleTileset = function () {
   this.tilesetVisible = !this.tilesetVisible;
 };
 
 /**
- * Toggles the visibility of the display section
+ * 切换显示部分的可见性
  */
 Cesium3DTilesInspectorViewModel.prototype.toggleDisplay = function () {
   this.displayVisible = !this.displayVisible;
 };
 
 /**
- * Toggles the visibility of the update section
+ * 切换更新部分的可见性
  */
 Cesium3DTilesInspectorViewModel.prototype.toggleUpdate = function () {
   this.updateVisible = !this.updateVisible;
 };
 
 /**
- * Toggles the visibility of the logging section
+ * 切换日志部分的可见性
  */
 Cesium3DTilesInspectorViewModel.prototype.toggleLogging = function () {
   this.loggingVisible = !this.loggingVisible;
 };
 
 /**
- * Toggles the visibility of the style section
+ * 切换样式部分的可见性
  */
 Cesium3DTilesInspectorViewModel.prototype.toggleStyle = function () {
   this.styleVisible = !this.styleVisible;
 };
 
 /**
- * Toggles the visibility of the tile Debug Info section
+ * 切换图块调试信息部分的可见性
  */
 Cesium3DTilesInspectorViewModel.prototype.toggleTileDebugLabels = function () {
   this.tileDebugLabelsVisible = !this.tileDebugLabelsVisible;
 };
 
 /**
- * Toggles the visibility of the optimization section
+ * 切换优化部分的可见性
  */
 Cesium3DTilesInspectorViewModel.prototype.toggleOptimization = function () {
   this.optimizationVisible = !this.optimizationVisible;
 };
 
 /**
- * Trims tile cache
+ * 修剪图块缓存
  */
 Cesium3DTilesInspectorViewModel.prototype.trimTilesCache = function () {
   if (defined(this._tileset)) {
@@ -1458,8 +1488,9 @@ Cesium3DTilesInspectorViewModel.prototype.trimTilesCache = function () {
 };
 
 /**
- * Compiles the style in the style editor.
+ * 编译样式编辑器中的样式。
  */
+
 Cesium3DTilesInspectorViewModel.prototype.compileStyle = function () {
   const tileset = this._tileset;
   if (!defined(tileset) || this.styleString === JSON.stringify(tileset.style)) {
@@ -1483,8 +1514,9 @@ Cesium3DTilesInspectorViewModel.prototype.compileStyle = function () {
 };
 
 /**
- * Handles key press events on the style editor.
+ * 处理样式编辑器上的键盘按键事件。
  */
+
 Cesium3DTilesInspectorViewModel.prototype.styleEditorKeyPress = function (
   sender,
   event,
@@ -1531,9 +1563,10 @@ Cesium3DTilesInspectorViewModel.prototype.styleEditorKeyPress = function (
 };
 
 /**
- * Updates the values of view model
+ * 更新视图模型的值
  * @private
  */
+
 Cesium3DTilesInspectorViewModel.prototype._update = function () {
   const tileset = this._tileset;
 
@@ -1590,12 +1623,13 @@ Cesium3DTilesInspectorViewModel.prototype.destroy = function () {
 };
 
 /**
- * Generates an HTML string of the statistics
+ * 生成统计信息的 HTML 字符串
  *
  * @function
- * @param {Cesium3DTileset} tileset The tileset
- * @param {boolean} isPick Whether this is getting the statistics for the pick pass
- * @returns {string} The formatted statistics
+ * @param {Cesium3DTileset} tileset 图块集
+ * @param {boolean} isPick 是否为选择过程获取统计信息
+ * @returns {string} 格式化的统计信息
  */
+
 Cesium3DTilesInspectorViewModel.getStatistics = getStatistics;
 export default Cesium3DTilesInspectorViewModel;

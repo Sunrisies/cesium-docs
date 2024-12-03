@@ -22,20 +22,21 @@ function DataRectangle(rectangle, maxLevel) {
 /**
  * @typedef {Object} VRTheWorldTerrainProvider.ConstructorOptions
  *
- * Initialization options for the VRTheWorldTerrainProvider constructor
+ * VRTheWorldTerrainProvider 构造函数的初始化选项
  *
- * @property {Ellipsoid} [ellipsoid=Ellipsoid.default] The ellipsoid.  If not specified, the default ellipsoid is used.
- * @property {Credit|string} [credit] A credit for the data source, which is displayed on the canvas.
+ * @property {Ellipsoid} [ellipsoid=Ellipsoid.default] 椭球体。如果未指定，则使用默认椭球体。
+ * @property {Credit|string} [credit] 数据源的版权信息，将显示在画布上。
  */
 
 /**
- * Used to track creation details while fetching initial metadata
+ * 用于在获取初始元数据时跟踪创建细节
  *
  * @constructor
  * @private
  *
- * @param {VRTheWorldTerrainProvider.ConstructorOptions} options An object describing initialization options
+ * @param {VRTheWorldTerrainProvider.ConstructorOptions} options 描述初始化选项的对象
  */
+
 function TerrainProviderBuilder(options) {
   this.ellipsoid = defaultValue(options.ellipsoid, Ellipsoid.default);
   this.tilingScheme = undefined;
@@ -136,16 +137,15 @@ async function requestMetadata(terrainProviderBuilder, resource, provider) {
 
 /**
  * <div class="notice">
- * To construct a VRTheWorldTerrainProvider, call {@link VRTheWorldTerrainProvider.fromUrl}. Do not call the constructor directly.
+ * 要构造一个 VRTheWorldTerrainProvider，请调用 {@link VRTheWorldTerrainProvider.fromUrl}。请不要直接调用构造函数。
  * </div>
  *
- * A {@link TerrainProvider} that produces terrain geometry by tessellating height maps
- * retrieved from a {@link http://vr-theworld.com/|VT MÄK VR-TheWorld server}.
+ * 一个 {@link TerrainProvider}，通过对从 {@link http://vr-theworld.com/|VT MÄK VR-TheWorld 服务器} 检索到的高度图进行网格化来生成地形几何体。
  *
  * @alias VRTheWorldTerrainProvider
  * @constructor
  *
- * @param {VRTheWorldTerrainProvider.ConstructorOptions} [options] An object describing initialization options.
+ * @param {VRTheWorldTerrainProvider.ConstructorOptions} [options] 描述初始化选项的对象。
  *
  * @example
  * const terrainProvider = await Cesium.VRTheWorldTerrainProvider.fromUrl(
@@ -183,9 +183,7 @@ function VRTheWorldTerrainProvider(options) {
 
 Object.defineProperties(VRTheWorldTerrainProvider.prototype, {
   /**
-   * Gets an event that is raised when the terrain provider encounters an asynchronous error.  By subscribing
-   * to the event, you will be notified of the error and can potentially recover from it.  Event listeners
-   * are passed an instance of {@link TileProviderError}.
+   * 获取一个事件，当地形提供者遇到异步错误时会触发该事件。通过订阅该事件，您将被通知错误，并可以潜在地从中恢复。事件监听器会接收到 {@link TileProviderError} 的实例。
    * @memberof VRTheWorldTerrainProvider.prototype
    * @type {Event}
    * @readonly
@@ -197,8 +195,7 @@ Object.defineProperties(VRTheWorldTerrainProvider.prototype, {
   },
 
   /**
-   * Gets the credit to display when this terrain provider is active.  Typically this is used to credit
-   * the source of the terrain.
+   * 获取当该地形提供者处于活动状态时要显示的版权信息。通常用于给出地形的来源。
    * @memberof VRTheWorldTerrainProvider.prototype
    * @type {Credit}
    * @readonly
@@ -210,7 +207,7 @@ Object.defineProperties(VRTheWorldTerrainProvider.prototype, {
   },
 
   /**
-   * Gets the tiling scheme used by this provider.
+   * 获取此提供者使用的拼图方案。
    * @memberof VRTheWorldTerrainProvider.prototype
    * @type {GeographicTilingScheme}
    * @readonly
@@ -222,9 +219,7 @@ Object.defineProperties(VRTheWorldTerrainProvider.prototype, {
   },
 
   /**
-   * Gets a value indicating whether or not the provider includes a water mask.  The water mask
-   * indicates which areas of the globe are water rather than land, so they can be rendered
-   * as a reflective surface with animated waves.
+   * 获取一个值，指示提供者是否包含水面掩码。水面掩码指示地球上的哪些区域是水而不是陆地，以便可以将其渲染为带有动态波浪的反射表面。
    * @memberof VRTheWorldTerrainProvider.prototype
    * @type {boolean}
    * @readonly
@@ -236,7 +231,7 @@ Object.defineProperties(VRTheWorldTerrainProvider.prototype, {
   },
 
   /**
-   * Gets a value indicating whether or not the requested tiles include vertex normals.
+   * 获取一个值，指示请求的瓦片是否包含顶点法线。
    * @memberof VRTheWorldTerrainProvider.prototype
    * @type {boolean}
    * @readonly
@@ -246,10 +241,9 @@ Object.defineProperties(VRTheWorldTerrainProvider.prototype, {
       return false;
     },
   },
+
   /**
-   * Gets an object that can be used to determine availability of terrain from this provider, such as
-   * at points and in rectangles. This property may be undefined if availability
-   * information is not available.
+   * 获取一个对象，用于确定来自该提供者的地形的可用性，例如在点和矩形中。如果不可用信息不可用，该属性可能未定义。
    * @memberof VRTheWorldTerrainProvider.prototype
    * @type {TileAvailability}
    * @readonly
@@ -261,12 +255,12 @@ Object.defineProperties(VRTheWorldTerrainProvider.prototype, {
   },
 });
 
+
 /**
- * Creates a {@link TerrainProvider} that produces terrain geometry by tessellating height maps
- * retrieved from a {@link http://vr-theworld.com/|VT MÄK VR-TheWorld server}.
+ * 创建一个 {@link TerrainProvider}，通过对从 {@link http://vr-theworld.com/|VT MÄK VR-TheWorld server} 检索到的高度图进行网格化来生成地形几何体。
  *
- * @param {Resource|String} url The URL of the VR-TheWorld TileMap.
- * @param {VRTheWorldTerrainProvider.ConstructorOptions} [options] An object describing initialization options.
+ * @param {Resource|String} url VR-TheWorld TileMap 的 URL。
+ * @param {VRTheWorldTerrainProvider.ConstructorOptions} [options] 描述初始化选项的对象。
  * @returns {Promise<VRTheWorldTerrainProvider>}
  *
  * @example
@@ -297,17 +291,15 @@ VRTheWorldTerrainProvider.fromUrl = async function (url, options) {
 };
 
 /**
- * Requests the geometry for a given tile. The result includes terrain
- * data and indicates that all child tiles are available.
+ * 请求给定瓦片的几何数据。结果包括地形数据，并指示所有子瓦片均可用。
  *
- * @param {number} x The X coordinate of the tile for which to request geometry.
- * @param {number} y The Y coordinate of the tile for which to request geometry.
- * @param {number} level The level of the tile for which to request geometry.
- * @param {Request} [request] The request object. Intended for internal use only.
- * @returns {Promise<TerrainData>|undefined} A promise for the requested geometry.  If this method
- *          returns undefined instead of a promise, it is an indication that too many requests are already
- *          pending and the request will be retried later.
+ * @param {number} x 要请求几何数据的瓦片的 X 坐标。
+ * @param {number} y 要请求几何数据的瓦片的 Y 坐标。
+ * @param {number} level 要请求几何数据的瓦片的级别。
+ * @param {Request} [request] 请求对象。仅供内部使用。
+ * @returns {Promise<TerrainData>|undefined} 请求的几何数据的承诺。如果此方法返回未定义而不是承诺，表示已经有太多请求在等待，将稍后重试该请求。
  */
+
 VRTheWorldTerrainProvider.prototype.requestTileGeometry = function (
   x,
   y,
@@ -342,11 +334,12 @@ VRTheWorldTerrainProvider.prototype.requestTileGeometry = function (
 };
 
 /**
- * Gets the maximum geometric error allowed in a tile at a given level.
+ * 获取在给定级别的瓦片中允许的最大几何误差。
  *
- * @param {number} level The tile level for which to get the maximum geometric error.
- * @returns {number} The maximum geometric error.
+ * @param {number} level 要获取最大几何误差的瓦片级别。
+ * @returns {number} 最大几何误差。
  */
+
 VRTheWorldTerrainProvider.prototype.getLevelMaximumGeometricError = function (
   level,
 ) {
@@ -429,12 +422,12 @@ function isTileInRectangle(tilingScheme, rectangle, x, y, level) {
 }
 
 /**
- * Determines whether data for a tile is available to be loaded.
+ * 确定瓦片的数据是否可以加载。
  *
- * @param {number} x The X coordinate of the tile for which to request geometry.
- * @param {number} y The Y coordinate of the tile for which to request geometry.
- * @param {number} level The level of the tile for which to request geometry.
- * @returns {boolean|undefined} Undefined if not supported, otherwise true or false.
+ * @param {number} x 要请求几何数据的瓦片的 X 坐标。
+ * @param {number} y 要请求几何数据的瓦片的 Y 坐标。
+ * @param {number} level 要请求几何数据的瓦片的级别。
+ * @returns {boolean|undefined} 如果不支持则返回未定义，否则返回 true 或 false。
  */
 VRTheWorldTerrainProvider.prototype.getTileDataAvailable = function (
   x,
@@ -445,13 +438,14 @@ VRTheWorldTerrainProvider.prototype.getTileDataAvailable = function (
 };
 
 /**
- * Makes sure we load availability data for a tile
+ * 确保我们加载瓦片的可用性数据。
  *
- * @param {number} x The X coordinate of the tile for which to request geometry.
- * @param {number} y The Y coordinate of the tile for which to request geometry.
- * @param {number} level The level of the tile for which to request geometry.
- * @returns {undefined|Promise<void>} Undefined if nothing need to be loaded or a Promise that resolves when all required tiles are loaded
+ * @param {number} x 要请求几何数据的瓦片的 X 坐标。
+ * @param {number} y 要请求几何数据的瓦片的 Y 坐标。
+ * @param {number} level 要请求几何数据的瓦片的级别。
+ * @returns {undefined|Promise<void>} 如果不需要加载任何内容则返回未定义，或者返回一个承诺，当所有所需的瓦片加载完毕时解析。
  */
+
 VRTheWorldTerrainProvider.prototype.loadTileDataAvailability = function (
   x,
   y,

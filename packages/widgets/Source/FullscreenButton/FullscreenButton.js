@@ -13,18 +13,19 @@ const exitFullScreenPath =
   "M 104.34375 17.5625 L 83.5 38.4375 L 83.40625 18.21875 L 76.125 25.5 L 76.09375 51.78125 L 102.3125 51.8125 L 102.3125 51.78125 L 109.625 44.5 L 89.1875 44.40625 L 110.1875 23.40625 L 104.34375 17.5625 z M 23.75 17.59375 L 17.90625 23.4375 L 38.90625 44.4375 L 18.5 44.53125 L 25.78125 51.8125 L 52 51.78125 L 51.96875 25.53125 L 44.6875 18.25 L 44.625 38.46875 L 23.75 17.59375 z M 25.6875 76.03125 L 18.375 83.3125 L 38.78125 83.40625 L 17.8125 104.40625 L 23.625 110.25 L 44.5 89.375 L 44.59375 109.59375 L 51.875 102.3125 L 51.875 76.0625 L 25.6875 76.03125 z M 102.375 76.15625 L 76.15625 76.1875 L 76.1875 102.4375 L 83.46875 109.71875 L 83.5625 89.53125 L 104.40625 110.375 L 110.25 104.53125 L 89.25 83.53125 L 109.6875 83.46875 L 102.375 76.15625 z";
 
 /**
- * A single button widget for toggling fullscreen mode.
+ * 一个用于切换全屏模式的单个按钮小部件。
  *
  * @alias FullscreenButton
  * @constructor
  *
- * @param {Element|string} container 包含小部件的 DOM 元素或 ID.
- * @param {Element|string} [fullscreenElement=document.body] The element or id to be placed into fullscreen mode.
+ * @param {Element|string} container 包含小部件的 DOM 元素或 ID。
+ * @param {Element|string} [fullscreenElement=document.body] 要进入全屏模式的元素或 ID。
  *
- * @exception {DeveloperError} 文档中不存在 ID 为“container”的元素.
+ * @exception {DeveloperError} 文档中不存在 ID 为“container”的元素。
  *
  * @see Fullscreen
  */
+
 function FullscreenButton(container, fullscreenElement) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(container)) {

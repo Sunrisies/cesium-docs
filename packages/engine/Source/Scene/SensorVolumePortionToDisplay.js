@@ -1,27 +1,27 @@
 import DeveloperError from "../Core/DeveloperError.js";
 
 /**
- * Constants used to indicated what part of the sensor volume to display.
+ * 用于指示要显示的传感器体积部分的常量。
  *
  * @enum {Number}
  */
 const SensorVolumePortionToDisplay = {
   /**
-   * 0x0000.  Display the complete sensor volume.
+   * 0x0000. 显示完整的传感器体积。
    *
    * @type {Number}
    * @constant
    */
   COMPLETE: 0x0000,
   /**
-   * 0x0001.  Display the portion of the sensor volume that lies below the true horizon of the ellipsoid.
+   * 0x0001. 显示位于椭球体真实地平线下方的传感器体积部分。
    *
    * @type {Number}
    * @constant
    */
   BELOW_ELLIPSOID_HORIZON: 0x0001,
   /**
-   * 0x0002.  Display the portion of the sensor volume that lies above the true horizon of the ellipsoid.
+   * 0x0002. 显示位于椭球体真实地平线以上的传感器体积部分。
    *
    * @type {Number}
    * @constant
@@ -30,11 +30,11 @@ const SensorVolumePortionToDisplay = {
 };
 
 /**
- * Validates that the provided value is a valid {@link SensorVolumePortionToDisplay} enumeration value.
+ * 验证提供的值是否为有效的 {@link SensorVolumePortionToDisplay} 枚举值。
  *
- * @param {SensorVolumePortionToDisplay} portionToDisplay The value to validate.
+ * @param {SensorVolumePortionToDisplay} portionToDisplay 要验证的值。
  *
- * @returns {Boolean} <code>true</code> if the provided value is a valid enumeration value; otherwise, <code>false</code>.
+ * @returns {Boolean} 如果提供的值是有效的枚举值，则返回 <code>true</code>；否则返回 <code>false</code>。
  */
 SensorVolumePortionToDisplay.validate = function (portionToDisplay) {
   return (
@@ -45,11 +45,11 @@ SensorVolumePortionToDisplay.validate = function (portionToDisplay) {
 };
 
 /**
- * Converts the provided value to its corresponding enumeration string.
+ * 将提供的值转换为其相应的枚举字符串。
  *
- * @param {SensorVolumePortionToDisplay} portionToDisplay The value to be converted to its corresponding enumeration string.
+ * @param {SensorVolumePortionToDisplay} portionToDisplay 要转换为其相应枚举字符串的值。
  *
- * @returns {String} The enumeration string corresponding to the value.
+ * @returns {String} 与该值相对应的枚举字符串。
  */
 SensorVolumePortionToDisplay.toString = function (portionToDisplay) {
   switch (portionToDisplay) {

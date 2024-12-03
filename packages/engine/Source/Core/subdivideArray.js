@@ -2,15 +2,16 @@ import defined from "./defined.js";
 import DeveloperError from "./DeveloperError.js";
 
 /**
- * Subdivides an array into a number of smaller, equal sized arrays.
+ * 将数组细分为多个较小、大小相等的数组。
  *
  * @function subdivideArray
  *
- * @param {Array} array The array to divide.
- * @param {number} numberOfArrays The number of arrays to divide the provided array into.
+ * @param {Array} array 要细分的数组。
+ * @param {number} numberOfArrays 要将提供的数组细分成的数组数量。
  *
- * @exception {DeveloperError} numberOfArrays must be greater than 0.
+ * @exception {DeveloperError} numberOfArrays 必须大于 0。
  */
+
 function subdivideArray(array, numberOfArrays) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(array)) {

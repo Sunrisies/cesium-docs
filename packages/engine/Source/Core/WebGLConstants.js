@@ -1,14 +1,15 @@
 /**
- * Enum containing WebGL Constant values by name.
- * for use without an active WebGL context, or in cases where certain constants are unavailable using the WebGL context
- * (For example, in [Safari 9]{@link https://github.com/CesiumGS/cesium/issues/2989}).
+ * 包含 WebGL 常量值的枚举。
+ * 用于在没有活动 WebGL 上下文的情况下，或在某些常量在使用 WebGL 上下文时不可用的情况下
+ * （例如，在 [Safari 9]{@link https://github.com/CesiumGS/cesium/issues/2989} 中）。
  *
- * These match the constants from the [WebGL 1.0]{@link https://www.khronos.org/registry/webgl/specs/latest/1.0/}
- * and [WebGL 2.0]{@link https://www.khronos.org/registry/webgl/specs/latest/2.0/}
- * specifications.
+ * 这些常量与 [WebGL 1.0]{@link https://www.khronos.org/registry/webgl/specs/latest/1.0/}
+ * 和 [WebGL 2.0]{@link https://www.khronos.org/registry/webgl/specs/latest/2.0/}
+ * 规范中的常量相匹配。
  *
  * @enum {number}
  */
+
 const WebGLConstants = {
   DEPTH_BUFFER_BIT: 0x00000100,
   STENCIL_BUFFER_BIT: 0x00000400,

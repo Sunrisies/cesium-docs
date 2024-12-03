@@ -8,15 +8,15 @@ import {
 } from "@cesium/engine";
 import knockout from "../ThirdParty/knockout.js";
 import createCommand from "../createCommand.js";
-
 /**
- * The view model for {@link FullscreenButton}.
+ * {@link FullscreenButton} 的视图模型。
  * @alias FullscreenButtonViewModel
  * @constructor
  *
- * @param {Element|string} [fullscreenElement=document.body] The element or id to be placed into fullscreen mode.
- * @param {Element|string} [container] 包含小部件的 DOM 元素或 ID.
+ * @param {Element|string} [fullscreenElement=document.body] 要进入全屏模式的元素或 ID。
+ * @param {Element|string} [container] 包含小部件的 DOM 元素或 ID。
  */
+
 function FullscreenButtonViewModel(fullscreenElement, container) {
   if (!defined(container)) {
     container = document.body;
@@ -31,7 +31,7 @@ function FullscreenButtonViewModel(fullscreenElement, container) {
   const ownerDocument = container.ownerDocument;
 
   /**
-   * Gets whether or not fullscreen mode is active.  This property is observable.
+   * 获取全屏模式是否处于激活状态。此属性是可观察的。
    *
    * @type {boolean}
    */
@@ -43,11 +43,12 @@ function FullscreenButtonViewModel(fullscreenElement, container) {
   });
 
   /**
-   * Gets or sets whether or not fullscreen functionality should be enabled.  This property is observable.
+   * 获取或设置是否启用全屏功能。此属性是可观察的。
    *
    * @type {boolean}
    * @see Fullscreen.enabled
    */
+
   this.isFullscreenEnabled = undefined;
   knockout.defineProperty(this, "isFullscreenEnabled", {
     get: function () {
@@ -59,10 +60,11 @@ function FullscreenButtonViewModel(fullscreenElement, container) {
   });
 
   /**
-   * Gets the tooltip.  This property is observable.
+   * 获取工具提示。此属性是可观察的。
    *
    * @type {string}
    */
+
   this.tooltip = undefined;
   knockout.defineProperty(this, "tooltip", function () {
     if (!this.isFullscreenEnabled) {
@@ -95,12 +97,12 @@ function FullscreenButtonViewModel(fullscreenElement, container) {
 
 Object.defineProperties(FullscreenButtonViewModel.prototype, {
   /**
-   * Gets or sets the HTML element to place into fullscreen mode when the
-   * corresponding button is pressed.
+   * 获取或设置在按下相应按钮时进入全屏模式的 HTML 元素。
    * @memberof FullscreenButtonViewModel.prototype
    *
    * @type {Element}
    */
+
   fullscreenElement: {
     //TODO:@exception {DeveloperError} value must be a valid HTML Element.
     get: function () {
@@ -118,11 +120,12 @@ Object.defineProperties(FullscreenButtonViewModel.prototype, {
   },
 
   /**
-   * Gets the Command to toggle fullscreen mode.
+   * 获取用于切换全屏模式的命令。
    * @memberof FullscreenButtonViewModel.prototype
    *
    * @type {Command}
    */
+
   command: {
     get: function () {
       return this._command;

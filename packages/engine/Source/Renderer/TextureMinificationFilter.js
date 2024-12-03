@@ -1,31 +1,32 @@
 import WebGLConstants from "../Core/WebGLConstants.js";
 
 /**
- * Enumerates all possible filters used when minifying WebGL textures.
+ * 枚举在缩小WebGL纹理时使用的所有可能的滤镜。
  *
  * @enum {number}
  *
  * @see TextureMagnificationFilter
  */
+
 const TextureMinificationFilter = {
   /**
-   * Samples the texture by returning the closest pixel.
+   * 通过返回最近的像素来采样纹理。
    *
    * @type {number}
    * @constant
    */
   NEAREST: WebGLConstants.NEAREST,
   /**
-   * Samples the texture through bi-linear interpolation of the four nearest pixels. This produces smoother results than <code>NEAREST</code> filtering.
+   * 通过对四个最近像素进行双线性插值来采样纹理。这比 <code>NEAREST</code> 滤镜产生更平滑的结果。
    *
    * @type {number}
    * @constant
    */
   LINEAR: WebGLConstants.LINEAR,
   /**
-   * Selects the nearest mip level and applies nearest sampling within that level.
+   * 选择最近的mip级别，并在该级别内应用最近采样。
    * <p>
-   * Requires that the texture has a mipmap. The mip level is chosen by the view angle and screen-space size of the texture.
+   * 要求纹理具有mipmap。mip级别由视角和纹理的屏幕空间大小决定。
    * </p>
    *
    * @type {number}
@@ -33,9 +34,9 @@ const TextureMinificationFilter = {
    */
   NEAREST_MIPMAP_NEAREST: WebGLConstants.NEAREST_MIPMAP_NEAREST,
   /**
-   * Selects the nearest mip level and applies linear sampling within that level.
+   * 选择最近的mip级别，并在该级别内应用线性采样。
    * <p>
-   * Requires that the texture has a mipmap. The mip level is chosen by the view angle and screen-space size of the texture.
+   * 要求纹理具有mipmap。mip级别由视角和纹理的屏幕空间大小决定。
    * </p>
    *
    * @type {number}
@@ -43,12 +44,12 @@ const TextureMinificationFilter = {
    */
   LINEAR_MIPMAP_NEAREST: WebGLConstants.LINEAR_MIPMAP_NEAREST,
   /**
-   * Read texture values with nearest sampling from two adjacent mip levels and linearly interpolate the results.
+   * 从两个相邻的mip级别中以最近采样读取纹理值，并对结果进行线性插值。
    * <p>
-   * This option provides a good balance of visual quality and speed when sampling from a mipmapped texture.
+   * 此选项在从mipmap纹理采样时提供视觉质量和速度的良好平衡。
    * </p>
    * <p>
-   * Requires that the texture has a mipmap. The mip level is chosen by the view angle and screen-space size of the texture.
+   * 要求纹理具有mipmap。mip级别由视角和纹理的屏幕空间大小决定。
    * </p>
    *
    * @type {number}
@@ -56,27 +57,29 @@ const TextureMinificationFilter = {
    */
   NEAREST_MIPMAP_LINEAR: WebGLConstants.NEAREST_MIPMAP_LINEAR,
   /**
-   * Read texture values with linear sampling from two adjacent mip levels and linearly interpolate the results.
+   * 从两个相邻的mip级别中以线性采样读取纹理值，并对结果进行线性插值。
    * <p>
-   * This option provides a good balance of visual quality and speed when sampling from a mipmapped texture.
+   * 此选项在从mipmap纹理采样时提供视觉质量和速度的良好平衡。
    * </p>
    * <p>
-   * Requires that the texture has a mipmap. The mip level is chosen by the view angle and screen-space size of the texture.
+   * 要求纹理具有mipmap。mip级别由视角和纹理的屏幕空间大小决定。
    * </p>
    * @type {number}
    * @constant
    */
+
   LINEAR_MIPMAP_LINEAR: WebGLConstants.LINEAR_MIPMAP_LINEAR,
 };
 
 /**
- * Validates the given <code>textureMinificationFilter</code> with respect to the possible enum values.
+ * 验证给定的 <code>textureMinificationFilter</code> 是否符合可能的枚举值。
  *
  * @private
  *
  * @param textureMinificationFilter
- * @returns {boolean} <code>true</code> if <code>textureMinificationFilter</code> is valid.
+ * @returns {boolean} 如果 <code>textureMinificationFilter</code> 是有效的，则返回 <code>true</code>。
  */
+
 TextureMinificationFilter.validate = function (textureMinificationFilter) {
   return (
     textureMinificationFilter === TextureMinificationFilter.NEAREST ||

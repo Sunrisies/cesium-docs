@@ -19,38 +19,37 @@ const defaultParameters = Object.freeze({
 /**
  * @typedef {object} WebMapTileServiceImageryProvider.ConstructorOptions
  *
- * Initialization options for the WebMapTileServiceImageryProvider constructor
+ * WebMapTileServiceImageryProvider 构造函数的初始化选项
  *
- * @property {Resource|string} url The base URL for the WMTS GetTile operation (for KVP-encoded requests) or the tile-URL template (for RESTful requests). The tile-URL template should contain the following variables: &#123;style&#125;, &#123;TileMatrixSet&#125;, &#123;TileMatrix&#125;, &#123;TileRow&#125;, &#123;TileCol&#125;. The first two are optional if actual values are hardcoded or not required by the server. The &#123;s&#125; keyword may be used to specify subdomains.
- * @property {string} [format='image/jpeg'] The MIME type for images to retrieve from the server.
- * @property {string} layer The layer name for WMTS requests.
- * @property {string} style The style name for WMTS requests.
- * @property {string} tileMatrixSetID The identifier of the TileMatrixSet to use for WMTS requests.
- * @property {Array} [tileMatrixLabels] A list of identifiers in the TileMatrix to use for WMTS requests, one per TileMatrix level.
- * @property {Clock} [clock] A Clock instance that is used when determining the value for the time dimension. Required when `times` is specified.
- * @property {TimeIntervalCollection} [times] TimeIntervalCollection with its <code>data</code> property being an object containing time dynamic dimension and their values.
- * @property {object} [dimensions] A object containing static dimensions and their values.
- * @property {number} [tileWidth=256] The tile width in pixels.
- * @property {number} [tileHeight=256] The tile height in pixels.
- * @property {TilingScheme} [tilingScheme] The tiling scheme corresponding to the organization of the tiles in the TileMatrixSet.
- * @property {Rectangle} [rectangle=Rectangle.MAX_VALUE] The rectangle covered by the layer.
- * @property {number} [minimumLevel=0] The minimum level-of-detail supported by the imagery provider.
- * @property {number} [maximumLevel] The maximum level-of-detail supported by the imagery provider, or undefined if there is no limit.
- * @property {Ellipsoid} [ellipsoid] The ellipsoid.  If not specified, the WGS84 ellipsoid is used.
- * @property {Credit|string} [credit] A credit for the data source, which is displayed on the canvas.
- * @property {string|string[]} [subdomains='abc'] The subdomains to use for the <code>{s}</code> placeholder in the URL template.
- *                          If this parameter is a single string, each character in the string is a subdomain.  If it is
- *                          an array, each element in the array is a subdomain.
+ * @property {Resource|string} url WMTS GetTile 操作的基本 URL（用于 KVP 编码请求）或瓦片 URL 模板（用于 RESTful 请求）。瓦片 URL 模板应包含以下变量：&#123;style&#125;, &#123;TileMatrixSet&#125;, &#123;TileMatrix&#125;, &#123;TileRow&#125;, &#123;TileCol&#125;。如果实际值是硬编码或服务器不需要，这两个是可选的。&#123;s&#125; 关键字可用于指定子域。
+ * @property {string} [format='image/jpeg'] 从服务器检索图像的 MIME 类型。
+ * @property {string} layer WMTS 请求的图层名称。
+ * @property {string} style WMTS 请求的样式名称。
+ * @property {string} tileMatrixSetID 要用于 WMTS 请求的 TileMatrixSet 的标识符。
+ * @property {Array} [tileMatrixLabels] 要用于 WMTS 请求的 TileMatrix 中的标识符列表，每个 TileMatrix 级别一个。
+ * @property {Clock} [clock] 在确定时间维度的值时使用的时钟实例。当指定 `times` 时，这是必需的。
+ * @property {TimeIntervalCollection} [times] 其 <code>data</code> 属性为包含时间动态维度及其值的对象的 TimeIntervalCollection。
+ * @property {object} [dimensions] 包含静态维度及其值的对象。
+ * @property {number} [tileWidth=256] 瓦片的宽度（以像素为单位）。
+ * @property {number} [tileHeight=256] 瓦片的高度（以像素为单位）。
+ * @property {TilingScheme} [tilingScheme] 与 TileMatrixSet 中瓦片组织相对应的瓦片方案。
+ * @property {Rectangle} [rectangle=Rectangle.MAX_VALUE] 图层覆盖的矩形区域。
+ * @property {number} [minimumLevel=0] 图像提供者支持的最小细节级别。
+ * @property {number} [maximumLevel] 图像提供者支持的最大细节级别，如果没有限制则为未定义。
+ * @property {Ellipsoid} [ellipsoid] 椭球。如果未指定，则使用 WGS84 椭球。
+ * @property {Credit|string} [credit] 数据源的版权信息，将在画布上显示。
+ * @property {string|string[]} [subdomains='abc'] 用于 URL 模板中 <code>{s}</code> 占位符的子域。如果此参数是单个字符串，则字符串中的每个字符都是一个子域。如果是数组，则数组中的每个元素都是一个子域。
  */
 
+
 /**
- * Provides tiled imagery served by {@link http://www.opengeospatial.org/standards/wmts|WMTS 1.0.0} compliant servers.
- * This provider supports HTTP KVP-encoded and RESTful GetTile requests, but does not yet support the SOAP encoding.
+ * 提供由符合 {@link http://www.opengeospatial.org/standards/wmts|WMTS 1.0.0} 标准的服务器提供的瓦片影像。
+ * 该提供者支持 HTTP KVP 编码和 RESTful GetTile 请求，但尚不支持 SOAP 编码。
  *
  * @alias WebMapTileServiceImageryProvider
  * @constructor
  *
- * @param {WebMapTileServiceImageryProvider.ConstructorOptions} options Object describing initialization options
+ * @param {WebMapTileServiceImageryProvider.ConstructorOptions} options 描述初始化选项的对象
  *
  * @demo {@link https://sandcastle.cesium.com/index.html?src=Web%20Map%20Tile%20Service%20with%20Time.html|Cesium Sandcastle Web Map Tile Service with Time Demo}
  *
@@ -311,7 +310,7 @@ function requestImage(imageryProvider, col, row, level, request, interval) {
 
 Object.defineProperties(WebMapTileServiceImageryProvider.prototype, {
   /**
-   * Gets the URL of the service hosting the imagery.
+   * 获取承载影像的服务 URL。
    * @memberof WebMapTileServiceImageryProvider.prototype
    * @type {string}
    * @readonly
@@ -323,7 +322,7 @@ Object.defineProperties(WebMapTileServiceImageryProvider.prototype, {
   },
 
   /**
-   * Gets the proxy used by this provider.
+   * 获取此提供者使用的代理。
    * @memberof WebMapTileServiceImageryProvider.prototype
    * @type {Proxy}
    * @readonly
@@ -335,7 +334,7 @@ Object.defineProperties(WebMapTileServiceImageryProvider.prototype, {
   },
 
   /**
-   * Gets the width of each tile, in pixels.
+   * 获取每个瓦片的宽度（以像素为单位）。
    * @memberof WebMapTileServiceImageryProvider.prototype
    * @type {number}
    * @readonly
@@ -347,7 +346,7 @@ Object.defineProperties(WebMapTileServiceImageryProvider.prototype, {
   },
 
   /**
-   * Gets the height of each tile, in pixels.
+   * 获取每个瓦片的高度（以像素为单位）。
    * @memberof WebMapTileServiceImageryProvider.prototype
    * @type {number}
    * @readonly
@@ -359,7 +358,7 @@ Object.defineProperties(WebMapTileServiceImageryProvider.prototype, {
   },
 
   /**
-   * Gets the maximum level-of-detail that can be requested.
+   * 获取可以请求的最大细节级别。
    * @memberof WebMapTileServiceImageryProvider.prototype
    * @type {number|undefined}
    * @readonly
@@ -371,7 +370,7 @@ Object.defineProperties(WebMapTileServiceImageryProvider.prototype, {
   },
 
   /**
-   * Gets the minimum level-of-detail that can be requested.
+   * 获取可以请求的最小细节级别。
    * @memberof WebMapTileServiceImageryProvider.prototype
    * @type {number}
    * @readonly
@@ -383,7 +382,7 @@ Object.defineProperties(WebMapTileServiceImageryProvider.prototype, {
   },
 
   /**
-   * Gets the tiling scheme used by this provider.
+   * 获取此提供者使用的瓦片方案。
    * @memberof WebMapTileServiceImageryProvider.prototype
    * @type {TilingScheme}
    * @readonly
@@ -395,7 +394,7 @@ Object.defineProperties(WebMapTileServiceImageryProvider.prototype, {
   },
 
   /**
-   * Gets the rectangle, in radians, of the imagery provided by this instance.
+   * 获取此实例提供的影像的矩形（以弧度为单位）。
    * @memberof WebMapTileServiceImageryProvider.prototype
    * @type {Rectangle}
    * @readonly
@@ -407,9 +406,9 @@ Object.defineProperties(WebMapTileServiceImageryProvider.prototype, {
   },
 
   /**
-   * Gets the tile discard policy.  If not undefined, the discard policy is responsible
-   * for filtering out "missing" tiles via its shouldDiscardImage function.  If this function
-   * returns undefined, no tiles are filtered.
+   * 获取瓦片丢弃策略。如果未定义，则丢弃策略负责
+   * 通过其 shouldDiscardImage 函数过滤掉“缺失”的瓦片。如果此函数
+   * 返回未定义，则没有瓦片被过滤。
    * @memberof WebMapTileServiceImageryProvider.prototype
    * @type {TileDiscardPolicy}
    * @readonly
@@ -421,9 +420,9 @@ Object.defineProperties(WebMapTileServiceImageryProvider.prototype, {
   },
 
   /**
-   * Gets an event that is raised when the imagery provider encounters an asynchronous error.  By subscribing
-   * to the event, you will be notified of the error and can potentially recover from it.  Event listeners
-   * are passed an instance of {@link TileProviderError}.
+   * 获取在影像提供者遇到异步错误时引发的事件。通过订阅
+   * 该事件，您将被通知错误并可以潜在地从中恢复。事件监听器
+   * 会接收到 {@link TileProviderError} 的实例。
    * @memberof WebMapTileServiceImageryProvider.prototype
    * @type {Event}
    * @readonly
@@ -435,7 +434,7 @@ Object.defineProperties(WebMapTileServiceImageryProvider.prototype, {
   },
 
   /**
-   * Gets the mime type of images returned by this imagery provider.
+   * 获取此影像提供者返回的图像的 MIME 类型。
    * @memberof WebMapTileServiceImageryProvider.prototype
    * @type {string}
    * @readonly
@@ -447,8 +446,8 @@ Object.defineProperties(WebMapTileServiceImageryProvider.prototype, {
   },
 
   /**
-   * Gets the credit to display when this imagery provider is active.  Typically this is used to credit
-   * the source of the imagery.
+   * 获取激活此影像提供者时要显示的版权信息。通常用于给出
+   * 影像的来源。
    * @memberof WebMapTileServiceImageryProvider.prototype
    * @type {Credit}
    * @readonly
@@ -460,11 +459,7 @@ Object.defineProperties(WebMapTileServiceImageryProvider.prototype, {
   },
 
   /**
-   * Gets a value indicating whether or not the images provided by this imagery provider
-   * include an alpha channel.  If this property is false, an alpha channel, if present, will
-   * be ignored.  If this property is true, any images without an alpha channel will be treated
-   * as if their alpha is 1.0 everywhere.  When this property is false, memory usage
-   * and texture upload time are reduced.
+   * 获取一个值，指示此影像提供者提供的图像是否包含 alpha 通道。如果此属性为 false，则会忽略任何存在的 alpha 通道。如果此属性为 true，则任何没有 alpha 通道的图像都将被视为其 alpha 在各处为 1.0。当此属性为 false 时，内存使用和纹理上传时间会减少。
    * @memberof WebMapTileServiceImageryProvider.prototype
    * @type {boolean}
    * @readonly
@@ -474,8 +469,9 @@ Object.defineProperties(WebMapTileServiceImageryProvider.prototype, {
       return true;
     },
   },
+
   /**
-   * Gets or sets a clock that is used to get keep the time used for time dynamic parameters.
+   * 获取或设置用于获取时间动态参数的时钟。
    * @memberof WebMapTileServiceImageryProvider.prototype
    * @type {Clock}
    */
@@ -487,10 +483,9 @@ Object.defineProperties(WebMapTileServiceImageryProvider.prototype, {
       this._timeDynamicImagery.clock = value;
     },
   },
+
   /**
-   * Gets or sets a time interval collection that is used to get time dynamic parameters. The data of each
-   * TimeInterval is an object containing the keys and values of the properties that are used during
-   * tile requests.
+   * 获取或设置用于获取时间动态参数的时间区间集合。每个时间区间的数据是一个包含在瓦片请求期间使用的属性的键和值的对象。
    * @memberof WebMapTileServiceImageryProvider.prototype
    * @type {TimeIntervalCollection}
    */
@@ -502,8 +497,9 @@ Object.defineProperties(WebMapTileServiceImageryProvider.prototype, {
       this._timeDynamicImagery.times = value;
     },
   },
+
   /**
-   * Gets or sets an object that contains static dimensions and their values.
+   * 获取或设置包含静态维度及其值的对象。
    * @memberof WebMapTileServiceImageryProvider.prototype
    * @type {object}
    */
@@ -522,13 +518,14 @@ Object.defineProperties(WebMapTileServiceImageryProvider.prototype, {
   },
 });
 
+
 /**
- * Gets the credits to be displayed when a given tile is displayed.
+ * 获取在显示给定瓦片时要显示的版权信息。
  *
- * @param {number} x The tile X coordinate.
- * @param {number} y The tile Y coordinate.
- * @param {number} level The tile level;
- * @returns {Credit[]} The credits to be displayed when the tile is displayed.
+ * @param {number} x 瓦片的 X 坐标。
+ * @param {number} y 瓦片的 Y 坐标。
+ * @param {number} level 瓦片级别。
+ * @returns {Credit[]} 在显示瓦片时要显示的版权信息。
  */
 WebMapTileServiceImageryProvider.prototype.getTileCredits = function (
   x,
@@ -539,15 +536,16 @@ WebMapTileServiceImageryProvider.prototype.getTileCredits = function (
 };
 
 /**
- * Requests the image for a given tile.
+ * 请求给定瓦片的图像。
  *
- * @param {number} x The tile X coordinate.
- * @param {number} y The tile Y coordinate.
- * @param {number} level The tile level.
- * @param {Request} [request] The request object. Intended for internal use only.
- * @returns {Promise<ImageryTypes>|undefined} A promise for the image that will resolve when the image is available, or
- *          undefined if there are too many active requests to the server, and the request should be retried later.
+ * @param {number} x 瓦片的 X 坐标。
+ * @param {number} y 瓦片的 Y 坐标。
+ * @param {number} level 瓦片级别。
+ * @param {Request} [request] 请求对象。仅供内部使用。
+ * @returns {Promise<ImageryTypes>|undefined} 图像的承诺，该承诺将在图像可用时解析，或者
+ *          如果活动请求过多，则返回未定义，请求应稍后重试。
  */
+
 WebMapTileServiceImageryProvider.prototype.requestImage = function (
   x,
   y,
@@ -578,16 +576,17 @@ WebMapTileServiceImageryProvider.prototype.requestImage = function (
 };
 
 /**
- * Picking features is not currently supported by this imagery provider, so this function simply returns
- * undefined.
+ * 当前不支持此影像提供者的特征选择，因此此函数仅返回
+ * 未定义。
  *
- * @param {number} x The tile X coordinate.
- * @param {number} y The tile Y coordinate.
- * @param {number} level The tile level.
- * @param {number} longitude The longitude at which to pick features.
- * @param {number} latitude  The latitude at which to pick features.
- * @return {undefined} Undefined since picking is not supported.
+ * @param {number} x 瓦片的 X 坐标。
+ * @param {number} y 瓦片的 Y 坐标。
+ * @param {number} level 瓦片级别。
+ * @param {number} longitude 要选择特征的经度。
+ * @param {number} latitude 要选择特征的纬度。
+ * @return {undefined} 未定义，因为不支持选择功能。
  */
+
 WebMapTileServiceImageryProvider.prototype.pickFeatures = function (
   x,
   y,

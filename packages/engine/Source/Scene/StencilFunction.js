@@ -1,13 +1,13 @@
 import WebGLConstants from "../Core/WebGLConstants.js";
 
 /**
- * Determines the function used to compare stencil values for the stencil test.
+ * 确定用于比较模板值的函数，以进行模板测试。
  *
  * @enum {number}
  */
 const StencilFunction = {
   /**
-   * The stencil test never passes.
+   * 模板测试永远不通过。
    *
    * @type {number}
    * @constant
@@ -15,7 +15,7 @@ const StencilFunction = {
   NEVER: WebGLConstants.NEVER,
 
   /**
-   * The stencil test passes when the masked reference value is less than the masked stencil value.
+   * 当被屏蔽的参考值小于被屏蔽的模板值时，模板测试通过。
    *
    * @type {number}
    * @constant
@@ -23,7 +23,7 @@ const StencilFunction = {
   LESS: WebGLConstants.LESS,
 
   /**
-   * The stencil test passes when the masked reference value is equal to the masked stencil value.
+   * 当被屏蔽的参考值等于被屏蔽的模板值时，模板测试通过。
    *
    * @type {number}
    * @constant
@@ -31,7 +31,7 @@ const StencilFunction = {
   EQUAL: WebGLConstants.EQUAL,
 
   /**
-   * The stencil test passes when the masked reference value is less than or equal to the masked stencil value.
+   * 当被屏蔽的参考值小于或等于被屏蔽的模板值时，模板测试通过。
    *
    * @type {number}
    * @constant
@@ -39,7 +39,7 @@ const StencilFunction = {
   LESS_OR_EQUAL: WebGLConstants.LEQUAL,
 
   /**
-   * The stencil test passes when the masked reference value is greater than the masked stencil value.
+   * 当被屏蔽的参考值大于被屏蔽的模板值时，模板测试通过。
    *
    * @type {number}
    * @constant
@@ -47,7 +47,7 @@ const StencilFunction = {
   GREATER: WebGLConstants.GREATER,
 
   /**
-   * The stencil test passes when the masked reference value is not equal to the masked stencil value.
+   * 当被屏蔽的参考值不等于被屏蔽的模板值时，模板测试通过。
    *
    * @type {number}
    * @constant
@@ -55,7 +55,7 @@ const StencilFunction = {
   NOT_EQUAL: WebGLConstants.NOTEQUAL,
 
   /**
-   * The stencil test passes when the masked reference value is greater than or equal to the masked stencil value.
+   * 当被屏蔽的参考值大于或等于被屏蔽的模板值时，模板测试通过。
    *
    * @type {number}
    * @constant
@@ -63,7 +63,7 @@ const StencilFunction = {
   GREATER_OR_EQUAL: WebGLConstants.GEQUAL,
 
   /**
-   * The stencil test always passes.
+   * 模板测试始终通过。
    *
    * @type {number}
    * @constant

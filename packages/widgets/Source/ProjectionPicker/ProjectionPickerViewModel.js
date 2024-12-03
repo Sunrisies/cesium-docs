@@ -10,12 +10,13 @@ import knockout from "../ThirdParty/knockout.js";
 import createCommand from "../createCommand.js";
 
 /**
- * The view model for {@link ProjectionPicker}.
+ * {@link ProjectionPicker} 的视图模型。
  * @alias ProjectionPickerViewModel
  * @constructor
  *
- * @param {Scene} scene The Scene to switch projections.
+ * @param {Scene} scene 要切换投影的场景。
  */
+
 function ProjectionPickerViewModel(scene) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(scene)) {
@@ -27,35 +28,36 @@ function ProjectionPickerViewModel(scene) {
   this._orthographic = scene.camera.frustum instanceof OrthographicFrustum;
   this._flightInProgress = false;
 
-  /**
-   * Gets or sets whether the button drop-down is currently visible.  This property is observable.
+ /**
+   * 获取或设置按钮下拉菜单当前是否可见。此属性是可观察的。
    * @type {boolean}
    * @default false
    */
+
   this.dropDownVisible = false;
 
   /**
-   * Gets or sets the perspective projection tooltip.  This property is observable.
+   * 获取或设置透视投影的工具提示。此属性是可观察的.
    * @type {string}
    * @default 'Perspective Projection'
    */
   this.tooltipPerspective = "Perspective Projection";
 
   /**
-   * Gets or sets the orthographic projection tooltip.  This property is observable.
+   * 获取或设置正交投影的工具提示。此属性是可观察的.
    * @type {string}
    * @default 'Orthographic Projection'
    */
   this.tooltipOrthographic = "Orthographic Projection";
 
   /**
-   * Gets the currently active tooltip.  This property is observable.
+   * 获取当前活动的工具提示。此属性是可观察的.
    * @type {string}
    */
   this.selectedTooltip = undefined;
 
   /**
-   * Gets or sets the current SceneMode.  This property is observable.
+   * 获取或设置当前的 SceneMode。此属性是可观察的.
    * @type {SceneMode}
    */
   this.sceneMode = scene.mode;
@@ -125,7 +127,7 @@ function ProjectionPickerViewModel(scene) {
 
 Object.defineProperties(ProjectionPickerViewModel.prototype, {
   /**
-   * Gets the scene
+   * 获取场景
    * @memberof ProjectionPickerViewModel.prototype
    * @type {Scene}
    */
@@ -136,7 +138,7 @@ Object.defineProperties(ProjectionPickerViewModel.prototype, {
   },
 
   /**
-   * Gets the command to toggle the drop down box.
+   * 获取切换下拉框的命令。
    * @memberof ProjectionPickerViewModel.prototype
    *
    * @type {Command}
@@ -148,7 +150,7 @@ Object.defineProperties(ProjectionPickerViewModel.prototype, {
   },
 
   /**
-   * Gets the command to switch to a perspective projection.
+   * 获取切换到透视投影的命令。
    * @memberof ProjectionPickerViewModel.prototype
    *
    * @type {Command}
@@ -160,7 +162,7 @@ Object.defineProperties(ProjectionPickerViewModel.prototype, {
   },
 
   /**
-   * Gets the command to switch to orthographic projection.
+   * 获取切换到正交投影的命令。
    * @memberof ProjectionPickerViewModel.prototype
    *
    * @type {Command}
@@ -172,7 +174,7 @@ Object.defineProperties(ProjectionPickerViewModel.prototype, {
   },
 
   /**
-   * Gets whether the scene is currently using an orthographic projection.
+   * 获取当前场景是否正在使用正交投影。
    * @memberof ProjectionPickerViewModel.prototype
    *
    * @type {Command}
@@ -184,6 +186,7 @@ Object.defineProperties(ProjectionPickerViewModel.prototype, {
   },
 });
 
+
 /**
  * @returns {boolean} 如果对象已被销毁则返回 true，否则返回 false.
  */
@@ -192,7 +195,7 @@ ProjectionPickerViewModel.prototype.isDestroyed = function () {
 };
 
 /**
- * Destroys the view model.
+ * 毁视图模型
  */
 ProjectionPickerViewModel.prototype.destroy = function () {
   this._eventHelper.removeAll();

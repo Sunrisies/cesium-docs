@@ -1,11 +1,11 @@
 /**
- * A tonemapping algorithm when rendering with high dynamic range.
+ * 渲染高动态范围时使用的色调映射算法。
  *
  * @enum {string}
  */
 const Tonemapper = {
   /**
-   * Use the Reinhard tonemapping.
+   * 使用Reinhard色调映射。
    *
    * @type {string}
    * @constant
@@ -13,7 +13,7 @@ const Tonemapper = {
   REINHARD: "REINHARD",
 
   /**
-   * Use the modified Reinhard tonemapping.
+   * 使用修改过的Reinhard色调映射。
    *
    * @type {string}
    * @constant
@@ -21,7 +21,7 @@ const Tonemapper = {
   MODIFIED_REINHARD: "MODIFIED_REINHARD",
 
   /**
-   * Use the Filmic tonemapping.
+   * 使用胶卷色调映射。
    *
    * @type {string}
    * @constant
@@ -29,7 +29,7 @@ const Tonemapper = {
   FILMIC: "FILMIC",
 
   /**
-   * Use the ACES tonemapping.
+   * 使用ACES色调映射。
    *
    * @type {string}
    * @constant
@@ -37,7 +37,7 @@ const Tonemapper = {
   ACES: "ACES",
 
   /**
-   * Use the PBR Neutral tonemapping {@link https://github.com/KhronosGroup/ToneMapping/tree/main/PBR_Neutral|from Khronos}.
+   * 使用PBR中性色调映射 {@link https://github.com/KhronosGroup/ToneMapping/tree/main/PBR_Neutral|来自Khronos}。
    *
    * @type {string}
    * @constant
@@ -46,7 +46,7 @@ const Tonemapper = {
 };
 
 /**
- * Validate whether the provided value is a known Tonemapper type
+ * 验证提供的值是否为已知的色调映射类型
  * @private
  *
  * @param {string} tonemapper

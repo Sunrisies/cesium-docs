@@ -1,119 +1,119 @@
 /**
- * An enum of the basic GLSL uniform types. These can be used with
- * {@link CustomShader} to declare user-defined uniforms.
+ * 基本GLSL统一类型的枚举。这些可以与
+ * {@link CustomShader} 一起使用，以声明用户定义的统一变量。
  *
  * @enum {string}
  *
- * @experimental This feature is using part of the 3D Tiles spec that is not final and is subject to change without Cesium's standard deprecation policy.
+ * @experimental 此功能使用3D Tiles规范中的部分内容，该内容尚未最终确定，并可能在不遵循Cesium的标准弃用政策的情况下发生更改。
  */
 const UniformType = {
   /**
-   * A single floating point value.
+   * 单个浮点值。
    *
    * @type {string}
    * @constant
    */
   FLOAT: "float",
   /**
-   * A vector of 2 floating point values.
+   * 由2个浮点值组成的向量。
    *
    * @type {string}
    * @constant
    */
   VEC2: "vec2",
   /**
-   * A vector of 3 floating point values.
+   * 由3个浮点值组成的向量。
    *
    * @type {string}
    * @constant
    */
   VEC3: "vec3",
   /**
-   * A vector of 4 floating point values.
+   * 由4个浮点值组成的向量。
    *
    * @type {string}
    * @constant
    */
   VEC4: "vec4",
   /**
-   * A single integer value
+   * 单个整数值。
    *
    * @type {string}
    * @constant
    */
   INT: "int",
   /**
-   * A vector of 2 integer values.
+   * 由2个整数值组成的向量。
    *
    * @type {string}
    * @constant
    */
   INT_VEC2: "ivec2",
   /**
-   * A vector of 3 integer values.
+   * 由3个整数值组成的向量。
    *
    * @type {string}
    * @constant
    */
   INT_VEC3: "ivec3",
   /**
-   * A vector of 4 integer values.
+   * 由4个整数值组成的向量。
    *
    * @type {string}
    * @constant
    */
   INT_VEC4: "ivec4",
   /**
-   * A single boolean value.
+   * 单个布尔值。
    *
    * @type {string}
    * @constant
    */
   BOOL: "bool",
   /**
-   * A vector of 2 boolean values.
+   * 由2个布尔值组成的向量。
    *
    * @type {string}
    * @constant
    */
   BOOL_VEC2: "bvec2",
   /**
-   * A vector of 3 boolean values.
+   * 由3个布尔值组成的向量。
    *
    * @type {string}
    * @constant
    */
   BOOL_VEC3: "bvec3",
   /**
-   * A vector of 4 boolean values.
+   * 由4个布尔值组成的向量。
    *
    * @type {string}
    * @constant
    */
   BOOL_VEC4: "bvec4",
   /**
-   * A 2x2 matrix of floating point values.
+   * 2x2浮点值矩阵。
    *
    * @type {string}
    * @constant
    */
   MAT2: "mat2",
   /**
-   * A 3x3 matrix of floating point values.
+   * 3x3浮点值矩阵。
    *
    * @type {string}
    * @constant
    */
   MAT3: "mat3",
   /**
-   * A 3x3 matrix of floating point values.
+   * 4x4浮点值矩阵。
    *
    * @type {string}
    * @constant
    */
   MAT4: "mat4",
   /**
-   * A 2D sampled texture.
+   * 2D采样纹理。
    * @type {string}
    * @constant
    */

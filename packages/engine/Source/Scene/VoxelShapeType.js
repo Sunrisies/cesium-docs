@@ -4,15 +4,16 @@ import VoxelCylinderShape from "./VoxelCylinderShape.js";
 import VoxelEllipsoidShape from "./VoxelEllipsoidShape.js";
 
 /**
- * An enum of voxel shapes. The shape controls how the voxel grid is mapped to 3D space.
+ * 体素形状的枚举。形状控制体素网格如何映射到 3D 空间。
  *
  * @enum {string}
  *
  * @experimental 该功能尚未最终确定，可能会根据 Cesium 的标准弃用政策而发生变化
  */
+
 const VoxelShapeType = {
   /**
-   * A box shape.
+   * 一个立方体形状。
    *
    * @type {string}
    * @constant
@@ -20,7 +21,7 @@ const VoxelShapeType = {
    */
   BOX: "BOX",
   /**
-   * An ellipsoid shape.
+   * 一个椭球形状。
    *
    * @type {string}
    * @constant
@@ -28,7 +29,7 @@ const VoxelShapeType = {
    */
   ELLIPSOID: "ELLIPSOID",
   /**
-   * A cylinder shape.
+   * 一个圆柱形状。
    *
    * @type {string}
    * @constant
@@ -38,10 +39,11 @@ const VoxelShapeType = {
 };
 
 /**
- * Gets the minimum bounds.
- * @param {VoxelShapeType} shapeType The voxel shape type.
- * @returns {Cartesian3} The minimum bounds.
+ * 获取最小边界。
+ * @param {VoxelShapeType} shapeType 体素形状类型。
+ * @returns {Cartesian3} 最小边界。
  */
+
 VoxelShapeType.getMinBounds = function (shapeType) {
   switch (shapeType) {
     case VoxelShapeType.BOX:
@@ -58,10 +60,11 @@ VoxelShapeType.getMinBounds = function (shapeType) {
 };
 
 /**
- * Gets the maximum bounds.
- * @param {VoxelShapeType} shapeType The voxel shape type.
- * @returns {Cartesian3} The maximum bounds.
+ * 获取最大边界。
+ * @param {VoxelShapeType} shapeType 体素形状类型。
+ * @returns {Cartesian3} 最大边界。
  */
+
 VoxelShapeType.getMaxBounds = function (shapeType) {
   switch (shapeType) {
     case VoxelShapeType.BOX:
@@ -78,15 +81,16 @@ VoxelShapeType.getMaxBounds = function (shapeType) {
 };
 
 /**
- * Converts a shape type to a constructor that can be used to create a shape
- * object or get per-shape properties like DefaultMinBounds and
- * DefaultMaxBounds.
+ * 将形状类型转换为可以用来创建形状对象的构造函数
+ * 或获取每种形状的属性，例如 DefaultMinBounds 和
+ * DefaultMaxBounds。
  *
- * @param {VoxelShapeType} shapeType The shape type.
- * @returns {Function} The shape's constructor.
+ * @param {VoxelShapeType} shapeType 形状类型。
+ * @returns {Function} 该形状的构造函数。
  *
  * @private
  */
+
 VoxelShapeType.getShapeConstructor = function (shapeType) {
   switch (shapeType) {
     case VoxelShapeType.BOX:

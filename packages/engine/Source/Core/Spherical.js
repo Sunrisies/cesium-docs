@@ -3,43 +3,46 @@ import defaultValue from "./defaultValue.js";
 import defined from "./defined.js";
 
 /**
- * A set of curvilinear 3-dimensional coordinates.
+ * 一组曲线的三维坐标。
  *
  * @alias Spherical
  * @constructor
  *
- * @param {number} [clock=0.0] The angular coordinate lying in the xy-plane measured from the positive x-axis and toward the positive y-axis.
- * @param {number} [cone=0.0] The angular coordinate measured from the positive z-axis and toward the negative z-axis.
- * @param {number} [magnitude=1.0] The linear coordinate measured from the origin.
+ * @param {number} [clock=0.0] 位于 xy 平面上的角坐标，从正 x 轴测量，朝向正 y 轴。
+ * @param {number} [cone=0.0] 从正 z 轴测量的角坐标，朝向负 z 轴。
+ * @param {number} [magnitude=1.0] 从原点测量的线性坐标。
  */
+
 function Spherical(clock, cone, magnitude) {
   /**
-   * The clock component.
+   * 时钟分量。
    * @type {number}
    * @default 0.0
    */
   this.clock = defaultValue(clock, 0.0);
   /**
-   * The cone component.
+   * 锥形分量。
    * @type {number}
    * @default 0.0
    */
   this.cone = defaultValue(cone, 0.0);
   /**
-   * The magnitude component.
+   * 大小分量。
    * @type {number}
    * @default 1.0
    */
   this.magnitude = defaultValue(magnitude, 1.0);
 }
 
+
 /**
- * Converts the provided Cartesian3 into Spherical coordinates.
+ * 将提供的 Cartesian3 转换为球面坐标。
  *
- * @param {Cartesian3} cartesian3 The Cartesian3 to be converted to Spherical.
- * @param {Spherical} [result] The object in which the result will be stored, if undefined a new instance will be created.
- * @returns {Spherical} The modified result parameter, or a new instance if one was not provided.
+ * @param {Cartesian3} cartesian3 要转换为球面坐标的 Cartesian3。
+ * @param {Spherical} [result] 存储结果的对象，如果未定义，则会创建一个新实例。
+ * @returns {Spherical} 修改后的结果参数，或者如果未提供则返回一个新的实例。
  */
+
 Spherical.fromCartesian3 = function (cartesian3, result) {
   //>>includeStart('debug', pragmas.debug);
   Check.typeOf.object("cartesian3", cartesian3);
@@ -61,12 +64,13 @@ Spherical.fromCartesian3 = function (cartesian3, result) {
 };
 
 /**
- * Creates a duplicate of a Spherical.
+ * 创建一个 Spherical 的副本。
  *
- * @param {Spherical} spherical The spherical to clone.
- * @param {Spherical} [result] The object to store the result into, if undefined a new instance will be created.
- * @returns {Spherical} The modified result parameter or a new instance if result was undefined. (Returns undefined if spherical is undefined)
+ * @param {Spherical} spherical 要克隆的球面对象。
+ * @param {Spherical} [result] 用于存储结果的对象，如果未定义则会创建一个新实例。
+ * @returns {Spherical} 修改后的结果参数，或者如果未提供则返回一个新的实例。（如果 spherical 为未定义，则返回未定义）
  */
+
 Spherical.clone = function (spherical, result) {
   if (!defined(spherical)) {
     return undefined;
@@ -83,12 +87,13 @@ Spherical.clone = function (spherical, result) {
 };
 
 /**
- * Computes the normalized version of the provided spherical.
+ * 计算提供的球面对象的归一化版本。
  *
- * @param {Spherical} spherical The spherical to be normalized.
- * @param {Spherical} [result] The object to store the result into, if undefined a new instance will be created.
- * @returns {Spherical} The modified result parameter or a new instance if result was undefined.
+ * @param {Spherical} spherical 要归一化的球面对象。
+ * @param {Spherical} [result] 用于存储结果的对象，如果未定义则会创建一个新实例。
+ * @returns {Spherical} 修改后的结果参数，或者如果未提供则返回一个新的实例。
  */
+
 Spherical.normalize = function (spherical, result) {
   //>>includeStart('debug', pragmas.debug);
   Check.typeOf.object("spherical", spherical);
@@ -105,12 +110,13 @@ Spherical.normalize = function (spherical, result) {
 };
 
 /**
- * Returns true if the first spherical is equal to the second spherical, false otherwise.
+ * 如果第一个球面对象等于第二个球面对象，则返回 true，否则返回 false。
  *
- * @param {Spherical} left The first Spherical to be compared.
- * @param {Spherical} right The second Spherical to be compared.
- * @returns {boolean} true if the first spherical is equal to the second spherical, false otherwise.
+ * @param {Spherical} left 要比较的第一个球面对象。
+ * @param {Spherical} right 要比较的第二个球面对象。
+ * @returns {boolean} 如果第一个球面对象等于第二个球面对象，则返回 true，否则返回 false。
  */
+
 Spherical.equals = function (left, right) {
   return (
     left === right ||
@@ -123,13 +129,14 @@ Spherical.equals = function (left, right) {
 };
 
 /**
- * Returns true if the first spherical is within the provided epsilon of the second spherical, false otherwise.
+ * 如果第一个球面对象在提供的 epsilon 范围内与第二个球面对象相等，则返回 true，否则返回 false。
  *
- * @param {Spherical} left The first Spherical to be compared.
- * @param {Spherical} right The second Spherical to be compared.
- * @param {number} [epsilon=0.0] The epsilon to compare against.
- * @returns {boolean} true if the first spherical is within the provided epsilon of the second spherical, false otherwise.
+ * @param {Spherical} left 要比较的第一个球面对象。
+ * @param {Spherical} right 要比较的第二个球面对象。
+ * @param {number} [epsilon=0.0] 用于比较的 epsilon 值。
+ * @returns {boolean} 如果第一个球面对象在提供的 epsilon 范围内与第二个球面对象相等，则返回 true，否则返回 false。
  */
+
 Spherical.equalsEpsilon = function (left, right, epsilon) {
   epsilon = defaultValue(epsilon, 0.0);
   return (
@@ -143,41 +150,43 @@ Spherical.equalsEpsilon = function (left, right, epsilon) {
 };
 
 /**
- * Returns true if this spherical is equal to the provided spherical, false otherwise.
+ * 如果此球面对象等于提供的球面对象，则返回 true，否则返回 false。
  *
- * @param {Spherical} other The Spherical to be compared.
- * @returns {boolean} true if this spherical is equal to the provided spherical, false otherwise.
+ * @param {Spherical} other 要比较的球面对象。
+ * @returns {boolean} 如果此球面对象等于提供的球面对象，则返回 true，否则返回 false。
  */
 Spherical.prototype.equals = function (other) {
   return Spherical.equals(this, other);
 };
 
 /**
- * Creates a duplicate of this Spherical.
+ * 创建此球面的副本。
  *
- * @param {Spherical} [result] The object to store the result into, if undefined a new instance will be created.
- * @returns {Spherical} The modified result parameter or a new instance if result was undefined.
+ * @param {Spherical} [result] 用于存储结果的对象，如果未定义则会创建一个新实例。
+ * @returns {Spherical} 修改后的结果参数，或者如果未提供则返回一个新的实例。
  */
+
 Spherical.prototype.clone = function (result) {
   return Spherical.clone(this, result);
 };
 
 /**
- * Returns true if this spherical is within the provided epsilon of the provided spherical, false otherwise.
+ * 如果此球面对象在提供的 epsilon 范围内与提供的球面对象相等，则返回 true，否则返回 false。
  *
- * @param {Spherical} other The Spherical to be compared.
- * @param {number} epsilon The epsilon to compare against.
- * @returns {boolean} true if this spherical is within the provided epsilon of the provided spherical, false otherwise.
+ * @param {Spherical} other 要比较的球面对象。
+ * @param {number} epsilon 用于比较的 epsilon 值。
+ * @returns {boolean} 如果此球面对象在提供的 epsilon 范围内与提供的球面对象相等，则返回 true，否则返回 false。
  */
 Spherical.prototype.equalsEpsilon = function (other, epsilon) {
   return Spherical.equalsEpsilon(this, other, epsilon);
 };
 
 /**
- * Returns a string representing this instance in the format (clock, cone, magnitude).
+ * 返回一个字符串，表示此实例，格式为 (clock, cone, magnitude)。
  *
- * @returns {string} A string representing this instance.
+ * @returns {string} 表示此实例的字符串。
  */
+
 Spherical.prototype.toString = function () {
   return `(${this.clock}, ${this.cone}, ${this.magnitude})`;
 };

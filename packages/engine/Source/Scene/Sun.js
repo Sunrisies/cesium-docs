@@ -27,8 +27,8 @@ import SceneMode from "./SceneMode.js";
 import SceneTransforms from "./SceneTransforms.js";
 
 /**
- * Draws a sun billboard.
- * <p>This is only supported in 3D and Columbus view.</p>
+ * 绘制太阳广告牌。
+ * <p>此功能仅在 3D 和哥伦布视图中支持。</p>
  *
  * @alias Sun
  * @constructor
@@ -41,11 +41,12 @@ import SceneTransforms from "./SceneTransforms.js";
  */
 function Sun() {
   /**
-   * Determines if the sun will be shown.
+   * 确定太阳是否将被显示。
    *
    * @type {boolean}
    * @default true
    */
+
   this.show = true;
 
   this._drawCommand = new DrawCommand({
@@ -84,14 +85,15 @@ function Sun() {
 
 Object.defineProperties(Sun.prototype, {
   /**
-   * Gets or sets a number that controls how "bright" the Sun's lens flare appears
-   * to be.  Zero shows just the Sun's disc without any flare.
-   * Use larger values for a more pronounced flare around the Sun.
+   * 获取或设置一个数值，控制太阳镜头光晕的“亮度”。
+   * 零表示仅显示太阳的圆盘，而没有任何光晕。
+   * 使用较大的值可以使太阳周围的光晕更加明显。
    *
    * @memberof Sun.prototype
    * @type {number}
    * @default 1.0
    */
+
   glowFactor: {
     get: function () {
       return this._glowFactor;
@@ -321,12 +323,11 @@ Sun.prototype.update = function (frameState, passState, useHdr) {
 };
 
 /**
- * Returns true if this object was destroyed; otherwise, false.
+ * 如果此对象已被销毁，则返回 true；否则返回 false。
  * <br /><br />
- * If this object was destroyed, it should not be used; calling any function other than
- * <code>isDestroyed</code> will result in a {@link DeveloperError} exception.
+ * 如果此对象已被销毁，则不应使用；调用除 <code>isDestroyed</code> 以外的任何函数将导致 {@link DeveloperError} 异常。
  *
- * @returns {boolean} <code>true</code> if this object was destroyed; otherwise, <code>false</code>.
+ * @returns {boolean} 如果此对象已被销毁，则返回 <code>true</code>；否则返回 <code>false</code>。
  *
  * @see Sun#destroy
  */
@@ -335,21 +336,20 @@ Sun.prototype.isDestroyed = function () {
 };
 
 /**
- * Destroys the WebGL resources held by this object.  Destroying an object allows for deterministic
- * release of WebGL resources, instead of relying on the garbage collector to destroy this object.
+ * 销毁此对象持有的 WebGL 资源。销毁对象允许确定性地释放 WebGL 资源，而不是依赖垃圾回收器销毁此对象。
  * <br /><br />
- * Once an object is destroyed, it should not be used; calling any function other than
- * <code>isDestroyed</code> will result in a {@link DeveloperError} exception.  Therefore,
- * assign the return value (<code>undefined</code>) to the object as done in the example.
+ * 一旦对象被销毁，就不应使用；调用除 <code>isDestroyed</code> 以外的任何函数将导致 {@link DeveloperError} 异常。因此，
+ * 应将返回值（<code>undefined</code>）分配给该对象，如示例所示。
  *
- * @exception {DeveloperError} This object was destroyed, i.e., destroy() was called.
+ * @exception {DeveloperError} 此对象已被销毁，即，已调用 destroy()。
  *
  *
  * @example
  * sun = sun && sun.destroy();
  *
- *  @see Sun#isDestroyed
+ * @see Sun#isDestroyed
  */
+
 Sun.prototype.destroy = function () {
   const command = this._drawCommand;
   command.vertexArray = command.vertexArray && command.vertexArray.destroy();

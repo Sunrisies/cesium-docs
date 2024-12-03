@@ -3,22 +3,23 @@ import defined from "./defined.js";
 import formatError from "./formatError.js";
 
 /**
- * Provides details about an error that occurred in an {@link ImageryProvider} or a {@link TerrainProvider}.
+ * 提供有关在{@link ImageryProvider}或{@link TerrainProvider}中发生的错误的详细信息。
  *
  * @alias TileProviderError
  * @constructor
  *
- * @param {ImageryProvider|TerrainProvider} provider The imagery or terrain provider that experienced the error.
- * @param {string} message A message describing the error.
- * @param {number} [x] The X coordinate of the tile that experienced the error, or undefined if the error
- *        is not specific to a particular tile.
- * @param {number} [y] The Y coordinate of the tile that experienced the error, or undefined if the error
- *        is not specific to a particular tile.
- * @param {number} [level] The level of the tile that experienced the error, or undefined if the error
- *        is not specific to a particular tile.
- * @param {number} [timesRetried=0] The number of times this operation has been retried.
- * @param {Error} [error] The error or exception that occurred, if any.
+ * @param {ImageryProvider|TerrainProvider} provider 发生错误的影像或地形提供者。
+ * @param {string} message 描述错误的消息。
+ * @param {number} [x] 发生错误的瓦片的X坐标，如果错误
+ *        不特定于某个瓦片，则为undefined。
+ * @param {number} [y] 发生错误的瓦片的Y坐标，如果错误
+ *        不特定于某个瓦片，则为undefined。
+ * @param {number} [level] 发生错误的瓦片的级别，如果错误
+ *        不特定于某个瓦片，则为undefined。
+ * @param {number} [timesRetried=0] 此操作已重试的次数。
+ * @param {Error} [error] 发生的错误或异常（如果有）。
  */
+
 function TileProviderError(
   provider,
   message,
@@ -29,83 +30,79 @@ function TileProviderError(
   error,
 ) {
   /**
-   * The {@link ImageryProvider} or {@link TerrainProvider} that experienced the error.
+   * 发生错误的 {@link ImageryProvider} 或 {@link TerrainProvider}。
    * @type {ImageryProvider|TerrainProvider}
    */
   this.provider = provider;
 
   /**
-   * The message describing the error.
+   * 描述错误的消息。
    * @type {string}
    */
   this.message = message;
 
   /**
-   * The X coordinate of the tile that experienced the error.  If the error is not specific
-   * to a particular tile, this property will be undefined.
+   * 发生错误的瓦片的X坐标。如果错误
+   * 不特定于某个瓦片，则此属性将为undefined。
    * @type {number}
    */
   this.x = x;
 
   /**
-   * The Y coordinate of the tile that experienced the error.  If the error is not specific
-   * to a particular tile, this property will be undefined.
+   * 发生错误的瓦片的Y坐标。如果错误
+   * 不特定于某个瓦片，则此属性将为undefined。
    * @type {number}
    */
   this.y = y;
 
   /**
-   * The level-of-detail of the tile that experienced the error.  If the error is not specific
-   * to a particular tile, this property will be undefined.
+   * 发生错误的瓦片的细节级别。如果错误
+   * 不特定于某个瓦片，则此属性将为undefined。
    * @type {number}
    */
   this.level = level;
 
   /**
-   * The number of times this operation has been retried.
+   * 此操作已重试的次数。
    * @type {number}
    * @default 0
    */
   this.timesRetried = defaultValue(timesRetried, 0);
 
   /**
-   * True if the failed operation should be retried; otherwise, false.  The imagery or terrain provider
-   * will set the initial value of this property before raising the event, but any listeners
-   * can change it.  The value after the last listener is invoked will be acted upon.
+   * 如果失败的操作应该被重试，则为true；否则为false。影像或地形提供者
+   * 会在引发事件之前设置此属性的初始值，但任何监听器
+   * 都可以更改它。最后一个监听器被调用后的值将被执行。
    * @type {boolean}
    * @default false
    */
   this.retry = false;
 
   /**
-   * The error or exception that occurred, if any.
+   * 发生的错误或异常（如果有）。
    * @type {Error}
    */
   this.error = error;
 }
 
+
 /**
- * Reports an error in an {@link ImageryProvider} or {@link TerrainProvider} by raising an event if it has any listeners, or by
- * logging the error to the console if the event has no listeners.  This method also tracks the number
- * of times the operation has been retried.
+ * 通过引发事件来报告{@link ImageryProvider}或{@link TerrainProvider}中的错误，如果有任何监听器；如果事件没有监听器，则将错误记录到控制台。此方法还跟踪操作已重试的次数。
  *
- * @param {TileProviderError} previousError The error instance returned by this function the last
- *        time it was called for this error, or undefined if this is the first time this error has
- *        occurred.
- * @param {ImageryProvider|TerrainProvider} [provider] The imagery or terrain provider that encountered the error.
- * @param {Event} [event] The event to raise to inform listeners of the error.
- * @param {string} [message] The message describing the error.
- * @param {number} [x] The X coordinate of the tile that experienced the error, or undefined if the
- *        error is not specific to a particular tile.
- * @param {number} [y] The Y coordinate of the tile that experienced the error, or undefined if the
- *        error is not specific to a particular tile.
- * @param {number} [level] The level-of-detail of the tile that experienced the error, or undefined if the
- *        error is not specific to a particular tile.
- * @param {Error} [errorDetails] The error or exception that occurred, if any.
- * @returns {TileProviderError} The error instance that was passed to the event listeners and that
- *          should be passed to this function the next time it is called for the same error in order
- *          to track retry counts.
+ * @param {TileProviderError} previousError 上次为此错误调用此函数时返回的错误实例，如果这是第一次发生此错误，则为undefined。
+ * @param {ImageryProvider|TerrainProvider} [provider] 发生错误的影像或地形提供者。
+ * @param {Event} [event] 要引发的事件，以通知监听器错误。
+ * @param {string} [message] 描述错误的消息。
+ * @param {number} [x] 发生错误的瓦片的X坐标，如果错误
+ *        不特定于某个瓦片，则为undefined。
+ * @param {number} [y] 发生错误的瓦片的Y坐标，如果错误
+ *        不特定于某个瓦片，则为undefined。
+ * @param {number} [level] 发生错误的瓦片的细节级别，如果错误
+ *        不特定于某个瓦片，则为undefined。
+ * @param {Error} [errorDetails] 发生的错误或异常（如果有）。
+ * @returns {TileProviderError} 传递给事件监听器的错误实例，并且应该在下次调用此函数时用于相同错误，以跟踪重试计数。
  */
+
 TileProviderError.reportError = function (
   previousError,
   provider,
@@ -152,11 +149,9 @@ TileProviderError.reportError = function (
 };
 
 /**
- * Reports success of an operation by resetting the retry count of a previous error, if any.  This way,
- * if the error occurs again in the future, the listeners will be informed that it has not yet been retried.
+ * 通过重置之前错误的重试计数（如果有）来报告操作的成功。这样，如果错误在未来再次发生，监听器将被通知它尚未被重试。
  *
- * @param {TileProviderError} previousError The previous error, or undefined if this operation has
- *        not previously resulted in an error.
+ * @param {TileProviderError} previousError 之前的错误，如果此操作以前未导致错误，则为undefined。
  */
 TileProviderError.reportSuccess = function (previousError) {
   if (defined(previousError)) {
@@ -165,7 +160,8 @@ TileProviderError.reportSuccess = function (previousError) {
 };
 
 /**
- * A function that will be called to retry the operation.
+ * 将被调用以重试操作的函数。
  * @callback TileProviderError.RetryFunction
  */
+
 export default TileProviderError;

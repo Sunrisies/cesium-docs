@@ -27,12 +27,13 @@ import SceneTransforms from "./SceneTransforms.js";
 import TweenCollection from "./TweenCollection.js";
 
 /**
- * Modifies the camera position and orientation based on mouse input to a canvas.
+ * 根据鼠标输入修改相机的位置和方向。
  * @alias ScreenSpaceCameraController
  * @constructor
  *
- * @param {Scene} scene The scene.
+ * @param {Scene} scene 场景。
  */
+
 function ScreenSpaceCameraController(scene) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(scene)) {
@@ -41,127 +42,128 @@ function ScreenSpaceCameraController(scene) {
   //>>includeEnd('debug');
 
   /**
-   * If true, inputs are allowed conditionally with the flags enableTranslate, enableZoom,
-   * enableRotate, enableTilt, and enableLook.  If false, all inputs are disabled.
+   * 如果为真，则根据标志 enableTranslate、enableZoom、
+   * enableRotate、enableTilt 和 enableLook 条件允许输入。 如果为假，则所有输入都被禁用。
    *
-   * NOTE: This setting is for temporary use cases, such as camera flights and
-   * drag-selection of regions (see Picking demo).  It is typically set to false at the
-   * start of such events, and set true on completion.  To keep inputs disabled
-   * past the end of camera flights, you must use the other booleans (enableTranslate,
-   * enableZoom, enableRotate, enableTilt, and enableLook).
+   * 注意：此设置用于临时用例，例如相机飞行和
+   * 拖动选择区域（请参见 Picking 演示）。 通常在此类事件开始时设置为 false，
+   * 在完成时设置为 true。 要在相机飞行结束后保持输入禁用，
+   * 必须使用其他布尔值（enableTranslate、enableZoom、enableRotate、enableTilt 和 enableLook）。
    * @type {boolean}
    * @default true
    */
   this.enableInputs = true;
   /**
-   * If true, allows the user to pan around the map.  If false, the camera stays locked at the current position.
-   * This flag only applies in 2D and Columbus view modes.
+   * 如果为真，则允许用户在地图上平移。 如果为假，则相机保持锁定在当前位置。
+   * 此标志仅适用于 2D 和哥伦布视图模式。
    * @type {boolean}
    * @default true
    */
   this.enableTranslate = true;
   /**
-   * If true, allows the user to zoom in and out.  If false, the camera is locked to the current distance from the ellipsoid.
+   * 如果为真，则允许用户缩放。 如果为假，则相机锁定在当前离椭球体的距离上。
    * @type {boolean}
    * @default true
    */
+
   this.enableZoom = true;
   /**
-   * If true, allows the user to rotate the world which translates the user's position.
-   * This flag only applies in 2D and 3D.
+   * 如果为真，则允许用户旋转世界，从而改变用户的位置。
+   * 此标志仅适用于 2D 和 3D。
    * @type {boolean}
    * @default true
    */
   this.enableRotate = true;
   /**
-   * If true, allows the user to tilt the camera.  If false, the camera is locked to the current heading.
-   * This flag only applies in 3D and Columbus view.
+   * 如果为真，则允许用户倾斜相机。 如果为假，则相机锁定在当前航向。
+   * 此标志仅适用于 3D 和哥伦布视图。
    * @type {boolean}
    * @default true
    */
   this.enableTilt = true;
   /**
-   * If true, allows the user to use free-look. If false, the camera view direction can only be changed through translating
-   * or rotating. This flag only applies in 3D and Columbus view modes.
+   * 如果为真，则允许用户使用自由视角。 如果为假，则相机视角只能通过平移
+   * 或旋转来改变。 此标志仅适用于 3D 和哥伦布视图模式。
    * @type {boolean}
    * @default true
    */
   this.enableLook = true;
   /**
-   * A parameter in the range <code>[0, 1)</code> used to determine how long
-   * the camera will continue to spin because of inertia.
-   * With value of zero, the camera will have no inertia.
+   * 范围为 <code>[0, 1)</code> 的参数，用于确定
+   * 相机因惯性而继续旋转的时间。
+   * 值为零时，相机将没有惯性。
    * @type {number}
    * @default 0.9
    */
   this.inertiaSpin = 0.9;
   /**
-   * A parameter in the range <code>[0, 1)</code> used to determine how long
-   * the camera will continue to translate because of inertia.
-   * With value of zero, the camera will have no inertia.
+   * 范围为 <code>[0, 1)</code> 的参数，用于确定
+   * 相机因惯性而继续平移的时间。
+   * 值为零时，相机将没有惯性。
    * @type {number}
    * @default 0.9
    */
   this.inertiaTranslate = 0.9;
   /**
-   * A parameter in the range <code>[0, 1)</code> used to determine how long
-   * the camera will continue to zoom because of inertia.
-   * With value of zero, the camera will have no inertia.
+   * 范围为 <code>[0, 1)</code> 的参数，用于确定
+   * 相机因惯性而继续缩放的时间。
+   * 值为零时，相机将没有惯性。
    * @type {number}
    * @default 0.8
    */
   this.inertiaZoom = 0.8;
   /**
-   * A parameter in the range <code>[0, 1)</code> used to limit the range
-   * of various user inputs to a percentage of the window width/height per animation frame.
-   * This helps keep the camera under control in low-frame-rate situations.
+   * 范围为 <code>[0, 1)</code> 的参数，用于限制各种用户输入的范围
+   * 至每帧动画窗口宽度/高度的百分比。
+   * 这有助于在低帧率情况下控制相机。
    * @type {number}
    * @default 0.1
    */
   this.maximumMovementRatio = 0.1;
   /**
-   * Sets the duration, in seconds, of the bounce back animations in 2D and Columbus view.
+   * 设置 2D 和哥伦布视图中反弹动画的持续时间，单位为秒。
    * @type {number}
    * @default 3.0
    */
   this.bounceAnimationTime = 3.0;
   /**
-   * The minimum magnitude, in meters, of the camera position when zooming. Defaults to 1.0.
+   * 缩放时相机位置的最小幅度，单位为米。默认为 1.0。
    * @type {number}
    * @default 1.0
    */
   this.minimumZoomDistance = 1.0;
   /**
-   * The maximum magnitude, in meters, of the camera position when zooming. Defaults to positive infinity.
+   * 缩放时相机位置的最大幅度，单位为米。默认为正无穷大。
    * @type {number}
    * @default {@link Number.POSITIVE_INFINITY}
    */
   this.maximumZoomDistance = Number.POSITIVE_INFINITY;
 
   /**
-   * A multiplier for the speed at which the camera will zoom.
+   * 相机缩放速度的乘数。
    * @type {Number}
    * @default 5.0
    */
+
   this.zoomFactor = 5.0;
 
   /**
-   * The input that allows the user to pan around the map. This only applies in 2D and Columbus view modes.
+   * 允许用户在地图上平移的输入。此功能仅适用于 2D 和哥伦布视图模式。
    * <p>
-   * The type can be a {@link CameraEventType}, <code>undefined</code>, an object with <code>eventType</code>
-   * and <code>modifier</code> properties with types <code>CameraEventType</code> and {@link KeyboardEventModifier},
-   * or an array of any of the preceding.
+   * 类型可以是 {@link CameraEventType}、<code>undefined</code>、具有 <code>eventType</code>
+   * 和 <code>modifier</code> 属性的对象，这些属性的类型为 <code>CameraEventType</code>
+   * 和 {@link KeyboardEventModifier}，或者是以上任意类型的数组。
    * </p>
    * @type {CameraEventType|Array|undefined}
    * @default {@link CameraEventType.LEFT_DRAG}
    */
   this.translateEventTypes = CameraEventType.LEFT_DRAG;
   /**
-   * The input that allows the user to zoom in/out.
+   * 允许用户缩放的输入。
    * <p>
-   * The type can be a {@link CameraEventType}, <code>undefined</code>, an object with <code>eventType</code>
-   * and <code>modifier</code> properties with types <code>CameraEventType</code> and {@link KeyboardEventModifier},
-   * or an array of any of the preceding.
+   * 类型可以是 {@link CameraEventType}、<code>undefined</code>、具有 <code>eventType</code>
+   * 和 <code>modifier</code> 属性的对象，这些属性的类型为 <code>CameraEventType</code>
+   * 和 {@link KeyboardEventModifier}，或者是以上任意类型的数组。
    * </p>
    * @type {CameraEventType|Array|undefined}
    * @default [{@link CameraEventType.RIGHT_DRAG}, {@link CameraEventType.WHEEL}, {@link CameraEventType.PINCH}]
@@ -172,22 +174,23 @@ function ScreenSpaceCameraController(scene) {
     CameraEventType.PINCH,
   ];
   /**
-   * The input that allows the user to rotate around the globe or another object. This only applies in 3D and Columbus view modes.
+   * 允许用户绕地球或其他对象旋转的输入。此功能仅适用于 3D 和哥伦布视图模式。
    * <p>
-   * The type can be a {@link CameraEventType}, <code>undefined</code>, an object with <code>eventType</code>
-   * and <code>modifier</code> properties with types <code>CameraEventType</code> and {@link KeyboardEventModifier},
-   * or an array of any of the preceding.
+   * 类型可以是 {@link CameraEventType}、<code>undefined</code>、具有 <code>eventType</code>
+   * 和 <code>modifier</code> 属性的对象，这些属性的类型为 <code>CameraEventType</code>
+   * 和 {@link KeyboardEventModifier}，或者是以上任意类型的数组。
    * </p>
    * @type {CameraEventType|Array|undefined}
    * @default {@link CameraEventType.LEFT_DRAG}
    */
+
   this.rotateEventTypes = CameraEventType.LEFT_DRAG;
   /**
-   * The input that allows the user to tilt in 3D and Columbus view or twist in 2D.
+   * 允许用户在 3D 和哥伦布视图中倾斜或在 2D 中扭转的输入。
    * <p>
-   * The type can be a {@link CameraEventType}, <code>undefined</code>, an object with <code>eventType</code>
-   * and <code>modifier</code> properties with types <code>CameraEventType</code> and {@link KeyboardEventModifier},
-   * or an array of any of the preceding.
+   * 类型可以是 {@link CameraEventType}、<code>undefined</code>、具有 <code>eventType</code>
+   * 和 <code>modifier</code> 属性的对象，这些属性的类型为 <code>CameraEventType</code>
+   * 和 {@link KeyboardEventModifier}，或者是以上任意类型的数组。
    * </p>
    * @type {CameraEventType|Array|undefined}
    * @default [{@link CameraEventType.MIDDLE_DRAG}, {@link CameraEventType.PINCH}, {
@@ -211,11 +214,11 @@ function ScreenSpaceCameraController(scene) {
     },
   ];
   /**
-   * The input that allows the user to change the direction the camera is viewing. This only applies in 3D and Columbus view modes.
+   * 允许用户更改相机观看方向的输入。此功能仅适用于 3D 和哥伦布视图模式。
    * <p>
-   * The type can be a {@link CameraEventType}, <code>undefined</code>, an object with <code>eventType</code>
-   * and <code>modifier</code> properties with types <code>CameraEventType</code> and {@link KeyboardEventModifier},
-   * or an array of any of the preceding.
+   * 类型可以是 {@link CameraEventType}、<code>undefined</code>、具有 <code>eventType</code>
+   * 和 <code>modifier</code> 属性的对象，这些属性的类型为 <code>CameraEventType</code>
+   * 和 {@link KeyboardEventModifier}，或者是以上任意类型的数组。
    * </p>
    * @type {CameraEventType|Array|undefined}
    * @default { eventType : {@link CameraEventType.LEFT_DRAG}, modifier : {@link KeyboardEventModifier.SHIFT} }
@@ -228,18 +231,18 @@ function ScreenSpaceCameraController(scene) {
   const ellipsoid = defaultValue(scene.ellipsoid, Ellipsoid.default);
 
   /**
-   * The minimum height the camera must be before picking the terrain or scene content instead of the ellipsoid. Defaults to scene.ellipsoid.minimumRadius * 0.025 when another ellipsoid than WGS84 is used.
+   * 相机在检测地形或场景内容而不是椭球体之前必须达到的最小高度。当使用 WGS84 以外的椭球体时，默认为 scene.ellipsoid.minimumRadius * 0.025。
    * @type {number}
-   * @default 150000.0 or scene.ellipsoid.minimumRadius * 0.025
+   * @default 150000.0 或 scene.ellipsoid.minimumRadius * 0.025
    */
   this.minimumPickingTerrainHeight = Ellipsoid.WGS84.equals(ellipsoid)
     ? 150000.0
     : ellipsoid.minimumRadius * 0.025;
   this._minimumPickingTerrainHeight = this.minimumPickingTerrainHeight;
   /**
-   * The minimum distance the camera must be before testing for collision with terrain when zoom with inertia. Default to scene.ellipsoid.minimumRadius * 0.00063 when another ellipsoid than WGS84 is used.
+   * 相机在使用惯性缩放时，测试与地形碰撞之前必须保持的最小距离。当使用 WGS84 以外的椭球体时，默认为 scene.ellipsoid.minimumRadius * 0.00063。
    * @type {number}
-   * @default 4000.0 or scene.ellipsoid.minimumRadius * 0.00063
+   * @default 4000.0 或 scene.ellipsoid.minimumRadius * 0.00063
    */
   this.minimumPickingTerrainDistanceWithInertia = Ellipsoid.WGS84.equals(
     ellipsoid,
@@ -247,32 +250,32 @@ function ScreenSpaceCameraController(scene) {
     ? 4000.0
     : ellipsoid.minimumRadius * 0.00063;
   /**
-   * The minimum height the camera must be before testing for collision with terrain. Default to scene.ellipsoid.minimumRadius * 0.0025 when another ellipsoid than WGS84 is used.
+   * 相机在检测与地形碰撞之前必须达到的最小高度。当使用 WGS84 以外的椭球体时，默认为 scene.ellipsoid.minimumRadius * 0.0025。
    * @type {number}
-   * @default 15000.0 or scene.ellipsoid.minimumRadius * 0.0025.
+   * @default 15000.0 或 scene.ellipsoid.minimumRadius * 0.0025。
    */
   this.minimumCollisionTerrainHeight = Ellipsoid.WGS84.equals(ellipsoid)
     ? 15000.0
     : ellipsoid.minimumRadius * 0.0025;
   this._minimumCollisionTerrainHeight = this.minimumCollisionTerrainHeight;
   /**
-   * The minimum height the camera must be before switching from rotating a track ball to
-   * free look when clicks originate on the sky or in space. Defaults to ellipsoid.minimumRadius * 1.175 when another ellipsoid than WGS84 is used.
+   * 相机在点击发生在天空或太空时，从轨迹球旋转切换到自由视角之前必须达到的最小高度。当使用 WGS84 以外的椭球体时，默认为 ellipsoid.minimumRadius * 1.175。
    * @type {number}
-   * @default 7500000.0 or scene.ellipsoid.minimumRadius * 1.175
+   * @default 7500000.0 或 scene.ellipsoid.minimumRadius * 1.175
    */
   this.minimumTrackBallHeight = Ellipsoid.WGS84.equals(ellipsoid)
     ? 7500000.0
     : ellipsoid.minimumRadius * 1.175;
   this._minimumTrackBallHeight = this.minimumTrackBallHeight;
   /**
-   * When disabled, the values of <code>maximumZoomDistance</code> and <code>minimumZoomDistance</code> are ignored.
+   * 当禁用时，<code>maximumZoomDistance</code> 和 <code>minimumZoomDistance</code> 的值将被忽略。
    * @type {boolean}
    * @default true
    */
+
   this.enableCollisionDetection = true;
   /**
-   * The angle, relative to the ellipsoid normal, restricting the maximum amount that the user can tilt the camera. If <code>undefined</code>, the angle of the camera tilt is unrestricted.
+   * 相对于椭球体法线的角度，限制用户倾斜相机的最大量。 如果 <code>undefined</code>，则相机倾斜的角度没有限制。
    * @type {number|undefined}
    * @default undefined
    *
@@ -3070,28 +3073,26 @@ ScreenSpaceCameraController.prototype.update = function () {
 };
 
 /**
- * Returns true if this object was destroyed; otherwise, false.
+ * 如果此对象已被销毁，则返回 true；否则返回 false。
  * <br /><br />
- * If this object was destroyed, it should not be used; calling any function other than
- * <code>isDestroyed</code> will result in a {@link DeveloperError} exception.
+ * 如果此对象已被销毁，则不应使用；调用除 <code>isDestroyed</code> 以外的任何函数将导致 {@link DeveloperError} 异常。
  *
- * @returns {boolean} <code>true</code> if this object was destroyed; otherwise, <code>false</code>.
+ * @returns {boolean} 如果此对象已被销毁，则返回 <code>true</code>；否则返回 <code>false</code>。
  *
  * @see ScreenSpaceCameraController#destroy
  */
+
 ScreenSpaceCameraController.prototype.isDestroyed = function () {
   return false;
 };
 
 /**
- * Removes mouse listeners held by this object.
+ * 移除此对象持有的鼠标监听器。
  * <br /><br />
- * Once an object is destroyed, it should not be used; calling any function other than
- * <code>isDestroyed</code> will result in a {@link DeveloperError} exception.  Therefore,
- * assign the return value (<code>undefined</code>) to the object as done in the example.
+ * 一旦对象被销毁，就不应使用；调用除 <code>isDestroyed</code> 以外的任何函数将导致 {@link DeveloperError} 异常。 因此，
+ * 应将返回值（<code>undefined</code>）分配给该对象，如示例所示。
  *
- * @exception {DeveloperError} This object was destroyed, i.e., destroy() was called.
- *
+ * @exception {DeveloperError} 此对象已被销毁，即，已调用 destroy()。
  *
  * @example
  * controller = controller && controller.destroy();

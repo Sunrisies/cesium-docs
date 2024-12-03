@@ -3,11 +3,11 @@ import defined from "./defined.js";
 import DeveloperError from "./DeveloperError.js";
 
 /**
- * A vertex format defines what attributes make up a vertex.  A VertexFormat can be provided
- * to a {@link Geometry} to request that certain properties be computed, e.g., just position,
- * position and normal, etc.
+ * 顶点格式定义了构成顶点的属性。可以将VertexFormat提供给
+ * {@link Geometry}以请求计算某些属性，例如，仅位置、
+ * 位置和法线等。
  *
- * @param {object} [options] An object with boolean properties corresponding to VertexFormat properties as shown in the code example.
+ * @param {object} [options] 一个具有布尔属性的对象，对应于代码示例中所示的VertexFormat属性。
  *
  * @alias VertexFormat
  * @constructor
@@ -26,9 +26,9 @@ function VertexFormat(options) {
   options = defaultValue(options, defaultValue.EMPTY_OBJECT);
 
   /**
-   * When <code>true</code>, the vertex has a 3D position attribute.
+   * 当 <code>true</code> 时，顶点具有3D位置属性。
    * <p>
-   * 64-bit floating-point (for precision).  3 components per attribute.
+   * 64位浮点数（用于精度）。每个属性3个分量。
    * </p>
    *
    * @type {boolean}
@@ -38,9 +38,9 @@ function VertexFormat(options) {
   this.position = defaultValue(options.position, false);
 
   /**
-   * When <code>true</code>, the vertex has a normal attribute (normalized), which is commonly used for lighting.
+   * 当 <code>true</code> 时，顶点具有法线属性（归一化），通常用于照明。
    * <p>
-   * 32-bit floating-point.  3 components per attribute.
+   * 32位浮点数。每个属性3个分量。
    * </p>
    *
    * @type {boolean}
@@ -50,9 +50,9 @@ function VertexFormat(options) {
   this.normal = defaultValue(options.normal, false);
 
   /**
-   * When <code>true</code>, the vertex has a 2D texture coordinate attribute.
+   * 当 <code>true</code> 时，顶点具有2D纹理坐标属性。
    * <p>
-   * 32-bit floating-point.  2 components per attribute
+   * 32位浮点数。每个属性2个分量。
    * </p>
    *
    * @type {boolean}
@@ -62,9 +62,9 @@ function VertexFormat(options) {
   this.st = defaultValue(options.st, false);
 
   /**
-   * When <code>true</code>, the vertex has a bitangent attribute (normalized), which is used for tangent-space effects like bump mapping.
+   * 当 <code>true</code> 时，顶点具有切线属性（归一化），用于切线空间效果，如凹凸贴图。
    * <p>
-   * 32-bit floating-point.  3 components per attribute.
+   * 32位浮点数。每个属性3个分量。
    * </p>
    *
    * @type {boolean}
@@ -74,9 +74,9 @@ function VertexFormat(options) {
   this.bitangent = defaultValue(options.bitangent, false);
 
   /**
-   * When <code>true</code>, the vertex has a tangent attribute (normalized), which is used for tangent-space effects like bump mapping.
+   * 当 <code>true</code> 时，顶点具有切线属性（归一化），用于切线空间效果，如凹凸贴图。
    * <p>
-   * 32-bit floating-point.  3 components per attribute.
+   * 32位浮点数。每个属性3个分量。
    * </p>
    *
    * @type {boolean}
@@ -86,9 +86,9 @@ function VertexFormat(options) {
   this.tangent = defaultValue(options.tangent, false);
 
   /**
-   * When <code>true</code>, the vertex has an RGB color attribute.
+   * 当 <code>true</code> 时，顶点具有RGB颜色属性。
    * <p>
-   * 8-bit unsigned byte.  3 components per attribute.
+   * 8位无符号字节。每个属性3个分量。
    * </p>
    *
    * @type {boolean}
@@ -98,8 +98,9 @@ function VertexFormat(options) {
   this.color = defaultValue(options.color, false);
 }
 
+
 /**
- * An immutable vertex format with only a position attribute.
+ * 一个只有位置属性的不可变顶点格式。
  *
  * @type {VertexFormat}
  * @constant
@@ -113,8 +114,8 @@ VertexFormat.POSITION_ONLY = Object.freeze(
 );
 
 /**
- * An immutable vertex format with position and normal attributes.
- * This is compatible with per-instance color appearances like {@link PerInstanceColorAppearance}.
+ * 一个具有位置和法线属性的不可变顶点格式。
+ * 这与像 {@link PerInstanceColorAppearance} 的每实例颜色外观兼容。
  *
  * @type {VertexFormat}
  * @constant
@@ -122,6 +123,7 @@ VertexFormat.POSITION_ONLY = Object.freeze(
  * @see VertexFormat#position
  * @see VertexFormat#normal
  */
+
 VertexFormat.POSITION_AND_NORMAL = Object.freeze(
   new VertexFormat({
     position: true,
@@ -130,9 +132,8 @@ VertexFormat.POSITION_AND_NORMAL = Object.freeze(
 );
 
 /**
- * An immutable vertex format with position, normal, and st attributes.
- * This is compatible with {@link MaterialAppearance} when {@link MaterialAppearance#materialSupport}
- * is <code>TEXTURED/code>.
+ * 一个不可变的顶点格式，包含位置、法线和st属性。
+ * 当 {@link MaterialAppearance} 的 {@link MaterialAppearance#materialSupport} 为 <code>TEXTURED</code> 时，与其兼容。
  *
  * @type {VertexFormat}
  * @constant
@@ -150,8 +151,8 @@ VertexFormat.POSITION_NORMAL_AND_ST = Object.freeze(
 );
 
 /**
- * An immutable vertex format with position and st attributes.
- * This is compatible with {@link EllipsoidSurfaceAppearance}.
+ * 一个不可变的顶点格式，包含位置和st属性。
+ * 这与 {@link EllipsoidSurfaceAppearance} 兼容。
  *
  * @type {VertexFormat}
  * @constant
@@ -159,6 +160,7 @@ VertexFormat.POSITION_NORMAL_AND_ST = Object.freeze(
  * @see VertexFormat#position
  * @see VertexFormat#st
  */
+
 VertexFormat.POSITION_AND_ST = Object.freeze(
   new VertexFormat({
     position: true,
@@ -167,7 +169,7 @@ VertexFormat.POSITION_AND_ST = Object.freeze(
 );
 
 /**
- * An immutable vertex format with position and color attributes.
+ * 一个不可变的顶点格式，包含位置和颜色属性。
  *
  * @type {VertexFormat}
  * @constant
@@ -183,7 +185,7 @@ VertexFormat.POSITION_AND_COLOR = Object.freeze(
 );
 
 /**
- * An immutable vertex format with well-known attributes: position, normal, st, tangent, and bitangent.
+ * 一个不可变的顶点格式，包含众所周知的属性：位置、法线、st、切线和副切线。
  *
  * @type {VertexFormat}
  * @constant
@@ -194,6 +196,7 @@ VertexFormat.POSITION_AND_COLOR = Object.freeze(
  * @see VertexFormat#tangent
  * @see VertexFormat#bitangent
  */
+
 VertexFormat.ALL = Object.freeze(
   new VertexFormat({
     position: true,
@@ -205,10 +208,9 @@ VertexFormat.ALL = Object.freeze(
 );
 
 /**
- * An immutable vertex format with position, normal, and st attributes.
- * This is compatible with most appearances and materials; however
- * normal and st attributes are not always required.  When this is
- * known in advance, another <code>VertexFormat</code> should be used.
+ * 一个不可变的顶点格式，包含位置、法线和st属性。
+ * 这与大多数外观和材质兼容；然而，法线和st属性并不总是必需的。
+ * 当已知这一点时，应该使用另一种 <code>VertexFormat</code>。
  *
  * @type {VertexFormat}
  * @constant
@@ -216,6 +218,7 @@ VertexFormat.ALL = Object.freeze(
  * @see VertexFormat#position
  * @see VertexFormat#normal
  */
+
 VertexFormat.DEFAULT = VertexFormat.POSITION_NORMAL_AND_ST;
 
 /**
@@ -256,13 +259,14 @@ VertexFormat.pack = function (value, array, startingIndex) {
 };
 
 /**
- * 从打包数组中检索实例.
+ * 从打包数组中检索实例。
  *
- * @param {number[]} array 压缩数组.
- * @param {number} [startingIndex=0] 需要解包的元素的起始索引.
- * @param {VertexFormat} [result] 存储结果的对象.
- * @returns {VertexFormat} The modified result parameter or a new VertexFormat instance if one was not provided.
+ * @param {number[]} array 压缩数组。
+ * @param {number} [startingIndex=0] 需要解包的元素的起始索引。
+ * @param {VertexFormat} [result] 存储结果的对象。
+ * @returns {VertexFormat} 修改后的结果参数，如果未提供则返回一个新的VertexFormat实例。
  */
+
 VertexFormat.unpack = function (array, startingIndex, result) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(array)) {
@@ -286,12 +290,13 @@ VertexFormat.unpack = function (array, startingIndex, result) {
 };
 
 /**
- * Duplicates a VertexFormat instance.
+ * 复制一个VertexFormat实例。
  *
- * @param {VertexFormat} vertexFormat The vertex format to duplicate.
- * @param {VertexFormat} [result] 存储结果的对象.
- * @returns {VertexFormat} The modified result parameter or a new VertexFormat instance if one was not provided. (Returns undefined if vertexFormat is undefined)
+ * @param {VertexFormat} vertexFormat 要复制的顶点格式。
+ * @param {VertexFormat} [result] 存储结果的对象。
+ * @returns {VertexFormat} 修改后的结果参数，如果未提供则返回一个新的VertexFormat实例。（如果vertexFormat是undefined，则返回undefined）
  */
+
 VertexFormat.clone = function (vertexFormat, result) {
   if (!defined(vertexFormat)) {
     return undefined;

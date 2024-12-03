@@ -895,7 +895,7 @@ function handlePointerMove(screenSpaceEventHandler, event) {
 /**
  * @typedef {object} ScreenSpaceEventHandler.PositionedEvent
  *
- * An Event that occurs at a single position on screen.
+ * 在屏幕上某个位置发生的事件。
  *
  * @property {Cartesian2} position
  */
@@ -903,15 +903,15 @@ function handlePointerMove(screenSpaceEventHandler, event) {
 /**
  * @callback ScreenSpaceEventHandler.PositionedEventCallback
  *
- * The callback invoked when a positioned event triggers an event listener.
+ * 当定位事件触发事件监听器时调用的回调。
  *
- * @param {ScreenSpaceEventHandler.PositionedEvent} event The event which triggered the listener
+ * @param {ScreenSpaceEventHandler.PositionedEvent} event 触发监听器的事件
  */
 
 /**
  * @typedef {object} ScreenSpaceEventHandler.MotionEvent
  *
- * An Event that starts at one position and ends at another.
+ * 从一个位置开始并结束于另一个位置的事件。
  *
  * @property {Cartesian2} startPosition
  * @property {Cartesian2} endPosition
@@ -920,15 +920,15 @@ function handlePointerMove(screenSpaceEventHandler, event) {
 /**
  * @callback ScreenSpaceEventHandler.MotionEventCallback
  *
- * The callback invoked when a motion event triggers an event listener.
+ * 当运动事件触发事件监听器时调用的回调。
  *
- * @param {ScreenSpaceEventHandler.MotionEvent} event The event which triggered the listener
+ * @param {ScreenSpaceEventHandler.MotionEvent} event 触发监听器的事件
  */
 
 /**
  * @typedef {object} ScreenSpaceEventHandler.TwoPointEvent
  *
- * An Event that occurs at a two positions on screen.
+ * 在屏幕上两个位置发生的事件。
  *
  * @property {Cartesian2} position1
  * @property {Cartesian2} position2
@@ -937,15 +937,15 @@ function handlePointerMove(screenSpaceEventHandler, event) {
 /**
  * @callback ScreenSpaceEventHandler.TwoPointEventCallback
  *
- * The callback invoked when a two-point event triggers an event listener.
+ * 当双点事件触发事件监听器时调用的回调。
  *
- * @param {ScreenSpaceEventHandler.TwoPointEvent} event The event which triggered the listener
+ * @param {ScreenSpaceEventHandler.TwoPointEvent} event 触发监听器的事件
  */
 
 /**
  * @typedef {object} ScreenSpaceEventHandler.TwoPointMotionEvent
  *
- * An Event that starts at a two positions on screen and moves to two other positions.
+ * 在屏幕上从两个位置开始并移动到两个其他位置的事件。
  *
  * @property {Cartesian2} position1
  * @property {Cartesian2} position2
@@ -956,29 +956,29 @@ function handlePointerMove(screenSpaceEventHandler, event) {
 /**
  * @callback ScreenSpaceEventHandler.TwoPointMotionEventCallback
  *
- * The callback invoked when a two-point motion event triggers an event listener.
+ * 当双点运动事件触发事件监听器时调用的回调。
  *
- * @param {ScreenSpaceEventHandler.TwoPointMotionEvent} event The event which triggered the listener
+ * @param {ScreenSpaceEventHandler.TwoPointMotionEvent} event 触发监听器的事件
  */
 
 /**
  * @callback ScreenSpaceEventHandler.WheelEventCallback
  *
- * The callback invoked when a mouse-wheel event triggers an event listener.
+ * 当鼠标滚轮事件触发事件监听器时调用的回调。
  *
- * @param {number} delta The amount that the mouse wheel moved
+ * @param {number} delta 鼠标滚轮移动的距离
  */
 
 /**
- * Handles user input events. Custom functions can be added to be executed on
- * when the user enters input.
+ * 处理用户输入事件。可以添加自定义函数，在用户输入时执行。
  *
  * @alias ScreenSpaceEventHandler
  *
- * @param {HTMLCanvasElement} [element=document] The element to add events to.
+ * @param {HTMLCanvasElement} [element=document] 要添加事件的元素。
  *
  * @constructor
  */
+
 function ScreenSpaceEventHandler(element) {
   this._inputEvents = {};
   this._buttonDown = {
@@ -1013,16 +1013,16 @@ function ScreenSpaceEventHandler(element) {
 }
 
 /**
- * Set a function to be executed on an input event.
+ * 设置在输入事件发生时执行的函数。
  *
- * @param {ScreenSpaceEventHandler.PositionedEventCallback|ScreenSpaceEventHandler.MotionEventCallback|ScreenSpaceEventHandler.WheelEventCallback|ScreenSpaceEventHandler.TwoPointEventCallback|ScreenSpaceEventHandler.TwoPointMotionEventCallback} action Function to be executed when the input event occurs.
- * @param {ScreenSpaceEventType} type The ScreenSpaceEventType of input event.
- * @param {KeyboardEventModifier} [modifier] A KeyboardEventModifier key that is held when a <code>type</code>
- * event occurs.
+ * @param {ScreenSpaceEventHandler.PositionedEventCallback|ScreenSpaceEventHandler.MotionEventCallback|ScreenSpaceEventHandler.WheelEventCallback|ScreenSpaceEventHandler.TwoPointEventCallback|ScreenSpaceEventHandler.TwoPointMotionEventCallback} action 输入事件发生时要执行的函数。
+ * @param {ScreenSpaceEventType} type 输入事件的 ScreenSpaceEventType。
+ * @param {KeyboardEventModifier} [modifier] 在发生 <code>type</code> 事件时按下的 KeyboardEventModifier 键。
  *
  * @see ScreenSpaceEventHandler#getInputAction
  * @see ScreenSpaceEventHandler#removeInputAction
  */
+
 ScreenSpaceEventHandler.prototype.setInputAction = function (
   action,
   type,
@@ -1042,17 +1042,17 @@ ScreenSpaceEventHandler.prototype.setInputAction = function (
 };
 
 /**
- * Returns the function to be executed on an input event.
+ * 返回在输入事件上执行的函数。
  *
- * @param {ScreenSpaceEventType} type The ScreenSpaceEventType of input event.
- * @param {KeyboardEventModifier} [modifier] A KeyboardEventModifier key that is held when a <code>type</code>
- * event occurs.
+ * @param {ScreenSpaceEventType} type 输入事件的 ScreenSpaceEventType。
+ * @param {KeyboardEventModifier} [modifier] 在发生 <code>type</code> 事件时按下的 KeyboardEventModifier 键。
  *
- * @returns {ScreenSpaceEventHandler.PositionedEventCallback|ScreenSpaceEventHandler.MotionEventCallback|ScreenSpaceEventHandler.WheelEventCallback|ScreenSpaceEventHandler.TwoPointEventCallback|ScreenSpaceEventHandler.TwoPointMotionEventCallback} The function to be executed on an input event.
+ * @returns {ScreenSpaceEventHandler.PositionedEventCallback|ScreenSpaceEventHandler.MotionEventCallback|ScreenSpaceEventHandler.WheelEventCallback|ScreenSpaceEventHandler.TwoPointEventCallback|ScreenSpaceEventHandler.TwoPointMotionEventCallback} 在输入事件上执行的函数。
  *
  * @see ScreenSpaceEventHandler#setInputAction
  * @see ScreenSpaceEventHandler#removeInputAction
  */
+
 ScreenSpaceEventHandler.prototype.getInputAction = function (type, modifier) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(type)) {
@@ -1065,15 +1065,15 @@ ScreenSpaceEventHandler.prototype.getInputAction = function (type, modifier) {
 };
 
 /**
- * Removes the function to be executed on an input event.
+ * 移除在输入事件上执行的函数。
  *
- * @param {ScreenSpaceEventType} type The ScreenSpaceEventType of input event.
- * @param {KeyboardEventModifier} [modifier] A KeyboardEventModifier key that is held when a <code>type</code>
- * event occurs.
+ * @param {ScreenSpaceEventType} type 输入事件的 ScreenSpaceEventType。
+ * @param {KeyboardEventModifier} [modifier] 在发生 <code>type</code> 事件时按下的 KeyboardEventModifier 键。
  *
  * @see ScreenSpaceEventHandler#getInputAction
  * @see ScreenSpaceEventHandler#setInputAction
  */
+
 ScreenSpaceEventHandler.prototype.removeInputAction = function (
   type,
   modifier,
@@ -1089,28 +1089,26 @@ ScreenSpaceEventHandler.prototype.removeInputAction = function (
 };
 
 /**
- * Returns true if this object was destroyed; otherwise, false.
+ * 如果此对象已被销毁，则返回 true；否则返回 false。
  * <br /><br />
- * If this object was destroyed, it should not be used; calling any function other than
- * <code>isDestroyed</code> will result in a {@link DeveloperError} exception.
+ * 如果此对象已被销毁，则不应使用；调用除 <code>isDestroyed</code> 以外的任何函数将导致 {@link DeveloperError} 异常。
  *
- * @returns {boolean} <code>true</code> if this object was destroyed; otherwise, <code>false</code>.
+ * @returns {boolean} 如果此对象已被销毁，则返回 <code>true</code>；否则返回 <code>false</code>。
  *
  * @see ScreenSpaceEventHandler#destroy
  */
+
 ScreenSpaceEventHandler.prototype.isDestroyed = function () {
   return false;
 };
 
 /**
- * Removes listeners held by this object.
+ * 移除此对象持有的监听器。
  * <br /><br />
- * Once an object is destroyed, it should not be used; calling any function other than
- * <code>isDestroyed</code> will result in a {@link DeveloperError} exception.  Therefore,
- * assign the return value (<code>undefined</code>) to the object as done in the example.
+ * 一旦对象被销毁，就不应使用；调用除 <code>isDestroyed</code> 以外的任何函数将导致 {@link DeveloperError} 异常。 因此，
+ * 应将返回值（<code>undefined</code>）分配给该对象，如示例所示。
  *
- * @exception {DeveloperError} This object was destroyed, i.e., destroy() was called.
- *
+ * @exception {DeveloperError} 此对象已被销毁，即，已调用 destroy()。
  *
  * @example
  * handler = handler && handler.destroy();
@@ -1124,18 +1122,17 @@ ScreenSpaceEventHandler.prototype.destroy = function () {
 };
 
 /**
- * The amount of time, in milliseconds, that mouse events will be disabled after
- * receiving any touch events, such that any emulated mouse events will be ignored.
+ * 接收到触摸事件后，将禁用鼠标事件的时间，单位为毫秒，以便忽略任何模拟的鼠标事件。
  * @type {number}
  * @default 800
  */
 ScreenSpaceEventHandler.mouseEmulationIgnoreMilliseconds = 800;
 
 /**
- * The amount of time, in milliseconds, before a touch on the screen becomes a
- * touch and hold.
+ * 在屏幕上触摸后，经过多长时间变为触摸并保持的时间，单位为毫秒。
  * @type {number}
  * @default 1500
  */
+
 ScreenSpaceEventHandler.touchHoldDelayMilliseconds = 1500;
 export default ScreenSpaceEventHandler;

@@ -4,7 +4,7 @@ import createWorldBathymetryAsync from "../Core/createWorldBathymetryAsync.js";
 import createWorldTerrainAsync from "../Core/createWorldTerrainAsync.js";
 
 /**
- * A helper to manage async operations of a terrain provider.
+ * 一个帮助管理地形提供者的异步操作的助手。
  *
  * @alias Terrain
  * @constructor
@@ -55,9 +55,9 @@ function Terrain(terrainProviderPromise) {
 
 Object.defineProperties(Terrain.prototype, {
   /**
-   * Gets an event that is raised when the terrain provider encounters an asynchronous error.  By subscribing
-   * to the event, you will be notified of the error and can potentially recover from it.  Event listeners
-   * are passed an instance of the thrown error.
+   * 获取一个事件，当地形提供者遇到异步错误时会引发该事件。通过订阅
+   * 此事件，您将收到错误通知，并可能从中恢复。事件监听器
+   * 会传递引发的错误的实例。
    * @memberof Terrain.prototype
    * @type {Event<Terrain.ErrorEventCallback>}
    * @readonly
@@ -69,8 +69,8 @@ Object.defineProperties(Terrain.prototype, {
   },
 
   /**
-   * Gets an event that is raised when the terrain provider has been successfully created. Event listeners
-   * are passed the created instance of {@link TerrainProvider}.
+   * 获取一个事件，当地形提供者成功创建时会引发该事件。事件监听器
+   * 会传递创建的 {@link TerrainProvider} 实例。
    * @memberof Terrain.prototype
    * @type {Event<Terrain.ReadyEventCallback>}
    * @readonly
@@ -82,7 +82,7 @@ Object.defineProperties(Terrain.prototype, {
   },
 
   /**
-   * Returns true when the terrain provider has been successfully created. Otherwise, returns false.
+   * 当地形提供者成功创建时返回 true。否则返回 false。
    * @memberof Terrain.prototype
    *
    * @type {boolean}
@@ -95,7 +95,7 @@ Object.defineProperties(Terrain.prototype, {
   },
 
   /**
-   * The terrain provider providing surface geometry to a globe. Do not use until {@link Terrain.readyEvent} is raised.
+   * 提供地球表面几何的地形提供者。在 {@link Terrain.readyEvent} 被引发之前请勿使用。
    * @memberof Terrain.prototype
    *
    * @type {TerrainProvider}
@@ -107,15 +107,16 @@ Object.defineProperties(Terrain.prototype, {
     },
   },
 });
+
 /**
- * Creates a {@link Terrain} instance for {@link https://cesium.com/content/#cesium-world-terrain|Cesium World Terrain}.
+ * 为 {@link https://cesium.com/content/#cesium-world-terrain|Cesium World Terrain} 创建一个 {@link Terrain} 实例。
  *
  * @function
  *
- * @param {Object} [options] Object with the following properties:
- * @param {Boolean} [options.requestVertexNormals=false] Flag that indicates if the client should request additional lighting information from the server if available.
- * @param {Boolean} [options.requestWaterMask=false] Flag that indicates if the client should request per tile water masks from the server if available.
- * @returns {Terrain} An asynchronous helper object for a CesiumTerrainProvider
+ * @param {Object} [options] 包含以下属性的对象：
+ * @param {Boolean} [options.requestVertexNormals=false] 标志，指示客户端是否应从服务器请求额外的光照信息（如果可用）。
+ * @param {Boolean} [options.requestWaterMask=false] 标志，指示客户端是否应从服务器请求每个瓦片的水面遮罩（如果可用）。
+ * @returns {Terrain} 一个用于 CesiumTerrainProvider 的异步助手对象。
  *
  * @see Ion
  * @see createWorldTerrainAsync
@@ -158,13 +159,13 @@ Terrain.fromWorldTerrain = function (options) {
 };
 
 /**
- * Creates a {@link Terrain} instance for {@link https://cesium.com/content/#cesium-world-bathymetry|Cesium World Bathymetry}.
+ * 为 {@link https://cesium.com/content/#cesium-world-bathymetry|Cesium World Bathymetry} 创建一个 {@link Terrain} 实例。
  *
  * @function
  *
- * @param {Object} [options] Object with the following properties:
- * @param {Boolean} [options.requestVertexNormals=false] Flag that indicates if the client should request additional lighting information from the server if available.
- * @returns {Terrain} An asynchronous helper object for a CesiumTerrainProvider
+ * @param {Object} [options] 包含以下属性的对象：
+ * @param {Boolean} [options.requestVertexNormals=false] 标志，指示客户端是否应从服务器请求额外的光照信息（如果可用）。
+ * @returns {Terrain} 一个用于 CesiumTerrainProvider 的异步助手对象。
  *
  * @see Ion
  * @see createWorldBathymetryAsync
@@ -229,17 +230,18 @@ async function handlePromise(instance, promise) {
 export default Terrain;
 
 /**
- * A function that is called when an error occurs.
+ * 当发生错误时调用的函数。
  * @callback Terrain.ErrorEventCallback
  *
  * @this Terrain
- * @param {Error} err An object holding details about the error that occurred.
+ * @param {Error} err 一个包含发生错误详细信息的对象。
  */
 
 /**
- * A function that is called when the provider has been created
+ * 当提供者被创建时调用的函数。
  * @callback Terrain.ReadyEventCallback
  *
  * @this Terrain
- * @param {TerrainProvider} provider The created terrain provider.
+ * @param {TerrainProvider} provider 创建的地形提供者。
  */
+

@@ -1,11 +1,11 @@
 import DeveloperError from "./DeveloperError.js";
 
 /**
- * A tiling scheme for geometry or imagery on the surface of an ellipsoid.  At level-of-detail zero,
- * the coarsest, least-detailed level, the number of tiles is configurable.
- * At level of detail one, each of the level zero tiles has four children, two in each direction.
- * At level of detail two, each of the level one tiles has four children, two in each direction.
- * This continues for as many levels as are present in the geometry or imagery source.
+ * 用于椭球体表面几何形状或影像的瓦片方案。在细节级别零时，
+ * 最粗糙、最低细节的级别，瓦片的数量是可配置的。
+ * 在细节级别一时，每个零级瓦片有四个子瓦片，两个方向各有两个。
+ * 在细节级别二时，每个一级瓦片也有四个子瓦片，两个方向各有两个。
+ * 这种情况会持续到几何形状或影像源中所包含的所有级别。
  *
  * @alias TilingScheme
  * @constructor
@@ -13,6 +13,7 @@ import DeveloperError from "./DeveloperError.js";
  * @see WebMercatorTilingScheme
  * @see GeographicTilingScheme
  */
+
 function TilingScheme(options) {
   //>>includeStart('debug', pragmas.debug);
   throw new DeveloperError(
@@ -23,7 +24,7 @@ function TilingScheme(options) {
 
 Object.defineProperties(TilingScheme.prototype, {
   /**
-   * Gets the ellipsoid that is tiled by the tiling scheme.
+   * 获取由瓦片方案覆盖的椭球体。
    * @memberof TilingScheme.prototype
    * @type {Ellipsoid}
    */
@@ -32,7 +33,7 @@ Object.defineProperties(TilingScheme.prototype, {
   },
 
   /**
-   * Gets the rectangle, in radians, covered by this tiling scheme.
+   * 获取此瓦片方案覆盖的矩形（单位为弧度）。
    * @memberof TilingScheme.prototype
    * @type {Rectangle}
    */
@@ -41,7 +42,7 @@ Object.defineProperties(TilingScheme.prototype, {
   },
 
   /**
-   * Gets the map projection used by the tiling scheme.
+   * 获取瓦片方案使用的地图投影。
    * @memberof TilingScheme.prototype
    * @type {MapProjection}
    */
@@ -50,83 +51,77 @@ Object.defineProperties(TilingScheme.prototype, {
   },
 });
 
+
 /**
- * Gets the total number of tiles in the X direction at a specified level-of-detail.
+ * 获取指定细节级别下X方向瓦片的总数。
  * @function
  *
- * @param {number} level The level-of-detail.
- * @returns {number} The number of tiles in the X direction at the given level.
+ * @param {number} level 细节级别。
+ * @returns {number} 给定级别下X方向的瓦片数量。
  */
 TilingScheme.prototype.getNumberOfXTilesAtLevel =
   DeveloperError.throwInstantiationError;
 
 /**
- * Gets the total number of tiles in the Y direction at a specified level-of-detail.
+ * 获取指定细节级别下Y方向瓦片的总数。
  * @function
  *
- * @param {number} level The level-of-detail.
- * @returns {number} The number of tiles in the Y direction at the given level.
+ * @param {number} level 细节级别。
+ * @returns {number} 给定级别下Y方向的瓦片数量。
  */
 TilingScheme.prototype.getNumberOfYTilesAtLevel =
   DeveloperError.throwInstantiationError;
 
 /**
- * Transforms a rectangle specified in geodetic radians to the native coordinate system
- * of this tiling scheme.
+ * 将以大地坐标弧度指定的矩形转换为此瓦片方案的本地坐标系统。
  * @function
  *
- * @param {Rectangle} rectangle The rectangle to transform.
- * @param {Rectangle} [result] The instance to which to copy the result, or undefined if a new instance
- *        should be created.
- * @returns {Rectangle} The specified 'result', or a new object containing the native rectangle if 'result'
- *          is undefined.
+ * @param {Rectangle} rectangle 要转换的矩形。
+ * @param {Rectangle} [result] 用于复制结果的实例，如果需要创建一个新实例，则为undefined。
+ * @returns {Rectangle} 指定的'result'，或者如果'result'
+ *          为undefined，则返回一个包含本地矩形的新对象。
  */
+
 TilingScheme.prototype.rectangleToNativeRectangle =
   DeveloperError.throwInstantiationError;
 
 /**
- * Converts tile x, y coordinates and level to a rectangle expressed in the native coordinates
- * of the tiling scheme.
+ * 将瓦片x，y坐标和级别转换为以瓦片方案的本地坐标表示的矩形。
  * @function
  *
- * @param {number} x The integer x coordinate of the tile.
- * @param {number} y The integer y coordinate of the tile.
- * @param {number} level The tile level-of-detail.  Zero is the least detailed.
- * @param {object} [result] The instance to which to copy the result, or undefined if a new instance
- *        should be created.
- * @returns {Rectangle} The specified 'result', or a new object containing the rectangle
- *          if 'result' is undefined.
+ * @param {number} x 瓦片的整数x坐标。
+ * @param {number} y 瓦片的整数y坐标。
+ * @param {number} level 瓦片的细节级别。零是最低细节。
+ * @param {object} [result] 用于复制结果的实例，如果需要创建一个新实例，则为undefined。
+ * @returns {Rectangle} 指定的'result'，或者如果'result'为undefined，则返回一个包含矩形的新对象。
  */
 TilingScheme.prototype.tileXYToNativeRectangle =
   DeveloperError.throwInstantiationError;
 
 /**
- * Converts tile x, y coordinates and level to a cartographic rectangle in radians.
+ * 将瓦片x，y坐标和级别转换为以弧度表示的地理矩形。
  * @function
  *
- * @param {number} x The integer x coordinate of the tile.
- * @param {number} y The integer y coordinate of the tile.
- * @param {number} level The tile level-of-detail.  Zero is the least detailed.
- * @param {object} [result] The instance to which to copy the result, or undefined if a new instance
- *        should be created.
- * @returns {Rectangle} The specified 'result', or a new object containing the rectangle
- *          if 'result' is undefined.
+ * @param {number} x 瓦片的整数x坐标。
+ * @param {number} y 瓦片的整数y坐标。
+ * @param {number} level 瓦片的细节级别。零是最低细节。
+ * @param {object} [result] 用于复制结果的实例，如果需要创建一个新实例，则为undefined。
+ * @returns {Rectangle} 指定的'result'，或者如果'result'为undefined，则返回一个包含矩形的新对象。
  */
+
 TilingScheme.prototype.tileXYToRectangle =
   DeveloperError.throwInstantiationError;
 
 /**
- * Calculates the tile x, y coordinates of the tile containing
- * a given cartographic position.
+ * 计算包含给定地理位置的瓦片的x，y坐标。
  * @function
  *
- * @param {Cartographic} position The position.
- * @param {number} level The tile level-of-detail.  Zero is the least detailed.
- * @param {Cartesian2} [result] The instance to which to copy the result, or undefined if a new instance
- *        should be created.
- * @returns {Cartesian2} The specified 'result', or a new object containing the tile x, y coordinates
- *          if 'result' is undefined.
+ * @param {Cartographic} position 位置。
+ * @param {number} level 瓦片的细节级别。零是最低细节。
+ * @param {Cartesian2} [result] 用于复制结果的实例，如果需要创建一个新实例，则为undefined。
+ * @returns {Cartesian2} 指定的'result'，或者如果'result'为undefined，则返回一个包含瓦片x，y坐标的新对象。
  */
+
 TilingScheme.prototype.positionToTileXY =
   DeveloperError.throwInstantiationError;
 export default TilingScheme;

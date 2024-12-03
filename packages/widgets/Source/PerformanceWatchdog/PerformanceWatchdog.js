@@ -8,18 +8,18 @@ import knockout from "../ThirdParty/knockout.js";
 import PerformanceWatchdogViewModel from "./PerformanceWatchdogViewModel.js";
 
 /**
- * Monitors performance of the application and displays a message if poor performance is detected.
+ * 监控应用程序的性能，如果检测到性能较差，则显示消息。
  *
  * @alias PerformanceWatchdog
  * @constructor
  *
- * @param {object} [options] Object with the following properties:
- * @param {Element|string} options.container 包含小部件的 DOM 元素或 ID.
- * @param {Scene} options.scene The {@link Scene} for which to monitor performance.
- * @param {string} [options.lowFrameRateMessage='This application appears to be performing poorly on your system.  Please try using a different web browser or updating your video drivers.'] The
- *        message to display when a low frame rate is detected.  The message is interpeted as HTML, so make sure
- *        it comes from a trusted source so that your application is not vulnerable to cross-site scripting attacks.
+ * @param {object} [options] 带有以下属性的对象：
+ * @param {Element|string} options.container 包含小部件的 DOM 元素或 ID。
+ * @param {Scene} options.scene 要监控性能的 {@link Scene}。
+ * @param {string} [options.lowFrameRateMessage='此应用程序在您的系统上似乎表现不佳。请尝试使用其他网络浏览器或更新您的视频驱动程序。'] 
+ *        检测到低帧率时要显示的消息。该消息被解释为 HTML，因此请确保它来自可信来源，以便您的应用程序不会受到跨站脚本攻击的威胁。
  */
+
 function PerformanceWatchdog(options) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(options) || !defined(options.container)) {

@@ -3,32 +3,33 @@ import Check from "../../../../Core/Check.js";
 /**
  * @typedef {object} Spdcf.ConstructorOptions
  *
- * Initialization options for the Spdcf constructor
+ * Spdcf 构造函数的初始化选项
  *
- * @property {number} A The factor A, in (0, 1]
- * @property {number} alpha The alpha value, in [0, 1)
- * @property {number} beta The beta value, in [0, 10]
- * @property {number} T the tau value, in (0, +inf)
+ * @property {number} A 因子 A，取值范围 (0, 1]
+ * @property {number} alpha alpha 值，取值范围 [0, 1)
+ * @property {number} beta beta 值，取值范围 [0, 10]
+ * @property {number} T tau 值，取值范围 (0, +inf)
  */
 
 /**
- * Variables for a Strictly Positive-Definite Correlation Function.
+ * 严格正定相关函数的变量。
  *
- * This reflects the `spdcf` definition of the
- * {@link https://nsgreg.nga.mil/csmwg.jsp|NGA_gpm_local} glTF extension.
- * Instances of this type are stored as the parameters within a
- * `CorrelationGroup`.
+ * 这反映了 `spdcf` 定义的
+ * {@link https://nsgreg.nga.mil/csmwg.jsp|NGA_gpm_local} glTF 扩展。
+ * 该类型的实例作为参数存储在
+ * `CorrelationGroup` 中。
  *
- * Parameters (A, alpha, beta, T) describe the correlation decrease
- * between points as a function of delta time:
+ * 参数 (A, alpha, beta, T) 描述了点之间的相关性减少
+ * 随时间增量的函数：
  * ```
  * spdcf(delta_t) = A_t * (alpha_t + ((1 - alpha_t)(1 + beta_t)) / (beta_t + e^(delta_t/T_t)))
  * ```
  *
  * @constructor
- * @param {Spdcf.ConstructorOptions} options An object describing initialization options
- * @experimental 该功能尚未最终确定，可能会根据 Cesium 的标准弃用政策而发生变化
+ * @param {Spdcf.ConstructorOptions} options 描述初始化选项的对象
+ * @experimental 此功能尚未最终确定，可能会根据 Cesium 的标准弃用政策而发生变化
  */
+
 function Spdcf(options) {
   //>>includeStart('debug', pragmas.debug);
   Check.typeOf.number.greaterThan("options.A", options.A, 0.0);

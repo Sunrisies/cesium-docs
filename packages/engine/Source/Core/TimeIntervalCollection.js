@@ -14,12 +14,13 @@ function compareIntervalStartTimes(left, right) {
 }
 
 /**
- * A non-overlapping collection of {@link TimeInterval} instances sorted by start time.
+ * 一个不重叠的 {@link TimeInterval} 实例集合，按开始时间排序。
  * @alias TimeIntervalCollection
  * @constructor
  *
- * @param {TimeInterval[]} [intervals] An array of intervals to add to the collection.
+ * @param {TimeInterval[]} [intervals] 要添加到集合的区间数组。
  */
+
 function TimeIntervalCollection(intervals) {
   this._intervals = [];
   this._changedEvent = new Event();
@@ -34,7 +35,7 @@ function TimeIntervalCollection(intervals) {
 
 Object.defineProperties(TimeIntervalCollection.prototype, {
   /**
-   * Gets an event that is raised whenever the collection of intervals change.
+   * 获取每当区间集合发生变化时触发的事件。
    * @memberof TimeIntervalCollection.prototype
    * @type {Event}
    * @readonly
@@ -46,7 +47,7 @@ Object.defineProperties(TimeIntervalCollection.prototype, {
   },
 
   /**
-   * Gets the start time of the collection.
+   * 获取集合的开始时间。
    * @memberof TimeIntervalCollection.prototype
    * @type {JulianDate}
    * @readonly
@@ -59,7 +60,7 @@ Object.defineProperties(TimeIntervalCollection.prototype, {
   },
 
   /**
-   * Gets whether or not the start time is included in the collection.
+   * 获取开始时间是否包含在集合中。
    * @memberof TimeIntervalCollection.prototype
    * @type {boolean}
    * @readonly
@@ -72,7 +73,7 @@ Object.defineProperties(TimeIntervalCollection.prototype, {
   },
 
   /**
-   * Gets the stop time of the collection.
+   * 获取集合的结束时间。
    * @memberof TimeIntervalCollection.prototype
    * @type {JulianDate}
    * @readonly
@@ -86,7 +87,7 @@ Object.defineProperties(TimeIntervalCollection.prototype, {
   },
 
   /**
-   * Gets whether or not the stop time is included in the collection.
+   * 获取结束时间是否包含在集合中。
    * @memberof TimeIntervalCollection.prototype
    * @type {boolean}
    * @readonly
@@ -100,7 +101,7 @@ Object.defineProperties(TimeIntervalCollection.prototype, {
   },
 
   /**
-   * Gets the number of intervals in the collection.
+   * 获取集合中的区间数量。
    * @memberof TimeIntervalCollection.prototype
    * @type {number}
    * @readonly
@@ -112,7 +113,7 @@ Object.defineProperties(TimeIntervalCollection.prototype, {
   },
 
   /**
-   * Gets whether or not the collection is empty.
+   * 获取集合是否为空。
    * @memberof TimeIntervalCollection.prototype
    * @type {boolean}
    * @readonly
@@ -124,14 +125,16 @@ Object.defineProperties(TimeIntervalCollection.prototype, {
   },
 });
 
+
 /**
- * Compares this instance against the provided instance componentwise and returns
- * 如果相等则为 <code>true</code>，否则为 <code>false</code>
+ * 将此实例与提供的实例逐个比较，并返回
+ * 如果相等则为 <code>true</code>，否则为 <code>false</code>。
  *
- * @param {TimeIntervalCollection} [right] The right hand side collection.
- * @param {TimeInterval.DataComparer} [dataComparer] A function which compares the data of the two intervals.  If omitted, reference equality is used.
- * @returns {boolean} 如果相等则为 <code>true</code>，否则为 <code>false</code>
+ * @param {TimeIntervalCollection} [right] 右侧集合。
+ * @param {TimeInterval.DataComparer} [dataComparer] 一个比较两个区间数据的函数。如果省略，则使用引用相等性。
+ * @returns {boolean} 如果相等则为 <code>true</code>，否则为 <code>false</code>。
  */
+
 TimeIntervalCollection.prototype.equals = function (right, dataComparer) {
   if (this === right) {
     return true;
@@ -154,10 +157,10 @@ TimeIntervalCollection.prototype.equals = function (right, dataComparer) {
 };
 
 /**
- * Gets the interval at the specified index.
+ * 获取指定索引处的区间。
  *
- * @param {number} index The index of the interval to retrieve.
- * @returns {TimeInterval|undefined} The interval at the specified index, or <code>undefined</code> if no interval exists as that index.
+ * @param {number} index 要检索的区间的索引。
+ * @returns {TimeInterval|undefined} 指定索引处的区间，如果该索引没有区间，则返回 <code>undefined</code>。
  */
 TimeIntervalCollection.prototype.get = function (index) {
   //>>includeStart('debug', pragmas.debug);
@@ -170,8 +173,9 @@ TimeIntervalCollection.prototype.get = function (index) {
 };
 
 /**
- * Removes all intervals from the collection.
+ * 从集合中移除所有区间。
  */
+
 TimeIntervalCollection.prototype.removeAll = function () {
   if (this._intervals.length > 0) {
     this._intervals.length = 0;
@@ -180,10 +184,10 @@ TimeIntervalCollection.prototype.removeAll = function () {
 };
 
 /**
- * Finds and returns the interval that contains the specified date.
+ * 查找并返回包含指定日期的区间。
  *
- * @param {JulianDate} date The date to search for.
- * @returns {TimeInterval|undefined} The interval containing the specified date, <code>undefined</code> if no such interval exists.
+ * @param {JulianDate} date 要搜索的日期。
+ * @returns {TimeInterval|undefined} 包含指定日期的区间，如果没有这样的区间，则返回 <code>undefined</code>。
  */
 TimeIntervalCollection.prototype.findIntervalContainingDate = function (date) {
   const index = this.indexOf(date);
@@ -191,11 +195,12 @@ TimeIntervalCollection.prototype.findIntervalContainingDate = function (date) {
 };
 
 /**
- * Finds and returns the data for the interval that contains the specified date.
+ * 查找并返回包含指定日期的区间的数据。
  *
- * @param {JulianDate} date The date to search for.
- * @returns {object} The data for the interval containing the specified date, or <code>undefined</code> if no such interval exists.
+ * @param {JulianDate} date 要搜索的日期。
+ * @returns {object} 包含指定日期的区间的数据，如果没有这样的区间，则返回 <code>undefined</code>。
  */
+
 TimeIntervalCollection.prototype.findDataForIntervalContainingDate = function (
   date,
 ) {
@@ -204,10 +209,10 @@ TimeIntervalCollection.prototype.findDataForIntervalContainingDate = function (
 };
 
 /**
- * Checks if the specified date is inside this collection.
+ * 检查指定日期是否在此集合内。
  *
- * @param {JulianDate} julianDate The date to check.
- * @returns {boolean} <code>true</code> if the collection contains the specified date, <code>false</code> otherwise.
+ * @param {JulianDate} julianDate 要检查的日期。
+ * @returns {boolean} 如果集合包含指定日期，则为 <code>true</code>；否则为 <code>false</code>。
  */
 TimeIntervalCollection.prototype.contains = function (julianDate) {
   return this.indexOf(julianDate) >= 0;
@@ -216,14 +221,13 @@ TimeIntervalCollection.prototype.contains = function (julianDate) {
 const indexOfScratch = new TimeInterval();
 
 /**
- * Finds and returns the index of the interval in the collection that contains the specified date.
+ * 查找并返回包含指定日期的区间在集合中的索引。
  *
- * @param {JulianDate} date The date to search for.
- * @returns {number} The index of the interval that contains the specified date, if no such interval exists,
- * it returns a negative number which is the bitwise complement of the index of the next interval that
- * starts after the date, or if no interval starts after the specified date, the bitwise complement of
- * the length of the collection.
+ * @param {JulianDate} date 要搜索的日期。
+ * @returns {number} 包含指定日期的区间的索引，如果没有这样的区间，
+ * 返回一个负数，该负数是下一个在日期之后开始的区间索引的按位补码；如果没有区间在指定日期之后开始，则返回集合长度的按位补码。
  */
+
 TimeIntervalCollection.prototype.indexOf = function (date) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(date)) {
@@ -266,16 +270,17 @@ TimeIntervalCollection.prototype.indexOf = function (date) {
 };
 
 /**
- * Returns the first interval in the collection that matches the specified parameters.
- * All parameters are optional and <code>undefined</code> parameters are treated as a don't care condition.
+ * 返回集合中第一个匹配指定参数的区间。
+ * 所有参数都是可选的，<code>undefined</code> 参数被视为不关心条件。
  *
- * @param {object} [options] Object with the following properties:
- * @param {JulianDate} [options.start] The start time of the interval.
- * @param {JulianDate} [options.stop] The stop time of the interval.
- * @param {boolean} [options.isStartIncluded] <code>true</code> if <code>options.start</code> is included in the interval, <code>false</code> otherwise.
- * @param {boolean} [options.isStopIncluded] <code>true</code> if <code>options.stop</code> is included in the interval, <code>false</code> otherwise.
- * @returns {TimeInterval|undefined} The first interval in the collection that matches the specified parameters.
+ * @param {object} [options] 具有以下属性的对象：
+ * @param {JulianDate} [options.start] 区间的开始时间。
+ * @param {JulianDate} [options.stop] 区间的结束时间。
+ * @param {boolean} [options.isStartIncluded] 如果 <code>options.start</code> 包含在区间内，则为 <code>true</code>；否则为 <code>false</code>。
+ * @param {boolean} [options.isStopIncluded] 如果 <code>options.stop</code> 包含在区间内，则为 <code>true</code>；否则为 <code>false</code>。
+ * @returns {TimeInterval|undefined} 集合中第一个匹配指定参数的区间。
  */
+
 TimeIntervalCollection.prototype.findInterval = function (options) {
   options = defaultValue(options, defaultValue.EMPTY_OBJECT);
   const start = options.start;
@@ -300,13 +305,14 @@ TimeIntervalCollection.prototype.findInterval = function (options) {
 };
 
 /**
- * Adds an interval to the collection, merging intervals that contain the same data and
- * splitting intervals of different data as needed in order to maintain a non-overlapping collection.
- * The data in the new interval takes precedence over any existing intervals in the collection.
+ * 将一个区间添加到集合中，合并包含相同数据的区间，
+ * 并在需要时拆分不同数据的区间，以保持一个不重叠的集合。
+ * 新区间中的数据优先于集合中任何现有区间的数据。
  *
- * @param {TimeInterval} interval The interval to add.
- * @param {TimeInterval.DataComparer} [dataComparer] A function which compares the data of the two intervals.  If omitted, reference equality is used.
+ * @param {TimeInterval} interval 要添加的区间。
+ * @param {TimeInterval.DataComparer} [dataComparer] 一个比较两个区间数据的函数。如果省略，则使用引用相等性。
  */
+
 TimeIntervalCollection.prototype.addInterval = function (
   interval,
   dataComparer,
@@ -501,12 +507,13 @@ TimeIntervalCollection.prototype.addInterval = function (
 };
 
 /**
- * Removes the specified interval from this interval collection, creating a hole over the specified interval.
- * The data property of the input interval is ignored.
+ * 从此区间集合中移除指定的区间，在指定区间上创建一个空洞。
+ * 输入区间的数据属性将被忽略。
  *
- * @param {TimeInterval} interval The interval to remove.
- * @returns {boolean} <code>true</code> if the interval was removed, <code>false</code> if no part of the interval was in the collection.
+ * @param {TimeInterval} interval 要移除的区间。
+ * @returns {boolean} 如果区间被移除，则返回 <code>true</code>；如果该区间没有部分在集合中，则返回 <code>false</code>。
  */
+
 TimeIntervalCollection.prototype.removeInterval = function (interval) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(interval)) {
@@ -661,13 +668,14 @@ TimeIntervalCollection.prototype.removeInterval = function (interval) {
 };
 
 /**
- * Creates a new instance that is the intersection of this collection and the provided collection.
+ * 创建一个新实例，该实例是此集合与提供的集合的交集。
  *
- * @param {TimeIntervalCollection} other The collection to intersect with.
- * @param {TimeInterval.DataComparer} [dataComparer] A function which compares the data of the two intervals.  If omitted, reference equality is used.
- * @param {TimeInterval.MergeCallback} [mergeCallback] A function which merges the data of the two intervals. If omitted, the data from the left interval will be used.
- * @returns {TimeIntervalCollection} A new TimeIntervalCollection which is the intersection of this collection and the provided collection.
+ * @param {TimeIntervalCollection} other 要与之交集的集合。
+ * @param {TimeInterval.DataComparer} [dataComparer] 一个比较两个区间数据的函数。如果省略，则使用引用相等性。
+ * @param {TimeInterval.MergeCallback} [mergeCallback] 一个合并两个区间数据的函数。如果省略，将使用左侧区间的数据。
+ * @returns {TimeIntervalCollection} 一个新创建的 TimeIntervalCollection，该集合是此集合与提供的集合的交集。
  */
+
 TimeIntervalCollection.prototype.intersect = function (
   other,
   dataComparer,
@@ -729,18 +737,19 @@ TimeIntervalCollection.prototype.intersect = function (
 };
 
 /**
- * Creates a new instance from a JulianDate array.
+ * 从 JulianDate 数组创建一个新实例。
  *
- * @param {object} options Object with the following properties:
- * @param {JulianDate[]} options.julianDates An array of ISO 8601 dates.
- * @param {boolean} [options.isStartIncluded=true] <code>true</code> if start time is included in the interval, <code>false</code> otherwise.
- * @param {boolean} [options.isStopIncluded=true] <code>true</code> if stop time is included in the interval, <code>false</code> otherwise.
- * @param {boolean} [options.leadingInterval=false] <code>true</code> if you want to add a interval from Iso8601.MINIMUM_VALUE to start time,  <code>false</code> otherwise.
- * @param {boolean} [options.trailingInterval=false] <code>true</code> if you want to add a interval from stop time to Iso8601.MAXIMUM_VALUE,  <code>false</code> otherwise.
- * @param {Function} [options.dataCallback] A function that will be return the data that is called with each interval before it is added to the collection. If unspecified, the data will be the index in the collection.
- * @param {TimeIntervalCollection} [result] An existing instance to use for the result.
- * @returns {TimeIntervalCollection} The modified result parameter or a new instance if none was provided.
+ * @param {object} options 具有以下属性的对象：
+ * @param {JulianDate[]} options.julianDates 一组 ISO 8601 日期的数组。
+ * @param {boolean} [options.isStartIncluded=true] 如果开始时间包含在区间内，则为 <code>true</code>；否则为 <code>false</code>。
+ * @param {boolean} [options.isStopIncluded=true] 如果结束时间包含在区间内，则为 <code>true</code>；否则为 <code>false</code>。
+ * @param {boolean} [options.leadingInterval=false] 如果要添加一个从 Iso8601.MINIMUM_VALUE 到开始时间的区间，则为 <code>true</code>；否则为 <code>false</code>。
+ * @param {boolean} [options.trailingInterval=false] 如果要添加一个从结束时间到 Iso8601.MAXIMUM_VALUE 的区间，则为 <code>true</code>；否则为 <code>false</code>。
+ * @param {Function} [options.dataCallback] 一个返回数据的函数，该函数在每个区间被添加到集合之前被调用。如果未指定，则数据将是集合中的索引。
+ * @param {TimeIntervalCollection} [result] 用于结果的现有实例。
+ * @returns {TimeIntervalCollection} 修改后的结果参数，或者如果未提供则返回一个新实例。
  */
+
 TimeIntervalCollection.fromJulianDateArray = function (options, result) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(options)) {
@@ -819,15 +828,16 @@ const scratchGregorianDate = new GregorianDate();
 const monthLengths = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
 /**
- * Adds duration represented as a GregorianDate to a JulianDate
+ * 将以 GregorianDate 表示的持续时间添加到 JulianDate。
  *
- * @param {JulianDate} julianDate The date.
- * @param {GregorianDate} duration An duration represented as a GregorianDate.
- * @param {JulianDate} result An existing instance to use for the result.
- * @returns {JulianDate} 修改的结果参数
+ * @param {JulianDate} julianDate 日期。
+ * @param {GregorianDate} duration 作为 GregorianDate 表示的持续时间。
+ * @param {JulianDate} result 用于结果的现有实例。
+ * @returns {JulianDate} 修改后的结果参数。
  *
  * @private
  */
+
 function addToDate(julianDate, duration, result) {
   if (!defined(result)) {
     result = new JulianDate();
@@ -897,14 +907,15 @@ const durationRegex =
   /P(?:([\d.,]+)Y)?(?:([\d.,]+)M)?(?:([\d.,]+)W)?(?:([\d.,]+)D)?(?:T(?:([\d.,]+)H)?(?:([\d.,]+)M)?(?:([\d.,]+)S)?)?/;
 
 /**
- * Parses ISO8601 duration string
+ * 解析 ISO8601 持续时间字符串。
  *
- * @param {string} iso8601 An ISO 8601 duration.
- * @param {GregorianDate} result An existing instance to use for the result.
- * @returns {boolean} True is parsing succeeded, false otherwise
+ * @param {string} iso8601 一个 ISO 8601 持续时间。
+ * @param {GregorianDate} result 用于结果的现有实例。
+ * @returns {boolean} 解析成功返回 true，失败则返回 false。
  *
  * @private
  */
+
 function parseDuration(iso8601, result) {
   if (!defined(iso8601) || iso8601.length === 0) {
     return false;
@@ -980,18 +991,19 @@ function parseDuration(iso8601, result) {
 
 const scratchDuration = new GregorianDate();
 /**
- * Creates a new instance from an {@link http://en.wikipedia.org/wiki/ISO_8601|ISO 8601} time interval (start/end/duration).
+ * 从 {@link http://en.wikipedia.org/wiki/ISO_8601|ISO 8601} 时间区间（开始/结束/持续时间）创建一个新实例。
  *
- * @param {object} options Object with the following properties:
- * @param {string} options.iso8601 An ISO 8601 interval.
- * @param {boolean} [options.isStartIncluded=true] <code>true</code> if start time is included in the interval, <code>false</code> otherwise.
- * @param {boolean} [options.isStopIncluded=true] <code>true</code> if stop time is included in the interval, <code>false</code> otherwise.
- * @param {boolean} [options.leadingInterval=false] <code>true</code> if you want to add a interval from Iso8601.MINIMUM_VALUE to start time,  <code>false</code> otherwise.
- * @param {boolean} [options.trailingInterval=false] <code>true</code> if you want to add a interval from stop time to Iso8601.MAXIMUM_VALUE,  <code>false</code> otherwise.
- * @param {Function} [options.dataCallback] A function that will be return the data that is called with each interval before it is added to the collection. If unspecified, the data will be the index in the collection.
- * @param {TimeIntervalCollection} [result] An existing instance to use for the result.
- * @returns {TimeIntervalCollection} The modified result parameter or a new instance if none was provided.
+ * @param {object} options 具有以下属性的对象：
+ * @param {string} options.iso8601 一个 ISO 8601 区间。
+ * @param {boolean} [options.isStartIncluded=true] 如果开始时间包含在区间内，则为 <code>true</code>；否则为 <code>false</code>。
+ * @param {boolean} [options.isStopIncluded=true] 如果结束时间包含在区间内，则为 <code>true</code>；否则为 <code>false</code>。
+ * @param {boolean} [options.leadingInterval=false] 如果要添加一个从 Iso8601.MINIMUM_VALUE 到开始时间的区间，则为 <code>true</code>；否则为 <code>false</code>。
+ * @param {boolean} [options.trailingInterval=false] 如果要添加一个从结束时间到 Iso8601.MAXIMUM_VALUE 的区间，则为 <code>true</code>；否则为 <code>false</code>。
+ * @param {Function} [options.dataCallback] 一个返回数据的函数，该函数在每个区间被添加到集合之前被调用。如果未指定，则数据将是集合中的索引。
+ * @param {TimeIntervalCollection} [result] 用于结果的现有实例。
+ * @returns {TimeIntervalCollection} 修改后的结果参数，或者如果未提供则返回一个新实例。
  */
+
 TimeIntervalCollection.fromIso8601 = function (options, result) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(options)) {
@@ -1037,18 +1049,19 @@ TimeIntervalCollection.fromIso8601 = function (options, result) {
 };
 
 /**
- * Creates a new instance from a {@link http://en.wikipedia.org/wiki/ISO_8601|ISO 8601} date array.
+ * 从一个 {@link http://en.wikipedia.org/wiki/ISO_8601|ISO 8601} 日期数组创建一个新实例。
  *
- * @param {object} options Object with the following properties:
- * @param {string[]} options.iso8601Dates An array of ISO 8601 dates.
- * @param {boolean} [options.isStartIncluded=true] <code>true</code> if start time is included in the interval, <code>false</code> otherwise.
- * @param {boolean} [options.isStopIncluded=true] <code>true</code> if stop time is included in the interval, <code>false</code> otherwise.
- * @param {boolean} [options.leadingInterval=false] <code>true</code> if you want to add a interval from Iso8601.MINIMUM_VALUE to start time,  <code>false</code> otherwise.
- * @param {boolean} [options.trailingInterval=false] <code>true</code> if you want to add a interval from stop time to Iso8601.MAXIMUM_VALUE,  <code>false</code> otherwise.
- * @param {Function} [options.dataCallback] A function that will be return the data that is called with each interval before it is added to the collection. If unspecified, the data will be the index in the collection.
- * @param {TimeIntervalCollection} [result] An existing instance to use for the result.
- * @returns {TimeIntervalCollection} The modified result parameter or a new instance if none was provided.
+ * @param {object} options 具有以下属性的对象：
+ * @param {string[]} options.iso8601Dates 一个 ISO 8601 日期的数组。
+ * @param {boolean} [options.isStartIncluded=true] 如果开始时间包含在区间内，则为 <code>true</code>；否则为 <code>false</code>。
+ * @param {boolean} [options.isStopIncluded=true] 如果结束时间包含在区间内，则为 <code>true</code>；否则为 <code>false</code>。
+ * @param {boolean} [options.leadingInterval=false] 如果要添加一个从 Iso8601.MINIMUM_VALUE 到开始时间的区间，则为 <code>true</code>；否则为 <code>false</code>。
+ * @param {boolean} [options.trailingInterval=false] 如果要添加一个从结束时间到 Iso8601.MAXIMUM_VALUE 的区间，则为 <code>true</code>；否则为 <code>false</code>。
+ * @param {Function} [options.dataCallback] 一个返回数据的函数，该函数在每个区间被添加到集合之前被调用。如果未指定，则数据将是集合中的索引。
+ * @param {TimeIntervalCollection} [result] 用于结果的现有实例。
+ * @returns {TimeIntervalCollection} 修改后的结果参数，或者如果未提供则返回一个新实例。
  */
+
 TimeIntervalCollection.fromIso8601DateArray = function (options, result) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(options)) {
@@ -1075,20 +1088,21 @@ TimeIntervalCollection.fromIso8601DateArray = function (options, result) {
 };
 
 /**
- * Creates a new instance from a {@link http://en.wikipedia.org/wiki/ISO_8601|ISO 8601} duration array.
+ * 从一个 {@link http://en.wikipedia.org/wiki/ISO_8601|ISO 8601} 持续时间数组创建一个新实例。
  *
- * @param {object} options Object with the following properties:
- * @param {JulianDate} options.epoch An date that the durations are relative to.
- * @param {string} options.iso8601Durations An array of ISO 8601 durations.
- * @param {boolean} [options.relativeToPrevious=false] <code>true</code> if durations are relative to previous date, <code>false</code> if always relative to the epoch.
- * @param {boolean} [options.isStartIncluded=true] <code>true</code> if start time is included in the interval, <code>false</code> otherwise.
- * @param {boolean} [options.isStopIncluded=true] <code>true</code> if stop time is included in the interval, <code>false</code> otherwise.
- * @param {boolean} [options.leadingInterval=false] <code>true</code> if you want to add a interval from Iso8601.MINIMUM_VALUE to start time,  <code>false</code> otherwise.
- * @param {boolean} [options.trailingInterval=false] <code>true</code> if you want to add a interval from stop time to Iso8601.MAXIMUM_VALUE,  <code>false</code> otherwise.
- * @param {Function} [options.dataCallback] A function that will be return the data that is called with each interval before it is added to the collection. If unspecified, the data will be the index in the collection.
- * @param {TimeIntervalCollection} [result] An existing instance to use for the result.
- * @returns {TimeIntervalCollection} The modified result parameter or a new instance if none was provided.
+ * @param {object} options 具有以下属性的对象：
+ * @param {JulianDate} options.epoch 持续时间相对于的日期。
+ * @param {string} options.iso8601Durations 一个 ISO 8601 持续时间的数组。
+ * @param {boolean} [options.relativeToPrevious=false] 如果持续时间相对于前一个日期，则为 <code>true</code>；如果始终相对于纪元，则为 <code>false</code>。
+ * @param {boolean} [options.isStartIncluded=true] 如果开始时间包含在区间内，则为 <code>true</code>；否则为 <code>false</code>。
+ * @param {boolean} [options.isStopIncluded=true] 如果结束时间包含在区间内，则为 <code>true</code>；否则为 <code>false</code>。
+ * @param {boolean} [options.leadingInterval=false] 如果要添加一个从 Iso8601.MINIMUM_VALUE 到开始时间的区间，则为 <code>true</code>；否则为 <code>false</code>。
+ * @param {boolean} [options.trailingInterval=false] 如果要添加一个从结束时间到 Iso8601.MAXIMUM_VALUE 的区间，则为 <code>true</code>；否则为 <code>false</code>。
+ * @param {Function} [options.dataCallback] 一个返回数据的函数，该函数在每个区间被添加到集合之前被调用。如果未指定，则数据将是集合中的索引。
+ * @param {TimeIntervalCollection} [result] 用于结果的现有实例。
+ * @returns {TimeIntervalCollection} 修改后的结果参数，或者如果未提供则返回一个新实例。
  */
+
 TimeIntervalCollection.fromIso8601DurationArray = function (options, result) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(options)) {

@@ -23,18 +23,17 @@ import BlendingState from "./BlendingState.js";
 import SceneMode from "./SceneMode.js";
 
 /**
- * A sky box around the scene to draw stars.  The sky box is defined using the True Equator Mean Equinox (TEME) axes.
+ * 场景周围的天空盒，用于绘制星星。天空盒使用真赤道平均春分点（TEME）轴定义。
  * <p>
- * This is only supported in 3D.  The sky box is faded out when morphing to 2D or Columbus view.  The size of
- * the sky box must not exceed {@link Scene#maximumCubeMapSize}.
+ * 此功能仅在 3D 中支持。当变形为 2D 或哥伦布视图时，天空盒会逐渐消失。天空盒的大小不得超过 {@link Scene#maximumCubeMapSize}。
  * </p>
  *
  * @alias SkyBox
  * @constructor
  *
- * @param {object} options Object with the following properties:
- * @param {object} [options.sources] The source URL or <code>Image</code> object for each of the six cube map faces.  See the example below.
- * @param {boolean} [options.show=true] Determines if this primitive will be shown.
+ * @param {object} options 包含以下属性的对象：
+ * @param {object} [options.sources] 每个六个立方体面源 URL 或 <code>Image</code> 对象。请参见下面的示例。
+ * @param {boolean} [options.show=true] 确定此基本图元是否将被显示。
  *
  *
  * @example
@@ -54,10 +53,9 @@ import SceneMode from "./SceneMode.js";
  */
 function SkyBox(options) {
   /**
-   * The sources used to create the cube map faces: an object
-   * with <code>positiveX</code>, <code>negativeX</code>, <code>positiveY</code>,
-   * <code>negativeY</code>, <code>positiveZ</code>, and <code>negativeZ</code> properties.
-   * These can be either URLs or <code>Image</code> objects.
+   * 用于创建立方体贴图面的源：一个具有 <code>positiveX</code>、<code>negativeX</code>、<code>positiveY</code>、
+   * <code>negativeY</code>、<code>positiveZ</code> 和 <code>negativeZ</code> 属性的对象。
+   * 这些可以是 URL 或 <code>Image</code> 对象。
    *
    * @type {object}
    * @default undefined
@@ -66,11 +64,12 @@ function SkyBox(options) {
   this._sources = undefined;
 
   /**
-   * Determines if the sky box will be shown.
+   * 确定天空盒是否将被显示。
    *
    * @type {boolean}
    * @default true
    */
+
   this.show = defaultValue(options.show, true);
 
   this._command = new DrawCommand({
@@ -86,16 +85,16 @@ function SkyBox(options) {
 }
 
 /**
- * Called when {@link Viewer} or {@link CesiumWidget} render the scene to
- * get the draw commands needed to render this primitive.
+ * 当 {@link Viewer} 或 {@link CesiumWidget} 渲染场景时调用
+ * 以获取渲染此基元所需的绘制命令。
  * <p>
- * Do not call this function directly.  This is documented just to
- * list the exceptions that may be propagated when the scene is rendered:
+ * 请勿直接调用此功能。此文档仅用于列出在渲染场景时可能传播的异常：
  * </p>
  *
- * @exception {DeveloperError} this.sources is required and must have positiveX, negativeX, positiveY, negativeY, positiveZ, and negativeZ properties.
- * @exception {DeveloperError} this.sources properties must all be the same type.
+ * @exception {DeveloperError} this.sources 是必需的，必须具有 positiveX、negativeX、positiveY、negativeY、positiveZ 和 negativeZ 属性。
+ * @exception {DeveloperError} this.sources 属性必须全部为相同类型。
  */
+
 SkyBox.prototype.update = function (frameState, useHdr) {
   const that = this;
   const { mode, passes, context } = frameState;
@@ -225,28 +224,26 @@ SkyBox.prototype.update = function (frameState, useHdr) {
 };
 
 /**
- * Returns true if this object was destroyed; otherwise, false.
+ * 如果此对象已被销毁，则返回 true；否则返回 false。
  * <br /><br />
- * If this object was destroyed, it should not be used; calling any function other than
- * <code>isDestroyed</code> will result in a {@link DeveloperError} exception.
+ * 如果此对象已被销毁，则不应使用；调用除 <code>isDestroyed</code> 以外的任何函数将导致 {@link DeveloperError} 异常。
  *
- * @returns {boolean} <code>true</code> if this object was destroyed; otherwise, <code>false</code>.
+ * @returns {boolean} 如果此对象已被销毁，则返回 <code>true</code>；否则返回 <code>false</code>。
  *
  * @see SkyBox#destroy
  */
+
 SkyBox.prototype.isDestroyed = function () {
   return false;
 };
 
 /**
- * Destroys the WebGL resources held by this object.  Destroying an object allows for deterministic
- * release of WebGL resources, instead of relying on the garbage collector to destroy this object.
+ * 销毁此对象持有的 WebGL 资源。销毁对象允许确定性地释放 WebGL 资源，而不是依赖垃圾回收器销毁此对象。
  * <br /><br />
- * Once an object is destroyed, it should not be used; calling any function other than
- * <code>isDestroyed</code> will result in a {@link DeveloperError} exception.  Therefore,
- * assign the return value (<code>undefined</code>) to the object as done in the example.
+ * 一旦对象被销毁，就不应使用；调用除 <code>isDestroyed</code> 以外的任何函数将导致 {@link DeveloperError} 异常。因此，
+ * 应将返回值（<code>undefined</code>）分配给该对象，如示例所示。
  *
- * @exception {DeveloperError} This object was destroyed, i.e., destroy() was called.
+ * @exception {DeveloperError} 此对象已被销毁，即，已调用 destroy()。
  *
  *
  * @example
@@ -254,6 +251,7 @@ SkyBox.prototype.isDestroyed = function () {
  *
  * @see SkyBox#isDestroyed
  */
+
 SkyBox.prototype.destroy = function () {
   const command = this._command;
   command.vertexArray = command.vertexArray && command.vertexArray.destroy();
@@ -268,12 +266,13 @@ function getDefaultSkyBoxUrl(suffix) {
 }
 
 /**
- * Creates a skybox instance with the default starmap for the Earth.
- * @return {SkyBox} The default skybox for the Earth
+ * 创建一个带有地球默认星图的天空盒实例。
+ * @return {SkyBox} 地球的默认天空盒
  *
  * @example
  * viewer.scene.skyBox = Cesium.SkyBox.createEarthSkyBox();
  */
+
 SkyBox.createEarthSkyBox = function () {
   return new SkyBox({
     sources: {

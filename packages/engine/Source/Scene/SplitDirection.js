@@ -1,5 +1,5 @@
 /**
- * The direction to display a primitive or ImageryLayer relative to the {@link Scene#splitPosition}.
+ * 相对于 {@link Scene#splitPosition} 显示基元或影像层的方向。
  *
  * @enum {number}
  *
@@ -8,7 +8,7 @@
  */
 const SplitDirection = {
   /**
-   * Display the primitive or ImageryLayer to the left of the {@link Scene#splitPosition}.
+   * 将基元或影像层显示在 {@link Scene#splitPosition} 的左侧。
    *
    * @type {number}
    * @constant
@@ -16,7 +16,7 @@ const SplitDirection = {
   LEFT: -1.0,
 
   /**
-   *  Always display the primitive or ImageryLayer.
+   * 始终显示基元或影像层。
    *
    * @type {number}
    * @constant
@@ -24,7 +24,7 @@ const SplitDirection = {
   NONE: 0.0,
 
   /**
-   * Display the primitive or ImageryLayer to the right of the {@link Scene#splitPosition}.
+   * 将基元或影像层显示在 {@link Scene#splitPosition} 的右侧。
    *
    * @type {number}
    * @constant

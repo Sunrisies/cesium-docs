@@ -11,29 +11,23 @@ import BaseLayerPickerViewModel from "./BaseLayerPickerViewModel.js";
 /**
  * <span style="display: block; text-align: center;">
  * <img src="Images/BaseLayerPicker.png" width="264" alt="BaseLayerPicker" />
- * <br />BaseLayerPicker with its drop-panel open.
+ * <br />BaseLayerPicker 打开下拉面板。
  * </span>
  * <br /><br />
- * The BaseLayerPicker is a single button widget that displays a panel of available imagery and
- * terrain providers.  When imagery is selected, the corresponding imagery layer is created and inserted
- * as the base layer of the imagery collection; removing the existing base.  When terrain is selected,
- * it replaces the current terrain provider.  Each item in the available providers list contains a name,
- * a representative icon, and a tooltip to display more information when hovered. The list is initially
- * empty, and must be configured before use, as illustrated in the below example.
+ * BaseLayerPicker 是一个单按钮小部件，显示可用影像和地形提供者的面板。当选择影像时，将创建相应的影像图层并作为影像集合的基础层插入；移除现有基础层。当选择地形时，将替换当前的地形提供者。可用提供者列表中的每个项包含一个名称、一个代表性图标和一个工具提示，在悬停时显示更多信息。列表最初为空，且必须在使用前进行配置，如下面的示例所示。
  * <br /><br />
- * By default, the BaseLayerPicker uses a default list of example providers for demonstration purposes.
- * Notably some of these providers, such as <a href="https://developers.arcgis.com" target="_blank">Esri ArcGIS</a> and <a href="https://docs.stadiamaps.com/ target="_blank">Stadia Maps</a>, have seperate terms of service and require authentication for production use.
+ * 默认情况下，BaseLayerPicker 使用默认的示例提供者列表进行演示。特别是这些提供者中的一些，例如 <a href="https://developers.arcgis.com" target="_blank">Esri ArcGIS</a> 和 <a href="https://docs.stadiamaps.com/" target="_blank">Stadia Maps</a>，具有单独的服务条款，并且在生产使用中需要身份验证。
  *
  * @alias BaseLayerPicker
  * @constructor
  *
- * @param {Element|string} container The parent HTML container node or ID for this widget.
- * @param {object} options Object with the following properties:
- * @param {Globe} options.globe The Globe to use.
- * @param {ProviderViewModel[]} [options.imageryProviderViewModels=[]] The array of ProviderViewModel instances to use for imagery.
- * @param {ProviderViewModel} [options.selectedImageryProviderViewModel] The view model for the current base imagery layer, if not supplied the first available imagery layer is used.
- * @param {ProviderViewModel[]} [options.terrainProviderViewModels=[]] The array of ProviderViewModel instances to use for terrain.
- * @param {ProviderViewModel} [options.selectedTerrainProviderViewModel] The view model for the current base terrain layer, if not supplied the first available terrain layer is used.
+ * @param {Element|string} container 此小部件的父 HTML 容器节点或 ID。
+ * @param {object} options 包含以下属性的对象：
+ * @param {Globe} options.globe 要使用的 Globe。
+ * @param {ProviderViewModel[]} [options.imageryProviderViewModels=[]] 用于影像的 ProviderViewModel 实例数组。
+ * @param {ProviderViewModel} [options.selectedImageryProviderViewModel] 当前基础影像图层的视图模型，如果未提供，则使用第一个可用影像图层。
+ * @param {ProviderViewModel[]} [options.terrainProviderViewModels=[]] 用于地形的 ProviderViewModel 实例数组。
+ * @param {ProviderViewModel} [options.selectedTerrainProviderViewModel] 当前基础地形图层的视图模型，如果未提供，则使用第一个可用地形图层。
  *
  * @exception {DeveloperError} 文档中不存在 ID 为“container”的元素.
  *

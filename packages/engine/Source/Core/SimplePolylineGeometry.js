@@ -56,22 +56,21 @@ function interpolateColors(p0, p1, color0, color1, minDistance, array, offset) {
 }
 
 /**
- * A description of a polyline modeled as a line strip; the first two positions define a line segment,
- * and each additional position defines a line segment from the previous position.
+ * 描述为线条带的多段线；前两个位置定义一个线段，每个额外的位置定义从前一个位置到下一个位置的线段。
  *
  * @alias SimplePolylineGeometry
  * @constructor
  *
- * @param {object} options Object with the following properties:
- * @param {Cartesian3[]} options.positions An array of {@link Cartesian3} defining the positions in the polyline as a line strip.
- * @param {Color[]} [options.colors] An Array of {@link Color} defining the per vertex or per segment colors.
- * @param {boolean} [options.colorsPerVertex=false] A boolean that determines whether the colors will be flat across each segment of the line or interpolated across the vertices.
- * @param {ArcType} [options.arcType=ArcType.GEODESIC] The type of line the polyline segments must follow.
- * @param {number} [options.granularity=CesiumMath.RADIANS_PER_DEGREE] The distance, in radians, between each latitude and longitude if options.arcType is not ArcType.NONE. Determines the number of positions in the buffer.
- * @param {Ellipsoid} [options.ellipsoid=Ellipsoid.default] The ellipsoid to be used as a reference.
+ * @param {object} options 包含以下属性的对象：
+ * @param {Cartesian3[]} options.positions 一个 {@link Cartesian3} 数组，定义多段线作为线条带中的位置。
+ * @param {Color[]} [options.colors] 一个 {@link Color} 数组，定义每个顶点或每个线段的颜色。
+ * @param {boolean} [options.colorsPerVertex=false] 一个布尔值，确定颜色是在线段上均匀分布还是在顶点之间插值。
+ * @param {ArcType} [options.arcType=ArcType.GEODESIC] 多段线段必须遵循的线的类型。
+ * @param {number} [options.granularity=CesiumMath.RADIANS_PER_DEGREE] 如果 options.arcType 不是 ArcType.NONE，则每个纬度和经度之间的距离（以弧度为单位）。确定缓冲区中的位置数量。
+ * @param {Ellipsoid} [options.ellipsoid=Ellipsoid.default] 用作参考的椭球体。
  *
- * @exception {DeveloperError} At least two positions are required.
- * @exception {DeveloperError} colors has an invalid length.
+ * @exception {DeveloperError} 至少需要两个位置。
+ * @exception {DeveloperError} colors 的长度无效。
  *
  * @see SimplePolylineGeometry#createGeometry
  *
@@ -177,13 +176,14 @@ SimplePolylineGeometry.pack = function (value, array, startingIndex) {
 };
 
 /**
- * 从打包数组中检索实例.
+ * 从打包数组中检索实例。
  *
- * @param {number[]} array 压缩数组.
- * @param {number} [startingIndex=0] 需要解包的元素的起始索引.
- * @param {SimplePolylineGeometry} [result] 存储结果的对象.
- * @returns {SimplePolylineGeometry} The modified result parameter or a new SimplePolylineGeometry instance if one was not provided.
+ * @param {number[]} array 压缩数组。
+ * @param {number} [startingIndex=0] 需要解包的元素的起始索引。
+ * @param {SimplePolylineGeometry} [result] 存储结果的对象。
+ * @returns {SimplePolylineGeometry} 修改后的结果参数或如果未提供则返回一个新的 SimplePolylineGeometry 实例。
  */
+
 SimplePolylineGeometry.unpack = function (array, startingIndex, result) {
   //>>includeStart('debug', pragmas.debug);
   if (!defined(array)) {
@@ -248,11 +248,12 @@ const generateArcOptionsScratch = {
 };
 
 /**
- * Computes the geometric representation of a simple polyline, including its vertices, indices, and a bounding sphere.
+ * 计算简单多段线的几何表示，包括其顶点、索引和包围球。
  *
- * @param {SimplePolylineGeometry} simplePolylineGeometry A description of the polyline.
- * @returns {Geometry|undefined} The computed vertices and indices.
+ * @param {SimplePolylineGeometry} simplePolylineGeometry 多段线的描述。
+ * @returns {Geometry|undefined} 计算得到的顶点和索引。
  */
+
 SimplePolylineGeometry.createGeometry = function (simplePolylineGeometry) {
   const positions = simplePolylineGeometry._positions;
   const colors = simplePolylineGeometry._colors;

@@ -1,8 +1,7 @@
 /**
- * The vertical location of an origin relative to an object, e.g., a {@link Billboard}
- * or {@link Label}.  For example, setting the vertical origin to <code>TOP</code>
- * or <code>BOTTOM</code> will display a billboard above or below (in screen space)
- * the anchor position.
+ * 相对于对象的原点的垂直位置，例如 {@link Billboard}
+ * 或 {@link Label}。例如，将垂直原点设置为 <code>TOP</code>
+ * 或 <code>BOTTOM</code> 将在锚点位置的上方或下方（在屏幕空间内）显示一个广告牌。
  * <br /><br />
  * <div align='center'>
  * <img src='Images/Billboard.setVerticalOrigin.png' width='695' height='175' /><br />
@@ -13,9 +12,10 @@
  * @see Billboard#verticalOrigin
  * @see Label#verticalOrigin
  */
+
 const VerticalOrigin = {
   /**
-   * The origin is at the vertical center between <code>BASELINE</code> and <code>TOP</code>.
+   * 原点位于 <code>BASELINE</code> 和 <code>TOP</code> 之间的垂直中心。
    *
    * @type {number}
    * @constant
@@ -23,7 +23,7 @@ const VerticalOrigin = {
   CENTER: 0,
 
   /**
-   * The origin is at the bottom of the object.
+   * 原点位于对象的底部。
    *
    * @type {number}
    * @constant
@@ -31,7 +31,7 @@ const VerticalOrigin = {
   BOTTOM: 1,
 
   /**
-   * If the object contains text, the origin is at the baseline of the text, else the origin is at the bottom of the object.
+   * 如果对象包含文本，原点位于文本的基线；否则原点位于对象的底部。
    *
    * @type {number}
    * @constant
@@ -39,11 +39,12 @@ const VerticalOrigin = {
   BASELINE: 2,
 
   /**
-   * The origin is at the top of the object.
+   * 原点位于对象的顶部。
    *
    * @type {number}
    * @constant
    */
   TOP: -1,
 };
+
 export default Object.freeze(VerticalOrigin);

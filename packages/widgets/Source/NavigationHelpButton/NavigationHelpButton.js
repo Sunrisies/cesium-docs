@@ -11,17 +11,16 @@ import knockout from "../ThirdParty/knockout.js";
 import NavigationHelpButtonViewModel from "./NavigationHelpButtonViewModel.js";
 
 /**
- * <p>The NavigationHelpButton is a single button widget for displaying instructions for
- * navigating the globe with the mouse.</p><p style="clear: both;"></p><br/>
+ * <p>导航帮助按钮是一个单一的按钮小部件，用于显示使用鼠标导航地球的说明。</p><p style="clear: both;"></p><br/>
  *
  * @alias NavigationHelpButton
  * @constructor
  *
- * @param {object} options Object with the following properties:
- * @param {Element|string} options.container 包含小部件的 DOM 元素或 ID.
- * @param {boolean} [options.instructionsInitiallyVisible=false] True if the navigation instructions should initially be visible; otherwise, false.
+ * @param {object} options 带有以下属性的对象：
+ * @param {Element|string} options.container 包含小部件的 DOM 元素或 ID。
+ * @param {boolean} [options.instructionsInitiallyVisible=false] 如果导航说明应该最初可见，则为 true；否则为 false。
  *
- * @exception {DeveloperError} 文档中不存在 ID 为“container”的元素.
+ * @exception {DeveloperError} 文档中不存在 ID 为“container”的元素。
  *
  * @example
  * // In HTML head, include a link to the NavigationHelpButton.css stylesheet,

@@ -23,19 +23,18 @@ const columbusViewPath =
 
 /**
  * <img src="Images/sceneModePicker.png" style="float: left; margin-right: 10px;" width="44" height="116" />
- * <p>The SceneModePicker is a single button widget for switching between scene modes;
- * shown to the left in its expanded state. Programatic switching of scene modes will
- * be automatically reflected in the widget as long as the specified Scene
- * is used to perform the change.</p><p style="clear: both;"></p><br/>
+ * <p>场景模式选择器是一个单一的按钮小部件，用于在场景模式之间切换；
+ * 在其展开状态下如左图所示。只要使用指定的场景
+ * 来执行更改，程序化切换场景模式将自动反映在小部件中。</p><p style="clear: both;"></p><br/>
  *
  * @alias SceneModePicker
  * @constructor
  *
- * @param {Element|string} container 包含小部件的 DOM 元素或 ID.
- * @param {Scene} scene 要使用的场景实例.
- * @param {number} [duration=2.0] The time, in seconds, it takes for the scene to transition.
+ * @param {Element|string} container 包含小部件的 DOM 元素或 ID。
+ * @param {Scene} scene 要使用的场景实例。
+ * @param {number} [duration=2.0] 场景过渡所需的时间（以秒为单位）。
  *
- * @exception {DeveloperError} 文档中不存在 ID 为“container”的元素.
+ * @exception {DeveloperError} 文档中不存在 ID 为“container”的元素。
  *
  * @example
  * // In HTML head, include a link to the SceneModePicker.css stylesheet,

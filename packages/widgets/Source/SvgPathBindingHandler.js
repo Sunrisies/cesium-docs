@@ -2,18 +2,18 @@ const svgNS = "http://www.w3.org/2000/svg";
 const svgClassName = "cesium-svgPath-svg";
 
 /**
- * A Knockout binding handler that creates a DOM element for a single SVG path.
- * This binding handler will be registered as cesiumSvgPath.
+ * 一个 Knockout 绑定处理程序，用于为单个 SVG 路径创建一个 DOM 元素。
+ * 此绑定处理程序将注册为 cesiumSvgPath。
  *
  * <p>
- * The parameter to this binding is an object with the following properties:
+ * 此绑定的参数是一个包含以下属性的对象：
  * </p>
  *
  * <ul>
- * <li>path: The SVG path as a string.</li>
- * <li>width: The width of the SVG path with no transformations applied.</li>
- * <li>height: The height of the SVG path with no transformations applied.</li>
- * <li>css: Optional. A string containing additional CSS classes to apply to the SVG. 'cesium-svgPath-svg' is always applied.</li>
+ * <li>path: SVG 路径，以字符串形式表示。</li>
+ * <li>width: 应用变换前 SVG 路径的宽度。</li>
+ * <li>height: 应用变换前 SVG 路径的高度。</li>
+ * <li>css: 可选。包含要应用于 SVG 的附加 CSS 类的字符串。始终应用 'cesium-svgPath-svg'。</li>
  * </ul>
  *
  * @namespace SvgPathBindingHandler

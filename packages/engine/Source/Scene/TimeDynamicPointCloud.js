@@ -17,27 +17,27 @@ import SceneMode from "./SceneMode.js";
 import ShadowMode from "./ShadowMode.js";
 
 /**
- * Provides playback of time-dynamic point cloud data.
+ * 提供时间动态点云数据的回放。
  * <p>
- * Point cloud frames are prefetched in intervals determined by the average frame load time and the current clock speed.
- * If intermediate frames cannot be loaded in time to meet playback speed, they will be skipped. If frames are sufficiently
- * small or the clock is sufficiently slow then no frames will be skipped.
+ * 点云帧在由平均帧加载时间和当前时钟速度决定的间隔中预加载。
+ * 如果中间帧无法及时加载以满足播放速度，则将跳过它们。如果帧足够小或时钟速度足够慢，则不会跳过任何帧。
  * </p>
  *
  * @alias TimeDynamicPointCloud
  * @constructor
  *
- * @param {object} options Object with the following properties:
- * @param {Clock} options.clock A {@link Clock} instance that is used when determining the value for the time dimension.
- * @param {TimeIntervalCollection} options.intervals A {@link TimeIntervalCollection} with its data property being an object containing a <code>uri</code> to a 3D Tiles Point Cloud tile and an optional <code>transform</code>.
- * @param {boolean} [options.show=true] Determines if the point cloud will be shown.
- * @param {Matrix4} [options.modelMatrix=Matrix4.IDENTITY] A 4x4 transformation matrix that transforms the point cloud.
- * @param {ShadowMode} [options.shadows=ShadowMode.ENABLED] Determines whether the point cloud casts or receives shadows from light sources.
- * @param {number} [options.maximumMemoryUsage=256] The maximum amount of memory in MB that can be used by the point cloud.
- * @param {object} [options.shading] Options for constructing a {@link PointCloudShading} object to control point attenuation and eye dome lighting.
- * @param {Cesium3DTileStyle} [options.style] The style, defined using the {@link https://github.com/CesiumGS/3d-tiles/tree/main/specification/Styling|3D Tiles Styling language}, applied to each point in the point cloud.
- * @param {ClippingPlaneCollection} [options.clippingPlanes] The {@link ClippingPlaneCollection} used to selectively disable rendering the point cloud.
+ * @param {object} options 具有以下属性的对象：
+ * @param {Clock} options.clock 用于确定时间维度值的 {@link Clock} 实例。
+ * @param {TimeIntervalCollection} options.intervals 一个 {@link TimeIntervalCollection}，其data属性是一个包含指向3D Tiles点云瓦片的<code>uri</code>和可选<code>transform</code>的对象。
+ * @param {boolean} [options.show=true] 确定点云是否显示。
+ * @param {Matrix4} [options.modelMatrix=Matrix4.IDENTITY] 用于变换点云的4x4变换矩阵。
+ * @param {ShadowMode} [options.shadows=ShadowMode.ENABLED] 确定点云是否会从光源投射或接收阴影。
+ * @param {number} [options.maximumMemoryUsage=256] 点云可以使用的最大内存量（以MB为单位）。
+ * @param {object} [options.shading] 用于构造 {@link PointCloudShading} 对象的选项，以控制点衰减和眼罩照明。
+ * @param {Cesium3DTileStyle} [options.style] 使用 {@link https://github.com/CesiumGS/3d-tiles/tree/main/specification/Styling|3D Tiles样式语言} 定义的样式，应用于点云中的每个点。
+ * @param {ClippingPlaneCollection} [options.clippingPlanes] {@link ClippingPlaneCollection}，用于选择性禁用点云的渲染。
  */
+
 function TimeDynamicPointCloud(options) {
   options = defaultValue(options, defaultValue.EMPTY_OBJECT);
 
@@ -47,7 +47,7 @@ function TimeDynamicPointCloud(options) {
   //>>includeEnd('debug');
 
   /**
-   * Determines if the point cloud will be shown.
+   * 确定点云是否会被显示。
    *
    * @type {boolean}
    * @default true
@@ -55,22 +55,23 @@ function TimeDynamicPointCloud(options) {
   this.show = defaultValue(options.show, true);
 
   /**
-   * A 4x4 transformation matrix that transforms the point cloud.
+   * 用于变换点云的4x4变换矩阵。
    *
    * @type {Matrix4}
    * @default Matrix4.IDENTITY
    */
+
   this.modelMatrix = Matrix4.clone(
     defaultValue(options.modelMatrix, Matrix4.IDENTITY),
   );
 
   /**
-   * Determines whether the point cloud casts or receives shadows from light sources.
+   * 确定点云是否会从光源投射或接收阴影。
    * <p>
-   * Enabling shadows has a performance impact. A point cloud that casts shadows must be rendered twice, once from the camera and again from the light's point of view.
+   * 启用阴影会影响性能。投射阴影的点云必须渲染两次，一次从相机角度渲染，另一次从光源的视角渲染。
    * </p>
    * <p>
-   * Shadows are rendered only when {@link Viewer#shadows} is <code>true</code>.
+   * 仅当 {@link Viewer#shadows} 为 <code>true</code> 时，才会渲染阴影。
    * </p>
    *
    * @type {ShadowMode}
@@ -79,12 +80,12 @@ function TimeDynamicPointCloud(options) {
   this.shadows = defaultValue(options.shadows, ShadowMode.ENABLED);
 
   /**
-   * The maximum amount of GPU memory (in MB) that may be used to cache point cloud frames.
+   * 用于缓存点云帧的最大GPU内存（以MB为单位）。
    * <p>
-   * Frames that are not being loaded or rendered are unloaded to enforce this.
+   * 不被加载或渲染的帧将被卸载以强制执行此限制。
    * </p>
    * <p>
-   * If decreasing this value results in unloading tiles, the tiles are unloaded the next frame.
+   * 如果减少此值导致卸载瓦片，则在下一帧卸载这些瓦片。
    * </p>
    *
    * @type {number}
@@ -92,21 +93,21 @@ function TimeDynamicPointCloud(options) {
    *
    * @see TimeDynamicPointCloud#totalMemoryUsageInBytes
    */
+
   this.maximumMemoryUsage = defaultValue(options.maximumMemoryUsage, 256);
 
   /**
-   * Options for controlling point size based on geometric error and eye dome lighting.
+   * 用于基于几何误差和眼罩照明控制点大小的选项。
    * @type {PointCloudShading}
    */
+
   this.shading = new PointCloudShading(options.shading);
 
   /**
-   * The style, defined using the
-   * {@link https://github.com/CesiumGS/3d-tiles/tree/main/specification/Styling|3D Tiles Styling language},
-   * applied to each point in the point cloud.
+   * 使用 {@link https://github.com/CesiumGS/3d-tiles/tree/main/specification/Styling|3D Tiles Styling language} 定义的样式，
+   * 应用到点云中的每个点。
    * <p>
-   * Assign <code>undefined</code> to remove the style, which will restore the visual
-   * appearance of the point cloud to its default when no style was applied.
+   * 赋值 <code>undefined</code> 将移除样式，在未应用任何样式时将点云的视觉外观恢复为默认。
    * </p>
    *
    * @type {Cesium3DTileStyle}
@@ -128,16 +129,15 @@ function TimeDynamicPointCloud(options) {
   this.style = options.style;
 
   /**
-   * The event fired to indicate that a frame failed to load. A frame may fail to load if the
-   * request for its uri fails or processing fails due to invalid content.
+   * 触发的事件，指示帧加载失败。如果请求其uri失败或由于内容无效而导致处理失败，帧可能会加载失败。
    * <p>
-   * If there are no event listeners, error messages will be logged to the console.
+   * 如果没有事件监听器，将在控制台记录错误消息。
    * </p>
    * <p>
-   * The error object passed to the listener contains two properties:
+   * 传递给监听器的错误对象包含两个属性：
    * <ul>
-   * <li><code>uri</code>: the uri of the failed frame.</li>
-   * <li><code>message</code>: the error message.</li>
+   * <li><code>uri</code>: 加载失败的帧的uri。</li>
+   * <li><code>message</code>: 错误消息。</li>
    * </ul>
    *
    * @type {Event}
@@ -152,9 +152,9 @@ function TimeDynamicPointCloud(options) {
   this.frameFailed = new Event();
 
   /**
-   * The event fired to indicate that a new frame was rendered.
+   * 触发的事件，指示新帧已渲染。
    * <p>
-   * The time dynamic point cloud {@link TimeDynamicPointCloud} is passed to the event listener.
+   * 时间动态点云 {@link TimeDynamicPointCloud} 会传递给事件监听器。
    * </p>
    * @type {Event}
    * @default new Event()
@@ -192,7 +192,7 @@ function TimeDynamicPointCloud(options) {
 
 Object.defineProperties(TimeDynamicPointCloud.prototype, {
   /**
-   * The {@link ClippingPlaneCollection} used to selectively disable rendering the point cloud.
+   * 用于选择性禁用点云渲染的 {@link ClippingPlaneCollection}。
    *
    * @memberof TimeDynamicPointCloud.prototype
    *
@@ -208,7 +208,7 @@ Object.defineProperties(TimeDynamicPointCloud.prototype, {
   },
 
   /**
-   * The total amount of GPU memory in bytes used by the point cloud.
+   * 点云使用的GPU内存总量（以字节为单位）。
    *
    * @memberof TimeDynamicPointCloud.prototype
    *
@@ -224,7 +224,7 @@ Object.defineProperties(TimeDynamicPointCloud.prototype, {
   },
 
   /**
-   * The bounding sphere of the frame being rendered. Returns <code>undefined</code> if no frame is being rendered.
+   * 正在渲染的帧的包围球。如果没有帧被渲染，则返回 <code>undefined</code>。
    *
    * @memberof TimeDynamicPointCloud.prototype
    *
@@ -240,6 +240,7 @@ Object.defineProperties(TimeDynamicPointCloud.prototype, {
     },
   },
 });
+
 
 function getFragmentShaderLoaded(fs) {
   return `uniform vec4 czm_pickColor;\n${fs}`;
@@ -260,18 +261,20 @@ function getPickIdLoaded() {
 }
 
 /**
- * Marks the point cloud's {@link TimeDynamicPointCloud#style} as dirty, which forces all
- * points to re-evaluate the style in the next frame.
+ * 将点云的 {@link TimeDynamicPointCloud#style} 标记为脏，这会迫使所有
+ * 点在下一帧中重新评估样式。
  */
+
 TimeDynamicPointCloud.prototype.makeStyleDirty = function () {
   this._styleDirty = true;
 };
 
 /**
- * Exposed for testing.
+ * 公开用于测试。
  *
  * @private
  */
+
 TimeDynamicPointCloud.prototype._getAverageLoadTime = function () {
   if (this._runningLength === 0) {
     // Before any frames have loaded make a best guess about the average load time
@@ -767,28 +770,26 @@ TimeDynamicPointCloud.prototype.update = function (frameState) {
 };
 
 /**
- * Returns true if this object was destroyed; otherwise, false.
+ * 如果此对象已被销毁，则返回true；否则返回false。
  * <br /><br />
- * If this object was destroyed, it should not be used; calling any function other than
- * <code>isDestroyed</code> will result in a {@link DeveloperError} exception.
+ * 如果此对象已被销毁，则不应使用它；调用除 <code>isDestroyed</code> 之外的任何函数将导致 {@link DeveloperError} 异常。
  *
- * @returns {boolean} <code>true</code> if this object was destroyed; otherwise, <code>false</code>.
+ * @returns {boolean} <code>true</code> 如果此对象已被销毁；否则返回 <code>false</code>。
  *
  * @see TimeDynamicPointCloud#destroy
  */
+
 TimeDynamicPointCloud.prototype.isDestroyed = function () {
   return false;
 };
-
 /**
- * Destroys the WebGL resources held by this object.  Destroying an object allows for deterministic
- * release of WebGL resources, instead of relying on the garbage collector to destroy this object.
+ * 销毁此对象持有的WebGL资源。销毁对象允许以确定性的方式释放
+ * WebGL资源，而不是依赖垃圾收集器来销毁此对象。
  * <br /><br />
- * Once an object is destroyed, it should not be used; calling any function other than
- * <code>isDestroyed</code> will result in a {@link DeveloperError} exception.  Therefore,
- * assign the return value (<code>undefined</code>) to the object as done in the example.
+ * 一旦对象被销毁，就不应使用它；调用除 <code>isDestroyed</code> 之外的任何函数将导致 {@link DeveloperError} 异常。因此，
+ * 将返回值（<code>undefined</code>）赋值给对象，如示例所示。
  *
- * @exception {DeveloperError} This object was destroyed, i.e., destroy() was called.
+ * @exception {DeveloperError} 此对象已被销毁，即调用了 destroy()。
  *
  * @example
  * pointCloud = pointCloud && pointCloud.destroy();

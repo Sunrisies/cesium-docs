@@ -8,11 +8,12 @@ import TimeConstants from "./TimeConstants.js";
 import TimeStandard from "./TimeStandard.js";
 
 /**
- * Contains functions for finding the Cartesian coordinates of the sun and the moon in the
- * Earth-centered inertial frame.
+ * 包含用于查找太阳和月球在
+ * 以地球为中心的惯性坐标系中的笛卡尔坐标的函数。
  *
  * @namespace Simon1994PlanetaryPositions
  */
+
 const Simon1994PlanetaryPositions = {};
 
 function computeTdbMinusTtSpice(daysSinceJ2000InTerrestrialTime) {
@@ -629,12 +630,13 @@ const axesTransformation = new Matrix3(
 let translation = new Cartesian3();
 
 /**
- * Computes the position of the Sun in the Earth-centered inertial frame
+ * 计算太阳在以地球为中心的惯性坐标系中的位置。
  *
- * @param {JulianDate} [julianDate] The time at which to compute the Sun's position, if not provided the current system time is used.
+ * @param {JulianDate} [julianDate] 计算太阳位置的时间，如果未提供，则使用当前系统时间。
  * @param {Cartesian3} [result] 存储结果的对象.
- * @returns {Cartesian3} Calculated sun position
+ * @returns {Cartesian3} 计算得到的太阳位置
  */
+
 Simon1994PlanetaryPositions.computeSunPositionInEarthInertialFrame = function (
   julianDate,
   result,
@@ -661,12 +663,13 @@ Simon1994PlanetaryPositions.computeSunPositionInEarthInertialFrame = function (
 };
 
 /**
- * Computes the position of the Moon in the Earth-centered inertial frame
+ * 计算月球在以地球为中心的惯性坐标系中的位置。
  *
- * @param {JulianDate} [julianDate] The time at which to compute the Moon's position, if not provided the current system time is used.
+ * @param {JulianDate} [julianDate] 计算月球位置的时间，如果未提供，则使用当前系统时间。
  * @param {Cartesian3} [result] 存储结果的对象.
- * @returns {Cartesian3} Calculated moon position
+ * @returns {Cartesian3} 计算得到的月球位置
  */
+
 Simon1994PlanetaryPositions.computeMoonPositionInEarthInertialFrame = function (
   julianDate,
   result,
